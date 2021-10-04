@@ -7,7 +7,6 @@ import {
     PageLogoWelcome,
     LoadScreenBottomImage,
     ExtraText,
-    Colors,
 }from './../components/styles';
 
 const Welcome =(props) => {
