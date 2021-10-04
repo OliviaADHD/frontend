@@ -29,7 +29,7 @@ const Welcome =(props) => {
             <StatusBar style="dark"/>
             <InnerContainer>
                 <PageLogoWelcome source={require('./../assets/images/logo.png')} />
-                <ExtraText>Keeps You Stay Organised</ExtraText>
+                <ExtraText>Helps You Stay Organized</ExtraText>
                 <ActivityIndicator size="large" color="#694398"/>
                 <LoadScreenBottomImage source={require('./../assets/images/loadScreenBottom.png')} />
             </InnerContainer>
