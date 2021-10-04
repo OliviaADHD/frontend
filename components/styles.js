@@ -28,8 +28,8 @@ export const InnerContainer = styled.View`
 export const PageLogo = styled.Image`
     width: 117px;
     height: 108px;
-    margin-bottom: 55.5px;
-    margin-top: 30px;
+    margin-bottom: 10%;
+    margin-top: 5%;
 `;
 
 export const StyledFormArea = styled.View`
@@ -38,7 +38,7 @@ export const StyledFormArea = styled.View`
 
 export const StyledTextInput = styled.TextInput`
     background-color: ${white};
-    margin: 15.5px 20px 15.5px 20px;
+    margin: 3% 4% 3% 4%;
     height: 40px;
     font-size: 17px;
     textAlign: left;
@@ -63,8 +63,8 @@ export const RightIcon = styled.TouchableOpacity`
 `;
 
 export const StyledButton = styled.TouchableOpacity`
-    padding-vertical: 10px;
-    padding-horizontal: 14px;
+    padding-vertical: 1%;
+    padding-horizontal: 1.4px;
     background-color: ${purple};
     justify-content: center;
     border-radius: 5px;
@@ -88,8 +88,8 @@ export const ForgotPasswordText = styled.Text`
     font-size: 15px;
     height: 18px;
     width: 127px;
-    margin-top: 2.5px;
-    margin-left: 20px;
+    margin-top: 0.5%;
+    margin-left: 4%;
 `;
 
 export const Or = styled.Text`
@@ -97,8 +97,8 @@ export const Or = styled.Text`
     height: 18px;
     width: 18px;
     text-align: center;
-    margin-left: 178px;
-    margin-bottom: 29px;
+    margin-left: 48%;
+    margin-bottom: 5%;
 `;
 
 export const IconContainer = styled.View`
@@ -107,7 +107,7 @@ export const IconContainer = styled.View`
     height: 44px;
     justify-content: space-between;
     flex-direction: row;
-    margin-left: 101px;
+    margin-left: 26%;
     
 `;
 
@@ -122,13 +122,13 @@ export const IconLogo = styled.Image`
 export const ExtraView = styled.View`
     justify-content: center;
     align-items: center;
-    margin-top: 96px;
+    margin-top: 18%;
 `;
 
 export const ExtraText = styled.Text`
     justify-content: center;
     align-items: center;
-    padding: 8px;
+    padding: 3%;
 `;
 
 export const TextLink = styled.TouchableOpacity`
