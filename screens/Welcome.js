@@ -1,13 +1,13 @@
 import React, {useState, useEffect} from "react";
 import { StatusBar } from "expo-status-bar";
-import { Alert, Button } from "react-native";
+import { ActivityIndicator } from "react-native";
 import {
     StyledContainer,
     InnerContainer,
     PageLogoWelcome,
     LoadScreenBottomImage,
     ExtraText,
-    TextLink,
+    Colors,
 }from './../components/styles';
 
 const Welcome =(props) => {
@@ -16,7 +16,7 @@ const Welcome =(props) => {
     useEffect(() => {
       setTimeout(() => {
         setAuthLoaded(true);
-      }, 5000);
+      }, 3000);
     }, []);
   
     useEffect(() => {
@@ -30,6 +30,7 @@ const Welcome =(props) => {
             <InnerContainer>
                 <PageLogoWelcome source={require('./../assets/images/logo.png')} />
                 <ExtraText>Keeps You Stay Organised</ExtraText>
+                <ActivityIndicator size="large" color="#694398"/>
                 <LoadScreenBottomImage source={require('./../assets/images/loadScreenBottom.png')} />
             </InnerContainer>
         </StyledContainer>
