@@ -26,14 +26,16 @@ export const InnerContainer = styled.View`
 `;
 
 export const PageLogo = styled.Image`
-    width: 117px;
-    height: 108px;
+    width: 100%;
+    height: 20%;
     margin-bottom: 10%;
     margin-top: 5%;
+    resizeMode: contain;
 `;
 
 export const StyledFormArea = styled.View`
     width: 90%;
+    height: 75%;
 `
 
 export const StyledTextInput = styled.TextInput`
@@ -68,8 +70,8 @@ export const StyledButton = styled.TouchableOpacity`
     background-color: ${purple};
     justify-content: center;
     border-radius: 5px;
-    height: 44px;
-    margin: 47px 37px 37px 38px;
+    height: 8%;
+    margin: 10% 11% 8% 11%;
 `;
 
 export const ButtonText = styled.Text`
@@ -94,35 +96,37 @@ export const ForgotPasswordText = styled.Text`
 
 export const Or = styled.Text`
     font-size: 15px;
-    height: 18px;
+    height: 5%;
     width: 18px;
     text-align: center;
     margin-left: 48%;
-    margin-bottom: 5%;
 `;
 
 export const IconContainer = styled.View`
-    flex: 1;
-    width: 173px;
-    height: 44px;
+    width: 50%;
+    height: 10%;
     justify-content: space-between;
     flex-direction: row;
-    margin-left: 26%;
-    
+    margin-left: 22%;  
+    margin-bottom: 5%; 
+    margin-top: 2%; 
 `;
 
 export const EachIconContainer = styled.TouchableOpacity`
+    height: 100%;
+    width: 30%;
 `;
 
 export const IconLogo = styled.Image`
-    height: 44px;
-    width: 44px;
+    height: 100%;
+    resizeMode:contain;
 `;
 
 export const ExtraView = styled.View`
     justify-content: center;
     align-items: center;
-    margin-top: 18%;
+    margin-top: 1%;
+    height: 10%;
 `;
 
 export const ExtraText = styled.Text`
