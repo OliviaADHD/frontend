@@ -57,10 +57,9 @@ export const StyledInputLabel = styled.Text`
 
 
 export const RightIcon = styled.TouchableOpacity`
-    left: 322px;
-    top: 28px;
-    bottom: 24px;
-    position: absolute;
+    left: 90%;
+    top: -50%;
+    right: 20%
     z-index: 1;
 `;
 
