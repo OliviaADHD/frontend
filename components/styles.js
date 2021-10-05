@@ -66,32 +66,34 @@ export const RightIcon = styled.TouchableOpacity`
 
 export const StyledButton = styled.TouchableOpacity`
     padding-vertical: 1%;
-    padding-horizontal: 1.4px;
+    padding-horizontal: 1%;
     background-color: ${purple};
     justify-content: center;
     border-radius: 5px;
     height: 8%;
-    margin: 10% 11% 8% 11%;
+    margin: 0% 11% 0% 11%;
 `;
 
 export const ButtonText = styled.Text`
     color: ${white};
     font-size: 20px;
     text-align: center;
-    height: 24px;
-    width: 272px;
+    height: 100%;
+    width: 100%;
 `;
 
 export const ForgotPassword = styled.TouchableOpacity`
     background-color: ${white};
+    height: 15%;
 `;
 
 export const ForgotPasswordText = styled.Text`
     font-size: 15px;
-    height: 18px;
+    height: 100%;
     width: 127px;
     margin-top: 0.5%;
     margin-left: 4%;
+    margin-bottom: 0.5%;
 `;
 
 export const Or = styled.Text`
@@ -100,6 +102,7 @@ export const Or = styled.Text`
     width: 18px;
     text-align: center;
     margin-left: 48%;
+    margin-top: 4%;
 `;
 
 export const IconContainer = styled.View`
@@ -126,7 +129,8 @@ export const ExtraView = styled.View`
     justify-content: center;
     align-items: center;
     margin-top: 1%;
-    height: 10%;
+    margin-bottom: 3%;
+    height: 18%;
 `;
 
 export const ExtraText = styled.Text`
