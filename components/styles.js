@@ -32,6 +32,18 @@ export const PageLogo = styled.Image`
     margin-top: 30px;
 `;
 
+export const PageLogoWelcome = styled.Image`
+    width: 157px;
+    height: 147px;
+    margin-top: 25%;
+    margin-left: 20px;
+`;
+
+export const LoadScreenBottomImage = styled.Image`
+    width: 100%;
+    margin-top: 10%;
+`;
+
 export const StyledFormArea = styled.View`
     width: 90%;
 `
