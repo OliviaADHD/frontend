@@ -7,11 +7,13 @@ const StatusBarHeight = Constants.statusBarHeight;
 export const Colors = {
     white: "#ffffff",
     purple: "#694398",
+    disabledPurple:"#aa91c9",
     black: "#000000",
-    gray: "#d3d3d3"
+    gray: "#d3d3d3",
+    red: "#FF0000"
 };
 
-const { white, purple, black, gray} = Colors;
+const { white, purple, black, gray, red,disabledPurple} = Colors;
 
 export const StyledContainer = styled.View`
     flex: 1;
@@ -22,7 +24,9 @@ export const StyledContainer = styled.View`
 export const InnerContainer = styled.View`
     flex: 1;
     width: 100%;
+    height:90%;
     align-items: center;
+    justify-content:center;
 `;
 
 export const PageLogo = styled.Image`
@@ -72,6 +76,46 @@ export const StyledButton = styled.TouchableOpacity`
     margin: 47px 37px 37px 38px;
 `;
 
+export const DisabledButton = styled.TouchableOpacity`
+    padding-vertical: 10px;
+    padding-horizontal: 14px;
+    background-color: ${disabledPurple};
+    justify-content: center;
+    border-radius: 5px;
+    height: 44px;
+    margin: 47px 37px 37px 38px;
+`;
+
+export const ButtonText = styled.Text`
+    color: ${white};
+    font-size: 20px;
+    text-align: center;
+`;
+export const ErrorMessage = styled.TouchableOpacity`
+    background-color: ${white};
+`;
+export const ErrorText = styled.Text`
+    color: ${red};
+    font-size: 15px;
+    text-align:left;
+    margin: 0 0 0 20px;
+`;
+
+export const PrivacyArea = styled.TouchableOpacity`
+    background-color: ${white};
+    flexDirection: row;
+
+`;
+export const PrivacyText = styled.Text`
+    color: ${black};
+    font-size: 15px;
+    text-align:center;
+    alignItems: center;
+    justifyContent: center;
+`;
+
+
+/*
 export const ButtonText = styled.Text`
     color: ${white};
     font-size: 20px;
@@ -79,6 +123,7 @@ export const ButtonText = styled.Text`
     height: 24px;
     width: 272px;
 `;
+*/
 
 export const ForgotPassword = styled.TouchableOpacity`
     background-color: ${white};
@@ -122,7 +167,7 @@ export const IconLogo = styled.Image`
 export const ExtraView = styled.View`
     justify-content: center;
     align-items: center;
-    margin-top: 96px;
+    margin-top: 80px;
 `;
 
 export const ExtraText = styled.Text`
