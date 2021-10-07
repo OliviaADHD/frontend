@@ -30,19 +30,33 @@ export const InnerContainer = styled.View`
 `;
 
 export const PageLogo = styled.Image`
-    width: 117px;
-    height: 108px;
-    margin-bottom: 55.5px;
-    margin-top: 30px;
+    width: 100%;
+    height: 20%;
+    margin-bottom: 10%;
+    margin-top: 5%;
+    resizeMode: contain;
+`;
+
+export const PageLogoWelcome = styled.Image`
+    width: 157px;
+    height: 147px;
+    margin-top: 25%;
+    margin-left: 20px;
+`;
+
+export const LoadScreenBottomImage = styled.Image`
+    width: 100%;
+    margin-top: 10%;
 `;
 
 export const StyledFormArea = styled.View`
     width: 90%;
+    height: 75%;
 `
 
 export const StyledTextInput = styled.TextInput`
     background-color: ${white};
-    margin: 15.5px 20px 15.5px 20px;
+    margin: 3% 4% 3% 4%;
     height: 40px;
     font-size: 17px;
     textAlign: left;
@@ -59,21 +73,20 @@ export const StyledInputLabel = styled.Text`
 
 
 export const RightIcon = styled.TouchableOpacity`
-    left: 322px;
-    top: 28px;
-    bottom: 24px;
-    position: absolute;
+    left: 90%;
+    top: -50%;
+    right: 20%
     z-index: 1;
 `;
 
 export const StyledButton = styled.TouchableOpacity`
-    padding-vertical: 10px;
-    padding-horizontal: 14px;
+    padding-vertical: 1%;
+    padding-horizontal: 1%;
     background-color: ${purple};
     justify-content: center;
     border-radius: 5px;
-    height: 44px;
-    margin: 47px 37px 37px 38px;
+    height: 8%;
+    margin: 0% 11% 0% 11%;
 `;
 
 export const DisabledButton = styled.TouchableOpacity`
@@ -120,60 +133,66 @@ export const ButtonText = styled.Text`
     color: ${white};
     font-size: 20px;
     text-align: center;
-    height: 24px;
-    width: 272px;
+    height: 100%;
+    width: 100%;
 `;
 */
 
 export const ForgotPassword = styled.TouchableOpacity`
     background-color: ${white};
+    height: 15%;
 `;
 
 export const ForgotPasswordText = styled.Text`
     font-size: 15px;
-    height: 18px;
+    height: 100%;
     width: 127px;
-    margin-top: 2.5px;
-    margin-left: 20px;
+    margin-top: 0.5%;
+    margin-left: 4%;
+    margin-bottom: 0.5%;
 `;
 
 export const Or = styled.Text`
     font-size: 15px;
-    height: 18px;
+    height: 5%;
     width: 18px;
     text-align: center;
-    margin-left: 178px;
-    margin-bottom: 29px;
+    margin-left: 48%;
+    margin-top: 4%;
 `;
 
 export const IconContainer = styled.View`
-    flex: 1;
-    width: 173px;
-    height: 44px;
+    width: 50%;
+    height: 10%;
     justify-content: space-between;
     flex-direction: row;
-    margin-left: 101px;
-    
+    margin-left: 22%;  
+    margin-bottom: 5%; 
+    margin-top: 2%; 
 `;
 
 export const EachIconContainer = styled.TouchableOpacity`
+    height: 100%;
+    width: 30%;
 `;
 
 export const IconLogo = styled.Image`
-    height: 44px;
-    width: 44px;
+    height: 100%;
+    resizeMode:contain;
 `;
 
 export const ExtraView = styled.View`
     justify-content: center;
     align-items: center;
-    margin-top: 80px;
+    margin-top: 1%;
+    margin-bottom: 3%;
+    height: 18%;
 `;
 
 export const ExtraText = styled.Text`
     justify-content: center;
     align-items: center;
-    padding: 8px;
+    padding: 3%;
 `;
 
 export const TextLink = styled.TouchableOpacity`
