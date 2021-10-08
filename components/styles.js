@@ -1,28 +1,28 @@
 import styled from 'styled-components';
 import Constants from 'expo-constants';
+import BouncyCheckbox from 'react-native-bouncy-checkbox';
 
 const StatusBarHeight = Constants.statusBarHeight;
 
-
 export const Colors = {
-    white: "#ffffff",
-    purple: "#694398",
-    black: "#000000",
-    gray: "#d3d3d3"
+  white: '#ffffff',
+  purple: '#694398',
+  black: '#000000',
+  gray: '#d3d3d3',
 };
 
-const { white, purple, black, gray} = Colors;
+export const { white, purple, black, gray } = Colors;
 
 export const StyledContainer = styled.View`
-    flex: 1;
-    margin-top: ${StatusBarHeight}px;
-    background-color: ${white};
+  flex: 1;
+  margin-top: ${StatusBarHeight}px;
+  background-color: ${white};
 `;
 
 export const InnerContainer = styled.View`
-    flex: 1;
-    width: 100%;
-    align-items: center;
+  flex: 1;
+  width: 100%;
+  align-items: center;
 `;
 
 export const PageLogo = styled.Image`
@@ -61,17 +61,15 @@ export const StyledTextInput = styled.TextInput`
 `
 
 export const StyledInputLabel = styled.Text`
-    color: ${black};
-    font-size: 13px;
-    text-align: left;
+  color: ${black};
+  font-size: 13px;
+  text-align: left;
 `;
-
-
 
 export const RightIcon = styled.TouchableOpacity`
     left: 90%;
     top: -50%;
-    right: 20%
+    right: 20%;
     z-index: 1;
 `;
 
@@ -151,14 +149,60 @@ export const ExtraText = styled.Text`
 `;
 
 export const TextLink = styled.TouchableOpacity`
-    justify-content: center;
-    align-items: center;
-    borderBottomWidth: 1px;
+  justify-content: center;
+  align-items: center;
+  borderbottomwidth: 1px;
 `;
 
 export const TextLinkContent = styled.Text`
-    font-size: 17px;  
+  font-size: 17px;
 `;
 
+export const InnerQuestionaryContainer = styled.View`
+  align-items: center;
+  height: 80%;
+  margin-vertical: 15%;
+`;
 
+export const StyledDotPagination = styled.View`
+  flex-direction: row;
+  justify-content: space-around;
+  margin-bottom: 10%;
+`;
 
+export const StyledDot = styled.View`
+  border: ${(props) => (props.filled ? 'none' : '1px solid purple')};
+  background-color: ${(props) => (props.filled ? purple : white)};
+  height: 14;
+  border-radius: 50;
+  width: 14;
+  margin-horizontal: 19;
+`;
+
+export const StyledTitle = styled.Text`
+  color: ${purple};
+  font-size: 20px;
+  max-width: 80%;
+  text-align: justify;
+  margin-bottom: 15%;
+`;
+
+export const CheckboxContainer = styled.View`
+  flex-direction: column;
+  align-self: flex-start;
+  margin: 0 0 15% 10%;
+`;
+
+export const StyledCheckbox = styled(BouncyCheckbox)`
+  margin-vertical: 2%;
+  max-width: 90%;
+  padding-right: 5%;
+`;
+
+export const StyledQuestionaryButtons = styled.View`
+  margin: 0;
+`;
+
+export const StyledQuestionaryButton = styled(StyledButton)`
+  margin: 2% 0;
+`;
