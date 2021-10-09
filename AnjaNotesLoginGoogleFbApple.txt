@@ -1,0 +1,7 @@
+Notes on how to log in with Google:
+Possible other things: adding "scheme": "oliviaredirect" to the app.json
+	1. in console: expo-auth-session expo-random
+	2. details: https://docs.expo.dev/guides/authentication/#google
+	3. need to create a config, followed the 'development in expo go app
+		3.1 do expo login (create an accoutn if you don't have one)
+		3.2 set up the google client ID as prescribed. You need to create a new project, and there you also specifiy the users accepted atm (atm only me). Then you need to create the credentials as described. Change the username + projectName in the authorized redirect URIS! (Well, otherwise you'll get an error screen on the first try, and by clicking on details it will tell you the correct URI)

@@ -1,9 +1,13 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { StatusBar } from "expo-status-bar";
 import { Formik } from "formik";
 import {Ionicons} from '@expo/vector-icons';
-import { View } from "react-native";
+import { Alert, View } from "react-native";
 import RootStack from "../navigators/RootStack";
+import* as AuthSession from 'expo-auth-session';
+import * as Google from 'expo-auth-session/providers/google';
+import * as WebBrowser from 'expo-web-browser';
+
 import {
     StyledContainer,
     InnerContainer,
@@ -25,9 +29,25 @@ import {
     TextLinkContent,
 }from './../components/styles';
 
+WebBrowser.maybeCompleteAuthSession();
+
 const Login = ({navigation}) => {
-    
     const [hidePassword, setHidePassword] = useState(true);
+    const [GoogleLogin, setGoogleLogin] = useState("texxt");
+    const [request, response, promptAsync] = Google.useAuthRequest({
+        expoClientId: '51546200734-nm24i67drlpn5dkcnaj4ckta6k2cnfff.apps.googleusercontent.com',
+        webClientId: '51546200734-qv54r4ur316rk4ll8lb37esgstngnr4i.apps.googleusercontent.com',
+        ClientSecret: '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',
+      });
+
+    useEffect(() => {
+        if (response?.type === 'success'){
+            console.log("success logging in with google! Continue on?");
+            const {authentication } = response;
+        }
+
+    }, [response]);
+    
     return(
         <StyledContainer>
             <StatusBar style="dark"/>
@@ -36,6 +56,8 @@ const Login = ({navigation}) => {
                 <Formik
                     initialValues={{email: '', password: ''}}
                     onSubmit={(values) => {
+                        console.log(values['email']);
+                        if (values['email']===""){console.log('empty')}
                         console.log(values);
                         navigation.navigate("Welcome");
                     }}
@@ -66,18 +88,23 @@ const Login = ({navigation}) => {
                     </StyledButton>
                     <Or>Or</Or>
                     <IconContainer>
-                        <EachIconContainer>
-                            <IconLogo  onPress={handleSubmit} source={require('./../assets/images/google.png')} />
+                        <EachIconContainer onPress={async()=>{
+                            console.log("Trying to log in with google");
+                            promptAsync();
+                            console.log("success?")
+
+                        }}>
+                            <IconLogo source={require('./../assets/images/google.png')} />
                         </EachIconContainer>
-                        <EachIconContainer>
-                            <IconLogo onPress={handleSubmit} source={require('./../assets/images/facebook.png')} />
+                        <EachIconContainer onPress={handleSubmit} >
+                            <IconLogo source={require('./../assets/images/facebook.png')} />
                         </EachIconContainer>
-                        <EachIconContainer>
-                            <IconLogo onPress={handleSubmit} source={require('./../assets/images/apple.png')} />
+                        <EachIconContainer onPress={handleSubmit}>
+                            <IconLogo  source={require('./../assets/images/apple.png')} />
                         </EachIconContainer>
                     </IconContainer>
                     <ExtraView>
-                        <ExtraText>Would You Like To Join Us?</ExtraText>
+                        <ExtraText>Would You Like To Join Us? {GoogleLogin}</ExtraText>
                         <TextLink onPress = {() => navigation.navigate("Signup")}>
                             <TextLinkContent>Signup</TextLinkContent>
                         </TextLink>
@@ -88,6 +115,8 @@ const Login = ({navigation}) => {
         </StyledContainer>   
     );
 };
+
+
 
 const MyTextInput = ({isPassword, icon, hidePassword, setHidePassword, ...props}) => {
     return (
