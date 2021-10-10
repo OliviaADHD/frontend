@@ -9,6 +9,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Login from './../screens/Login';
 import Signup from './../screens/Signup';
 import Welcome from './../screens/Welcome';
+import Welcome_Post_Signup from './../screens/Welcome_Post_Signup';
 const Stack = createStackNavigator();
 
 const RootStack = () => {
@@ -34,6 +35,7 @@ const RootStack = () => {
                     />
                 <Stack.Screen name='Login' component={Login} />
                 <Stack.Screen options={{ headerTintColor: black}} name='Signup' component={Signup} />
+                <Stack.Screen name='Welcome_Post_Signup' component={Welcome_Post_Signup} />
             </Stack.Navigator>
         </NavigationContainer>
     )
