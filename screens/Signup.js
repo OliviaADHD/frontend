@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import { StatusBar } from "expo-status-bar";
-import { Formik } from "formik";
+import { Formik, Field } from 'formik'
+
 import {Ionicons} from '@expo/vector-icons';
 import { View,CheckBox, StyleSheet } from "react-native";
 import {
@@ -25,6 +26,30 @@ import {
     PrivacyArea,
     DisabledButton
 }from './../components/styles';
+
+import * as yup from 'yup'
+
+const signUpValidationSchema = yup.object().shape({
+    fullName: yup
+      .string().label('Fullname')
+      .matches(/(\w.+\s).+/, 'Enter at least 2 names')
+      .required('Full name is required'),
+    login: yup
+      .string().label('Login')
+      .required('Login is required'),
+    email: yup
+      .string().label('Email')
+      .email("Please enter valid email")
+      .required('Email is required'),
+    password: yup
+      .string().label('Password')
+      .matches(/\w*[a-z]\w*/,  "Password must have a small letter")
+      .matches(/\w*[A-Z]\w*/,  "Password must have a capital letter")
+      .matches(/\d/, "Password must have a number")
+      .matches(/[!@#$%^&*()\-_"=+{}; :,<.>]/, "Password must have a special character")
+      .min(8, ({ min }) => `Passowrd must be at least ${min} characters`)
+      .required('Password is required'),
+  })
 
 export class Signup extends React.Component {
     constructor(props){
@@ -68,44 +93,68 @@ export class Signup extends React.Component {
                 <InnerContainer>
                     <PageLogo source={require('./../assets/images/logo.png')} />
                     <Formik
+                        validationSchema={signUpValidationSchema}
                         initialValues={{fullName: '', email: '', password: '',login:''}}
                         onSubmit={(values) => {
-                            console.log(values)
+                            console.warn(JSON.stringify(values))
+                            fetch('http://172.17.86.193:8080/signup', {
+                                method: 'POST',
+                                headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify(values)
+                              }).then((body) => {
+                                console.warn(body);
+                                alert( body );
+                            }).catch ((error) => {
+                                console.warn(error)
+                                alert( error.body );
+                             })
+
                         }}
-                    >{({handleChange, handleBlur, handleSubmit, values})=> (<StyledFormArea>
+                    >
+                    {({handleChange, values, handleSubmit, errors, isValid, isSubmitting, touched, handleBlur})=> (
+                    <StyledFormArea>
                         <MyTextInput 
                             placeholder="Full Name"
+                            label='Full Name'
                             onChangeText={handleChange('fullName')}
                             onBlur={handleBlur('fullName')}
                             value={values.fullName}
                         />
+                        { touched.fullName && errors.fullName &&
+                            <ErrorMessage>
+                                <ErrorText>{errors.fullName}</ErrorText>
+                            </ErrorMessage> 
+                        }
                         <MyTextInput 
                         placeholder="Login"
+                        label='Login'
                         onChangeText={handleChange('login')}
                         onBlur={handleBlur('login')}
                         value={values.login}
                         />
-                        
-                        { this.state.loginError && 
+                        { touched.login && errors.login &&
                             <ErrorMessage>
-                                <ErrorText>Email exists</ErrorText>
+                                <ErrorText>{errors.login}</ErrorText>
                             </ErrorMessage> 
-                          } 
+                        }
+
                         <MyTextInput 
                             placeholder="Email"
+                            label='Email'
                             onChangeText={handleChange('email')}
                             onBlur={handleBlur('email')}
                             value={values.email}
                             keyboardType="email-address"
                         />
-                        { this.state.emailValid && 
+                        { touched.email && errors.email &&
                             <ErrorMessage>
-                                <ErrorText>Email exists</ErrorText>
+                                <ErrorText>{errors.email}</ErrorText>
                             </ErrorMessage> 
-                          }
+                        }
      
                         <MyTextInput 
                             placeholder="Password"
+                            label='Password'
                             onChangeText={handleChange('password')}
                             onBlur={handleBlur('password')}
                             value={values.password}
@@ -114,6 +163,11 @@ export class Signup extends React.Component {
                             hidePassword={this.state.hidePassword}
                             setHidePassword={this.setHidePassword}
                         />
+                        { touched.password && errors.password &&
+                            <ErrorMessage>
+                                <ErrorText>{errors.password}</ErrorText>
+                            </ErrorMessage> 
+                        }
                         <PrivacyArea>
                             <CheckBox
                                 value={this.state.isSelected}
@@ -124,7 +178,7 @@ export class Signup extends React.Component {
                         </PrivacyArea>
 
 
-                            <StyledButton>
+                            <StyledButton disabled={! isValid || isSubmitting} onPress={handleSubmit}>
                                 <ButtonText>Signup</ButtonText>
                             </StyledButton>
 
@@ -141,7 +195,7 @@ export class Signup extends React.Component {
                         </IconContainer>
                         <ExtraView>
                             <ExtraText>Already Have An Account?</ExtraText>
-                            <TextLink onPress = {() => navigation.navigate("Login")}>
+                            <TextLink onPress = {() => this.props.navigation.navigate("Login")}>
                                 <TextLinkContent>Login</TextLinkContent>
                             </TextLink>
                         </ExtraView>
