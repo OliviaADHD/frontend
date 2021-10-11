@@ -59,7 +59,7 @@ const Login = ({navigation}) => {
     useEffect(() =>{
         if (responseFb?.type === 'success'){
             console.log("successfulley logged in with fb!");
-            const {code} = responseFb.params;
+            const {code} = responseFb.params;            
         }
     }, [responseFb]);
     
