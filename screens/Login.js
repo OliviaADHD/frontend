@@ -6,6 +6,8 @@ import { Alert, View } from "react-native";
 import RootStack from "../navigators/RootStack";
 import* as AuthSession from 'expo-auth-session';
 import * as Google from 'expo-auth-session/providers/google';
+import * as Facebook from 'expo-auth-session/providers/facebook';
+import { ResponseType } from 'expo-auth-session';
 import * as WebBrowser from 'expo-web-browser';
 
 import {
@@ -40,6 +42,12 @@ const Login = ({navigation}) => {
         ClientSecret: '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',
       });
 
+      const [requestFb, responseFb, promptAsyncFb] = Facebook.useAuthRequest({
+        expoClientId: '901148574169051',
+        responseType: ResponseType.Code,
+      });
+      
+
     useEffect(() => {
         if (response?.type === 'success'){
             console.log("success logging in with google! Continue on?");
@@ -47,6 +55,13 @@ const Login = ({navigation}) => {
         }
 
     }, [response]);
+
+    useEffect(() =>{
+        if (responseFb?.type === 'success'){
+            console.log("successfulley logged in with fb!");
+            const {code} = responseFb.params;
+        }
+    }, [responseFb]);
     
     return(
         <StyledContainer>
@@ -59,7 +74,6 @@ const Login = ({navigation}) => {
                         console.log(values['email']);
                         if (values['email']===""){console.log('empty')}
                         console.log(values);
-                        navigation.navigate("Welcome");
                     }}
                 >{({handleChange, handleBlur, handleSubmit, values})=> (<StyledFormArea>
                     <MyTextInput 
@@ -96,7 +110,10 @@ const Login = ({navigation}) => {
                         }}>
                             <IconLogo source={require('./../assets/images/google.png')} />
                         </EachIconContainer>
-                        <EachIconContainer onPress={handleSubmit} >
+                        <EachIconContainer onPress={() => {
+                            console.log("trying to log in with fb");
+                            promptAsyncFb();
+                            console.log("success with fb?");}} >
                             <IconLogo source={require('./../assets/images/facebook.png')} />
                         </EachIconContainer>
                         <EachIconContainer onPress={handleSubmit}>

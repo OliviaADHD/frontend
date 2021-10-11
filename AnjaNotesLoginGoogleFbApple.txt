@@ -5,3 +5,13 @@ Possible other things: adding "scheme": "oliviaredirect" to the app.json
 	3. need to create a config, followed the 'development in expo go app
 		3.1 do expo login (create an accoutn if you don't have one)
 		3.2 set up the google client ID as prescribed. You need to create a new project, and there you also specifiy the users accepted atm (atm only me). Then you need to create the credentials as described. Change the username + projectName in the authorized redirect URIS! (Well, otherwise you'll get an error screen on the first try, and by clicking on details it will tell you the correct URI)
+
+For facebook:
+	1. Go to https://developers.facebook.com/apps/ 
+	2. Make yourself a dev account, create a new app. (I chose customer)
+	3. Ad Product -> fb login ->Android -> download facebook sdk (ok, pretended I had that)
+	4. Package name? com.olivia? 
+	5. Need a release key hash? stop quistart and go to 'Settings'
+	6. Add Valid OAuth Redirect URIs https://auth.expo.io/@EXPOusername/slug (slug=projectname chosen for the app)
+	7. Add the code as suggested on https://docs.expo.dev/guides/authentication/#facebook
+	8. voilà :)
