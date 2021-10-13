@@ -45,6 +45,11 @@ export const LoadScreenBottomImage = styled.Image`
     margin-top: 10%;
 `;
 
+export const CenteredImage= styled.Image`
+    margin-top: 35%;
+    align-items: center;
+`;
+
 export const StyledFormArea = styled.View`
     width: 90%;
     height: 75%;

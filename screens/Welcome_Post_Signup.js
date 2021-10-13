@@ -4,7 +4,7 @@ import { ActivityIndicator } from "react-native";
 import {
     StyledContainer,
     InnerContainer,
-    PageLogoWelcome,
+    CenteredImage,
     MediumExtraText,
     StyledFormArea,
     StyledButton,
@@ -13,23 +13,23 @@ import {
 
 const Welcome_Post_Signup = () => {
   return (
-    <StyledContainer>
+    
+    <StyledContainer>   
     <StatusBar style="dark"/>
     <InnerContainer>
-      {/* Kept PageLogoWelcome styling */}
-        <PageLogoWelcome source={require('./../assets/images/woman_waving.png')} />
+
+      <CenteredImage source={require('./../assets/images/woman_waving.png')} />
         
-        <MediumExtraText>Hi There, We Would Love To Know About You!</MediumExtraText>
-        <StyledFormArea>
-          <StyledButton>
-            <ButtonText>Proceed</ButtonText>
-          </StyledButton>
-        </StyledFormArea>
+      <MediumExtraText>Hi There, We Would Love To Know About You!</MediumExtraText>
+      
+      <StyledFormArea>
+        <StyledButton>
+          <ButtonText>Proceed</ButtonText>
+        </StyledButton>
+      </StyledFormArea>
+    
     </InnerContainer>
 </StyledContainer>
-
-
-
 
   )
 }
