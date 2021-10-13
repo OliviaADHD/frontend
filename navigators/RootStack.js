@@ -1,13 +1,14 @@
 import React from 'react';
 
 import { Colors } from '../components/styles';
-const {white, black} = Colors;
+const { white, black } = Colors;
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import Login from './../screens/Login';
 import Signup from './../screens/Signup';
+import Questionnaire from './../screens/Questionnaire';
 import Welcome from './../screens/Welcome';
 import Welcome_Post_Signup from './../screens/Welcome_Post_Signup';
 const Stack = createStackNavigator();
@@ -36,6 +37,7 @@ const RootStack = () => {
                 <Stack.Screen name='Login' component={Login} />
                 <Stack.Screen options={{ headerTintColor: black}} name='Signup' component={Signup} />
                 <Stack.Screen name='Welcome_Post_Signup' component={Welcome_Post_Signup} />
+                <Stack.Screen name="Questionnaire" component={Questionnaire} />
             </Stack.Navigator>
         </NavigationContainer>
     )
