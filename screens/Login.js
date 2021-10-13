@@ -11,25 +11,26 @@ import { ResponseType } from 'expo-auth-session';
 import * as WebBrowser from 'expo-web-browser';
 
 import {
-    StyledContainer,
-    InnerContainer,
-    PageLogo,
-    StyledFormArea,
-    StyledTextInput,
-    RightIcon,
-    StyledButton,
-    ButtonText,
-    ForgotPasswordText,
-    ForgotPassword,
-    Or,
-    IconContainer,
-    IconLogo,
-    EachIconContainer,
-    ExtraView,
-    ExtraText,
-    TextLink,
-    TextLinkContent,
-}from './../components/styles';
+  StyledContainer,
+  InnerContainer,
+  PageLogo,
+  StyledFormArea,
+  StyledTextInput,
+  RightIcon,
+  StyledButton,
+  ButtonText,
+  ForgotPasswordText,
+  ForgotPassword,
+  Or,
+  IconContainer,
+  IconLogo,
+  EachIconContainer,
+  ExtraView,
+  ExtraText,
+  TextLink,
+  TextLinkContent,
+} from './../components/styles';
+
 
 WebBrowser.maybeCompleteAuthSession();
 
