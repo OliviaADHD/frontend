@@ -45,6 +45,11 @@ export const LoadScreenBottomImage = styled.Image`
     margin-top: 10%;
 `;
 
+export const CenteredImage= styled.Image`
+    margin-top: 35%;
+    align-items: center;
+`;
+
 export const StyledFormArea = styled.View`
     width: 90%;
     height: 75%;
@@ -146,6 +151,14 @@ export const ExtraText = styled.Text`
     justify-content: center;
     align-items: center;
     padding: 3%;
+`;
+
+export const MediumExtraText = styled.Text`
+  text-align: center;
+  font-size: 25px;
+  padding-top: 10%;
+  padding-bottom: 20%;
+  margin: 0 10% 0 10%;
 `;
 
 export const TextLink = styled.TouchableOpacity`
