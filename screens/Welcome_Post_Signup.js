@@ -18,7 +18,6 @@ const Welcome_Post_Signup = () => {
       {/* Kept PageLogoWelcome styling */}
         <PageLogoWelcome source={require('./../assets/images/woman_waving.png')} />
         <ExtraText>Hi There, We Would Love To Know About You!</ExtraText>
-        <ActivityIndicator size="large" color="#694398"/>
         <StyledButton>
           <ButtonText>Proceed</ButtonText>
         </StyledButton>
