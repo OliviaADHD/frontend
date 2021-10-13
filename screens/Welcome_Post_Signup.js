@@ -5,7 +5,7 @@ import {
     StyledContainer,
     InnerContainer,
     PageLogoWelcome,
-    ExtraText,
+    MediumExtraText,
     StyledFormArea,
     StyledButton,
     ButtonText,
@@ -19,11 +19,11 @@ const Welcome_Post_Signup = () => {
       {/* Kept PageLogoWelcome styling */}
         <PageLogoWelcome source={require('./../assets/images/woman_waving.png')} />
         
-        <ExtraText>Hi There, We Would Love To Know About You!</ExtraText>
+        <MediumExtraText>Hi There, We Would Love To Know About You!</MediumExtraText>
         <StyledFormArea>
-        <StyledButton>
-          <ButtonText>Proceed</ButtonText>
-        </StyledButton>
+          <StyledButton>
+            <ButtonText>Proceed</ButtonText>
+          </StyledButton>
         </StyledFormArea>
     </InnerContainer>
 </StyledContainer>
