@@ -7,7 +7,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import Login from './../screens/Login';
-import Signup from './../screens/Signup';
+import Welcome from './../screens/Welcome';
+import {Signup} from './../screens/Signup';
+import Privacy from './../screens/Privacy';
+
 const Stack = createStackNavigator();
 
 const RootStack = () => {
@@ -25,10 +28,19 @@ const RootStack = () => {
                     paddingLeft: 20
                 }
             }}
-            initialRouteName = 'Login'
-            >
+            initialRouteName = 'Welcome'
+            >   
+                <Stack.Screen name="Welcome" 
+                    options ={{animationEnabled: true, header: () => null}}
+                    component = {Welcome}
+                    />
                 <Stack.Screen name='Login' component={Login} />
                 <Stack.Screen options={{ headerTintColor: black}} name='Signup' component={Signup} />
+                <Stack.Screen name='Privacy' component={Privacy} options={{
+                    title:'Privacy Policy',
+                    headerStyle:{backgroundColor:'#eee', height:60},
+                    headerTintColor:'black'
+                }} />
             </Stack.Navigator>
         </NavigationContainer>
     )
