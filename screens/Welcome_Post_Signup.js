@@ -1,6 +1,5 @@
-import React, {useState, useEffect} from "react";
+import React from "react";
 import { StatusBar } from "expo-status-bar";
-import { ActivityIndicator } from "react-native";
 import {
     StyledContainer,
     InnerContainer,
@@ -11,7 +10,7 @@ import {
     ButtonText,
 }from './../components/styles';
 
-const Welcome_Post_Signup = () => {
+const Welcome_Post_Signup = ({navigation}) => {
   return (
     
     <StyledContainer>   
@@ -23,7 +22,7 @@ const Welcome_Post_Signup = () => {
       <MediumExtraText>Hi There, We Would Love To Know About You!</MediumExtraText>
       
       <StyledFormArea>
-        <StyledButton>
+        <StyledButton onPress = {() => navigation.navigate("Signup")}>
           <ButtonText>Proceed</ButtonText>
         </StyledButton>
       </StyledFormArea>
