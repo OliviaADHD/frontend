@@ -7,6 +7,7 @@ import {
     PageLogoWelcome,
     ExtraText,
     StyledButton,
+    ButtonText,
 }from './../components/styles';
 
 const Welcome_Post_Signup = () => {
@@ -15,7 +16,7 @@ const Welcome_Post_Signup = () => {
     <StatusBar style="dark"/>
     <InnerContainer>
       {/* Kept PageLogoWelcome styling */}
-        <PageLogoWelcome source={require('./../assets/images/mock_woman_waving.png')} />
+        <PageLogoWelcome source={require('./../assets/images/woman_waving.png')} />
         <ExtraText>Hi There, We Would Love To Know About You!</ExtraText>
         <ActivityIndicator size="large" color="#694398"/>
         <StyledButton>
