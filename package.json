@@ -8,10 +8,13 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@react-native-community/google-signin": "^5.0.0",
     "@react-navigation/native": "^6.0.3",
     "@react-navigation/stack": "^6.0.8",
     "expo": "~42.0.1",
     "expo-constants": "~11.0.1",
+    "expo-google-app-auth": "^8.2.2",
+    "expo-google-sign-in": "~9.2.1",
     "expo-status-bar": "~1.0.4",
     "formik": "^2.2.9",
     "react": "16.13.1",
@@ -25,10 +28,24 @@
     "redux": "^4.1.1",
     "styled-components": "^5.3.1",
     "up": "^1.0.2",
-    "yup": "^0.32.9"
+    "yup": "^0.32.9",
+    "react-native-google-signin": "^2.1.1",
+    "react-native-bouncy-checkbox": "^2.1.4",
+    "expo-auth-session": "~3.3.1",
+    "expo-random": "~11.2.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.9.0"
+    "@babel/core": "^7.9.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.26.1",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "prettier": "^2.4.1"
   },
   "private": true
 }

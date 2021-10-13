@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import Constants from 'expo-constants';
+import BouncyCheckbox from 'react-native-bouncy-checkbox';
 
 const StatusBarHeight = Constants.statusBarHeight;
-
 
 export const Colors = {
     white: "#ffffff",
@@ -16,17 +16,15 @@ export const Colors = {
 const { white, purple, black, gray, red,disabledPurple} = Colors;
 
 export const StyledContainer = styled.View`
-    flex: 1;
-    margin-top: ${StatusBarHeight}px;
-    background-color: ${white};
+  flex: 1;
+  margin-top: ${StatusBarHeight}px;
+  background-color: ${white};
 `;
 
 export const InnerContainer = styled.View`
-    flex: 1;
-    width: 100%;
-    height:90%;
-    align-items: center;
-    justify-content:center;
+  flex: 1;
+  width: 100%;
+  align-items: center;
 `;
 
 export const PageLogo = styled.Image`
@@ -49,6 +47,11 @@ export const LoadScreenBottomImage = styled.Image`
     margin-top: 10%;
 `;
 
+export const CenteredImage= styled.Image`
+    margin-top: 35%;
+    align-items: center;
+`;
+
 export const StyledFormArea = styled.View`
     width: 90%;
     height: 75%;
@@ -65,17 +68,15 @@ export const StyledTextInput = styled.TextInput`
 `
 
 export const StyledInputLabel = styled.Text`
-    color: ${black};
-    font-size: 13px;
-    text-align: left;
+  color: ${black};
+  font-size: 13px;
+  text-align: left;
 `;
-
-
 
 export const RightIcon = styled.TouchableOpacity`
     left: 90%;
     top: -50%;
-    right: 20%
+    right: 20%;
     z-index: 1;
 `;
 
@@ -195,15 +196,71 @@ export const ExtraText = styled.Text`
     padding: 3%;
 `;
 
+export const MediumExtraText = styled.Text`
+  text-align: center;
+  font-size: 25px;
+  padding-top: 10%;
+  padding-bottom: 20%;
+  margin: 0 10% 0 10%;
+`;
+
 export const TextLink = styled.TouchableOpacity`
-    justify-content: center;
-    align-items: center;
-    borderBottomWidth: 1px;
+  justify-content: center;
+  align-items: center;
+  borderbottomwidth: 1px;
 `;
 
 export const TextLinkContent = styled.Text`
-    font-size: 17px;  
+  font-size: 17px;
 `;
 
+export const InnerQuestionaryContainer = styled.View`
+  align-items: center;
+  height: 80%;
+  margin-vertical: 15%;
+`;
 
+export const StyledDotPagination = styled.View`
+  flex-direction: row;
+  justify-content: space-around;
+  margin-bottom: 10%;
+`;
 
+export const StyledDot = styled.View`
+  border: ${(props) => (props.filled ? 'none' : '1px solid purple')};
+  background-color: ${(props) => (props.filled ? purple : white)};
+  height: 14;
+  border-radius: 50;
+  width: 14;
+  margin-horizontal: 19;
+`;
+
+export const StyledTitle = styled.Text`
+  color: ${purple};
+  font-size: 20px;
+  max-width: 80%;
+  text-align: justify;
+  margin-bottom: 15%;
+`;
+
+export const CheckboxContainer = styled.View`
+  flex-direction: column;
+  align-self: flex-start;
+  margin-left: 10%;
+`;
+
+export const StyledCheckbox = styled(BouncyCheckbox)`
+  margin-vertical: 2%;
+  max-width: 90%;
+  padding-right: 5%;
+`;
+
+export const StyledQuestionaryButtons = styled.View`
+  margin: 0;
+  bottom: 0;
+  position: absolute;
+`;
+
+export const StyledQuestionaryButton = styled(StyledButton)`
+  margin: 2% 0;
+`;

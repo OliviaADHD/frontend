@@ -1,0 +1,27 @@
+Notes on how to log in with Google:
+Possible other things: adding "scheme": "oliviaredirect" to the app.json
+	1. in console: expo-auth-session expo-random
+	2. details: https://docs.expo.dev/guides/authentication/#google
+	3. need to create a config, followed the 'development in expo go app
+		3.1 do expo login (create an accoutn if you don't have one)
+		3.2 set up the google client ID as prescribed. You need to create a new project, and there you also specifiy the users accepted atm (atm only me). Then you need to create the credentials as described. Change the username + projectName in the authorized redirect URIS! (Well, otherwise you'll get an error screen on the first try, and by clicking on details it will tell you the correct URI)
+
+For facebook:
+	1. Go to https://developers.facebook.com/apps/ 
+	2. Make yourself a dev account, create a new app. (I chose customer)
+	3. Ad Product -> fb login ->Android -> download facebook sdk (ok, pretended I had that)
+	4. Package name? com.olivia? 
+	5. Need a release key hash? stop quistart and go to 'Settings'
+	6. Add Valid OAuth Redirect URIs https://auth.expo.io/@EXPOusername/slug (slug=projectname chosen for the app)
+	7. Add the code as suggested on https://docs.expo.dev/guides/authentication/#facebook
+	8. voilà :)
+Additional notes: I had a look into how then to get the emails etc. This has to be done from the backend side. For fb you need to exchange the code for an access token by calling: 
+https://graph.facebook.com/v7.0/oauth/access_token
+   ?client_id={app-id}
+   &redirect_uri={redirect-uri}
+   &client_secret={app-secret}
+   &code={code-parameter}
+where app-id and app-secret you can get from the fb/app account. More details here: https://derk-jan.com/2020/05/expo-facebook-login/
+
+For Apple:
+!! Only works for iOS 13+. Not supported for lower iOA versions, Android or web, or the AndroidEmulator. https://docs.expo.dev/versions/latest/sdk/apple-authentication/. As I don't have this kind of hardware. I won't proceed further here.

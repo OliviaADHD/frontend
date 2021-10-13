@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { Colors } from '../components/styles';
-const {white, black} = Colors;
+const { white, black } = Colors;
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
@@ -10,7 +10,8 @@ import Login from './../screens/Login';
 import Welcome from './../screens/Welcome';
 import {Signup} from './../screens/Signup';
 import Privacy from './../screens/Privacy';
-
+import Questionnaire from './../screens/Questionnaire';
+import Welcome_Post_Signup from './../screens/Welcome_Post_Signup';
 const Stack = createStackNavigator();
 
 const RootStack = () => {
@@ -41,6 +42,8 @@ const RootStack = () => {
                     headerStyle:{backgroundColor:'#eee', height:60},
                     headerTintColor:'black'
                 }} />
+                <Stack.Screen name='Welcome_Post_Signup' component={Welcome_Post_Signup} />
+                <Stack.Screen name="Questionnaire" component={Questionnaire} />
             </Stack.Navigator>
         </NavigationContainer>
     )
