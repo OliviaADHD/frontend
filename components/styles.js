@@ -190,7 +190,7 @@ export const StyledTitle = styled.Text`
 export const CheckboxContainer = styled.View`
   flex-direction: column;
   align-self: flex-start;
-  margin: 0 0 15% 10%;
+  margin-left: 10%;
 `;
 
 export const StyledCheckbox = styled(BouncyCheckbox)`
@@ -201,6 +201,8 @@ export const StyledCheckbox = styled(BouncyCheckbox)`
 
 export const StyledQuestionaryButtons = styled.View`
   margin: 0;
+  bottom: 0;
+  position: absolute;
 `;
 
 export const StyledQuestionaryButton = styled(StyledButton)`

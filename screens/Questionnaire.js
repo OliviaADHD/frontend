@@ -30,7 +30,7 @@ const Questionnaire = () => {
     },
     {
       page: 2,
-      question: 'Choose one or more of these, if you have felt / had.',
+      question: 'Choose one or more of these, if you have felt/had.',
       answers: [
         'Diagnosed ADHD',
         'Tardiness in undermining your goals',
@@ -40,8 +40,49 @@ const Questionnaire = () => {
         'Impulsive behavior',
       ],
     },
+    {
+      page: 3,
+      question: 'If you have ADHD, How many years it has been diagnosed?',
+      answers: ['< 1 years', '1-3 years', '3-6 years', '6 + years'],
+    },
+    {
+      page: 4,
+      question: 'How do you sleep most of the time?',
+      answers: [
+        'I sleep well',
+        'I have nightmares',
+        'I suffer from insomnia',
+        'I go to bed too late',
+        'I feel sleepy suddenly during the day (Narcolepsy)',
+      ],
+    },
   ];
+
+  const userAnswers = [
+    {
+      question: 'What age group do you fall under?',
+      answer: [],
+    },
+    {
+      question: 'Choose one or more of these, if you have felt/had.',
+      answer: [],
+    },
+    {
+      question: 'If you have ADHD, How many years it has been diagnosed?',
+      answer: [],
+    },
+    {
+      question: 'How do you sleep most of the time?',
+      answer: [],
+    },
+  ];
+
+  const [checkboxState, setCheckboxState] = React.useState(false);
+
   const [currentPage, setCurrentPage] = useState(0);
+  const handleSubmit = (userAnswers) => {
+    console.log('userAnswers', userAnswers);
+  };
 
   return (
     <StyledContainer>
@@ -65,17 +106,28 @@ const Questionnaire = () => {
               iconStyle={{ borderColor: purple, borderRadius: '5%' }}
               textStyle={{ textDecorationLine: 'none' }}
               textContainerStyle={{ width: '100%', border: '1px solid red' }}
-              onPress={(isChecked) => {}}
+              isChecked={checkboxState}
+              disableBuiltInState={true}
+              onPress={(isChecked) => {
+                setCheckboxState(!checkboxState)
+                console.log(isChecked)
+              }}
             />
           ))}
         </CheckboxContainer>
 
         <StyledQuestionaryButtons>
-          <StyledQuestionaryButton
-            onPress={() => setCurrentPage(currentPage + 1)}
-          >
-            <ButtonText>Next</ButtonText>
-          </StyledQuestionaryButton>
+          {questions[currentPage].page !== questions.length ? (
+            <StyledQuestionaryButton
+              onPress={() => setCurrentPage(currentPage + 1)}
+            >
+              <ButtonText>Next</ButtonText>
+            </StyledQuestionaryButton>
+          ) : (
+            <StyledQuestionaryButton onPress={handleSubmit(userAnswers)}>
+              <ButtonText>Finish</ButtonText>
+            </StyledQuestionaryButton>
+          )}
           {questions[currentPage].page !== 1 && (
             <StyledQuestionaryButton
               onPress={() => setCurrentPage(currentPage - 1)}
@@ -90,3 +142,8 @@ const Questionnaire = () => {
 };
 
 export default Questionnaire;
+
+// ideia: dentro do objeto das perguntas colocar se a resposta foi selecionada ou não, tds começando
+// com false. colocar lógica no onPress para mudar o estado dequela resposta 
+// e também adicionar lógica de que se uma estiver selecionada, mudar o estado das outras para não estar selecionada
+// as vezes vai ser mais fácil fazer manual do que map. Lógica individual pra cada resposta
