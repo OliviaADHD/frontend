@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import { StatusBar } from "expo-status-bar";
 import {
     StyledContainer,
@@ -43,15 +43,21 @@ const MenstruationIntro =({navigation}) => {
                     The Variation Of Cycle Length Less Than 7 Days
                 </ExtraText>
                 <ButtonContainer>
-                    <StyledButtonMens onPress={YesClicked}>
+                    <StyledButtonMens 
+                        onPress={YesClicked}
+                        testID={"MenstruationIntroYesClickedButton"}>
                         <ButtonText>Yes</ButtonText>
                     </StyledButtonMens>
-                    <StyledButtonMens onPress={NoClicked}>
+                    <StyledButtonMens 
+                        onPress={NoClicked}
+                        testID={"MenstruationIntroNoClickedButton"}>
                         <ButtonText>No</ButtonText>
                     </StyledButtonMens>
                 </ButtonContainer>
                 <StyledButtonNotSureContainer>
-                    <StyledButtonNotSure onPress={NotSureClicked}>
+                    <StyledButtonNotSure 
+                        onPress={NotSureClicked}
+                        testID={"MenstruationIntroNotSureClickedButton"}>
                         <ButtonTextNotSure>NOT SURE</ButtonTextNotSure>
                     </StyledButtonNotSure>
                 </StyledButtonNotSureContainer>
