@@ -17,18 +17,18 @@ import {
 
 const MenstruationIntro =({navigation}) => {
     const [Name, setCurrentName] = useState("UserName");
+    var YesScreen = "Signup";
+    var NoScreen = "Signup";
+    var NotSureScreen = "Signup";
 
     const YesClicked = () => {
-        console.log('Clicked yes, navigate to next screen');
-        navigation.navigate("Signup");
+        navigation.navigate(YesScreen);
       };
     const NoClicked = () => {
-        console.log('Clicked No, navigate to next screen');
-        navigation.navigate("Signup");
+        navigation.navigate(NoScreen);
       };
     const NotSureClicked = () => {
-        console.log('Clicked Not Sure, navigate to next screen');
-        navigation.navigate("Signup");
+        navigation.navigate(NotSureScreen);
       };
 
       
@@ -60,6 +60,5 @@ const MenstruationIntro =({navigation}) => {
 
     );
 }
-
 
 export default MenstruationIntro;
