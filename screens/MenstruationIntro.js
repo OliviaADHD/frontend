@@ -4,9 +4,6 @@ import {
     StyledContainer,
     InnerContainer,
     ExtraText,
-    StyledTitle,
-    StyledButton,
-    MediumExtraText,
     ButtonText,
 }from '../components/styles';
 import {
@@ -18,28 +15,43 @@ import {
     StyledButtonNotSureContainer,
 }from '../components/stylesMenstruation';
 
-const Anja2 =({navigation}) => {
-   
+const MenstruationIntro =({navigation}) => {
+    const [Name, setCurrentName] = useState("UserName");
+
+    const YesClicked = () => {
+        console.log('Clicked yes, navigate to next screen');
+        navigation.navigate("Signup");
+      };
+    const NoClicked = () => {
+        console.log('Clicked No, navigate to next screen');
+        navigation.navigate("Signup");
+      };
+    const NotSureClicked = () => {
+        console.log('Clicked Not Sure, navigate to next screen');
+        navigation.navigate("Signup");
+      };
+
+      
     return (
         <StyledContainer>
             <StatusBar style="dark"/>
             <InnerContainer>
                 <StyledTitleCentered>
-                    Hi Name!{"\n"}Is your menstruation cycle regular?
+                    Hi {Name}!{"\n"}Is your menstruation cycle regular?
                 </StyledTitleCentered>
                 <ExtraText>
                     The Variation Of Cycle Length Less Than 7 Days
                 </ExtraText>
                 <ButtonContainer>
-                    <StyledButtonMens onPress={() =>{console.log("Pressed Yes")}}>
+                    <StyledButtonMens onPress={YesClicked}>
                         <ButtonText>Yes</ButtonText>
                     </StyledButtonMens>
-                    <StyledButtonMens onPress={() =>{console.log("Pressed No")}}>
+                    <StyledButtonMens onPress={NoClicked}>
                         <ButtonText>No</ButtonText>
                     </StyledButtonMens>
                 </ButtonContainer>
                 <StyledButtonNotSureContainer>
-                    <StyledButtonNotSure onPress={() =>{console.log("Pressed not Sure")}}>
+                    <StyledButtonNotSure onPress={NotSureClicked}>
                         <ButtonTextNotSure>NOT SURE</ButtonTextNotSure>
                     </StyledButtonNotSure>
                 </StyledButtonNotSureContainer>
@@ -50,4 +62,4 @@ const Anja2 =({navigation}) => {
 }
 
 
-export default Anja2;
+export default MenstruationIntro;
