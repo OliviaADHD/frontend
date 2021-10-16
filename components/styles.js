@@ -207,7 +207,7 @@ export const MediumExtraText = styled.Text`
 export const TextLink = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
-  borderbottomwidth: 1px;
+  borderBottomWidth: 1px;
 `;
 
 export const TextLinkContent = styled.Text`
