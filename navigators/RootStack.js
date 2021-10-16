@@ -29,7 +29,7 @@ const RootStack = () => {
                     paddingLeft: 20
                 }
             }}
-            initialRouteName = 'Welcome'
+            initialRouteName = 'Privacy'
             >   
                 <Stack.Screen name="Welcome" 
                     options ={{animationEnabled: true, header: () => null}}

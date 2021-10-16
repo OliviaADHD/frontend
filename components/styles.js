@@ -264,3 +264,10 @@ export const StyledQuestionaryButtons = styled.View`
 export const StyledQuestionaryButton = styled(StyledButton)`
   margin: 2% 0;
 `;
+
+export const LongTextFormat = styled.Text`
+flex: 1; 
+align-items: center; 
+justify-content: center;
+margin: 50%;
+`;
