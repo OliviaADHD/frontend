@@ -22,7 +22,7 @@ const Welcome_Post_Signup = ({navigation}) => {
       <MediumExtraText>Hi There, We Would Love To Know About You!</MediumExtraText>
       
       <StyledFormArea>
-        <StyledButton onPress = {() => navigation.navigate("Signup")}>
+        <StyledButton onPress = {() => navigation.navigate("Questionnaire")}>
           <ButtonText>Proceed</ButtonText>
         </StyledButton>
       </StyledFormArea>
