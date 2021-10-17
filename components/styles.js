@@ -55,7 +55,7 @@ export const CenteredImage= styled.Image`
 export const StyledFormArea = styled.View`
     width: 90%;
     height: 75%;
-`
+`;
 
 export const StyledTextInput = styled.TextInput`
     background-color: ${white};
@@ -63,9 +63,8 @@ export const StyledTextInput = styled.TextInput`
     height: 40px;
     font-size: 17px;
     textAlign: left;
-    borderBottomWidth: 1px;
-    
-`
+    borderBottomWidth: 1px; 
+`;
 
 export const StyledInputLabel = styled.Text`
   color: ${black};
