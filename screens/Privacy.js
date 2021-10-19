@@ -4,10 +4,11 @@ import { View,CheckBox, Text, ScrollView } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import {
   StyledTitle,
-  StyledContainer,
-  InnerContainer,
+  // StyledContainer,
+  // InnerContainer,
+  TextBlockBorders,
   LongTextFormat,
-  MediumExtraText,
+  // MediumExtraText,
 }from './../components/styles';
 
 export default function Privacy({navigation}) {
@@ -15,14 +16,16 @@ export default function Privacy({navigation}) {
         <ScrollView >
         {/* <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }} > */}
         <View>
-        <StyledContainer>   
+        {/* <StyledContainer>    */}
     <StatusBar style="dark"/>
-    <InnerContainer>
+    {/* <InnerContainer> */}
         
-        <Text>
-        <MediumExtraText>
-        <LongTextFormat>
+        {/* <Text> */}
+        {/* <MediumExtraText> */}
+        <TextBlockBorders>
+        {/* <LongTextFormat> */}
           
+        <Text>
 
         <StyledTitle>Title 1{"\n"}{"\n"}</StyledTitle>
 
@@ -35,14 +38,15 @@ export default function Privacy({navigation}) {
         Due to a political compromise (Berlin-Bonn Act) following the reunification, the German federal government maintains a substantial presence in Bonn. Roughly a third of all ministerial jobs are located in Bonn as of 2019,[4] and the city is considered a second, unofficial, capital of the country.[5] Bonn is the secondary seat of the President, the Chancellor, the Bundesrat and the primary seat of six federal government ministries and twenty federal authorities. The title of Federal City (German: Bundesstadt) reflects its important political status within Germany.[6]{"\n"}{"\n"}
         
         The headquarters of Deutsche Post DHL and Deutsche Telekom, both DAX-listed corporations, are in Bonn. The city is home to the University of Bonn and a total of 20 United Nations institutions, the highest number in all of Germany.[7] These institutions include the headquarters for Secretariat of the UN Framework Convention Climate Change (UNFCCC), the Secretariat of the UN Convention to Combat Desertification (UNCCD), and the UN Volunteers programme.{"\n"}{"\n"}
-
+</Text>
         
-        </LongTextFormat>
-        </MediumExtraText>
-        </Text>
+        {/* </LongTextFormat> */}
+        </TextBlockBorders>
+        {/* </MediumExtraText> */}
+        {/* </Text> */}
         
-        </InnerContainer>
-</StyledContainer>
+        {/* </InnerContainer> */}
+{/* </StyledContainer> */}
         </View>
         </ScrollView>
     );

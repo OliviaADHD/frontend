@@ -204,6 +204,11 @@ export const MediumExtraText = styled.Text`
   margin: 0 10% 0 10%;
 `;
 
+export const BlockTest = styled.Text`
+  align-items: stretch;
+`
+;
+
 export const TextLink = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
@@ -265,9 +270,13 @@ export const StyledQuestionaryButton = styled(StyledButton)`
   margin: 2% 0;
 `;
 
-export const LongTextFormat = styled.Text`
-flex: 1; 
-align-items: center; 
-justify-content: center;
-margin: 50%;
+export const TextBlockBorders = styled(InnerContainer)`
+text-align: justify;
+font-size: 50px;
+padding-top: 10%;
+padding-right: 10%;
+padding-bottom: 10%;
+padding-left: 10%;
 `;
+
+
