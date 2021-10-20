@@ -12,6 +12,9 @@ import {Signup} from './../screens/Signup';
 import Privacy from './../screens/Privacy';
 import Questionnaire from './../screens/Questionnaire';
 import Welcome_Post_Signup from './../screens/Welcome_Post_Signup';
+import CalendarInitial from './../screens/CalendarInitial';
+
+
 const Stack = createStackNavigator();
 
 const RootStack = () => {
@@ -44,6 +47,7 @@ const RootStack = () => {
                 }} />
                 <Stack.Screen name='Welcome_Post_Signup' component={Welcome_Post_Signup} />
                 <Stack.Screen name="Questionnaire" component={Questionnaire} />
+                <Stack.Screen name="CalendarInitial" component={CalendarInitial} />
             </Stack.Navigator>
         </NavigationContainer>
     )
