@@ -1,34 +1,50 @@
 import React from 'react';
-import { View, Text, ScrollView } from "react-native";
+import { Text } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import {
-  StyledTitle,
   TextBlockBorders,
   BlockText,
+  StyledContainer,
+  InnerContainer,
+  StyledFormArea,
+  StyledButton,
+  ButtonText
 }from './../components/styles';
+import {
+  StyledTitleCentered,
+}from '../components/stylesMenstruation';
 
 export default function Infonotice_Menstruation({navigation}) {
   return (
-    <ScrollView >
-    <View>
-      <StatusBar style="dark"/>
-      <TextBlockBorders>
-        <Text>
-          <BlockText>
-            
-            <StyledTitle>Did you know?{"\n"}{"\n"}</StyledTitle>
 
-            People often get confused between 'cycle' and 'period'{"\n"}{"\n"}
+    <StyledContainer>   
+    <StatusBar style="dark"/>
+      <InnerContainer> 
+        <TextBlockBorders>
 
-            Periods refers to the days of bleeding (usually 3-8 days).{"\n"}{"\n"}
+          <StyledTitleCentered style={{ marginBottom : '10%'}}>Did you know?</StyledTitleCentered>
 
-            Cycle refers to all the days from the first day of period to the day before the next period. Your cycle includes your period.{"\n"}{"\n"}
+            <Text>
+              <BlockText>
+                People often get confused between 'cycle' and 'period'.{"\n"}{"\n"}
 
-          </BlockText>
-        </Text>
-      </TextBlockBorders>
-    </View>
-  </ScrollView>
+                <Text style={{fontWeight: 'bold'}}>Periods</Text> refers to the days of bleeding (usually 3-8 days).{"\n"}{"\n"}
+
+                <Text style={{fontWeight: 'bold'}}>Cycle</Text>  refers to all the days from the first day of period to the day before the next period. Your cycle includes your period.{"\n"}{"\n"}
+              </BlockText>
+            </Text>
+
+        <StyledFormArea style={{ marginTop : '5%'}}>
+          <StyledButton onPress = {() => navigation.navigate("12_Cycle_Period_AR")}>
+            <ButtonText>Next</ButtonText>
+          </StyledButton>
+        </StyledFormArea>
+        
+        </TextBlockBorders>
+      </InnerContainer>
+    </StyledContainer>
+
+
   )
 }
 
