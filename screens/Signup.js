@@ -122,7 +122,7 @@ export class Signup extends React.Component {
                         />
                         { touched.fullName && errors.fullName &&
                             <ErrorMessage>
-                                <ErrorText>{errors.fullName}</ErrorText>
+                                <ErrorText testID={"ErrorFullName"}>{errors.fullName}</ErrorText>
                             </ErrorMessage> 
                         }
                         <MyTextInput 

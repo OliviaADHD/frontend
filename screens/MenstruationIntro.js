@@ -17,9 +17,9 @@ import {
 
 const MenstruationIntro =({navigation}) => {
     const [Name, setCurrentName] = useState("UserName");
-    var YesScreen = "Signup";
-    var NoScreen = "Signup";
-    var NotSureScreen = "Signup";
+    const YesScreen = "Signup";
+    const NoScreen = "Signup";
+    const NotSureScreen = "Signup";
 
     const YesClicked = () => {
         navigation.navigate(YesScreen);

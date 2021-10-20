@@ -12,7 +12,7 @@ var NoScreen = "Signup";
 var NotSureScreen = "Signup";
 
 
-test('test whether it renders correctly (snapshot unchanged)', () =>{
+test('Snapshot changed?', () =>{
     const {debug} = render(<MenstruationIntro/>);
     expect(debug).toMatchSnapshot();
 });
@@ -22,6 +22,7 @@ test('navigate to correct screen after clicking yes', () =>{
     const {debug, getByTestId} = render(<MenstruationIntro 
         navigation={mockNavigation}/>);
     const YesButton = getByTestId("MenstruationIntroYesClickedButton");
+    console.log("YesScreen "+debug.YesScreen)
     fireEvent.press(YesButton);
     expect(mockNavigation.navigate).toBeCalledWith(YesScreen);
 });
