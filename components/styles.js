@@ -27,6 +27,13 @@ export const InnerContainer = styled.View`
   align-items: center;
 `;
 
+export const TextBlockBorders = styled(InnerContainer)`
+padding-top: 20%;
+padding-right: 10%;
+padding-bottom: 10%;
+padding-left: 10%;
+`;
+
 export const PageLogo = styled.Image`
     width: 100%;
     height: 20%;
@@ -203,6 +210,12 @@ export const MediumExtraText = styled.Text`
   margin: 0 10% 0 10%;
 `;
 
+export const BlockText = styled.Text`
+font-size: 15px;
+line-height: 25px;
+`
+;
+
 export const TextLink = styled.TouchableOpacity`
   justify-content: center;
   align-items: center;
@@ -263,3 +276,5 @@ export const StyledQuestionaryButtons = styled.View`
 export const StyledQuestionaryButton = styled(StyledButton)`
   margin: 2% 0;
 `;
+
+
