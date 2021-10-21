@@ -1,9 +1,6 @@
 import React from "react";
 import {StyleSheet, View, ScrollView, Text} from "react-native";
-
-
 import { TouchableOpacity } from "react-native-gesture-handler";
-
 
 class Day extends React.Component {
     constructor(props) {

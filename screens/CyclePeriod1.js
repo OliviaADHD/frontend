@@ -1,6 +1,5 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import { StatusBar } from "expo-status-bar";
-import {StyleSheet, View, ScrollView, Text, FlatList} from "react-native";
 
 import {
     StyledContainer,
@@ -10,7 +9,6 @@ import {
     ErrorMessage,
     ErrorText
 } from './../components/styles';
-import { TouchableOpacity } from "react-native-gesture-handler";
 import {
     StyledTitleCentered,
     StyledButtonNotSure,
@@ -82,12 +80,8 @@ const CyclePeriod1 = ({navigation}) =>{
                     </StyledButtonNotSure>
                 </StyledButtonNotSureContainer> 
             </InnerContainer>
-
-
         </StyledContainer>
     );
-
-
 };
 
 
