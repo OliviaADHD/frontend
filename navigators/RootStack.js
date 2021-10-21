@@ -14,6 +14,9 @@ import Questionnaire from './../screens/Questionnaire';
 import Welcome_Post_Signup from './../screens/Welcome_Post_Signup';
 import CalendarInitial from './../screens/CalendarInitial';
 
+import CyclePeriod1 from './../screens/CyclePeriod1';
+import CyclePeriod2 from './../screens/CyclePeriod2';
+
 
 const Stack = createStackNavigator();
 
@@ -48,6 +51,8 @@ const RootStack = () => {
                 <Stack.Screen name='Welcome_Post_Signup' component={Welcome_Post_Signup} />
                 <Stack.Screen name="Questionnaire" component={Questionnaire} />
                 <Stack.Screen name="CalendarInitial" component={CalendarInitial} />
+                <Stack.Screen name="CyclePeriod1" component={CyclePeriod1} />
+                <Stack.Screen name="CyclePeriod2" component={CyclePeriod2} />
             </Stack.Navigator>
         </NavigationContainer>
     )
