@@ -22,10 +22,10 @@ import {
 
 import ScrollableDaySelector from "./ScrollableSelectionBox";
 
-const CyclePeriod1 = ({navigation}) =>{
+const CyclePeriod2 = ({navigation}) =>{
     const [DaySelected, SetDaySelected] = useState(undefined);
     const [warning, SetWarning] = useState(false);
-    var NextScreen = "CyclePeriod2";
+    var NextScreen = "Signup";
     var NotSureScreen = "Signup";
 
 
@@ -51,11 +51,10 @@ const CyclePeriod1 = ({navigation}) =>{
             <StatusBar style="dark"/>
             <InnerContainer>
                 <StyledTitleCentered style={{marginBottom: '0%'}}
-                    >How long is your periodic cycle?
+                    >How long does your period usually last?
                 </StyledTitleCentered>
-                <ExtraText style={{marginTop: '0%'}}>(Usually 21-35 Days)</ExtraText>
                 <ScrollableDaySelector 
-                    startDay={10} numberDays={51} 
+                    startDay={2} numberDays={15} 
                     daySelected={DaySelected} setDaySelected={SetDaySelected}/>
                 { warning &&
                             <ErrorMessage style={{width: "80%"}}>
@@ -86,4 +85,4 @@ const CyclePeriod1 = ({navigation}) =>{
 
 
 
-export default CyclePeriod1
+export default CyclePeriod2
