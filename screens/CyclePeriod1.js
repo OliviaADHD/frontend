@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import { StatusBar } from "expo-status-bar";
-import {StyleSheet, View, ScrollView, Text} from "react-native";
+import {StyleSheet, View, ScrollView, Text, FlatList} from "react-native";
 
 import {
     StyledContainer,
@@ -18,30 +18,52 @@ import {
 import {
     NextBtnContainer,
     StyledButtonNext,
-    StyledCalendar
 }from '../components/stylesCalendar';
 
 const CyclePeriod1 = ({navigation}) =>{
+    const [DaySelected, SetDaySelected] = useState(undefined);
+    const [warning, SetWarning] = useState(false);
+    var NextScreen = "Signup";
+    var NotSureScreen = "Signup";
 
+
+    const NextClicked = () => {
+        console.log('next was clicked');
+        if (DaySelected!=undefined){
+            console.log("a specific day was selected: " + DaySelected);
+            navigation.navigate(NextScreen);
+        } else {
+            console.log(" no specific day was selected, display warning");
+            SetWarning(true);
+        }
+    };
+
+    const NotSureClicked = () => {
+        console.log('Not sure was clicked, and the Day was '+DaySelected);
+    }
 
     return(
         <StyledContainer>
             <StatusBar style="dark"/>
             <InnerContainer>
-                <StyledTitleCentered>How long is your periodic cycle?</StyledTitleCentered>
-                <ExtraText>(Usually 21-35 Days)</ExtraText>
-                <ScrollableDaySelector startDay={10} numberDays={5} />
-                <NextBtnContainer>
+                <StyledTitleCentered style={{marginBottom: '0%'}}
+                    >How long is your periodic cycle?
+                </StyledTitleCentered>
+                <ExtraText style={{marginTop: '0%'}}>(Usually 21-35 Days)</ExtraText>
+                <ScrollableDaySelector 
+                    startDay={10} numberDays={51} 
+                    daySelected={DaySelected} setDaySelected={SetDaySelected}/>
+                <NextBtnContainer style={{marginTop: '5%'}}>
                     <StyledButtonNext
-                        onPress={console.log("next")}
-                        testID={"CalendarNextClickedButton"}>
+                        onPress={NextClicked}
+                        testID={"CyclePeriod1NextClickedButton"}>
                         <ButtonText>Next</ButtonText>
                     </StyledButtonNext>
                 </NextBtnContainer>
-                <StyledButtonNotSureContainer>
+                <StyledButtonNotSureContainer style={{marginTop: '0%'}}>
                     <StyledButtonNotSure 
-                        onPress={console.log("notSure")}
-                        testID={"CalendarNotSureClickedButton"}>
+                        onPress={NotSureClicked}
+                        testID={"CyclePeriod2NotSureClickedButton"}>
                         <ButtonTextNotSure>NOT SURE</ButtonTextNotSure>
                     </StyledButtonNotSure>
                 </StyledButtonNotSureContainer> 
@@ -72,38 +94,45 @@ class Day extends React.Component {
 
 const styles = StyleSheet.create({
     DayTextStyle: {
-        paddingBottom: '2%',
-        paddingTop: '2%',
+        paddingBottom: '5%',
+        paddingTop: '5%',
     },
     blackColor: {
-        fontSize: 20,
+        fontSize: 21,
         color: "#000000",
     },
     purpleColor:{
         fontSize: 28,
         color: "#694398",
+    },
+    ScrollViewExt:{
+        height: "50%",
+        width: "80%",
+        alignItems: 'center',
+        paddingBottom: "2%",
+        paddingTop: "2%",
     }
 })
 
 
 
-const ScrollableDaySelector = ({startDay, numberDays}) => {
-    const [selectedDay, setSelectedDay] = useState(undefined);
+const ScrollableDaySelector = ({startDay, numberDays,daySelected,setDaySelected}) => {
+    //const [selectedDay, setSelectedDay] = useState(undefined);
 
-    console.log("##########",startDay, selectedDay);
+    console.log("##########",daySelected);
     let DayList = [];
     for (let i=startDay; i<startDay+numberDays; i++){
         DayList.push(<Day 
                         key={i} 
                         dayNumber={i} 
-                        selected={selectedDay}
-                        pushFunction={() =>{setSelectedDay(i)}}/>);
+                        selected={daySelected}
+                        pushFunction={() =>{setDaySelected(i)}}/>);
     };
 
     
 
     return(
-        <View>
+        <View style={styles.ScrollViewExt}>
             <ScrollView showsVerticalScrollIndicator={false}>
                 {DayList}
             </ScrollView>
