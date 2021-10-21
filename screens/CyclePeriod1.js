@@ -6,7 +6,9 @@ import {
     StyledContainer,
     InnerContainer, 
     ExtraText,
-    ButtonText
+    ButtonText,
+    ErrorMessage,
+    ErrorText
 } from './../components/styles';
 import { TouchableOpacity } from "react-native-gesture-handler";
 import {
@@ -30,6 +32,7 @@ const CyclePeriod1 = ({navigation}) =>{
     const NextClicked = () => {
         console.log('next was clicked');
         if (DaySelected!=undefined){
+            SetWarning(false);
             console.log("a specific day was selected: " + DaySelected);
             navigation.navigate(NextScreen);
         } else {
@@ -40,6 +43,7 @@ const CyclePeriod1 = ({navigation}) =>{
 
     const NotSureClicked = () => {
         console.log('Not sure was clicked, and the Day was '+DaySelected);
+        navigation.navigate(NotSureScreen);
     }
 
     return(
@@ -53,6 +57,14 @@ const CyclePeriod1 = ({navigation}) =>{
                 <ScrollableDaySelector 
                     startDay={10} numberDays={51} 
                     daySelected={DaySelected} setDaySelected={SetDaySelected}/>
+                { warning &&
+                            <ErrorMessage style={{width: "80%"}}>
+                                <ErrorText style={{textAlign: 'center'}}>
+                                    Please select a Day before Clicking 'Next'.
+                                    Otherwise click on 'Not Sure'.
+                                </ErrorText>
+                            </ErrorMessage> 
+                        }
                 <NextBtnContainer style={{marginTop: '5%'}}>
                     <StyledButtonNext
                         onPress={NextClicked}
@@ -117,9 +129,6 @@ const styles = StyleSheet.create({
 
 
 const ScrollableDaySelector = ({startDay, numberDays,daySelected,setDaySelected}) => {
-    //const [selectedDay, setSelectedDay] = useState(undefined);
-
-    console.log("##########",daySelected);
     let DayList = [];
     for (let i=startDay; i<startDay+numberDays; i++){
         DayList.push(<Day 
@@ -128,9 +137,6 @@ const ScrollableDaySelector = ({startDay, numberDays,daySelected,setDaySelected}
                         selected={daySelected}
                         pushFunction={() =>{setDaySelected(i)}}/>);
     };
-
-    
-
     return(
         <View style={styles.ScrollViewExt}>
             <ScrollView showsVerticalScrollIndicator={false}>
