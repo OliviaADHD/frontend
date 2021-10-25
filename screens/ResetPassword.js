@@ -1,5 +1,7 @@
-import React, { useState, Text } from "react";
+import React, { useState, TextInput, View } from "react";
 import { StatusBar } from "expo-status-bar";
+import { Formik } from 'formik';
+
 import {
   StyledContainer,
   InnerContainer,
@@ -12,6 +14,9 @@ import {
 
 
 export default function ResetPassword({navigation}) {
+  // const [email, setEmail] = useState('');
+
+  //! Check this link out: https://formik.org/docs/guides/react-native
 
   return (
     <StyledContainer>   
@@ -26,9 +31,32 @@ export default function ResetPassword({navigation}) {
       </BlockText>
       
       <StyledFormArea>
-        <StyledButton onPress = {() => navigation.navigate("TBC")}>
-          <ButtonText>Submit</ButtonText>
-        </StyledButton>
+
+      <Formik
+     initialValues={{ email: '' }}
+     onSubmit={values => console.log(values)}
+   >
+     {({ handleChange, handleBlur, handleSubmit, values }) => (
+
+      <View>
+         <TextInput
+          placeholder="Email ID"
+           onChangeText={handleChange('email')}
+           onBlur={handleBlur('email')}
+           value={values.email}
+         />
+         <ButtonText onPress={handleSubmit} title="Submit" />
+
+      //    <StyledButton onPress = {() => navigation.navigate("Login")}>
+      //    <ButtonText>Submit</ButtonText>
+      //  </StyledButton>
+
+      </View>
+
+     )}
+   </Formik>
+
+        
       </StyledFormArea>
     
     </InnerContainer>
