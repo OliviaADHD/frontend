@@ -13,6 +13,7 @@ import Privacy from './../screens/Privacy';
 import Questionnaire from './../screens/Questionnaire';
 import Welcome_Post_Signup from './../screens/Welcome_Post_Signup';
 import CalendarInitial from './../screens/CalendarInitial';
+import ResetPassword from './../screens/ResetPassword';
 
 
 const Stack = createStackNavigator();
@@ -32,7 +33,7 @@ const RootStack = () => {
                     paddingLeft: 20
                 }
             }}
-            initialRouteName = 'Welcome'
+            initialRouteName = 'ResetPassword'
             >   
                 <Stack.Screen name="Welcome" 
                     options ={{animationEnabled: true, header: () => null}}
@@ -48,6 +49,7 @@ const RootStack = () => {
                 <Stack.Screen name='Welcome_Post_Signup' component={Welcome_Post_Signup} />
                 <Stack.Screen name="Questionnaire" component={Questionnaire} />
                 <Stack.Screen name="CalendarInitial" component={CalendarInitial} />
+                <Stack.Screen name="ResetPassword" component={ResetPassword} />
             </Stack.Navigator>
         </NavigationContainer>
     )
