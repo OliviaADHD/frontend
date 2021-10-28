@@ -20,7 +20,7 @@
     "expo-random": "~11.2.0",
     "expo-status-bar": "~1.0.4",
     "formik": "^2.2.9",
-    "jest": "^27.2.5",
+    "jest": "26.5.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
@@ -48,7 +48,7 @@
     ],
     "moduleNameMapper": { 
       "styled-components": "<rootDir>/node_modules/styled-components/native/dist/styled-components.native.cjs.js" 
-      } 
+      }
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",

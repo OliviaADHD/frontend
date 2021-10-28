@@ -122,7 +122,7 @@ export class Signup extends React.Component {
                         />
                         { touched.fullName && errors.fullName &&
                             <ErrorMessage>
-                                <ErrorText testID={"ErrorFullName"}>{errors.fullName}</ErrorText>
+                                <ErrorText>{errors.fullName}</ErrorText>
                             </ErrorMessage> 
                         }
                         <MyTextInput 
@@ -178,7 +178,7 @@ export class Signup extends React.Component {
                         </PrivacyArea>
 
 
-                            <StyledButton disabled={! isValid || isSubmitting} onPress={handleSubmit}>
+                            <StyledButton disabled={! isValid || isSubmitting} onPress={handleSubmit} testID='SubmitButton'>
                                 <ButtonText>Signup</ButtonText>
                             </StyledButton>
 
@@ -195,7 +195,7 @@ export class Signup extends React.Component {
                         </IconContainer>
                         <ExtraView>
                             <ExtraText>Already Have An Account?</ExtraText>
-                            <TextLink onPress = {() => this.props.navigation.navigate("Login")}>
+                            <TextLink onPress = {() => this.props.navigation.navigate("Login")} testID='Textlink'>
                                 <TextLinkContent>Login</TextLinkContent>
                             </TextLink>
                         </ExtraView>
