@@ -1,31 +1,30 @@
-import { SIGN_UP, 
+import {
+    SIGN_UP,
     SIGN_UP_FAILED,
     SIGN_UP_SUCCESS,
-    SIGN_IN,
     SIGN_IN_SUCCESS,
     SIGN_IN_FAILED,
-    VERIFY_EMAIL,
     VERIFY_EMAIL_SUCCESS,
     VERIFY_EMAIL_FAILED,
     VERIFY_LOGIN_FAILED, 
-    VERIFY_LOGIN, 
     VERIFY_LOGIN_SUCCESS
 } from "../actions/types";
 
 const initialState = {
-    message: {},
-    
+    message: {}    
 }
 
 
 const userReducer = (state = initialState, action) => {
     switch (action.type){
-        case SIGN_UP_FAILED:
+        case SIGN_UP:
+            return {};
+        case SIGN_UP_SUCCESS:
             return{
                 ...state,
                 message:action.payload
             };
-        case SIGN_UP_SUCCESS:
+        case SIGN_UP_FAILED:
             return{
                 ...state,
                 message:action.payload

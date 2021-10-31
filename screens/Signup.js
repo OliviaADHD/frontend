@@ -26,7 +26,7 @@ import {
     PrivacyArea,
     DisabledButton
 }from './../components/styles';
-import {newUser} from '../src/actions/user/user'
+import {newUser, beforeSignUP} from '../src/actions/user/user'
 import * as yup from 'yup'
 
 const signUpValidationSchema = yup.object().shape({
@@ -62,13 +62,13 @@ class Signup extends React.Component {
             isDisabled: true,
             message:{}
         }
-        
+        this.state.message = this.props.message       
     }
 
 
 
     updateLoginError = () => {
-        this.setState({loginError:true});        
+             
     }
 
 
@@ -99,8 +99,18 @@ class Signup extends React.Component {
                         validationSchema={signUpValidationSchema}
                         initialValues={{fullName: '', email: '', password: '',login:''}}
                         onSubmit={(values) => {
-                            console.warn(JSON.stringify(values))
-                            this.props.onSignup(JSON.stringify(values));
+                            console.warn(values)
+                            this.props.onSignup(values);                            
+                            console.warn(this.state.message);
+                            if(this.state.message){
+                                if(this.state.message.text.includes("Email")){
+                                    this.setState({emailError:true});
+                                }else if(this.state.message.text.includes("Login")){
+                                    this.setState({loginError:true});
+ 
+                                }
+                            }
+
 
                         }}
                     >
@@ -131,6 +141,12 @@ class Signup extends React.Component {
                             </ErrorMessage> 
                         }
 
+                        { this.state.loginError &&
+                            <ErrorMessage>
+                                <ErrorText>Login exists</ErrorText>
+                            </ErrorMessage> 
+                        }
+
                         <MyTextInput 
                             placeholder="Email"
                             label='Email'
@@ -142,6 +158,12 @@ class Signup extends React.Component {
                         { touched.email && errors.email &&
                             <ErrorMessage>
                                 <ErrorText>{errors.email}</ErrorText>
+                            </ErrorMessage> 
+                        }
+
+                        { this.state.emailError &&
+                            <ErrorMessage>
+                                <ErrorText>Email Exists</ErrorText>
                             </ErrorMessage> 
                         }
      
@@ -171,7 +193,7 @@ class Signup extends React.Component {
                         </PrivacyArea>
 
 
-                            <StyledButton disabled={! isValid || isSubmitting} onPress={handleSubmit}>
+                            <StyledButton disabled={! isValid } onPress={handleSubmit}>
                                 <ButtonText>Signup</ButtonText>
                             </StyledButton>
 
@@ -220,12 +242,15 @@ export const MyTextInput = ({isPassword, icon, hidePassword, setHidePassword, ..
     )
 }
 
-const mapStateToProps = state => ({
-    errors: state.errors
-});
+const mapStateToProps = state => {
+    const { message } = state.user;
+    //console.log('login mapStateToProps ... state:' + JSON.stringify(state));
+    //console.log('login mapStateToProps ... props:' + JSON.stringify({ message }));
+    return { message };
+};
 
 const mapDispatchToProps = {
-    onSignup :  newUser
+    onSignup :  newUser,
 };
 
 export default connect(
