@@ -1,4 +1,15 @@
-export const SIGN_UP = 'SIGN_UP';
+export const SIGN_UP = 'SIGN_UP'
+export const SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS';
+export const SIGN_UP_FAILED = 'SIGN_UP_FAILED';
+
 export const SIGN_IN = 'SIGN_IN';
+export const SIGN_IN_SUCCESS = 'SIGN_IN_SUCCESS';
+export const SIGN_IN_FAILED = 'SIGN_IN_FAILED';
+
 export const VERIFY_EMAIL = 'VERIFY_EMAIL';
+export const VERIFY_EMAIL_SUCCESS = 'VERIFY_EMAIL_SUCCESS';
+export const VERIFY_EMAIL_FAILED = 'VERIFY_EMAIL_FAILED';
+
 export const VERIFY_LOGIN = 'VERIFY_LOGIN';
+export const VERIFY_LOGIN_SUCCESS = 'VERIFY_LOGIN_SUCCESS';
+export const VERIFY_LOGIN_FAILED = 'VERIFY_LOGIN_FAILED';

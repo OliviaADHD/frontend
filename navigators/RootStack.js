@@ -8,7 +8,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import Login from './../screens/Login';
 import Welcome from './../screens/Welcome';
-import {Signup} from './../screens/Signup';
+import Signup from './../screens/Signup';
 import Privacy from './../screens/Privacy';
 import Questionnaire from './../screens/Questionnaire';
 import Welcome_Post_Signup from './../screens/Welcome_Post_Signup';
