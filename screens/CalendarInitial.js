@@ -19,8 +19,8 @@ import {
 import {Calendar} from 'react-native-calendars';
 
 const CalendarInitial =({navigation}) => {
-    var NextScreen = "DidYouKnow";
-    var NotSureScreen = "DidYouKnow";
+    var NextScreen = "Infonotice_Menstruation";
+    var NotSureScreen = "Infonotice_Menstruation";
 
     const NextClicked = () => {
         navigation.navigate(NextScreen);
