@@ -29,9 +29,9 @@ export const InnerContainer = styled.View`
 
 export const TextBlockBorders = styled(InnerContainer)`
 padding-top: 20%;
-padding-right: 10%;
+padding-right: 5%;
 padding-bottom: 10%;
-padding-left: 10%;
+padding-left: 5%;
 `;
 
 export const PageLogo = styled.Image`

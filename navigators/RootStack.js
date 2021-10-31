@@ -8,14 +8,13 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import Login from './../screens/Login';
 import Welcome from './../screens/Welcome';
-import {Signup} from './../screens/Signup';
+import { Signup } from './../screens/Signup';
 import Privacy from './../screens/Privacy';
 import Questionnaire from './../screens/Questionnaire';
 import Welcome_Post_Signup from './../screens/Welcome_Post_Signup';
 import CalendarInitial from './../screens/CalendarInitial';
 import Intro_Period_Prediction from './../screens/Intro_Period_Prediction';
-
-
+import Infonotice_Menstruation from './../screens/Infonotice_Menstruation';
 const Stack = createStackNavigator();
 
 const RootStack = () => {
@@ -50,6 +49,7 @@ const RootStack = () => {
                 <Stack.Screen name="Questionnaire" component={Questionnaire} />
                 <Stack.Screen name="CalendarInitial" component={CalendarInitial} />
                 <Stack.Screen name="Intro_Period_Prediction" component={Intro_Period_Prediction} />
+                <Stack.Screen name="Infonotice_Menstruation" component={Infonotice_Menstruation} />
             </Stack.Navigator>
             
         </NavigationContainer>
