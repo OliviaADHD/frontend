@@ -202,12 +202,20 @@ class OwnCheckbox extends BouncyCheckbox{
         iconStyle={{borderColor: Colors.purple, borderRadius: 0}}
         textStyle={{ textDecorationLine: 'none' }}
         textContainerStyle={{ width: '95%', border: '1px solid red' }}
-        isChecked={(this.props.selectedAnswer==this.props.text)?true:false}
+        isChecked={this.checked}
         disableBuiltInState={true}
         onPress={(isChecked) => {
-          this.props.setAnswer(this.props.text);
-          console.log('multiple Answers should be possible!')
-          console.log('Checked checkbox  '+this.props.text);
+          if (this.checked === true){this.checked = false;}
+          else {this.checked = true}
+          if (this.props.selectedAnswer === undefined){
+            console.log("first answer!");
+            this.props.setAnswer(this.props.text);
+          } else {
+            console.log("more answers");
+            var answers = this.props.selectedAnswer.split("&")
+            console.log(answers);
+            this.props.setAnswer(this.props.selectedAnswer+this.props.text);
+          }
         }}
       />
       );
@@ -236,3 +244,11 @@ class OwnCheckbox extends BouncyCheckbox{
 
 
 export default Questionnaire;
+
+
+/*
+stuff left:
+* multi-input
+* that on submit all is submitted in one object?
+* navigation between different pages of questionairy correct
+ */
