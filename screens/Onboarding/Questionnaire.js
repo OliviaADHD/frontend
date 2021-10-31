@@ -12,7 +12,7 @@ import {
   StyledDotPagination,
   StyledDot,
   StyledQuestionaryButtons,
-} from './../components/styles';
+} from '../../components/styles';
 import { StatusBar } from 'expo-status-bar';
 
 const Questionnaire = () => {
@@ -103,7 +103,7 @@ const Questionnaire = () => {
               fillColor={purple}
               unfillColor={white}
               text={answer}
-              iconStyle={{ borderColor: purple, borderRadius: '5%' }}
+              iconStyle={{ borderColor: purple, borderRadius: '5px' }} //, borderRadius: '5px' 
               textStyle={{ textDecorationLine: 'none' }}
               textContainerStyle={{ width: '100%', border: '1px solid red' }}
               isChecked={checkboxState}

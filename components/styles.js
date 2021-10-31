@@ -228,7 +228,7 @@ export const TextLinkContent = styled.Text`
 
 export const InnerQuestionaryContainer = styled.View`
   align-items: center;
-  height: 80%;
+  height: 95%;
   margin-vertical: 15%;
 `;
 
@@ -241,10 +241,10 @@ export const StyledDotPagination = styled.View`
 export const StyledDot = styled.View`
   border: ${(props) => (props.filled ? 'none' : '1px solid purple')};
   background-color: ${(props) => (props.filled ? purple : white)};
-  height: 14;
-  border-radius: 50;
-  width: 14;
-  margin-horizontal: 19;
+  height: 14px;
+  border-radius: 50px;
+  width: 14px;
+  margin-horizontal: 8%;
 `;
 
 export const StyledTitle = styled.Text`
@@ -268,13 +268,13 @@ export const StyledCheckbox = styled(BouncyCheckbox)`
 `;
 
 export const StyledQuestionaryButtons = styled.View`
-  margin: 0;
-  bottom: 0;
-  position: absolute;
+  margin: 0%;
+  bottom: 0%;
+  height: 50%;
 `;
 
 export const StyledQuestionaryButton = styled(StyledButton)`
-  margin: 2% 0;
+  margin: 2% 0% 0% 0%;
 `;
 
 

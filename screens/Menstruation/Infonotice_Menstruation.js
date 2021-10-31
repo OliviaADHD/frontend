@@ -9,10 +9,10 @@ import {
   StyledFormArea,
   StyledButton,
   ButtonText
-}from './../components/styles';
+}from '../../components/styles';
 import {
   StyledTitleCentered,
-}from '../components/stylesMenstruation';
+}from '../../components/stylesMenstruation';
 
 export default function Infonotice_Menstruation({navigation}) {
   return (

@@ -7,7 +7,7 @@ import {
     StyledFormArea,
     StyledButton,
     ButtonText,
-}from './../components/styles';
+}from '../../components/styles';
 
 export default function Intro_Period_Prediction() {
   return (

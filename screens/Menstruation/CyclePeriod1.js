@@ -8,19 +8,19 @@ import {
     ButtonText,
     ErrorMessage,
     ErrorText
-} from './../components/styles';
+} from '../../components/styles';
 import {
     StyledTitleCentered,
     StyledButtonNotSure,
     ButtonTextNotSure,
     StyledButtonNotSureContainer,
-}from '../components/stylesMenstruation';
+}from '../../components/stylesMenstruation';
 import {
     NextBtnContainer,
     StyledButtonNext,
-}from '../components/stylesCalendar';
+}from '../../components/stylesCalendar';
 
-import ScrollableDaySelector from "./ScrollableSelectionBox";
+import ScrollableDaySelector from "../../components/ScrollableSelectionBox";
 
 const CyclePeriod1 = ({navigation}) =>{
     const [DaySelected, SetDaySelected] = useState(undefined);
