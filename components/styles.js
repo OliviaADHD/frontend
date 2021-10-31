@@ -226,16 +226,11 @@ export const TextLinkContent = styled.Text`
   font-size: 17px;
 `;
 
-export const InnerQuestionaryContainer = styled.View`
-  align-items: center;
-  height: 95%;
-  margin-vertical: 15%;
-`;
-
 export const StyledDotPagination = styled.View`
   flex-direction: row;
   justify-content: space-around;
   margin-bottom: 10%;
+  margin-top: 12%;
 `;
 
 export const StyledDot = styled.View`
@@ -252,13 +247,13 @@ export const StyledTitle = styled.Text`
   font-size: 20px;
   max-width: 80%;
   text-align: justify;
-  margin-bottom: 15%;
+  margin-bottom: 7%;
 `;
 
 export const CheckboxContainer = styled.View`
   flex-direction: column;
-  align-self: flex-start;
   margin-left: 10%;
+  height: 45%;
 `;
 
 export const StyledCheckbox = styled(BouncyCheckbox)`
@@ -267,14 +262,6 @@ export const StyledCheckbox = styled(BouncyCheckbox)`
   padding-right: 5%;
 `;
 
-export const StyledQuestionaryButtons = styled.View`
-  margin: 0%;
-  bottom: 0%;
-  height: 50%;
-`;
 
-export const StyledQuestionaryButton = styled(StyledButton)`
-  margin: 2% 0% 0% 0%;
-`;
 
 
