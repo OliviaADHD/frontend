@@ -34,6 +34,7 @@ const Questionnaire = () => {
       page: 1,
       question: 'What age group do you fall under?',
       answers: [
+        'younger than 18 Years',
         '18-25 Years',
         '26-35 Years',
         '36-45 Years',
@@ -46,6 +47,7 @@ const Questionnaire = () => {
       displayWarning: warningPage1,
       warning: "Please select a category!",
       setWarning: setWarningPage1,
+      nextPage: 2,
     },
     {
       page: 2,
@@ -132,7 +134,7 @@ const Questionnaire = () => {
         <StyledTitle>{questions[currentPage].question}</StyledTitle>
 
         <CheckboxContainer>
-          {questions[currentPage].answers.map((possAnswer) => (
+          { questions[currentPage].answers.map((possAnswer) => (
               <OwnCheckbox 
                 key={possAnswer}
                 text={possAnswer}
@@ -202,20 +204,37 @@ class OwnCheckbox extends BouncyCheckbox{
         iconStyle={{borderColor: Colors.purple, borderRadius: 0}}
         textStyle={{ textDecorationLine: 'none' }}
         textContainerStyle={{ width: '95%', border: '1px solid red' }}
-        isChecked={this.checked}
+        isChecked={(this.props.selectedAnswer===undefined || !this.props.selectedAnswer.split('&').includes(this.props.text))?false:true}
         disableBuiltInState={true}
-        onPress={(isChecked) => {
-          if (this.checked === true){this.checked = false;}
-          else {this.checked = true}
-          if (this.props.selectedAnswer === undefined){
-            console.log("first answer!");
-            this.props.setAnswer(this.props.text);
-          } else {
-            console.log("more answers");
-            var answers = this.props.selectedAnswer.split("&")
-            console.log(answers);
-            this.props.setAnswer(this.props.selectedAnswer+this.props.text);
-          }
+        onPress={() => {
+          if (this.checked === true){
+              this.checked = false;
+              var answers = this.props.selectedAnswer.split('&');
+              console.log(answers);
+              var ind = answers.indexOf(this.props.text);
+              answers.splice(ind, 1); //element removed
+              if (answers.length === 0){
+                this.props.setAnswer(undefined);
+                }
+              else if (answers.length === 1) {
+                this.props.setAnswer(answers[0]);
+                } else {
+                var answerstring = "";
+                for (var i; i<answers.length-1; i++) 
+                  {answerstring = answerstring + answers[i]+"$"}
+                answerstring = answerstring + answers[answers.length-1]
+                this.props.setAnswer(answerstring)
+                }
+              }
+          else {
+            this.checked = true;
+            if (this.props.selectedAnswer === undefined) {
+              this.props.setAnswer(this.props.text);
+              } else {
+                this.props.setAnswer(this.props.selectedAnswer+"&"+this.props.text);
+              }
+            }
+          console.log("at the end", this.props.selectedAnswer)
         }}
       />
       );
