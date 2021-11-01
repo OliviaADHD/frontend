@@ -182,7 +182,7 @@ export class Signup extends React.Component {
                                 <ButtonText>Signup</ButtonText>
                             </StyledButton>
 
-                        <IconContainer style={{marginBottom: "0%", paddingBottom: "0%", backgroundColor: "red"}}>
+                        <IconContainer style={{marginBottom: "0%", paddingBottom: "0%"}}>
                             <EachIconContainer>
                                 <IconLogo  onPress={handleSubmit} source={require('../../assets/images/google.png')} />
                             </EachIconContainer>
