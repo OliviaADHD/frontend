@@ -107,19 +107,19 @@ const Questionnaire = () => {
   const userAnswers = [
     {
       question: 'What age group do you fall under?',
-      answer: [],
+      answer: answerPage1,
     },
     {
       question: 'Choose one or more of these, if you have felt/had.',
-      answer: [],
+      answer: answerPage2.split("&"),
     },
     {
       question: 'If you have ADHD, How many years it has been diagnosed?',
-      answer: [],
+      answer: answerPage3,
     },
     {
       question: 'How do you sleep most of the time?',
-      answer: [],
+      answer: answerPage4,
     },
   ];
 
@@ -171,7 +171,13 @@ const Questionnaire = () => {
             </StyledButton>
           ) : (
             <StyledButton style = {styles.button}
-                          onPress={handleSubmit(userAnswers)}>
+                          onPress={()=>{
+                            if (questions[currentPage].selectedAnswer !== undefined){
+                              handleSubmit(userAnswers);
+                            } else {
+                              questions[currentPage].setWarning(true);
+                            }
+                            }}>
               <ButtonText>Finish</ButtonText>
             </StyledButton>
           )}
@@ -255,7 +261,6 @@ class OwnCheckbox extends BouncyCheckbox{
       disableBuiltInState={true}
       onPress={() => {
         this.props.setAnswer(this.props.text);
-        console.log('Checked checkbox  '+this.props.text);
       }}
     />
     );
