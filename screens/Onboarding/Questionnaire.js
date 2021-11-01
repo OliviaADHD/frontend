@@ -67,7 +67,7 @@ const Questionnaire = () => {
       displayWarning: warningPage2,
       warning: "Please select at least one answer!",
       setWarning: setWarningPage2,
-      nextPage: 3,//(answerPage2 === undefined || !answerPage2.split('&').includes("Diagnosed AHD"))?4:3,
+      nextPage: (answerPage2 === undefined || !answerPage2.split('&').includes('Diagnosed ADHD'))?4:3,
       previousPage: 1,
     },
     {
@@ -100,7 +100,7 @@ const Questionnaire = () => {
       warning: "Please select an answer!",
       setWarning: setWarningPage4,
       nextPage: undefined,
-      previousPage: 3,
+      previousPage: (answerPage2 === undefined || !answerPage2.split('&').includes('Diagnosed ADHD'))?2:3,
     },
   ];
 
@@ -221,7 +221,7 @@ class OwnCheckbox extends BouncyCheckbox{
               // now check if it has already been selected! -> remove it
               var answers = this.props.selectedAnswer.split('&');
               var ind = answers.indexOf(this.props.text);
-              var removed = answers.splice(ind, 1); //element removed
+              answers.splice(ind, 1); //element removed
               if (answers.length === 0){
                 this.props.setAnswer(undefined);
                 }
@@ -253,7 +253,7 @@ class OwnCheckbox extends BouncyCheckbox{
       textContainerStyle={{ width: '95%'}}
       isChecked={(this.props.selectedAnswer==this.props.text)?true:false}
       disableBuiltInState={true}
-      onPress={(isChecked) => {
+      onPress={() => {
         this.props.setAnswer(this.props.text);
         console.log('Checked checkbox  '+this.props.text);
       }}
