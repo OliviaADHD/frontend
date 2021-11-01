@@ -14,7 +14,7 @@ import Questionnaire from '../screens/Onboarding/Questionnaire';
 import Welcome_Post_Signup from '../screens/Onboarding/Welcome_Post_Signup';
 import CalendarInitial from '../screens/Menstruation/CalendarInitial';
 
-
+import MenstruationIntro from '../screens/Menstruation/MenstruationIntro';
 import CyclePeriod1 from '../screens/Menstruation/CyclePeriod1';
 import CyclePeriod2 from '../screens/Menstruation/CyclePeriod2';
 import Intro_Period_Prediction from '../screens/Menstruation/Intro_Period_Prediction';
@@ -37,7 +37,7 @@ const RootStack = () => {
                     paddingLeft: 20
                 }
             }}
-            initialRouteName = 'Welcome_Post_Signup'
+            initialRouteName = 'MenstruationIntro'
             >   
                 <Stack.Screen name="Welcome" 
                     options ={{animationEnabled: true, header: () => null}}
@@ -55,6 +55,7 @@ const RootStack = () => {
                 <Stack.Screen name="CalendarInitial" component={CalendarInitial} />
                 <Stack.Screen name="CyclePeriod1" component={CyclePeriod1} />
                 <Stack.Screen name="CyclePeriod2" component={CyclePeriod2} />
+                <Stack.Screen name="MenstruationIntro" component={MenstruationIntro} />
                 <Stack.Screen name="Intro_Period_Prediction" component={Intro_Period_Prediction} />
                 <Stack.Screen name="Infonotice_Menstruation" component={Infonotice_Menstruation} />
 
