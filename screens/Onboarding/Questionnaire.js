@@ -111,7 +111,7 @@ const Questionnaire = () => {
     },
     {
       question: 'Choose one or more of these, if you have felt/had.',
-      answer: answerPage2.split("&"),
+      answer: (answerPage2===undefined)?answerPage2:answerPage2.split("&"),
     },
     {
       question: 'If you have ADHD, How many years it has been diagnosed?',
@@ -128,28 +128,29 @@ const Questionnaire = () => {
     console.log('userAnswers', userAnswers);
   };
 
+
   return (
     <StyledContainer>
       <StatusBar style="dark" />
       <InnerContainer>
         <StyledDotPagination>
           {questions.map((_question, index) => (
-            <StyledDot filled={index === currentPage} />
+            <StyledDot key={index.toString()} filled={index === currentPage} />
           ))}
         </StyledDotPagination>
 
         <StyledTitle>{questions[currentPage].question}</StyledTitle>
 
         <CheckboxContainer>
-          { questions[currentPage].answers.map((possAnswer) => (
+          { questions[currentPage].answers.map((possAnswer, index) => 
               <OwnCheckbox 
-                key={possAnswer}
+                key={index.toString()}
                 text={possAnswer}
                 setAnswer = {questions[currentPage].setAnswer}
                 multipleAnswers = {questions[currentPage].multipleAnswers}
                 selectedAnswer = {questions[currentPage].selectedAnswer}
               />
-          ))}
+          )}
           </CheckboxContainer>
           { questions[currentPage].displayWarning &&
               <ErrorMessage>
@@ -210,6 +211,7 @@ class OwnCheckbox extends BouncyCheckbox{
     if (this.props.multipleAnswers){
       return (
         <StyledCheckbox
+        key = {this.props.text}
         size={18}
         fillColor={Colors.purple}
         unfillColor={Colors.white}
@@ -250,6 +252,7 @@ class OwnCheckbox extends BouncyCheckbox{
   } else {
     return (
       <StyledCheckbox
+      key={this.props.text}
       size={18}
       fillColor={Colors.purple}
       unfillColor={Colors.white}
