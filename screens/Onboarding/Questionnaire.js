@@ -48,6 +48,7 @@ const Questionnaire = () => {
       warning: "Please select a category!",
       setWarning: setWarningPage1,
       nextPage: 2,
+      previousPage: undefined,
     },
     {
       page: 2,
@@ -66,6 +67,8 @@ const Questionnaire = () => {
       displayWarning: warningPage2,
       warning: "Please select at least one answer!",
       setWarning: setWarningPage2,
+      nextPage: 3,//(answerPage2 === undefined || !answerPage2.split('&').includes("Diagnosed AHD"))?4:3,
+      previousPage: 1,
     },
     {
       page: 3,
@@ -77,6 +80,8 @@ const Questionnaire = () => {
       displayWarning: warningPage3,
       warning: "Please select an answer!",
       setWarning: setWarningPage3,
+      nextPage: 4,
+      previousPage: 2,
     },
     {
       page: 4,
@@ -94,6 +99,8 @@ const Questionnaire = () => {
       displayWarning: warningPage4,
       warning: "Please select an answer!",
       setWarning: setWarningPage4,
+      nextPage: undefined,
+      previousPage: 3,
     },
   ];
 
@@ -155,7 +162,7 @@ const Questionnaire = () => {
                         onPress={() => {
                           if (questions[currentPage].selectedAnswer !== undefined){
                             questions[currentPage].setWarning(false);
-                            setCurrentPage(currentPage + 1);
+                            setCurrentPage(questions[currentPage].nextPage-1);
                           }else{
                             questions[currentPage].setWarning(true);
                           }}}
@@ -170,7 +177,7 @@ const Questionnaire = () => {
           )}
           {questions[currentPage].page !== 1 && (
             <StyledButton style = {styles.button}
-                          onPress={() => setCurrentPage(currentPage - 1)}
+                          onPress={() => setCurrentPage(questions[currentPage].previousPage-1)}
             >
               <ButtonText>Previous</ButtonText>
             </StyledButton>
@@ -207,12 +214,14 @@ class OwnCheckbox extends BouncyCheckbox{
         isChecked={(this.props.selectedAnswer===undefined || !this.props.selectedAnswer.split('&').includes(this.props.text))?false:true}
         disableBuiltInState={true}
         onPress={() => {
-          if (this.checked === true){
-              this.checked = false;
+          if (this.props.selectedAnswer===undefined){
+            //only possibility is to add it :)
+            this.props.setAnswer(this.props.text);
+          } else if (this.props.selectedAnswer.split('&').includes(this.props.text)) {
+              // now check if it has already been selected! -> remove it
               var answers = this.props.selectedAnswer.split('&');
-              console.log(answers);
               var ind = answers.indexOf(this.props.text);
-              answers.splice(ind, 1); //element removed
+              var removed = answers.splice(ind, 1); //element removed
               if (answers.length === 0){
                 this.props.setAnswer(undefined);
                 }
@@ -220,21 +229,15 @@ class OwnCheckbox extends BouncyCheckbox{
                 this.props.setAnswer(answers[0]);
                 } else {
                 var answerstring = "";
-                for (var i; i<answers.length-1; i++) 
-                  {answerstring = answerstring + answers[i]+"$"}
+                for (var i=0; i<answers.length-1; i++) 
+                  {answerstring = answerstring + answers[i]+"&";}
                 answerstring = answerstring + answers[answers.length-1]
                 this.props.setAnswer(answerstring)
                 }
-              }
-          else {
-            this.checked = true;
-            if (this.props.selectedAnswer === undefined) {
-              this.props.setAnswer(this.props.text);
-              } else {
-                this.props.setAnswer(this.props.selectedAnswer+"&"+this.props.text);
-              }
-            }
-          console.log("at the end", this.props.selectedAnswer)
+          } else {
+            // add it then
+            this.props.setAnswer(this.props.selectedAnswer+"&"+this.props.text);
+          }
         }}
       />
       );
