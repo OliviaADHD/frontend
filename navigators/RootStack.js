@@ -37,7 +37,7 @@ const RootStack = () => {
                     paddingLeft: 20
                 }
             }}
-            initialRouteName = 'MenstruationIntro'
+            initialRouteName = 'Welcome'
             >   
                 <Stack.Screen name="Welcome" 
                     options ={{animationEnabled: true, header: () => null}}
