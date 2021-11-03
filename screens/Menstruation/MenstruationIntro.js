@@ -5,7 +5,7 @@ import {
     InnerContainer,
     ExtraText,
     ButtonText,
-}from '../components/styles';
+}from '../../components/styles';
 import {
     ButtonContainer,
     StyledButtonMens,
@@ -13,13 +13,13 @@ import {
     StyledButtonNotSure,
     ButtonTextNotSure,
     StyledButtonNotSureContainer,
-}from '../components/stylesMenstruation';
+}from '../../components/stylesMenstruation';
 
 const MenstruationIntro =({navigation}) => {
     const [Name, setCurrentName] = useState("UserName");
-    var YesScreen = "Signup";
-    var NoScreen = "Signup";
-    var NotSureScreen = "Signup";
+    var YesScreen = "CalendarInitial";
+    var NoScreen = "CalendarInitial";
+    var NotSureScreen = "CalendarInitial";
 
     const YesClicked = () => {
         navigation.navigate(YesScreen);

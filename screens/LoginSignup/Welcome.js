@@ -7,7 +7,7 @@ import {
     PageLogoWelcome,
     LoadScreenBottomImage,
     ExtraText,
-}from './../components/styles';
+}from '../../components/styles';
 
 const Welcome =(props) => {
     const [authLoaded, setAuthLoaded] = useState(false);
@@ -27,10 +27,10 @@ const Welcome =(props) => {
         <StyledContainer>
             <StatusBar style="dark"/>
             <InnerContainer>
-                <PageLogoWelcome source={require('./../assets/images/logo.png')} />
+                <PageLogoWelcome source={require('../../assets/images/logo.png')} />
                 <ExtraText>Helps You Stay Organized</ExtraText>
                 <ActivityIndicator size="large" color="#694398"/>
-                <LoadScreenBottomImage source={require('./../assets/images/loadScreenBottom.png')} />
+                <LoadScreenBottomImage source={require('../../assets/images/loadScreenBottom.png')} />
             </InnerContainer>
         </StyledContainer>
 

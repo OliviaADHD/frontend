@@ -3,7 +3,7 @@ import { StatusBar } from "expo-status-bar";
 import { Formik } from "formik";
 import {Ionicons} from '@expo/vector-icons';
 import { Alert, View } from "react-native";
-import RootStack from "../navigators/RootStack";
+import RootStack from "../../navigators/RootStack";
 import* as AuthSession from 'expo-auth-session';
 import * as Google from 'expo-auth-session/providers/google';
 import * as Facebook from 'expo-auth-session/providers/facebook';
@@ -29,7 +29,7 @@ import {
   ExtraText,
   TextLink,
   TextLinkContent,
-} from './../components/styles';
+} from '../../components/styles';
 
 
 WebBrowser.maybeCompleteAuthSession();
@@ -68,7 +68,7 @@ const Login = ({navigation}) => {
         <StyledContainer>
             <StatusBar style="dark"/>
             <InnerContainer>
-                <PageLogo source={require('./../assets/images/logo.png')} />
+                <PageLogo source={require('../../assets/images/logo.png')} />
                 <Formik
                     initialValues={{email: '', password: ''}}
                     onSubmit={(values) => {
@@ -109,20 +109,20 @@ const Login = ({navigation}) => {
                             console.log("success?")
 
                         }}>
-                            <IconLogo source={require('./../assets/images/google.png')} />
+                            <IconLogo source={require('../../assets/images/google.png')} />
                         </EachIconContainer>
                         <EachIconContainer onPress={() => {
                             console.log("trying to log in with fb");
                             promptAsyncFb();
                             console.log("success with fb?");}} >
-                            <IconLogo source={require('./../assets/images/facebook.png')} />
+                            <IconLogo source={require('../../assets/images/facebook.png')} />
                         </EachIconContainer>
                         <EachIconContainer onPress={handleSubmit}>
-                            <IconLogo  source={require('./../assets/images/apple.png')} />
+                            <IconLogo  source={require('../../assets/images/apple.png')} />
                         </EachIconContainer>
                     </IconContainer>
                     <ExtraView>
-                        <ExtraText>Would You Like To Join Us? {GoogleLogin}</ExtraText>
+                        <ExtraText>Would You Like To Join Us? </ExtraText>
                         <TextLink onPress = {() => navigation.navigate("Signup")}>
                             <TextLinkContent>Signup</TextLinkContent>
                         </TextLink>
