@@ -9,7 +9,8 @@ class Day extends React.Component {
 
     render(){
         return (
-            <TouchableOpacity onPress={this.props.pushFunction}>
+            <TouchableOpacity onPress={this.props.pushFunction}
+                              style={styles.tOpacityStyle}>
                 <Text style={[styles.DayTextStyle, (this.props.dayNumber===this.props.selected)? styles.purpleColor: styles.blackColor]}>
                     {this.props.dayNumber} Days
                 </Text>
@@ -20,8 +21,8 @@ class Day extends React.Component {
 
 const styles = StyleSheet.create({
     DayTextStyle: {
-        paddingBottom: '5%',
-        paddingTop: '5%',
+        paddingBottom: '1%',
+        paddingTop: '1%',
     },
     blackColor: {
         fontSize: 21,
@@ -35,8 +36,19 @@ const styles = StyleSheet.create({
         height: "50%",
         width: "80%",
         alignItems: 'center',
-        paddingBottom: "2%",
+        paddingBottom: "1%",
         paddingTop: "2%",
+    },
+    tOpacityStyle: {
+        paddingBottom: "0%",
+        paddingTop: "0%",
+    },
+    scrollViewStyle: {
+    },
+    scrollContentStyle:{
+        paddingVertical: 0,
+        flexGrow: 1,
+        justifyContent: 'space-between',
     }
 })
 
@@ -51,7 +63,10 @@ const ScrollableDaySelector = ({startDay, numberDays,daySelected,setDaySelected}
     };
     return(
         <View style={styles.ScrollViewExt}>
-            <ScrollView showsVerticalScrollIndicator={false}>
+            <ScrollView showsVerticalScrollIndicator={false}
+                        overScrollMode={"never"}
+                        contentContainerStyle={styles.scrollContentStyle}
+                        style={styles.scrollViewStyle}>
                 {DayList}
             </ScrollView>
         </View>

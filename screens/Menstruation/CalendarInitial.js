@@ -4,18 +4,18 @@ import {
     StyledContainer,
     InnerContainer,
     ButtonText,
-}from '../components/styles';
+}from '../../components/styles';
 import {
     StyledTitleCentered,
     StyledButtonNotSure,
     ButtonTextNotSure,
     StyledButtonNotSureContainer,
-}from '../components/stylesMenstruation';
+}from '../../components/stylesMenstruation';
 import {
     NextBtnContainer,
     StyledButtonNext,
     StyledCalendar
-}from '../components/stylesCalendar';
+}from '../../components/stylesCalendar';
 import {Calendar} from 'react-native-calendars';
 
 const CalendarInitial =({navigation}) => {

@@ -9,10 +9,10 @@ import {
   StyledFormArea,
   StyledButton,
   ButtonText
-}from './../components/styles';
+}from '../../components/styles';
 import {
   StyledTitleCentered,
-}from '../components/stylesMenstruation';
+}from '../../components/stylesMenstruation';
 
 export default function Infonotice_Menstruation({navigation}) {
   return (
@@ -35,7 +35,7 @@ export default function Infonotice_Menstruation({navigation}) {
             </Text>
 
         <StyledFormArea style={{ marginTop : '5%'}}>
-          <StyledButton onPress = {() => navigation.navigate("12_Cycle_Period_AR")}>
+          <StyledButton onPress = {() => navigation.navigate("CyclePeriod1")}>
             <ButtonText>Next</ButtonText>
           </StyledButton>
         </StyledFormArea>
