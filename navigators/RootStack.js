@@ -8,7 +8,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import Login from './../screens/LoginSignup/Login';
 import Welcome from '../screens/LoginSignup/Welcome';
-import { Signup } from './../screens/LoginSignup/Signup';
+import Signup from './../screens/LoginSignup/Signup';
 import Privacy from '../screens/LoginSignup/Privacy';
 import Questionnaire from '../screens/Onboarding/Questionnaire';
 import Welcome_Post_Signup from '../screens/Onboarding/Welcome_Post_Signup';
@@ -50,7 +50,7 @@ const RootStack = () => {
                     component = {Welcome}
                     />
                 <Stack.Screen name='Login' component={Login} />
-                <Stack.Screen options={{ headerTintColor: black}} name='Signup' component={Signup} />
+                <Stack.Screen options={{  headerLeft: null }} name='Signup' component={Signup} />
                 <Stack.Screen name='Privacy' component={Privacy} options={{
                     title:'Privacy Policy',
                     headerStyle:{backgroundColor:'#eee', height:60},

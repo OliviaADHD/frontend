@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import { StatusBar } from "expo-status-bar";
 import { Formik, Field } from 'formik'
-
+import { connect } from "react-redux";
 import {Ionicons} from '@expo/vector-icons';
 import { View,CheckBox, StyleSheet } from "react-native";
 import {
@@ -25,14 +25,14 @@ import {
     PrivacyText,
     PrivacyArea,
     DisabledButton
-}from '../../components/styles';
-
+}from './../components/styles';
+import {newUser, beforeSignUP} from '../src/actions/user/user'
 import * as yup from 'yup'
 
 const signUpValidationSchema = yup.object().shape({
     fullName: yup
       .string().label('Fullname')
-      .matches(/(\w.+\s).+/, 'Enter at least 2 names')
+      //.matches(/(\w.+\s).+/, 'Enter at least 2 names')
       .required('Full name is required'),
     login: yup
       .string().label('Login')
@@ -44,14 +44,14 @@ const signUpValidationSchema = yup.object().shape({
     password: yup
       .string().label('Password')
       .matches(/\w*[a-z]\w*/,  "Password must have a small letter")
-      .matches(/\w*[A-Z]\w*/,  "Password must have a capital letter")
-      .matches(/\d/, "Password must have a number")
-      .matches(/[!@#$%^&*()\-_"=+{}; :,<.>]/, "Password must have a special character")
-      .min(8, ({ min }) => `Passowrd must be at least ${min} characters`)
+      //.matches(/\w*[A-Z]\w*/,  "Password must have a capital letter")
+      //.matches(/\d/, "Password must have a number")
+      //.matches(/[!@#$%^&*()\-_"=+{}; :,<.>]/, "Password must have a special character")
+      //.min(8, ({ min }) => `Passowrd must be at least ${min} characters`)
       .required('Password is required'),
   })
 
-export class Signup extends React.Component {
+class Signup extends React.Component {
     constructor(props){
         super(props);
         this.state = {
@@ -59,15 +59,16 @@ export class Signup extends React.Component {
             loginError:false,
             emailError:false,
             isSelected: false,
-            isDisabled: true
+            isDisabled: true,
+            message:{}
         }
-        
+        this.state.message = this.props.message       
     }
 
 
 
     updateLoginError = () => {
-        this.setState({loginError:true});        
+             
     }
 
 
@@ -86,6 +87,8 @@ export class Signup extends React.Component {
 
     }
 
+ 
+
     render(){
         return(
             <StyledContainer>
@@ -96,18 +99,18 @@ export class Signup extends React.Component {
                         validationSchema={signUpValidationSchema}
                         initialValues={{fullName: '', email: '', password: '',login:''}}
                         onSubmit={(values) => {
-                            console.warn(JSON.stringify(values))
-                            fetch('http://172.17.86.193:8080/signup', {
-                                method: 'POST',
-                                headers: { "Content-Type": "application/json" },
-                                body: JSON.stringify(values)
-                              }).then((body) => {
-                                console.warn(body);
-                                alert( body );
-                            }).catch ((error) => {
-                                console.warn(error)
-                                alert( error.body );
-                             })
+                            console.warn(values)
+                            this.props.onSignup(values);                            
+                            console.warn(this.state.message);
+                            if(this.state.message){
+                                if(this.state.message.text.includes("Email")){
+                                    this.setState({emailError:true});
+                                }else if(this.state.message.text.includes("Login")){
+                                    this.setState({loginError:true});
+ 
+                                }
+                            }
+
 
                         }}
                     >
@@ -138,6 +141,12 @@ export class Signup extends React.Component {
                             </ErrorMessage> 
                         }
 
+                        { this.state.loginError &&
+                            <ErrorMessage>
+                                <ErrorText>Login exists</ErrorText>
+                            </ErrorMessage> 
+                        }
+
                         <MyTextInput 
                             placeholder="Email"
                             label='Email'
@@ -149,6 +158,12 @@ export class Signup extends React.Component {
                         { touched.email && errors.email &&
                             <ErrorMessage>
                                 <ErrorText>{errors.email}</ErrorText>
+                            </ErrorMessage> 
+                        }
+
+                        { this.state.emailError &&
+                            <ErrorMessage>
+                                <ErrorText>Email Exists</ErrorText>
                             </ErrorMessage> 
                         }
      
@@ -228,3 +243,18 @@ export const MyTextInput = ({isPassword, icon, hidePassword, setHidePassword, ..
     )
 }
 
+const mapStateToProps = state => {
+    const { message } = state.user;
+    //console.log('login mapStateToProps ... state:' + JSON.stringify(state));
+    //console.log('login mapStateToProps ... props:' + JSON.stringify({ message }));
+    return { message };
+};
+
+const mapDispatchToProps = {
+    onSignup :  newUser,
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  )(Signup);
