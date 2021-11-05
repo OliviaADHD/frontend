@@ -8,6 +8,7 @@ const{act} = TestRenderer;
 
 const mockNavigation = {
     navigate: jest.fn(),
+    replace: jest.fn()
 };
 const TestProps ={
     navigation: mockNavigation,
@@ -22,14 +23,13 @@ test('Snapshot changed?', async () =>{
 
 /*
 test('Went to login Screen after 3 sec', async () =>{
-    const {debug} = render(<Welcome props={mockNavigation}/>);
-    console.log("name of debug " + debug.name)
-    const value = await new Promise(() => {
-        setTimeout(()=>{console.log("name of debug "+debug.name)},
-                        4000);
-        return true;
-                    });
-    expect(value).toBe(true);
+    const {debug} = render(<Welcome props={TestProps}/>);
+    act(()=> new Promise(() => {
+        setTimeout(()=>{},
+                        3000)
+                    }));
+    expect(TestProps.mockNavigation.replace).toBeCalledWith("Questionnaire");
     
-})
-*/
+})*/
+
+
