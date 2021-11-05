@@ -13,11 +13,12 @@ const Welcome =(props) => {
     const [authLoaded, setAuthLoaded] = useState(false);
 
     useEffect(() => {
-      setTimeout(() => {
+      const timer = setTimeout(() => {
         setAuthLoaded(true);
       }, 3000);
+      return () => clearTimeout(timer); // To prevent leaks
     }, []);
-  
+
     useEffect(() => {
       if (authLoaded) {
         props.navigation.replace('Login');

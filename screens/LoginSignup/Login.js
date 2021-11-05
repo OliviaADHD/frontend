@@ -39,6 +39,7 @@ const Login = ({navigation}) => {
     const [GoogleLogin, setGoogleLogin] = useState("texxt");
     const [request, response, promptAsync] = Google.useAuthRequest({
         expoClientId: '51546200734-nm24i67drlpn5dkcnaj4ckta6k2cnfff.apps.googleusercontent.com',
+        iosClientId: '51546200734-nm24i67drlpn5dkcnaj4ckta6k2cnfff.apps.googleusercontent.com',
         webClientId: '51546200734-qv54r4ur316rk4ll8lb37esgstngnr4i.apps.googleusercontent.com',
         ClientSecret: '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',
       });
