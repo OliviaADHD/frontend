@@ -56,7 +56,7 @@ test("goes to question 2 if something was selected", async()=>{
         foundQuestion2=true;
     } catch(error) {foundQuestion2=false;}
     expect(found).toBeFalsy();
-    expect(foundQuestion2).toBeTruthy;
+    expect(foundQuestion2).toBeTruthy();
 });
 
 test("Displays warning on page 2 if nothing selected", async()=>{
@@ -64,17 +64,17 @@ test("Displays warning on page 2 if nothing selected", async()=>{
     const NextButton = getByText("Next");
     const clickOption = getByText("18-25 Years")
     fireEvent.press(clickOption);
+    fireEvent.press(NextButton);
+    const question = getByText('Choose one or more of these, if you have felt/had.');
     var foundWarning = false;
     fireEvent.press(NextButton);
-    fireEvent.press(NextButton);
     try {
-        getByText('Please select at least one answer!');
-        found = true;
+        const temp = getByText("Please select at least one answer!");
+        foundWarning = true;
     } catch(error) {
-        found =
-        false;
+        foundWarning = false;
     }
-    expect(foundWarning).toBeTruthy;
+    expect(foundWarning).toBeTruthy();
 });
 
 test("Goes back to page 1 from page 2", async()=>{
@@ -98,7 +98,7 @@ test("Goes back to page 1 from page 2", async()=>{
         foundQuestion1=true;
     } catch(error) {foundQuestion1=false;}
     expect(found).toBeFalsy();
-    expect(foundQuestion1).toBeTruthy;
+    expect(foundQuestion1).toBeTruthy();
 
 });
 
@@ -109,32 +109,218 @@ test("Goes to page 3 if 'ADH diagnosed' selected", async()=>{
     fireEvent.press(clickOption);
     var foundWarning = false;
     fireEvent.press(NextButton);
+
     const clickOption2 = getByText("Diagnosed ADHD");
+    fireEvent.press(clickOption2);
     fireEvent.press(NextButton);
     try {
-        getByText('Please select at least one answer!');
+        const temp = getByText("Please select at least one answer!");
+        foundWarning = true;
+    } catch(error) {
+        foundWarning = false;
+    }
+    var foundQuestion3 = false;
+    try {
+        const temp = getByText("If you have ADHD, How many years it has been diagnosed?");
+        foundQuestion3=true;
+    } catch (Error) {foundQuestion3 = false}
+    expect(foundWarning).toBeFalsy();
+    expect(foundQuestion3).toBeTruthy();
+});
+
+test("Goes to page 3 if 'ADH diagnosed' among multiple selected", async()=>{
+    const {debug, getByText} = render(<Questionnaire navigation={mockNavigation}/>);
+    const NextButton = getByText("Next");
+    const clickOption = getByText("18-25 Years")
+    fireEvent.press(clickOption);
+    var foundWarning = false;
+    fireEvent.press(NextButton);
+    const clickOption2 = getByText("Diagnosed ADHD");
+    const ClickOption3 = getByText("Impulsive behavior")
+    fireEvent.press(clickOption2);
+    fireEvent.press(ClickOption3);
+    fireEvent.press(NextButton);
+    try {
+        const temp = getByText('Please select at least one answer!');
         found = true;
     } catch(error) {
         found =false;
     }
     var foundQuestion3 = false;
     try {
-        getByText("If you have ADHD, How many years it has been diagnosed?");
+        const temp = getByText("If you have ADHD, How many years it has been diagnosed?");
         foundQuestion3=true;
     } catch (Error) {foundQuestion3=false}
-    expect(foundWarning).toBeFalsy;
-    expect(foundQuestion3).toBeTruthy;
+    expect(foundWarning).toBeFalsy();
+    expect(foundQuestion3).toBeTruthy();
 });
-/*
-test("Goes to page 3 if 'ADH diagnosed' among multiple selected", async()=>{});
 
-test("Displays warning on page 3 if nothing selected", async()=>{});
+test("Displays warning on page 3 if nothing selected", async()=>{
+    const {debug, getByText} = render(<Questionnaire navigation={mockNavigation}/>);
+    const NextButton = getByText("Next");
+    const clickOption = getByText("18-25 Years")
+    fireEvent.press(clickOption);
+    var foundWarning = false;
+    fireEvent.press(NextButton);
+    const clickOption2 = getByText("Diagnosed ADHD");
+    fireEvent.press(clickOption2);
+    fireEvent.press(NextButton);
+    fireEvent.press(NextButton);
+    try {
+        const temp = getByText("Please select an answer!");
+        foundWarning = true;
+    } catch(error) {
+        foundWarning = false;
+    }
+    var foundQuestion4 = false;
+    try {
+        const temp = getByText("How do you sleep most of the time?");
+        foundQuestion4=true;
+    } catch (Error) {foundQuestion4 = false}
+    expect(foundWarning).toBeTruthy();
+    expect(foundQuestion4).toBeFalsy();
+});
 
-test("Goes back to page 2 from page 3", async()=>{});
+test("Goes back to page 2 from page 3 if Diagnosed ADHD selected", async()=>{
+    const {debug, getByText} = render(<Questionnaire navigation={mockNavigation}/>);
+    const NextButton = getByText("Next");
+    const clickOption = getByText("18-25 Years")
+    fireEvent.press(clickOption);
+    var foundWarning = false;
+    fireEvent.press(NextButton);
+    const clickOption2 = getByText("Diagnosed ADHD");
+    fireEvent.press(clickOption2);
+    fireEvent.press(NextButton);
+    const backButton = getByText("Previous");
+    fireEvent.press(backButton);
+    try {
+        const temp = getByText("Please select an answer!");
+        foundWarning = true;
+    } catch(error) {
+        foundWarning = false;
+    }
+    var foundQuestion2 = false;
+    try {
+        const temp = getByText("Choose one or more of these, if you have felt/had.");
+        foundQuestion2=true;
+    } catch (Error) {foundQuestion2 = false}
+    expect(foundWarning).toBeFalsy();
+    expect(foundQuestion2).toBeTruthy();
+});
 
-test("Goes to page 4 if 'ADH diagnosed' not among selected"), async()=>{}
+test("Goes to page 4 if 'ADH diagnosed' not among selected", async()=>{
+    const {debug, getByText} = render(<Questionnaire navigation={mockNavigation}/>);
+    const NextButton = getByText("Next");
+    const clickOption = getByText("18-25 Years")
+    fireEvent.press(clickOption);
+    var foundWarning = false;
+    fireEvent.press(NextButton);
+    const ClickOption3 = getByText("Impulsive behavior")
+    fireEvent.press(ClickOption3);
+    fireEvent.press(NextButton);
+    try {
+        const temp = getByText('Please select at least one answer!');
+        found = true;
+    } catch(error) {
+        found =false;
+    }
+    var foundQuestion3 = false;
+    try {
+        const temp = getByText("How do you sleep most of the time?");
+        foundQuestion3=true;
+    } catch (Error) {foundQuestion3=false}
+    expect(foundWarning).toBeFalsy();
+    expect(foundQuestion3).toBeTruthy();
 
-test("Goes from page 4 back to page 3 if 'ADH diagnosed' selected"), async()=>{}
+});
 
-test("Goes from page 4 back to page 2 if 'ADH diagnosed' not in selected"), async()=>{}
-*/
+test("Goes from page 3 to page 4 if 'ADH diagnosed' selected", async()=>{
+    const {debug, getByText} = render(<Questionnaire navigation={mockNavigation}/>);
+    const NextButton = getByText("Next");
+    const clickOption = getByText("18-25 Years")
+    fireEvent.press(clickOption);
+    var foundWarning = false;
+    fireEvent.press(NextButton);
+    const clickOption2 = getByText("Diagnosed ADHD");
+    fireEvent.press(clickOption2);
+    fireEvent.press(NextButton);
+    const clickOption3 = getByText('< 1 years');
+    fireEvent.press(clickOption3);
+    fireEvent.press(NextButton);
+    try {
+        const temp = getByText("Please select an answer!");
+        foundWarning = true;
+    } catch(error) {
+        foundWarning = false;
+    }
+    var foundQuestion2 = false;
+    try {
+        const temp = getByText('How do you sleep most of the time?');
+        foundQuestion2=true;
+    } catch (Error) {foundQuestion2 = false}
+    expect(foundWarning).toBeFalsy();
+    expect(foundQuestion2).toBeTruthy();
+});
+
+test("Goes from page 4 back to page 3 if 'ADH diagnosed' selected", async()=>{
+    const {debug, getByText} = render(<Questionnaire navigation={mockNavigation}/>);
+    const NextButton = getByText("Next");
+    const clickOption = getByText("18-25 Years")
+    fireEvent.press(clickOption);
+    var foundWarning = false;
+    fireEvent.press(NextButton);
+    const clickOption2 = getByText("Diagnosed ADHD");
+    fireEvent.press(clickOption2);
+    fireEvent.press(NextButton);
+    const ClickOption3 = getByText('< 1 years')
+    fireEvent.press(ClickOption3);
+    fireEvent.press(NextButton);
+    const backButton = getByText("Previous");
+    fireEvent.press(backButton);
+    try {
+        const temp = getByText("Please select an answer!");
+        foundWarning = true;
+    } catch(error) {
+        foundWarning = false;
+    }
+    var foundQuestion3 = false;
+    try {
+        const temp = getByText('If you have ADHD, How many years it has been diagnosed?');
+        foundQuestion3=true;
+    } catch (Error) {foundQuestion3 = false}
+    expect(foundWarning).toBeFalsy();
+    expect(foundQuestion3).toBeTruthy();
+});
+
+test("Goes from page 4 back to page 2 if 'ADH diagnosed' not in selected", async()=>{
+    const {debug, getByText} = render(<Questionnaire navigation={mockNavigation}/>);
+
+    const NextButton = getByText("Next");
+    const clickOption = getByText("18-25 Years")
+    fireEvent.press(clickOption);
+    var foundWarning = false;
+    fireEvent.press(NextButton);
+    
+    const clickOption2 = getByText("Diagnosed ADHD");
+    const ClickOption3 = getByText("Impulsive behavior")
+    //fireEvent.press(clickOption2);
+    fireEvent.press(ClickOption3);
+    fireEvent.press(NextButton);
+    const BackButton = getByText("Previous");
+    fireEvent.press(BackButton);
+    var foundWarning = false;
+    try {
+        const temp = getByText('Please select at least one answer!');
+        found = true;
+    } catch(error) {
+        found =false;
+    }
+    var foundQuestion2 = false;
+    try {
+        const temp = getByText("Choose one or more of these, if you have felt/had.");
+        foundQuestion2=true;
+    } catch (Error) {foundQuestion3=false}
+    expect(foundWarning).toBeFalsy();
+    expect(foundQuestion2).toBeTruthy();
+});
+
