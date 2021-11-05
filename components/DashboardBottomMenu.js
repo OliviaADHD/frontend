@@ -1,28 +1,9 @@
 import React from "react";
-import {StyleSheet, View, ScrollView, Text} from "react-native";
+import {StyleSheet, View, Text, Image} from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import {
-    IconLogo,
     Colors,
 } from "./styles";
-
-class IconAndText extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
-    render(){
-        return (
-            <TouchableOpacity onPress={this.props.pushFunction}
-                              style={styles.ITOpacityStyle}>
-                <IconLogo source={require(this.props.iconPath)} />
-                <Text style={[styles.IconbaseText, (this.props.selected)? styles.fontColorPurple: styles.fontColorGrey]}>
-                    {this.props.iconText}
-                </Text>
-            </TouchableOpacity>
-        );
-    }
-}
 
 const styles = StyleSheet.create({
     ITOpacityStyle: {
@@ -30,7 +11,6 @@ const styles = StyleSheet.create({
         paddingTop: "0%",
     },
     IconbaseText: {
-        fontSize: "10px",
     },
     fontColorGrey:{
         color: Colors.gray,
@@ -41,23 +21,90 @@ const styles = StyleSheet.create({
     thisView: {
         justifyContent: "space-between",
         flexDirection: "row",
+        height: "10%",
+
+        
+    },
+    BottomIconMenyStyle:{
+        resizeMode: "contain",
+        height: "60%",
+        width: "100%",
+    },
+    IconAndTextView:{
+        justifyContent:"space-between",
+        flexDirection: "column", 
+        alignItems: "center",
+        width: "19%"
     }
 })
 
-const DashBoardBottomMenu = ({}) => {
-    var screens = {'screen1 etc'};
+class IconAndText extends React.Component {
+    constructor(props) {
+        super(props);
+        
+    }
+    icon = this.props.iconPurple;
+    render(){
+        return (
+            <View style={styles.IconAndTextView}>
+                <TouchableOpacity onPress={() => {
+                                                (this.props.currentScreen === this.props.screen)? {}:this.props.navigation.replace(this.props.screen);
+                                                }
+                    } style={{justifyContent:"space-between", paddingTop: "10%"}}>
+                    <Image source={(this.props.currentScreen===this.props.screen)?this.props.icon.purple:this.props.icon.grey} 
+                        style={styles.BottomIconMenyStyle}
+                    />
+                    <Text style={[styles.IconbaseText,(this.props.currentScreen===this.props.screen) ? styles.fontColorPurple:styles.fontColorGrey]}>
+                        {this.props.iconText}
+                    </Text>
+                </TouchableOpacity>
+            </View>
+        );
+    }
+}
+
+var screens = ["Cycle", "ToDoList", "Home", "Awareness", "Profile"];
+var iconTexts = ["Cylce", "To-do List", "Home", "Awareness", "Profile"];
+const icons = [
+    {   grey: require("../assets/images/menuIcons/CycleGrey.png"),
+        purple: require("../assets/images/menuIcons/CyclePurple.png")
+    },
+    {
+        grey: require("../assets/images/menuIcons/TodolistGrey.png"),
+        purple: require("../assets/images/menuIcons/TodolistPurple.png"),
+    },
+    {
+        grey: require("../assets/images/menuIcons/HomeGrey.png"),
+        purple: require("../assets/images/menuIcons/HomePurple.png"),
+    },
+    {
+        grey: require("../assets/images/menuIcons/AwarenessGrey.png"),
+        purple: require("../assets/images/menuIcons/AwarenessPurple.png"),
+    },
+    {
+        grey: require("../assets/images/menuIcons/ProfileGrey.png"),
+        purple: require("../assets/images/menuIcons/ProfilePurple.png"),
+    }
+]
+
+const DashBoardBottomMenu = ({currentScreen,navigation}) => {
     let indIcons = [];
+    for (let i=0; i<5; i++){
+        indIcons.push(<IconAndText
+            key={i}
+            currentScreen={currentScreen}
+            screen={screens[i]}
+            iconText={iconTexts[i]}
+            icon={icons[i]}
+            navigation = {navigation}
+        />)
+        }
     return (
         <View style={styles.thisView}>
-
+            {indIcons}
         </View>
     );
 }
 
+export default DashBoardBottomMenu;
 
-// general component plan: 
-// base component with a single icon (iconpath as property!) + text,
-// needs to have touchable Opacity with onPress => navigate.replace
-// with two modes: selected and unselected (= in grey or purple)
-
-// then row component with spacing, some variable of currentPage?

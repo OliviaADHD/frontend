@@ -20,6 +20,12 @@ import CyclePeriod2 from '../screens/Menstruation/CyclePeriod2';
 import Intro_Period_Prediction from '../screens/Menstruation/Intro_Period_Prediction';
 import Infonotice_Menstruation from '../screens/Menstruation/Infonotice_Menstruation';
 
+import Cycle from '../screens/Dashboard/Cycle';
+import Awareness from '../screens/Dashboard/Awareness';
+import Home from '../screens/Dashboard/Home';
+import Profile from '../screens/Dashboard/Profile';
+import ToDoList from '../screens/Dashboard/ToDoList';
+
 const Stack = createStackNavigator();
 
 const RootStack = () => {
@@ -37,7 +43,7 @@ const RootStack = () => {
                     paddingLeft: 20
                 }
             }}
-            initialRouteName = 'Welcome'
+            initialRouteName = 'Cycle'
             >   
                 <Stack.Screen name="Welcome" 
                     options ={{animationEnabled: true, header: () => null}}
@@ -58,6 +64,12 @@ const RootStack = () => {
                 <Stack.Screen name="MenstruationIntro" component={MenstruationIntro} />
                 <Stack.Screen name="Intro_Period_Prediction" component={Intro_Period_Prediction} />
                 <Stack.Screen name="Infonotice_Menstruation" component={Infonotice_Menstruation} />
+
+                <Stack.Screen name="Cycle" component={Cycle} />
+                <Stack.Screen name="Awareness" component={Awareness} />
+                <Stack.Screen name="Home" component={Home} />
+                <Stack.Screen name="ToDoList" component={ToDoList} />
+                <Stack.Screen name="Profile" component={Profile} />
 
             </Stack.Navigator>
             
