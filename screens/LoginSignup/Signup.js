@@ -196,7 +196,7 @@ export class Signup extends React.Component {
                         <ExtraView style={{paddingTop: "0%", paddingBottom: "0%", marginBottom: "0%",
                          marginTop: "0%", height: "14%"}}> 
                             <ExtraText style={{paddingTop: "0%", paddingBottom: "0%"}}>Already Have An Account?</ExtraText>
-                            <TextLink onPress = {() => this.props.navigation.navigate("Login")}>
+                            <TextLink onPress = {() => this.props.navigation.navigate("Login")} testID={"Textlink"}>
                                 <TextLinkContent style={{paddingTop: "0%", paddingBottom: "0%"}}>Login</TextLinkContent>
                             </TextLink>
                         </ExtraView>

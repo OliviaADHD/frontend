@@ -7,9 +7,9 @@ const mockNavigation = {
 };
 
 
-var YesScreen = "Signup";
-var NoScreen = "Signup";
-var NotSureScreen = "Signup";
+var YesScreen = "CalendarInitial";
+var NoScreen = "CalendarInitial";
+var NotSureScreen = "CalendarInitial";
 
 
 test('Snapshot changed?', () =>{
