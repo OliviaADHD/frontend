@@ -6,12 +6,20 @@ const { white, black } = Colors;
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import Login from './../screens/Login';
-import Welcome from './../screens/Welcome';
-import {Signup} from './../screens/Signup';
-import Privacy from './../screens/Privacy';
-import Questionnaire from './../screens/Questionnaire';
-import Welcome_Post_Signup from './../screens/Welcome_Post_Signup';
+import Login from './../screens/LoginSignup/Login';
+import Welcome from '../screens/LoginSignup/Welcome';
+import { Signup } from './../screens/LoginSignup/Signup';
+import Privacy from '../screens/LoginSignup/Privacy';
+import Questionnaire from '../screens/Onboarding/Questionnaire';
+import Welcome_Post_Signup from '../screens/Onboarding/Welcome_Post_Signup';
+import CalendarInitial from '../screens/Menstruation/CalendarInitial';
+
+import MenstruationIntro from '../screens/Menstruation/MenstruationIntro';
+import CyclePeriod1 from '../screens/Menstruation/CyclePeriod1';
+import CyclePeriod2 from '../screens/Menstruation/CyclePeriod2';
+import Intro_Period_Prediction from '../screens/Menstruation/Intro_Period_Prediction';
+import Infonotice_Menstruation from '../screens/Menstruation/Infonotice_Menstruation';
+
 const Stack = createStackNavigator();
 
 const RootStack = () => {
@@ -44,7 +52,15 @@ const RootStack = () => {
                 }} />
                 <Stack.Screen name='Welcome_Post_Signup' component={Welcome_Post_Signup} />
                 <Stack.Screen name="Questionnaire" component={Questionnaire} />
+                <Stack.Screen name="CalendarInitial" component={CalendarInitial} />
+                <Stack.Screen name="CyclePeriod1" component={CyclePeriod1} />
+                <Stack.Screen name="CyclePeriod2" component={CyclePeriod2} />
+                <Stack.Screen name="MenstruationIntro" component={MenstruationIntro} />
+                <Stack.Screen name="Intro_Period_Prediction" component={Intro_Period_Prediction} />
+                <Stack.Screen name="Infonotice_Menstruation" component={Infonotice_Menstruation} />
+
             </Stack.Navigator>
+            
         </NavigationContainer>
     )
 }
