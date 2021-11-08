@@ -95,7 +95,7 @@ class Signup extends React.Component {
             <StyledContainer>
                 <StatusBar style="dark"/>
                 <InnerContainer>
-                    <PageLogo source={require('./../assets/images/logo.png')} />
+                    <PageLogo source={require('../../assets/images/logo.png')} />
                     <Formik
                         validationSchema={signUpValidationSchema}
                         initialValues={{fullName: '', email: '', password: '',login:''}}
@@ -196,25 +196,26 @@ class Signup extends React.Component {
                         </PrivacyArea>
 
 
-                            <StyledButton disabled={! isValid } onPress={handleSubmit}>
+                            <StyledButton disabled={! isValid || isSubmitting} onPress={handleSubmit} testID='SubmitButton'>
                                 <ButtonText>Signup</ButtonText>
                             </StyledButton>
 
-                        <IconContainer>
+                        <IconContainer style={{marginBottom: "0%", paddingBottom: "0%"}}>
                             <EachIconContainer>
-                                <IconLogo  onPress={handleSubmit} source={require('./../assets/images/google.png')} />
+                                <IconLogo  onPress={handleSubmit} source={require('../../assets/images/google.png')} />
                             </EachIconContainer>
                             <EachIconContainer>
-                                <IconLogo onPress={handleSubmit} source={require('./../assets/images/facebook.png')} />
+                                <IconLogo onPress={handleSubmit} source={require('../../assets/images/facebook.png')} />
                             </EachIconContainer>
                             <EachIconContainer>
-                                <IconLogo onPress={handleSubmit} source={require('./../assets/images/apple.png')} />
+                                <IconLogo onPress={handleSubmit} source={require('../../assets/images/apple.png')} />
                             </EachIconContainer>
                         </IconContainer>
-                        <ExtraView>
-                            <ExtraText>Already Have An Account?</ExtraText>
-                            <TextLink  onPress = {() => this.props.navigation.navigate("Login")}>
-                                <TextLinkContent>Login</TextLinkContent>
+                        <ExtraView style={{paddingTop: "0%", paddingBottom: "0%", marginBottom: "0%",
+                         marginTop: "0%", height: "14%"}}> 
+                            <ExtraText style={{paddingTop: "0%", paddingBottom: "0%"}}>Already Have An Account?</ExtraText>
+                            <TextLink onPress = {() => this.props.navigation.navigate("Login")} testID={"Textlink"}>
+                                <TextLinkContent style={{paddingTop: "0%", paddingBottom: "0%"}}>Login</TextLinkContent>
                             </TextLink>
                         </ExtraView>
                     </StyledFormArea>)}

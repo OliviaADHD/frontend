@@ -6,7 +6,7 @@ import {
   StyledTitle,
   TextBlockBorders,
   BlockText,
-}from './../components/styles';
+}from '../../components/styles';
 
 export default function Privacy({navigation}) {
   return (
