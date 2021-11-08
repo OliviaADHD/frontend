@@ -9,7 +9,8 @@ import * as Google from 'expo-auth-session/providers/google';
 import * as Facebook from 'expo-auth-session/providers/facebook';
 import { ResponseType } from 'expo-auth-session';
 import * as WebBrowser from 'expo-web-browser';
-
+import { connect } from "react-redux";
+import {signIn} from '../../src/actions/user/user'
 import {
   StyledContainer,
   InnerContainer,
@@ -30,6 +31,17 @@ import {
   TextLink,
   TextLinkContent,
 } from './../components/styles';
+
+import * as yup from 'yup'
+
+const signInValidationSchema = yup.object().shape({
+    email: yup
+      .string().label('Email')
+      .email("Please enter valid email")
+      .required('Email is required'),
+    password: yup
+      .string().label('Password')
+  })
 
 
 WebBrowser.maybeCompleteAuthSession();
@@ -71,10 +83,28 @@ const Login = ({navigation}) => {
                 <PageLogo source={require('./../assets/images/logo.png')} />
                 <Formik
                     initialValues={{email: '', password: ''}}
+                    validationSchema={signInValidationSchema}
                     onSubmit={(values) => {
                         console.log(values['email']);
                         if (values['email']===""){console.log('empty')}
                         console.log(values);
+                        this.props.onSignup(values);                            
+
+                        if(this.state.message){
+                            if (this.state.message.code==201){
+                                this.props.navigation.navigate("Welcome_Post_Signup")
+                            }else{
+                                if(this.state.message.text.includes("Email")){
+                                    this.setState({emailError:true});
+                                }else if(this.state.message.text.includes("Login")){
+                                    this.setState({loginError:true}); 
+                                }
+                            }
+
+
+                        }
+
+                        
                     }}
                 >{({handleChange, handleBlur, handleSubmit, values})=> (<StyledFormArea>
                     <MyTextInput 
@@ -149,4 +179,19 @@ const MyTextInput = ({isPassword, icon, hidePassword, setHidePassword, ...props}
     )
 }
 
-export default Login;
+const mapStateToProps = state => {
+    const { message } = state.user;
+    //console.log('login mapStateToProps ... state:' + JSON.stringify(state));
+    //console.log('login mapStateToProps ... props:' + JSON.stringify({ message }));
+    return { message };
+};
+
+
+const mapDispatchToProps = {
+    onSignin :  signIn,
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  )(Login);

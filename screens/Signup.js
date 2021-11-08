@@ -25,8 +25,9 @@ import {
     PrivacyText,
     PrivacyArea,
     DisabledButton
-}from './../components/styles';
-import {newUser, beforeSignUP} from '../src/actions/user/user'
+}from '../../components/styles';
+
+import {newUser, beforeSignUP} from '../../src/actions/user/user'
 import * as yup from 'yup'
 
 const signUpValidationSchema = yup.object().shape({
@@ -99,19 +100,21 @@ class Signup extends React.Component {
                         validationSchema={signUpValidationSchema}
                         initialValues={{fullName: '', email: '', password: '',login:''}}
                         onSubmit={(values) => {
-                            console.warn(values)
                             this.props.onSignup(values);                            
-                            console.warn(this.state.message);
-                            if(this.state.message){
-                                if(this.state.message.text.includes("Email")){
-                                    this.setState({emailError:true});
-                                }else if(this.state.message.text.includes("Login")){
-                                    this.setState({loginError:true});
- 
+
+                                if(this.state.message){
+                                    if (this.state.message.code==201){
+                                        this.props.navigation.navigate("Welcome_Post_Signup")
+                                    }else{
+                                        if(this.state.message.text.includes("Email")){
+                                            this.setState({emailError:true});
+                                        }else if(this.state.message.text.includes("Login")){
+                                            this.setState({loginError:true}); 
+                                        }
+                                    }
+
+
                                 }
-                            }
-
-
                         }}
                     >
                     {({handleChange, values, handleSubmit, errors, isValid, isSubmitting, touched, handleBlur})=> (
