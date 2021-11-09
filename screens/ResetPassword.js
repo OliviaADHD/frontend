@@ -18,22 +18,21 @@ import {
 
 export default function ResetPassword({navigation}) {
 
-  //! Check this link out: https://formik.org/docs/guides/react-native
+  //! Below is based on this: https://formik.org/docs/overview
 
   return (
-    <StyledContainer>   
-    <StatusBar style="dark"/>
-    <InnerContainer>
-    
+  <StyledContainer>   
+  <StatusBar style="dark"/>
+  <InnerContainer>
 
-      <MediumExtraText style={{ color : '#694398', marginTop : '20%', paddingBottom: '10%' }}>Forgot your password?</MediumExtraText>
+    <MediumExtraText style={{ color : '#694398', marginTop : '20%', paddingBottom: '10%' }}>Forgot your password?</MediumExtraText>
       
-      <BlockText style={{textAlign: 'center'}}>
+    <BlockText style={{textAlign: 'center'}}>
       Enter Your Registered Email Below To Receive Password Reset Instruction{"\n"}{"\n"}
-      </BlockText>
+    </BlockText>
       
-    
     <Formik
+
       initialValues={{ email: '' }}
       validate={values => {
         const errors = {};
@@ -42,45 +41,50 @@ export default function ResetPassword({navigation}) {
         } 
         return errors;
       }}
-      
+      onSubmit={(values, { setSubmitting }) => {
+        setTimeout(() => {
+          alert(JSON.stringify(values, null, 2));
+          setSubmitting(false);
+        }, 400);
+      }}
     >{({    
-      values,
-      errors,
-      touched,
-      handleChange,
-      handleBlur,
-      handleSubmit,
-      isSubmitting})=> (
-        <StyledFormArea>
-      <View>
-
-        <StyledTextInput
-            type="email"
-            name="email" 
-            placeholder="Email ID"
-            onChangeText={handleChange('email')}
-            onBlur={handleBlur('email')}
-            value={values.email}
-            keyboardType="email-address"
-          />
+        values,
+        errors,
+        touched,
+        handleChange,
+        handleBlur,
+        handleSubmit,
+        isSubmitting})=> (
           
-          {errors.email && touched.email && errors.email}
+          <StyledFormArea>
+            <View>
+          
+              <StyledTextInput
+                type="email"
+                name="email" 
+                placeholder="Email ID"
+                onChangeText={handleChange('email')}
+                onBlur={handleBlur('email')}
+                value={values.email}
+                keyboardType="email-address"
+              />
+            
+              {errors.email && touched.email && 
+              <ErrorMessage>
+                <ErrorText>{errors.email}</ErrorText>
+              </ErrorMessage> }
 
-          <StyledButton onPress={handleSubmit}>
-                        <ButtonText>Submit</ButtonText>
-                    </StyledButton>
+              <StyledButton type="submit" disabled={isSubmitting} onPress={handleSubmit}>
+                <ButtonText>Submit</ButtonText>
+              </StyledButton>
 
-           </View>
+            </View>
           </StyledFormArea>
-         )}
-      
+        )}
 
-   </Formik>
-
-    
-    </InnerContainer>
-</StyledContainer>
-  );
-
-}
+    </Formik>
+ 
+  </InnerContainer>
+  </StyledContainer>
+  )}
 
