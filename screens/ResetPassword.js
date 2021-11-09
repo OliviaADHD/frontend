@@ -1,8 +1,8 @@
-import React, { useState, TextInput} from "react";
+import React, { useState } from "react";
 import { StatusBar } from "expo-status-bar";
 import { Formik, Field } from 'formik';
 
-import { View } from "react-native";
+import { View, TextInput, Button } from "react-native";
 
 import {
   StyledContainer,
@@ -16,7 +16,6 @@ import {
 
 
 export default function ResetPassword({navigation}) {
-  // const [email, setEmail] = useState('');
 
   //! Check this link out: https://formik.org/docs/guides/react-native
 
@@ -32,62 +31,52 @@ export default function ResetPassword({navigation}) {
       Enter Your Registered Email Below To Receive Password Reset Instruction{"\n"}{"\n"}
       </BlockText>
       
-      {/* <StyledFormArea> */}
     
     <Formik
-      // initialValues={{email: ''}}
-      // onSubmit={(values) => {
-      //     console.log(values['email']);
-      //     if (values['email']===""){console.log('empty')}
-      //     console.log(values);
-      //   }}  
-
-      // initialValues={{ email: '' }}
-      // onSubmit={values => console.log(values)}
+      initialValues={{ email: '' }}
+      validate={values => {
+        const errors = {};
+        if (!values.email) {
+          errors.email = 'Required';
+        } 
+        return errors;
+      }}
+      onSubmit={(values, { setSubmitting }) => {
+        setTimeout(() => {
+          alert(JSON.stringify(values, null, 1));
+          setSubmitting(false);
+        }, 400);
+      }}
       
-    >{({handleChange, handleBlur, handleSubmit, values})=> (<StyledFormArea>
+    >{({    values,
+      errors,
+      touched,
+      handleChange,
+      handleBlur,
+      handleSubmit,
+      isSubmitting})=> (
+      // <StyledFormArea>
+      // <View>
       <View>
-          <MyForm
-            // name="email" 
+        <TextInput
+            type="email"
+            name="email" 
             placeholder="Email ID"
             onChangeText={handleChange('email')}
             onBlur={handleBlur('email')}
             value={values.email}
             keyboardType="email-address"
           />
+          {errors.email && touched.email && errors.email}
+          <ButtonText type="submit" disabled={isSubmitting}>
+             Submit
+           </ButtonText>
+           </View>
+         )}
+      
 
-        <StyledButton onPress={handleSubmit}>
-          <ButtonText>Submit</ButtonText>
-        </StyledButton>
-      </View>
-    </StyledFormArea>)}
-
-      {/* <Formik
-     initialValues={{ email: '' }}
-     onSubmit={values => console.log(values)}
-   >
-     {({ handleChange, handleBlur, handleSubmit, values }) => (
-
-      <View>
-         <TextInput
-          placeholder="Email ID"
-           onChangeText={handleChange('email')}
-           onBlur={handleBlur('email')}
-           value={values.email}
-         />
-         <ButtonText onPress={handleSubmit} title="Submit" /> */}
-
-        {/* <StyledButton onPress = {() => navigation.navigate("Login")}>
-          <ButtonText>Submit</ButtonText>
-        </StyledButton> */}
-
-      {/* </View> */}
-
-     {/* )} */}
    </Formik>
 
-        
-      {/* </StyledFormArea> */}
     
     </InnerContainer>
 </StyledContainer>
@@ -95,17 +84,3 @@ export default function ResetPassword({navigation}) {
 
 }
 
-export const MyForm = () => (
-  <Formik
-    initialValues={{ email: '' }}
-    onSubmit={values => alert(JSON.stringify(values, null, 2))}
-  >
-    {({ errors, touched }) => (
-      <Form>
-        <Field validate={validate} name="email" type="email" />
-        {errors.email && touched.email ? <div>{errors.email}</div> : null}
-        <button type="submit">Submit</button>
-      </Form>
-    )}
-  </Formik>
-);
