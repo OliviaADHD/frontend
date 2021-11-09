@@ -42,12 +42,12 @@ export default function ResetPassword({navigation}) {
         } 
         return errors;
       }}
-      onSubmit={(values, { setSubmitting }) => {
-        setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
-          setSubmitting(false);
-        }, 400);
-      }}
+      // onSubmit={(values, { setSubmitting }) => {
+      //   setTimeout(() => {
+      //     alert(JSON.stringify(values, null, 2));
+      //     setSubmitting(false);
+      //   }, 400);
+      // }}
       
     >{({    
       values,
@@ -72,9 +72,13 @@ export default function ResetPassword({navigation}) {
           
           {errors.email && touched.email && errors.email}
 
-          <StyledButton type="submit" disabled={isSubmitting}>
+          <StyledButton onPress={handleSubmit}>
+                        <ButtonText>Submit</ButtonText>
+                    </StyledButton>
+
+          {/* <StyledButton type="submit" disabled={isSubmitting}>
             <ButtonText> Submit </ButtonText>
-           </StyledButton>
+           </StyledButton> */}
            </View>
           </StyledFormArea>
          )}
