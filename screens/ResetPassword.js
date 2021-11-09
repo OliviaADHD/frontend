@@ -68,9 +68,9 @@ export default function ResetPassword({navigation}) {
             keyboardType="email-address"
           />
           {errors.email && touched.email && errors.email}
-          <ButtonText type="submit" disabled={isSubmitting}>
-             Submit
-           </ButtonText>
+          <StyledButton type="submit" disabled={isSubmitting}>
+            <ButtonText> Submit </ButtonText>
+           </StyledButton>
            </View>
          )}
       
