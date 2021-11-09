@@ -8,6 +8,7 @@ import {
   StyledContainer,
   InnerContainer,
   MediumExtraText,
+  StyledTextInput,
   StyledFormArea,
   StyledButton,
   ButtonText,
@@ -43,22 +44,23 @@ export default function ResetPassword({navigation}) {
       }}
       onSubmit={(values, { setSubmitting }) => {
         setTimeout(() => {
-          alert(JSON.stringify(values, null, 1));
+          alert(JSON.stringify(values, null, 2));
           setSubmitting(false);
         }, 400);
       }}
       
-    >{({    values,
+    >{({    
+      values,
       errors,
       touched,
       handleChange,
       handleBlur,
       handleSubmit,
       isSubmitting})=> (
-      // <StyledFormArea>
-      // <View>
+        <StyledFormArea>
       <View>
-        <TextInput
+
+        <StyledTextInput
             type="email"
             name="email" 
             placeholder="Email ID"
@@ -67,11 +69,14 @@ export default function ResetPassword({navigation}) {
             value={values.email}
             keyboardType="email-address"
           />
+          
           {errors.email && touched.email && errors.email}
+
           <StyledButton type="submit" disabled={isSubmitting}>
             <ButtonText> Submit </ButtonText>
            </StyledButton>
            </View>
+          </StyledFormArea>
          )}
       
 
