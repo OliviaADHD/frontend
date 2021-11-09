@@ -42,12 +42,6 @@ export default function ResetPassword({navigation}) {
         } 
         return errors;
       }}
-      // onSubmit={(values, { setSubmitting }) => {
-      //   setTimeout(() => {
-      //     alert(JSON.stringify(values, null, 2));
-      //     setSubmitting(false);
-      //   }, 400);
-      // }}
       
     >{({    
       values,
@@ -76,9 +70,6 @@ export default function ResetPassword({navigation}) {
                         <ButtonText>Submit</ButtonText>
                     </StyledButton>
 
-          {/* <StyledButton type="submit" disabled={isSubmitting}>
-            <ButtonText> Submit </ButtonText>
-           </StyledButton> */}
            </View>
           </StyledFormArea>
          )}
