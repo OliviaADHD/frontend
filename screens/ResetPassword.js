@@ -1,6 +1,6 @@
 import React, { useState, TextInput, View } from "react";
 import { StatusBar } from "expo-status-bar";
-import { Formik } from 'formik';
+import { Formik, Field } from 'formik';
 
 import {
   StyledContainer,
@@ -41,12 +41,13 @@ export default function ResetPassword({navigation}) {
         }}  
       
     >{({handleChange, handleBlur, handleSubmit, values})=> (<StyledFormArea>
-          <TextInput 
+          <Field
+          name="email" 
               placeholder="Email"
               onChangeText={handleChange('email')}
               onBlur={handleBlur('email')}
               value={values.email}
-              keyboardType="email-address"
+              // keyboardType="email-address"
           />
 
 <StyledButton onPress={handleSubmit}>
