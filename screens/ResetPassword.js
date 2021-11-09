@@ -1,6 +1,8 @@
-import React, { useState, TextInput, View } from "react";
+import React, { useState, TextInput} from "react";
 import { StatusBar } from "expo-status-bar";
 import { Formik, Field } from 'formik';
+
+import { View } from "react-native";
 
 import {
   StyledContainer,
@@ -33,28 +35,32 @@ export default function ResetPassword({navigation}) {
       {/* <StyledFormArea> */}
     
     <Formik
-      initialValues={{email: ''}}
-      onSubmit={(values) => {
-          console.log(values['email']);
-          if (values['email']===""){console.log('empty')}
-          console.log(values);
-        }}  
+      // initialValues={{email: ''}}
+      // onSubmit={(values) => {
+      //     console.log(values['email']);
+      //     if (values['email']===""){console.log('empty')}
+      //     console.log(values);
+      //   }}  
+
+      // initialValues={{ email: '' }}
+      // onSubmit={values => console.log(values)}
       
     >{({handleChange, handleBlur, handleSubmit, values})=> (<StyledFormArea>
-          <Field
-          name="email" 
-              placeholder="Email"
-              onChangeText={handleChange('email')}
-              onBlur={handleBlur('email')}
-              value={values.email}
-              // keyboardType="email-address"
+      <View>
+          <MyForm
+            // name="email" 
+            placeholder="Email ID"
+            onChangeText={handleChange('email')}
+            onBlur={handleBlur('email')}
+            value={values.email}
+            keyboardType="email-address"
           />
 
-<StyledButton onPress={handleSubmit}>
-                        <ButtonText>Submit</ButtonText>
-                    </StyledButton>
-
-                    </StyledFormArea>)}
+        <StyledButton onPress={handleSubmit}>
+          <ButtonText>Submit</ButtonText>
+        </StyledButton>
+      </View>
+    </StyledFormArea>)}
 
       {/* <Formik
      initialValues={{ email: '' }}
@@ -86,4 +92,20 @@ export default function ResetPassword({navigation}) {
     </InnerContainer>
 </StyledContainer>
   );
+
 }
+
+export const MyForm = () => (
+  <Formik
+    initialValues={{ email: '' }}
+    onSubmit={values => alert(JSON.stringify(values, null, 2))}
+  >
+    {({ errors, touched }) => (
+      <Form>
+        <Field validate={validate} name="email" type="email" />
+        {errors.email && touched.email ? <div>{errors.email}</div> : null}
+        <button type="submit">Submit</button>
+      </Form>
+    )}
+  </Formik>
+);
