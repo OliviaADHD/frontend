@@ -30,9 +30,32 @@ export default function ResetPassword({navigation}) {
       Enter Your Registered Email Below To Receive Password Reset Instruction{"\n"}{"\n"}
       </BlockText>
       
-      <StyledFormArea>
+      {/* <StyledFormArea> */}
+    
+    <Formik
+      initialValues={{email: ''}}
+      onSubmit={(values) => {
+          console.log(values['email']);
+          if (values['email']===""){console.log('empty')}
+          console.log(values);
+        }}  
+      
+    >{({handleChange, handleBlur, handleSubmit, values})=> (<StyledFormArea>
+          <TextInput 
+              placeholder="Email"
+              onChangeText={handleChange('email')}
+              onBlur={handleBlur('email')}
+              value={values.email}
+              keyboardType="email-address"
+          />
 
-      <Formik
+<StyledButton onPress={handleSubmit}>
+                        <ButtonText>Submit</ButtonText>
+                    </StyledButton>
+
+                    </StyledFormArea>)}
+
+      {/* <Formik
      initialValues={{ email: '' }}
      onSubmit={values => console.log(values)}
    >
@@ -45,19 +68,19 @@ export default function ResetPassword({navigation}) {
            onBlur={handleBlur('email')}
            value={values.email}
          />
-         <ButtonText onPress={handleSubmit} title="Submit" />
+         <ButtonText onPress={handleSubmit} title="Submit" /> */}
 
-      //    <StyledButton onPress = {() => navigation.navigate("Login")}>
-      //    <ButtonText>Submit</ButtonText>
-      //  </StyledButton>
+        {/* <StyledButton onPress = {() => navigation.navigate("Login")}>
+          <ButtonText>Submit</ButtonText>
+        </StyledButton> */}
 
-      </View>
+      {/* </View> */}
 
-     )}
+     {/* )} */}
    </Formik>
 
         
-      </StyledFormArea>
+      {/* </StyledFormArea> */}
     
     </InnerContainer>
 </StyledContainer>
