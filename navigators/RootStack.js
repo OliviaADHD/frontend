@@ -8,7 +8,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import Login from './../screens/LoginSignup/Login';
 import Welcome from '../screens/LoginSignup/Welcome';
-import { Signup } from './../screens/LoginSignup/Signup';
+import Signup from './../screens/LoginSignup/Signup';
 import Privacy from '../screens/LoginSignup/Privacy';
 import Questionnaire from '../screens/Onboarding/Questionnaire';
 import Welcome_Post_Signup from '../screens/Onboarding/Welcome_Post_Signup';
@@ -50,13 +50,13 @@ const RootStack = () => {
                     component = {Welcome}
                     />
                 <Stack.Screen name='Login' component={Login} />
-                <Stack.Screen options={{ headerTintColor: black}} name='Signup' component={Signup} />
+                <Stack.Screen options={{  headerLeft: null }} name='Signup' component={Signup} />
                 <Stack.Screen name='Privacy' component={Privacy} options={{
                     title:'Privacy Policy',
                     headerStyle:{backgroundColor:'#eee', height:60},
                     headerTintColor:'black'
                 }} />
-                <Stack.Screen name='Welcome_Post_Signup' component={Welcome_Post_Signup} />
+                <Stack.Screen name='Welcome_Post_Signup' component={Welcome_Post_Signup} options ={{header: () => null}}/>
                 <Stack.Screen name="Questionnaire" component={Questionnaire} />
                 <Stack.Screen name="CalendarInitial" component={CalendarInitial} />
                 <Stack.Screen name="CyclePeriod1" component={CyclePeriod1} />
@@ -67,7 +67,7 @@ const RootStack = () => {
 
                 <Stack.Screen name="Cycle" component={Cycle} />
                 <Stack.Screen name="Awareness" component={Awareness} />
-                <Stack.Screen name="Home" component={Home} />
+                <Stack.Screen name="Home" component={Home}  options ={{header: () => null}} />
                 <Stack.Screen name="ToDoList" component={ToDoList} />
                 <Stack.Screen name="Profile" component={Profile} />
 

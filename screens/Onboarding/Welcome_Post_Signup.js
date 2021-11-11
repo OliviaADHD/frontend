@@ -10,7 +10,9 @@ import {
     ButtonText,
 }from '../../components/styles';
 
-const Welcome_Post_Signup = ({navigation}) => {
+const Welcome_Post_Signup = ({navigation, route }) => {
+  const { name, id } = route.params;
+  
   return (
     
     <StyledContainer>   
@@ -19,7 +21,7 @@ const Welcome_Post_Signup = ({navigation}) => {
 
       <CenteredImage source={require('../../assets/images/woman_waving.png')} />
         
-      <MediumExtraText>Hi There, We Would Love To Know About You!</MediumExtraText>
+      <MediumExtraText>Hi {name}, We Would Love To Know About You!</MediumExtraText>
       
       <StyledFormArea>
         <StyledButton onPress = {() => navigation.replace("Questionnaire")}>
