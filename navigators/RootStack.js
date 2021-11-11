@@ -56,7 +56,7 @@ const RootStack = () => {
                     headerStyle:{backgroundColor:'#eee', height:60},
                     headerTintColor:'black'
                 }} />
-                <Stack.Screen name='Welcome_Post_Signup' component={Welcome_Post_Signup} />
+                <Stack.Screen name='Welcome_Post_Signup' component={Welcome_Post_Signup} options ={{header: () => null}}/>
                 <Stack.Screen name="Questionnaire" component={Questionnaire} />
                 <Stack.Screen name="CalendarInitial" component={CalendarInitial} />
                 <Stack.Screen name="CyclePeriod1" component={CyclePeriod1} />
@@ -67,7 +67,7 @@ const RootStack = () => {
 
                 <Stack.Screen name="Cycle" component={Cycle} />
                 <Stack.Screen name="Awareness" component={Awareness} />
-                <Stack.Screen name="Home" component={Home} />
+                <Stack.Screen name="Home" component={Home}  options ={{header: () => null}} />
                 <Stack.Screen name="ToDoList" component={ToDoList} />
                 <Stack.Screen name="Profile" component={Profile} />
 

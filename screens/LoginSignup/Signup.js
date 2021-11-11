@@ -3,7 +3,7 @@ import { StatusBar } from "expo-status-bar";
 import { Formik, Field } from 'formik'
 import { connect } from "react-redux";
 import {Ionicons} from '@expo/vector-icons';
-import { View,CheckBox, StyleSheet } from "react-native";
+import { View,CheckBox, StyleSheet, ActivityIndicator } from "react-native";
 import {
     StyledContainer,
     InnerContainer,
@@ -24,10 +24,10 @@ import {
     ErrorMessage,
     PrivacyText,
     PrivacyArea,
-    DisabledButton
+    AbsoluteContainer
 }from '../../components/styles';
 
-import {newUser, beforeSignUP} from '../../src/actions/user/user'
+import {newUser, verifyEmail, verifyLogin, beforeValidEmail, beforeValidLogin, beforeSignUP} from '../../src/actions/user/user'
 import * as yup from 'yup'
 
 const signUpValidationSchema = yup.object().shape({
@@ -61,9 +61,14 @@ class Signup extends React.Component {
             emailError:false,
             isSelected: false,
             isDisabled: true,
-            message:{}
+            signUpInfo:{},
+            validateLoginInfo:{},
+            validateEmailInfo:{},
+            loading: false,
+
         }
-        this.state.message = this.props.message       
+        this.state.validateLoginInfo = this.props.validateLoginInfo;
+        this.state.validateEmailInfo = this.props.validateEmailInfo;
     }
 
 
@@ -100,21 +105,44 @@ class Signup extends React.Component {
                         validationSchema={signUpValidationSchema}
                         initialValues={{fullName: '', email: '', password: '',login:''}}
                         onSubmit={(values) => {
-                            this.props.onSignup(values);                            
-
-                                if(this.state.message){
-                                    if (this.state.message.code==201){
-                                        this.props.navigation.navigate("Welcome_Post_Signup")
-                                    }else{
-                                        if(this.state.message.text.includes("Email")){
-                                            this.setState({emailError:true});
-                                        }else if(this.state.message.text.includes("Login")){
-                                            this.setState({loginError:true}); 
-                                        }
-                                    }
-
-
+                            this.setState({loading:true});
+                            this.props.cleanSignup();
+                            this.props.cleanEmail();
+                            this.props.cleanLogin();
+                            this.props.verifyLogin(values.login);
+                            this.props.verifyEmail(values.email);
+                            
+                            setTimeout(() => {  
+                                if(this.props.validateLoginInfo.message.passed == false){
+                                    this.setState({loginError:true});
+                                    this.setState({loading:false});
+                                }else{
+                                    this.setState({loginError:false});
                                 }
+
+                                if(this.props.validateEmailInfo.message.passed == false){
+                                    this.setState({emailError:true});
+                                    this.setState({loading:false});
+                                }else{
+                                    this.setState({emailError:false});
+                                }
+                                
+                                if(this.props.validateEmailInfo.message.passed == true && this.props.validateLoginInfo.message.passed == true){
+                                    this.props.onSignup(values);
+                                    setTimeout( () =>{
+                                        if(this.props.signUpInfo.message.passed == true){
+                                            this.setState({loading:false});
+                                            navState = {
+
+                                            }
+                                            this.props.navigation.navigate('Welcome_Post_Signup', {
+                                                name:this.props.signUpInfo.message.name,
+                                                id:this.props.signUpInfo.message.userId
+                                            })
+                                        }
+                                    }, 2000)
+                                }
+                             }, 2000);
                         }}
                     >
                     {({handleChange, values, handleSubmit, errors, isValid, isSubmitting, touched, handleBlur})=> (
@@ -196,7 +224,7 @@ class Signup extends React.Component {
                         </PrivacyArea>
 
 
-                            <StyledButton disabled={! isValid || isSubmitting} onPress={handleSubmit} testID='SubmitButton'>
+                            <StyledButton onPress={handleSubmit} testID='SubmitButton'>
                                 <ButtonText>Signup</ButtonText>
                             </StyledButton>
 
@@ -221,6 +249,11 @@ class Signup extends React.Component {
                     </StyledFormArea>)}
                     </Formik>
                 </InnerContainer>
+                {this.state.loading &&
+                    <View style={styles.loading}>
+                        <ActivityIndicator size="large" color="#694398"/>
+                    </View>
+                }
             </StyledContainer>
         );
     }
@@ -231,6 +264,17 @@ const styles = StyleSheet.create({
     checkbox: {
       alignSelf: "center",
     },
+    loading: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
+        opacity: 0.5,
+        backgroundColor: 'black',
+        justifyContent: 'center',
+        alignItems: 'center'
+    }
   });
 
 export const MyTextInput = ({isPassword, icon, hidePassword, setHidePassword, ...props}) => {
@@ -247,14 +291,23 @@ export const MyTextInput = ({isPassword, icon, hidePassword, setHidePassword, ..
 }
 
 const mapStateToProps = state => {
-    const { message } = state.user;
-    //console.log('login mapStateToProps ... state:' + JSON.stringify(state));
-    //console.log('login mapStateToProps ... props:' + JSON.stringify({ message }));
-    return { message };
+    const  {signUpInfo} = state;
+    const  {validateEmailInfo} = state;
+    const  {validateLoginInfo} = state;
+    console.log('login mapStateToProps ... state:' + JSON.stringify(state));
+    console.log('login mapStateToProps ... props:' + JSON.stringify(validateLoginInfo.message));
+    //console.log('login mapStateToProps ... props:' + JSON.stringify({validateEmailInfo}));
+    //console.log('login mapStateToProps ... props:' + JSON.stringify({signUpInfo}));
+    return {validateLoginInfo, validateEmailInfo, signUpInfo};
 };
 
 const mapDispatchToProps = {
     onSignup :  newUser,
+    cleanSignup : beforeSignUP,
+    cleanEmail: beforeValidEmail,
+    cleanLogin: beforeValidLogin,
+    verifyEmail: verifyEmail,
+    verifyLogin: verifyLogin
 };
 
 export default connect(
