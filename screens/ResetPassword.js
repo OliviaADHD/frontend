@@ -18,6 +18,7 @@ import {
 
 export default function ResetPassword({navigation}) {
 
+
   //! Below is based on this: https://formik.org/docs/overview
 
   return (
@@ -44,7 +45,7 @@ export default function ResetPassword({navigation}) {
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
             alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
+            setSubmitting(true);
           }, 400);
         }}
       >{({    
@@ -86,6 +87,5 @@ export default function ResetPassword({navigation}) {
   
     </InnerContainer>
   </StyledContainer>
-  )
+  );
 }
-
