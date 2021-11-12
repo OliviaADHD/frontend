@@ -5,33 +5,32 @@ import {
   StyledContainer,
   InnerContainer,
   MediumExtraText,
-  StyledTextInput,
   StyledFormArea,
   StyledButton,
   ButtonText,
-  BlockText,
-  ExtraText,
 }from './../components/styles';
 
 export default function MessageResetPassword({navigation}) {
   return (
    
     <StyledContainer>   
-    <StatusBar style="dark"/>
-    <InnerContainer>
+      <StatusBar style="dark"/>
 
-    <MediumExtraText style={{ fontSize: 20, marginTop : '40%' }}>
-      To reset your password, please check your emails and go back to the Login page.
-    </MediumExtraText>
+      <InnerContainer>
 
-    <StyledFormArea>
-        <StyledButton onPress = {() => navigation.navigate("Login")}>
-          <ButtonText>Back to Login page</ButtonText>
-        </StyledButton>
-      </StyledFormArea>
+        <MediumExtraText style={{ fontSize: 20, marginTop : '40%' }}>
+          To reset your password, please check your emails and go back to the Login page.
+        </MediumExtraText>
 
-    </InnerContainer>
-</StyledContainer>
+        <StyledFormArea>
+            <StyledButton onPress = {() => navigation.navigate("Login")}>
+              <ButtonText>Back to Login page</ButtonText>
+            </StyledButton>
+          </StyledFormArea>
+
+      </InnerContainer>
+      
+    </StyledContainer>
 
 
   )

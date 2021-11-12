@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { StatusBar } from "expo-status-bar";
-import { Formik, Field } from 'formik';
+import { Formik } from 'formik';
 
-import { View, TextInput, Button } from "react-native";
+import { View } from "react-native";
 
 import {
   StyledContainer,
@@ -19,7 +19,9 @@ import {
 export default function ResetPassword({navigation}) {
 
 
-  //! Below is based on this: https://formik.org/docs/overview
+  //! Form is based on this: https://formik.org/docs/overview
+  //! Fetch request not done
+  //! Error message not completed
 
   return (
   <StyledContainer>   
