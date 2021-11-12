@@ -14,6 +14,7 @@ import Questionnaire from './../screens/Questionnaire';
 import Welcome_Post_Signup from './../screens/Welcome_Post_Signup';
 import CalendarInitial from './../screens/CalendarInitial';
 import ResetPassword from './../screens/ResetPassword';
+import MessageResetPassword from './../screens/MessageResetPassword';
 
 
 const Stack = createStackNavigator();
@@ -50,6 +51,7 @@ const RootStack = () => {
                 <Stack.Screen name="Questionnaire" component={Questionnaire} />
                 <Stack.Screen name="CalendarInitial" component={CalendarInitial} />
                 <Stack.Screen name="ResetPassword" component={ResetPassword} />
+                <Stack.Screen name="MessageResetPassword" component={MessageResetPassword} />
             </Stack.Navigator>
         </NavigationContainer>
     )

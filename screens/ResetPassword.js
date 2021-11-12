@@ -77,7 +77,7 @@ export default function ResetPassword({navigation}) {
 
                 <StyledButton type="submit" disabled={isSubmitting} onPress={() => {
                   handleSubmit
-                  navigation.navigate("Login")
+                  navigation.navigate("MessageResetPassword")
                   }} style={{paddingTop:'5%', paddingBottom: '5%', marginTop: '10%'}}>
                   <ButtonText>Submit</ButtonText>
                 </StyledButton>
