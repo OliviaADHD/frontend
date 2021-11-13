@@ -2,6 +2,7 @@
 import React from "react";
 import { View, Text, ScrollView, CheckBox } from "react-native";
 // import { CheckBox } from 'react-native-elements';
+import { Formik } from 'formik'
 import { StatusBar } from "expo-status-bar";
 // import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import {
@@ -15,6 +16,8 @@ import {
   CheckboxContainer,
   white,
   purple,
+  PrivacyArea,
+  StyledFormArea,
 }from './../components/styles';
 
 export default function Privacy({navigation}) {
@@ -46,19 +49,24 @@ export default function Privacy({navigation}) {
 
               </BlockText>
             </Text>
+            <Formik>
+            <StyledFormArea>
             {/* <PrivacyText> */}
-            <CheckboxContainer>
+            <PrivacyArea>
+            {/* <CheckboxContainer style={{width: '100%'}}> */}
             
             <CheckBox
-              center
-              title='xxx'
+              // boxType="square"
               value={agree}
-              onChange={() => setAgree(!agree)}
-              // style={styles.checkbox}
+              onValueChange={() => setAgree(!agree)}
+              // style={{}}
             />
-            <PrivacyText  onPress = {() => navigation.navigate('Signup')}>I have read and agreed with this Privacy Policy.</PrivacyText>
-              </CheckboxContainer>
+            <PrivacyText>I have read and agreed with this Privacy Policy.</PrivacyText>
+              {/* </CheckboxContainer> */}
             {/* </PrivacyText> */}
+            </PrivacyArea>
+            </StyledFormArea>
+            </Formik>
           </TextBlockBorders>
         </View>
       </ScrollView>
