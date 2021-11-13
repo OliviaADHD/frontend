@@ -52,14 +52,7 @@ export default function Privacy({navigation}) {
               </BlockText>
             </Text>
 
-            
-            
             <StyledFormArea>
-            
-            {/* <PrivacyArea>
-            <PrivacyText> */}
-            {/* <CheckboxContainer style={{width: '100%'}}> */}
-            
 
 {/* <BouncyCheck style={{backgroundColor: checkboxState ? white : purple}}> */}
 {/* <Text
@@ -75,10 +68,6 @@ export default function Privacy({navigation}) {
   onPress={() => setCheckboxState(!checkboxState)}
 />
 
-            {/* <PrivacyText>I have read and agreed with this Privacy Policy.</PrivacyText> */}
-              {/* </CheckboxContainer> */}
-            {/* </PrivacyText>
-            </PrivacyArea> */}
             </StyledFormArea>
 
 
