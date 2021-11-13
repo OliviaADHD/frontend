@@ -4,7 +4,7 @@ import { View, Text, ScrollView, CheckBox } from "react-native";
 // import { CheckBox } from 'react-native-elements';
 import { Formik } from 'formik'
 import { StatusBar } from "expo-status-bar";
-// import BouncyCheckbox from 'react-native-bouncy-checkbox';
+import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import {
   StyledTitle,
   TextBlockBorders,
@@ -49,25 +49,32 @@ export default function Privacy({navigation}) {
 
               </BlockText>
             </Text>
-            <Formik>
-            <StyledFormArea>
+
+            
+            
+            {/* <StyledFormArea> */}
             {/* <PrivacyText> */}
-            <PrivacyArea>
+            {/* <PrivacyArea> */}
             {/* <CheckboxContainer style={{width: '100%'}}> */}
             
-            <CheckBox
+            <BouncyCheckbox
               // boxType="square"
               value={agree}
               onValueChange={() => setAgree(!agree)}
+              onCheckColor="purple"
+              onFillColor="purple"
+              onTintColor="purple"
               // style={{}}
             />
             <PrivacyText>I have read and agreed with this Privacy Policy.</PrivacyText>
               {/* </CheckboxContainer> */}
             {/* </PrivacyText> */}
-            </PrivacyArea>
-            </StyledFormArea>
-            </Formik>
+            {/* </PrivacyArea> */}
+            {/* </StyledFormArea> */}
+
+
           </TextBlockBorders>
+              
         </View>
       </ScrollView>
     </InnerContainer>
