@@ -1,4 +1,3 @@
-
 import React from "react";
 import { View, Text, ScrollView, CheckBox } from "react-native";
 // import { CheckBox } from 'react-native-elements';
@@ -16,12 +15,15 @@ import {
   CheckboxContainer,
   white,
   purple,
+  black,
   PrivacyArea,
   StyledFormArea,
+  CenteredImage,
+  BouncyCheck
 }from './../components/styles';
 
 export default function Privacy({navigation}) {
-  const [ agree, setAgree ] = React.useState(false);
+  const [ checkboxState, setCheckboxState ] = React.useState(false);
   return (
     <StyledContainer>   
     <StatusBar style="dark"/>
@@ -52,25 +54,32 @@ export default function Privacy({navigation}) {
 
             
             
-            {/* <StyledFormArea> */}
-            {/* <PrivacyText> */}
-            {/* <PrivacyArea> */}
+            <StyledFormArea>
+            
+            {/* <PrivacyArea>
+            <PrivacyText> */}
             {/* <CheckboxContainer style={{width: '100%'}}> */}
             
+
+{/* <BouncyCheck style={{backgroundColor: checkboxState ? white : purple}}> */}
+{/* <Text
+          style={{ color: "#fff" }}
+        >{`Check Status: ${checkboxState.toString()}`}</Text> */}
+{/* </BouncyCheck> */}
+
             <BouncyCheckbox
-              // boxType="square"
-              value={agree}
-              onValueChange={() => setAgree(!agree)}
-              onCheckColor="purple"
-              onFillColor="purple"
-              onTintColor="purple"
-              // style={{}}
-            />
-            <PrivacyText>I have read and agreed with this Privacy Policy.</PrivacyText>
+  style={{ marginTop: 16, backgroundColor: checkboxState ? white : purple }}
+  isChecked={checkboxState}
+  text="I have read and agreed with this Privacy Policy."
+  // disableBuiltInState
+  onPress={() => setCheckboxState(!checkboxState)}
+/>
+
+            {/* <PrivacyText>I have read and agreed with this Privacy Policy.</PrivacyText> */}
               {/* </CheckboxContainer> */}
-            {/* </PrivacyText> */}
-            {/* </PrivacyArea> */}
-            {/* </StyledFormArea> */}
+            {/* </PrivacyText>
+            </PrivacyArea> */}
+            </StyledFormArea>
 
 
           </TextBlockBorders>
