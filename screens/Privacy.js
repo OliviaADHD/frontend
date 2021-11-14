@@ -88,17 +88,26 @@ export default function Privacy({navigation}) {
         >I have read and agreed with this Privacy Policy.</Text>
       </View> */}
 
-            <BouncyCheckbox
-  style={{ marginTop: 16, backgroundColor: checkboxState ? "#ffffff" : "#694398" }}
-  fillColor={purple}
-  unfillColor={white}
-  // isChecked={checkboxState}
+<CheckboxContainer>
+
+  <BouncyCheckbox
+  // style={{ marginTop: 16 }}
+  size={25}
+  fillColor="#694398"
+  unfillColor="transparent"
   text="I have read and agreed with this Privacy Policy."
-  disableBuiltInState
-  onPress={() => setCheckboxState(!checkboxState)}
+  iconStyle={{ borderColor: '#694398', borderRadius: 8, borderWidth: 2 }}
+  textStyle={{ color: '#000000'}}
+  textContainerStyle={{ width: '80%', borderWidth: 2 }}
+  isChecked={checkboxState}  
+  disableBuiltInState={true}
+  onPress={(isChecked) => {
+    setCheckboxState(!checkboxState)
+    console.log(isChecked)
+  }}
 />
 
-
+</CheckboxContainer>
             </StyledFormArea>
 
 
@@ -112,3 +121,5 @@ export default function Privacy({navigation}) {
   );
 
 }
+
+// !checkboxState ? "#ffffff" : "#694398"

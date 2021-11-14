@@ -103,7 +103,7 @@ const Questionnaire = () => {
               fillColor={purple}
               unfillColor={white}
               text={answer}
-              iconStyle={{ borderColor: purple, borderRadius: '5%' }}
+              iconStyle={{ borderColor: purple, borderRadius: 5 }}
               textStyle={{ textDecorationLine: 'none' }}
               textContainerStyle={{ width: '100%', border: '1px solid red' }}
               isChecked={checkboxState}

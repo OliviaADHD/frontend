@@ -277,12 +277,12 @@ export const StyledQuestionaryButton = styled(StyledButton)`
   margin: 2% 0;
 `;
 
-export const BouncyCheck = styled.View`
-  height: 30%;
-  width: 150%;
-  align-items: center;
-  justify-content: center;
-  border-radius: 12px;
-`;
+// export const BouncyCheck = styled.View`
+//   height: 30%;
+//   width: 150%;
+//   align-items: center;
+//   justify-content: center;
+//   border-radius: 12px;
+// `;
 
 
