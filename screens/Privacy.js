@@ -1,5 +1,5 @@
-import React from "react";
-import { View, Text, ScrollView, CheckBox } from "react-native";
+import React, {useState} from "react";
+import { View, Text, ScrollView, TouchableOpacity, SafeAreaView, CheckBox } from "react-native";
 // import { CheckBox } from 'react-native-elements';
 import { Formik } from 'formik'
 import { StatusBar } from "expo-status-bar";
@@ -19,13 +19,14 @@ import {
   PrivacyArea,
   StyledFormArea,
   CenteredImage,
-  BouncyCheck
+  BouncyCheck,
+  InnerQuestionaryContainer
 }from './../components/styles';
 
 
 export default function Privacy({navigation}) {
   // let bouncyCheckboxRef: BouncyCheckbox | null = null;
-  const [ checkboxState, setCheckboxState ] = React.useState(false);
+  const [ checkboxState, setCheckboxState ] = useState(false);
   return (
     <StyledContainer>   
     <StatusBar style="dark"/>
@@ -54,62 +55,31 @@ export default function Privacy({navigation}) {
               </BlockText>
             </Text>
 
-            <StyledFormArea>
-
-{/* <BouncyCheck style={{backgroundColor: checkboxState ? white : purple}}> */}
-{/* <Text
-          style={{ color: "#fff" }}
-        >{`Check Status: ${checkboxState.toString()}`}</Text> */}
-{/* </BouncyCheck> */}
-{/* 
-            <BouncyCheckbox
-  style={{ marginTop: 16, backgroundColor: checkboxState ? "#ffffff" : "#694398" }}
-  isChecked={checkboxState}
-  text="I have read and agreed with this Privacy Policy."
-  // disableBuiltInState
-  onPress={() => setCheckboxState(!checkboxState)}
-/> */}
-
-{/* <View
-        style={{
-          height: 30,
-          width: 150,
-          alignItems: "center",
-          justifyContent: "center",
-          borderRadius: 12,
-          // backgroundColor: checkboxState ? "#34eb83" : "#eb4034",
-          backgroundColor: checkboxState ? "#ffffff": "#694398",
-        }}
-        isChecked={checkboxState}
-        onPress={() => setCheckboxState(!checkboxState)}
-      >
-        <Text
-        style={{ color: "#ffffff" }}
-        >I have read and agreed with this Privacy Policy.</Text>
-      </View> */}
-
-<CheckboxContainer>
+<SafeAreaView>
+{/* <InnerQuestionaryContainer> */}
+{/* <CheckboxContainer> */}
 
   <BouncyCheckbox
-  // style={{ marginTop: 16 }}
+  style={{ marginTop: 30 }}
   size={25}
   fillColor="#694398"
   unfillColor="transparent"
   text="I have read and agreed with this Privacy Policy."
   iconStyle={{ borderColor: '#694398', borderRadius: 8, borderWidth: 2 }}
   textStyle={{ color: '#000000'}}
-  textContainerStyle={{ width: '80%', borderWidth: 2 }}
+  textContainerStyle={{ width: '80%', borderWidth: 5 }}
   isChecked={checkboxState}  
   disableBuiltInState={true}
-  onPress={(isChecked) => {
+  // bounceEffect={1}
+  onPress={() => {
     setCheckboxState(!checkboxState)
-    console.log(isChecked)
+    // console.log(isChecked)
   }}
 />
 
-</CheckboxContainer>
-            </StyledFormArea>
-
+{/* </CheckboxContainer> */}
+{/* </InnerQuestionaryContainer> */}
+</SafeAreaView>
 
           </TextBlockBorders>
               
