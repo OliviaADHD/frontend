@@ -22,7 +22,9 @@ import {
   BouncyCheck
 }from './../components/styles';
 
+
 export default function Privacy({navigation}) {
+  // let bouncyCheckboxRef: BouncyCheckbox | null = null;
   const [ checkboxState, setCheckboxState ] = React.useState(false);
   return (
     <StyledContainer>   
@@ -59,14 +61,43 @@ export default function Privacy({navigation}) {
           style={{ color: "#fff" }}
         >{`Check Status: ${checkboxState.toString()}`}</Text> */}
 {/* </BouncyCheck> */}
-
+{/* 
             <BouncyCheckbox
-  style={{ marginTop: 16, backgroundColor: checkboxState ? white : purple }}
+  style={{ marginTop: 16, backgroundColor: checkboxState ? "#ffffff" : "#694398" }}
   isChecked={checkboxState}
   text="I have read and agreed with this Privacy Policy."
   // disableBuiltInState
   onPress={() => setCheckboxState(!checkboxState)}
+/> */}
+
+{/* <View
+        style={{
+          height: 30,
+          width: 150,
+          alignItems: "center",
+          justifyContent: "center",
+          borderRadius: 12,
+          // backgroundColor: checkboxState ? "#34eb83" : "#eb4034",
+          backgroundColor: checkboxState ? "#ffffff": "#694398",
+        }}
+        isChecked={checkboxState}
+        onPress={() => setCheckboxState(!checkboxState)}
+      >
+        <Text
+        style={{ color: "#ffffff" }}
+        >I have read and agreed with this Privacy Policy.</Text>
+      </View> */}
+
+            <BouncyCheckbox
+  style={{ marginTop: 16, backgroundColor: checkboxState ? "#ffffff" : "#694398" }}
+  fillColor={purple}
+  unfillColor={white}
+  // isChecked={checkboxState}
+  text="I have read and agreed with this Privacy Policy."
+  disableBuiltInState
+  onPress={() => setCheckboxState(!checkboxState)}
 />
+
 
             </StyledFormArea>
 
