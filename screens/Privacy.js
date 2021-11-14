@@ -59,6 +59,8 @@ export default function Privacy({navigation}) {
 {/* <InnerQuestionaryContainer> */}
 {/* <CheckboxContainer> */}
 
+{/* Check this for ticking problem: https://github.com/WrathChaos/react-native-bouncy-checkbox#synthetic-press-functionality-with-manual-check-state */}
+
   <BouncyCheckbox
   style={{ marginTop: 30 }}
   size={25}
@@ -71,8 +73,9 @@ export default function Privacy({navigation}) {
   isChecked={checkboxState}  
   disableBuiltInState={true}
   // bounceEffect={1}
-  onPress={() => {
+  onPress={(isChecked) => {
     setCheckboxState(!checkboxState)
+    return isChecked
     // console.log(isChecked)
   }}
 />
