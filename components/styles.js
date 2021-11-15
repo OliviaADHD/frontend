@@ -10,10 +10,11 @@ export const Colors = {
     disabledPurple:"#aa91c9",
     black: "#000000",
     gray: "#d3d3d3",
-    red: "#FF0000"
+    red: "#FF0000",
+    lightpurple: "#C7A3D2"
 };
 
-const { white, purple, black, gray, red,disabledPurple} = Colors;
+const { white, purple, black, gray,lightpurple,  red,disabledPurple} = Colors;
 
 export const StyledContainer = styled.View`
   flex: 1;
@@ -121,6 +122,9 @@ export const ButtonText = styled.Text`
     color: ${white};
     font-size: 20px;
     text-align: center;
+    font-weight: 500;
+    font-size: 20px;
+    top: 10%;
 `;
 export const ErrorMessage = styled.TouchableOpacity`
     background-color: ${white};
@@ -274,5 +278,67 @@ export const StyledCheckbox = styled(BouncyCheckbox)`
 `;
 
 
+export const ButtonGroup = styled.View`
+    /* position: 'absolute'; */
+    width: 246px;
+    height: 30px;
+    left: 100%;
+    top: 22%;
+    background-color: ${lightpurple};
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    /* justify-content: center;
+    align-items: center; */
+`;
 
+export const ButtonGroupContainer = styled.View`
+    width: 100%;
+    height: 80px;
+`;
+
+
+export const ButtonGroupChild = styled.View`
+    width: 123px;
+    height: 30px;
+    background-color: ${white};
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 10px;
+`;
+
+export const StyledCalendarList = styled.View`
+    width: 100%;
+    height: 700px;
+    left: -1px;
+    top: 53px;
+    
+`;
+
+export const ButtonContainers = styled.View`
+    height: 44px;
+    display: flex;
+    flex-direction: row;
+    top: 145px;
+    /* justify-content: space-between;
+    align-items: center; */
+`;
+
+export const InputMoodBtn = styled.View`
+    width: 142px;
+    height: 44px;
+    border-radius: 10px;
+    background-color: ${purple};
+    text-align: center;
+    right: 15px;
+`;
+
+export const EditPeriodBtn = styled.View`
+    width: 142px;
+    height: 44px;
+    border-radius: 10px;
+    background-color: ${purple};
+    text-align: center;
+    left: 15px;
+`;
 
