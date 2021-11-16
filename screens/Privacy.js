@@ -55,34 +55,30 @@ export default function Privacy({navigation}) {
               </BlockText>
             </Text>
 
-<SafeAreaView>
-{/* <InnerQuestionaryContainer> */}
-{/* <CheckboxContainer> */}
+            {/* Check this for ticking problem: https://github.com/WrathChaos/react-native-bouncy-checkbox#synthetic-press-functionality-with-manual-check-state */}
+            <SafeAreaView>
+              <CheckboxContainer>
+                <BouncyCheckbox
+                style={{ marginTop: 30 }}
+                size={25}
+                fillColor="#694398"
+                unfillColor="transparent"
+                text="I have read and agreed with this Privacy Policy."
+                iconStyle={{ borderColor: '#694398', borderRadius: 8, borderWidth: 2 }}
+                textStyle={{ color: '#000000'}}
+                textContainerStyle={{ width: '80%'}}
+                isChecked={checkboxState}  
+                disableBuiltInState={true}
+                bounceEffect={1}
+                onPress={(isChecked) => {
+                  setCheckboxState(!checkboxState)
+                  // return isChecked
+                  console.log(isChecked)
+                }}
+              />
 
-{/* Check this for ticking problem: https://github.com/WrathChaos/react-native-bouncy-checkbox#synthetic-press-functionality-with-manual-check-state */}
-
-  <BouncyCheckbox
-  style={{ marginTop: 30 }}
-  size={25}
-  fillColor="#694398"
-  unfillColor="transparent"
-  text="I have read and agreed with this Privacy Policy."
-  iconStyle={{ borderColor: '#694398', borderRadius: 8, borderWidth: 2 }}
-  textStyle={{ color: '#000000'}}
-  textContainerStyle={{ width: '80%', borderWidth: 5 }}
-  isChecked={checkboxState}  
-  disableBuiltInState={true}
-  // bounceEffect={1}
-  onPress={(isChecked) => {
-    setCheckboxState(!checkboxState)
-    return isChecked
-    // console.log(isChecked)
-  }}
-/>
-
-{/* </CheckboxContainer> */}
-{/* </InnerQuestionaryContainer> */}
-</SafeAreaView>
+              </CheckboxContainer>
+            </SafeAreaView>
 
           </TextBlockBorders>
               
