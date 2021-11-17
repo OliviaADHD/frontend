@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     IconbaseText: {
     },
     fontColorGrey:{
-        color: Colors.gray,
+        color: Colors.darkgray,
     },
     fontColorPurple: {
         color: Colors.purple,
@@ -46,13 +46,16 @@ class IconAndText extends React.Component {
     icon = this.props.iconPurple;
     render(){
         return (
-            <View style={styles.IconAndTextView}>
+            <View style={[styles.IconAndTextView]}>
+                <TouchableOpacity onPress={() => {}} 
+                style={{justifyContent:"space-between", paddingTop: "10%"}}>
                     <Image source={(this.props.currentScreen===this.props.screen)?this.props.icon.purple:this.props.icon.grey} 
                         style={styles.BottomIconMenyStyle}
                     />
                     <Text style={[styles.IconbaseText,(this.props.currentScreen===this.props.screen) ? styles.fontColorPurple:styles.fontColorGrey]}>
                         {this.props.iconText}
                     </Text>
+                </TouchableOpacity>
             </View>
         );
     }
