@@ -4,23 +4,23 @@ import {
     StyledContainer,
     InnerContainer,
     ButtonText,
-}from '../components/styles';
+}from '../../components/styles';
 import {
     StyledTitleCentered,
     StyledButtonNotSure,
     ButtonTextNotSure,
     StyledButtonNotSureContainer,
-}from '../components/stylesMenstruation';
+}from '../../components/stylesMenstruation';
 import {
     NextBtnContainer,
     StyledButtonNext,
     StyledCalendar
-}from '../components/stylesCalendar';
+}from '../../components/stylesCalendar';
 import {Calendar} from 'react-native-calendars';
 
 const CalendarInitial =({navigation}) => {
-    var NextScreen = "DidYouKnow";
-    var NotSureScreen = "DidYouKnow";
+    var NextScreen = "Infonotice_Menstruation";
+    var NotSureScreen = "Infonotice_Menstruation";
 
     const NextClicked = () => {
         navigation.navigate(NextScreen);

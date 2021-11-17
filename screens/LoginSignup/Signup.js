@@ -1,9 +1,9 @@
 import React, {useState} from "react";
 import { StatusBar } from "expo-status-bar";
 import { Formik, Field } from 'formik'
-
+import { connect } from "react-redux";
 import {Ionicons} from '@expo/vector-icons';
-import { View,CheckBox, StyleSheet } from "react-native";
+import { View,CheckBox, StyleSheet, ActivityIndicator } from "react-native";
 import {
     StyledContainer,
     InnerContainer,
@@ -24,15 +24,16 @@ import {
     ErrorMessage,
     PrivacyText,
     PrivacyArea,
-    DisabledButton
-}from './../components/styles';
+    AbsoluteContainer
+}from '../../components/styles';
 
+import {newUser, verifyEmail, verifyLogin, beforeValidEmail, beforeValidLogin, beforeSignUP} from '../../src/actions/user/user'
 import * as yup from 'yup'
 
 const signUpValidationSchema = yup.object().shape({
     fullName: yup
       .string().label('Fullname')
-      .matches(/(\w.+\s).+/, 'Enter at least 2 names')
+      //.matches(/(\w.+\s).+/, 'Enter at least 2 names')
       .required('Full name is required'),
     login: yup
       .string().label('Login')
@@ -44,14 +45,14 @@ const signUpValidationSchema = yup.object().shape({
     password: yup
       .string().label('Password')
       .matches(/\w*[a-z]\w*/,  "Password must have a small letter")
-      .matches(/\w*[A-Z]\w*/,  "Password must have a capital letter")
-      .matches(/\d/, "Password must have a number")
-      .matches(/[!@#$%^&*()\-_"=+{}; :,<.>]/, "Password must have a special character")
-      .min(8, ({ min }) => `Passowrd must be at least ${min} characters`)
+      //.matches(/\w*[A-Z]\w*/,  "Password must have a capital letter")
+      //.matches(/\d/, "Password must have a number")
+      //.matches(/[!@#$%^&*()\-_"=+{}; :,<.>]/, "Password must have a special character")
+      //.min(8, ({ min }) => `Passowrd must be at least ${min} characters`)
       .required('Password is required'),
   })
 
-export class Signup extends React.Component {
+class Signup extends React.Component {
     constructor(props){
         super(props);
         this.state = {
@@ -59,15 +60,21 @@ export class Signup extends React.Component {
             loginError:false,
             emailError:false,
             isSelected: false,
-            isDisabled: true
+            isDisabled: true,
+            signUpInfo:{},
+            validateLoginInfo:{},
+            validateEmailInfo:{},
+            loading: false,
+
         }
-        
+        this.state.validateLoginInfo = this.props.validateLoginInfo;
+        this.state.validateEmailInfo = this.props.validateEmailInfo;
     }
 
 
 
     updateLoginError = () => {
-        this.setState({loginError:true});        
+             
     }
 
 
@@ -86,29 +93,56 @@ export class Signup extends React.Component {
 
     }
 
+ 
+
     render(){
         return(
             <StyledContainer>
                 <StatusBar style="dark"/>
                 <InnerContainer>
-                    <PageLogo source={require('./../assets/images/logo.png')} />
+                    <PageLogo source={require('../../assets/images/logo.png')} />
                     <Formik
                         validationSchema={signUpValidationSchema}
                         initialValues={{fullName: '', email: '', password: '',login:''}}
                         onSubmit={(values) => {
-                            console.warn(JSON.stringify(values))
-                            fetch('http://172.17.86.193:8080/signup', {
-                                method: 'POST',
-                                headers: { "Content-Type": "application/json" },
-                                body: JSON.stringify(values)
-                              }).then((body) => {
-                                console.warn(body);
-                                alert( body );
-                            }).catch ((error) => {
-                                console.warn(error)
-                                alert( error.body );
-                             })
+                            this.setState({loading:true});
+                            this.props.cleanSignup();
+                            this.props.cleanEmail();
+                            this.props.cleanLogin();
+                            this.props.verifyLogin(values.login);
+                            this.props.verifyEmail(values.email);
+                            
+                            setTimeout(() => {  
+                                if(this.props.validateLoginInfo.message.passed == false){
+                                    this.setState({loginError:true});
+                                    this.setState({loading:false});
+                                }else{
+                                    this.setState({loginError:false});
+                                }
 
+                                if(this.props.validateEmailInfo.message.passed == false){
+                                    this.setState({emailError:true});
+                                    this.setState({loading:false});
+                                }else{
+                                    this.setState({emailError:false});
+                                }
+                                
+                                if(this.props.validateEmailInfo.message.passed == true && this.props.validateLoginInfo.message.passed == true){
+                                    this.props.onSignup(values);
+                                    setTimeout( () =>{
+                                        if(this.props.signUpInfo.message.passed == true){
+                                            this.setState({loading:false});
+                                            navState = {
+
+                                            }
+                                            this.props.navigation.navigate('Welcome_Post_Signup', {
+                                                name:this.props.signUpInfo.message.name,
+                                                id:this.props.signUpInfo.message.userId
+                                            })
+                                        }
+                                    }, 2000)
+                                }
+                             }, 2000);
                         }}
                     >
                     {({handleChange, values, handleSubmit, errors, isValid, isSubmitting, touched, handleBlur})=> (
@@ -138,6 +172,12 @@ export class Signup extends React.Component {
                             </ErrorMessage> 
                         }
 
+                        { this.state.loginError &&
+                            <ErrorMessage>
+                                <ErrorText>Login exists</ErrorText>
+                            </ErrorMessage> 
+                        }
+
                         <MyTextInput 
                             placeholder="Email"
                             label='Email'
@@ -149,6 +189,12 @@ export class Signup extends React.Component {
                         { touched.email && errors.email &&
                             <ErrorMessage>
                                 <ErrorText>{errors.email}</ErrorText>
+                            </ErrorMessage> 
+                        }
+
+                        { this.state.emailError &&
+                            <ErrorMessage>
+                                <ErrorText>Email Exists</ErrorText>
                             </ErrorMessage> 
                         }
      
@@ -178,30 +224,36 @@ export class Signup extends React.Component {
                         </PrivacyArea>
 
 
-                            <StyledButton disabled={! isValid || isSubmitting} onPress={handleSubmit}>
+                            <StyledButton onPress={handleSubmit} testID='SubmitButton'>
                                 <ButtonText>Signup</ButtonText>
                             </StyledButton>
 
-                        <IconContainer>
+                        <IconContainer style={{marginBottom: "0%", paddingBottom: "0%"}}>
                             <EachIconContainer>
-                                <IconLogo  onPress={handleSubmit} source={require('./../assets/images/google.png')} />
+                                <IconLogo  onPress={handleSubmit} source={require('../../assets/images/google.png')} />
                             </EachIconContainer>
                             <EachIconContainer>
-                                <IconLogo onPress={handleSubmit} source={require('./../assets/images/facebook.png')} />
+                                <IconLogo onPress={handleSubmit} source={require('../../assets/images/facebook.png')} />
                             </EachIconContainer>
                             <EachIconContainer>
-                                <IconLogo onPress={handleSubmit} source={require('./../assets/images/apple.png')} />
+                                <IconLogo onPress={handleSubmit} source={require('../../assets/images/apple.png')} />
                             </EachIconContainer>
                         </IconContainer>
-                        <ExtraView>
-                            <ExtraText>Already Have An Account?</ExtraText>
-                            <TextLink onPress = {() => this.props.navigation.navigate("Login")}>
-                                <TextLinkContent>Login</TextLinkContent>
+                        <ExtraView style={{paddingTop: "0%", paddingBottom: "0%", marginBottom: "0%",
+                         marginTop: "0%", height: "14%"}}> 
+                            <ExtraText style={{paddingTop: "0%", paddingBottom: "0%"}}>Already Have An Account?</ExtraText>
+                            <TextLink onPress = {() => this.props.navigation.navigate("Login")} testID={"Textlink"}>
+                                <TextLinkContent style={{paddingTop: "0%", paddingBottom: "0%"}}>Login</TextLinkContent>
                             </TextLink>
                         </ExtraView>
                     </StyledFormArea>)}
                     </Formik>
                 </InnerContainer>
+                {this.state.loading &&
+                    <View style={styles.loading}>
+                        <ActivityIndicator size="large" color="#694398"/>
+                    </View>
+                }
             </StyledContainer>
         );
     }
@@ -212,6 +264,17 @@ const styles = StyleSheet.create({
     checkbox: {
       alignSelf: "center",
     },
+    loading: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
+        opacity: 0.5,
+        backgroundColor: 'black',
+        justifyContent: 'center',
+        alignItems: 'center'
+    }
   });
 
 export const MyTextInput = ({isPassword, icon, hidePassword, setHidePassword, ...props}) => {
@@ -227,3 +290,27 @@ export const MyTextInput = ({isPassword, icon, hidePassword, setHidePassword, ..
     )
 }
 
+const mapStateToProps = state => {
+    const  {signUpInfo} = state;
+    const  {validateEmailInfo} = state;
+    const  {validateLoginInfo} = state;
+    console.log('login mapStateToProps ... state:' + JSON.stringify(state));
+    console.log('login mapStateToProps ... props:' + JSON.stringify(validateLoginInfo.message));
+    //console.log('login mapStateToProps ... props:' + JSON.stringify({validateEmailInfo}));
+    //console.log('login mapStateToProps ... props:' + JSON.stringify({signUpInfo}));
+    return {validateLoginInfo, validateEmailInfo, signUpInfo};
+};
+
+const mapDispatchToProps = {
+    onSignup :  newUser,
+    cleanSignup : beforeSignUP,
+    cleanEmail: beforeValidEmail,
+    cleanLogin: beforeValidLogin,
+    verifyEmail: verifyEmail,
+    verifyLogin: verifyLogin
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+  )(Signup);

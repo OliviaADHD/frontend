@@ -8,21 +8,23 @@ import {
     StyledFormArea,
     StyledButton,
     ButtonText,
-}from './../components/styles';
+}from '../../components/styles';
 
-const Welcome_Post_Signup = ({navigation}) => {
+const Welcome_Post_Signup = ({navigation, route }) => {
+  const { name, id } = route.params;
+  
   return (
     
     <StyledContainer>   
     <StatusBar style="dark"/>
     <InnerContainer>
 
-      <CenteredImage source={require('./../assets/images/woman_waving.png')} />
+      <CenteredImage source={require('../../assets/images/woman_waving.png')} />
         
-      <MediumExtraText>Hi There, We Would Love To Know About You!</MediumExtraText>
+      <MediumExtraText>Hi {name}, We Would Love To Know About You!</MediumExtraText>
       
       <StyledFormArea>
-        <StyledButton onPress = {() => navigation.navigate("Questionnaire")}>
+        <StyledButton onPress = {() => navigation.replace("Questionnaire")}>
           <ButtonText>Proceed</ButtonText>
         </StyledButton>
       </StyledFormArea>
