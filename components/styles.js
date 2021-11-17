@@ -10,10 +10,11 @@ export const Colors = {
     disabledPurple:"#aa91c9",
     black: "#000000",
     gray: "#d3d3d3",
+    darkgray: "#979797",
     red: "#FF0000"
 };
 
-const { white, purple, black, gray, red,disabledPurple} = Colors;
+const { white, purple, black, gray, darkgray, red,disabledPurple} = Colors;
 
 export const StyledContainer = styled.View`
   flex: 1;
