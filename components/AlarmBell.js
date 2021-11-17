@@ -15,7 +15,6 @@ const stylesBell = StyleSheet.create({
     containerView: {
         flexDirection: "column",
         justifyContent: "flex-end",
-        backgroundColor: Colors.white,
         height: "100%",
         width: "10%",
         marginRight: "5%"

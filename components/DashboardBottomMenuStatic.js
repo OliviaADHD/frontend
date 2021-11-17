@@ -35,6 +35,12 @@ const styles = StyleSheet.create({
         flexDirection: "column", 
         alignItems: "center",
         width: "19%"
+    },
+    greyBackground: {
+        backgroundColor: Colors.gray,
+    },
+    whiteBackground: {
+        backgroundColor: Colors.white,
     }
 })
 
@@ -46,7 +52,8 @@ class IconAndText extends React.Component {
     icon = this.props.iconPurple;
     render(){
         return (
-            <View style={[styles.IconAndTextView]}>
+            <View style={[styles.IconAndTextView,
+            (this.props.backgroundColor)? ((this.props.currentScreen===this.props.screen)?styles.whiteBackground:styles.greyBackground):styles.whiteBackground]}>
                 <TouchableOpacity onPress={() => {}} 
                 style={{justifyContent:"space-between", paddingTop: "10%"}}>
                     <Image source={(this.props.currentScreen===this.props.screen)?this.props.icon.purple:this.props.icon.grey} 
@@ -85,7 +92,7 @@ const icons = [
     }
 ]
 
-const DashBoardBottomMenuStatic = ({currentScreen}) => {
+const DashBoardBottomMenuStatic = ({currentScreen,backgroundColor}) => {
     let indIcons = [];
     for (let i=0; i<5; i++){
         indIcons.push(<IconAndText
@@ -94,6 +101,7 @@ const DashBoardBottomMenuStatic = ({currentScreen}) => {
             screen={screens[i]}
             iconText={iconTexts[i]}
             icon={icons[i]}
+            backgroundColor={backgroundColor}
         />)
         }
     return (
