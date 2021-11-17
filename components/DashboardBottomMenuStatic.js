@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
     },
     whiteBackground: {
         backgroundColor: Colors.white,
+        borderRadius: 9,
     }
 })
 

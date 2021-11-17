@@ -25,7 +25,7 @@ const Tutorial1 = ({navigation}) => {
     const [name, setName] = useState("Amy");
 
     const skipTutorial = () => {
-        navigation.navigate("Home");
+        navigation.replace("Home");
         console.log("send to backend that tuorial has been viewed!");
     };
 

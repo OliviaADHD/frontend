@@ -46,7 +46,7 @@ export const DashboardTutorialBottomBar = styled.View`
 `;
 
 export const ButtonPressable = styled.TouchableOpacity`
-    background-color: ${white};
+
 `;
 
 export const ButtonTextBottomDashboard = styled.Text`
