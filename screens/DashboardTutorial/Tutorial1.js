@@ -2,6 +2,8 @@ import React, {useState} from "react";
 import { StatusBar } from "expo-status-bar";
 import {Text, View} from 'react-native';
 
+
+
 import {
     StyledContainer,
     InnerContainer,
@@ -21,8 +23,11 @@ import DashBoardBottomMenuStatic from "../../components/DashboardBottomMenuStati
 import AlarmBell from "../../components/AlarmBell";
 
 
-const Tutorial1 = ({navigation}) => {
-    const [name, setName] = useState("Amy");
+
+const Tutorial1Content = ({navigation}) => {
+    const name2 = useSelector(state => state.userNameInfo);
+    //let's dispatch and change the name to Amy <- can't, as this cause infinite re-renders :P
+    const dispatch = useDispatch(); 
 
     const skipTutorial = () => {
         navigation.replace("Home");
@@ -30,6 +35,7 @@ const Tutorial1 = ({navigation}) => {
     };
 
     const startTutorial = () => {
+        dispatch(testLogin());
         navigation.navigate("Tutorial2");
     };
 
@@ -42,7 +48,7 @@ const Tutorial1 = ({navigation}) => {
             <InnerContainer style={{height: "80%"}}>
                 <DashboardTutorialTop> 
                     <DashboardTitle>
-                        Good Morning {name} 
+                        Good Morning {name2.userName} 
                     </DashboardTitle>
                     <RoundedPurpleBox>
                         <ButtonText>Let's have a quick tutorial</ButtonText>
@@ -69,5 +75,21 @@ const Tutorial1 = ({navigation}) => {
         </StyledContainer>
     )
 };
+
+//redux related
+import { testLogin } from "../../src/actions/user/userData";
+import store from "../../src/store";
+import { Provider } from "react-redux";
+import {useSelector, useDispatch} from 'react-redux';
+
+
+const Tutorial1 = ({navigation}) => {
+    return (
+        <Provider store={store}>
+         <Tutorial1Content navigation={navigation}/>
+        </Provider>
+  
+    );
+}
 
 export default Tutorial1;

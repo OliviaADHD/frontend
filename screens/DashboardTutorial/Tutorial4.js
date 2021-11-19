@@ -58,8 +58,8 @@ const styles = StyleSheet.create({
     }
 });
 
-const Tutorial4 = ({navigation}) => {
-    const [name, setName] = useState("Amy");
+const Tutorial4Content = ({navigation}) => {
+    const name = useSelector(state => state.userNameInfo);
 
 
     return(
@@ -71,7 +71,7 @@ const Tutorial4 = ({navigation}) => {
             <InnerContainer style={{height: "80%"}}>
                 <DashboardTutorialTop> 
                     <DashboardTitle>
-                        Good Morning {name} 
+                        Good Morning {name.userName} 
                     </DashboardTitle>
                 </DashboardTutorialTop>
                 <Background source={require('../../assets/images/GetStartedBackground.png')}
@@ -95,5 +95,19 @@ const Tutorial4 = ({navigation}) => {
         </StyledContainer>
     )
 };
+
+//redux related
+import store from "../../src/store";
+import { Provider } from "react-redux";
+import {useSelector} from 'react-redux';
+
+const Tutorial4 = ({navigation}) => {
+    return (
+        <Provider store={store}>
+         <Tutorial4Content navigation={navigation}/>
+        </Provider>
+  
+    );
+}
 
 export default Tutorial4;

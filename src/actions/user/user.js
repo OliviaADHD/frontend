@@ -9,7 +9,7 @@ import { SIGN_UP,
     VERIFY_EMAIL_FAILED,
     VERIFY_LOGIN, 
     VERIFY_LOGIN_FAILED,
-    VERIFY_LOGIN_SUCCESS
+    VERIFY_LOGIN_SUCCESS,
   } from "../types";
 import axios from "axios";
 import {link} from '../../config/config'
@@ -41,7 +41,6 @@ export const beforeValidLogin = () => async dispatch => {
     payload: {}
   });
 };
-
 
 
 export const newUser = (user) => async dispatch => {
