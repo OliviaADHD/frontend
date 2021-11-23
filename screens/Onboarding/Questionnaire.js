@@ -171,12 +171,11 @@ const Questionnaire = () => {
     console.log('userAnswers1', userAnswers);
   };
 
-  const dots = [{question: "1", index: 1},
-                {question: "2", index: 2},
-                 {question: "3", index: 3},
-                {question: "4", index: 4},
+  const dots = [{question: "1", pages: [1]},
+                {question: "2", pages: [2]},
+                 {question: "3", pages: [3, 4]},
+                {question: "4", pages: [5]},
                   ];
-
 
 
 
@@ -186,7 +185,7 @@ const Questionnaire = () => {
       <InnerContainer>
         <StyledDotPagination>
           {dots.map((_question, index) => (
-            <StyledDot key={index.toString()} filled={index === currentPage} />
+            <StyledDot key={index.toString()} filled={dots[index].pages.includes(questions[currentPage].page)} />
           ))}
         </StyledDotPagination>
 
