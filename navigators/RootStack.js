@@ -26,12 +26,8 @@ import Home from '../screens/Dashboard/Home';
 import Profile from '../screens/Dashboard/Profile';
 import ToDoList from '../screens/Dashboard/ToDoList';
 
-import Tutorial1 from '../screens/DashboardTutorial/Tutorial1';
-import Tutorial2 from '../screens/DashboardTutorial/Tutorial2';
-import Tutorial3 from '../screens/DashboardTutorial/Tutorial3';
-import Tutorial4 from '../screens/DashboardTutorial/Tutorial4';
-import Tutorial5 from '../screens/DashboardTutorial/Tutorial5';
-import Tutorial6 from '../screens/DashboardTutorial/Tutorial6';
+import TutorialIntro from '../screens/DashboardTutorial/TutorialIntro';
+import TutorialAll from '../screens/DashboardTutorial/TutorialAll';
 
 const Stack = createStackNavigator();
 
@@ -50,7 +46,7 @@ const RootStack = () => {
                     paddingLeft: 20
                 }
             }}
-            initialRouteName = 'Welcome'
+            initialRouteName = 'TutorialAll'
             >   
                 <Stack.Screen name="Welcome" 
                     options ={{animationEnabled: true, header: () => null}}
@@ -78,13 +74,8 @@ const RootStack = () => {
                 <Stack.Screen name="ToDoList" component={ToDoList} />
                 <Stack.Screen name="Profile" component={Profile} />
 
-                <Stack.Screen name="Tutorial1" component={Tutorial1} />
-                <Stack.Screen name="Tutorial2" component={Tutorial2} />
-                <Stack.Screen name="Tutorial3" component={Tutorial3} />
-                <Stack.Screen name="Tutorial4" component={Tutorial4} />
-                <Stack.Screen name="Tutorial5" component={Tutorial5} />
-                <Stack.Screen name="Tutorial6" component={Tutorial6} />
-
+                <Stack.Screen name="TutorialIntro" component={TutorialIntro} />
+                <Stack.Screen name='TutorialAll' component={TutorialAll}/>
 
             </Stack.Navigator>
             

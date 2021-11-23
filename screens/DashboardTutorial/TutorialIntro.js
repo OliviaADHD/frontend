@@ -21,7 +21,7 @@ import DashBoardBottomMenuStatic from "../../components/DashboardBottomMenuStati
 import AlarmBell from "../../components/AlarmBell";
 
 
-const Tutorial1 = ({navigation}) => {
+const TutorialIntro = ({navigation}) => {
     const [name, setName] = useState("Amy");
 
     const skipTutorial = () => {
@@ -30,7 +30,7 @@ const Tutorial1 = ({navigation}) => {
     };
 
     const startTutorial = () => {
-        navigation.navigate("Tutorial2");
+        navigation.navigate("TutorialAll");
     };
 
     return(
@@ -70,4 +70,4 @@ const Tutorial1 = ({navigation}) => {
     )
 };
 
-export default Tutorial1;
+export default TutorialIntro;
