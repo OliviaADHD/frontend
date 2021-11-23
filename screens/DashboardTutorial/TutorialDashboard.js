@@ -23,7 +23,7 @@ import AlarmBell from "../../components/AlarmBell";
 
 
 
-const TutorialAll = ({navigation}) => {
+const TutorialDashboard = ({navigation, route}) => {
     const TutorialPagesStyles = [
         {
             page: 0,
@@ -253,12 +253,14 @@ const TutorialAll = ({navigation}) => {
         })}
     ];
     const [name, setName] = useState("Amy");
+    //const { name, id } = route.params;
     const [page, setPage] = useState(0);
 
     const TutorialFinished = () => {
-        console.log('finished tutorial');
+        console.log('finished tutorial, need to send something to backend');
+        navigation.replace('Home');
     };
-    console.log('page value'+page);
+
     return(
         <StyledContainer style={(TutorialPagesStyles[page].page === 0)?{backgroundColor: Colors.white}:{backgroundColor: Colors.gray}}>
             <StatusBar style="dark"/>
@@ -318,4 +320,4 @@ const TutorialAll = ({navigation}) => {
     )
 };
 
-export default TutorialAll;
+export default TutorialDashboard;
