@@ -231,6 +231,12 @@ const Questionnaire = (props) => {
 
     const [currentPage, setCurrentPage] = useState(0);
 
+  const dots = [{question: "1", pages: [1]},
+                {question: "2", pages: [2]},
+                 {question: "3", pages: [3, 4]},
+                {question: "4", pages: [5]},
+                  ];
+
     const userAnswers = {
         ageGroup: handleAgeGroup(answerPage1),
         status: handleStatus(answerPage2),
@@ -239,6 +245,7 @@ const Questionnaire = (props) => {
         sleepTime: answerPage5,
         duration: handleDuration(answerPage4)
     };
+
 
     const handleSubmit = (userAnswers) => {
         userAnswers.sleepTime = handleSleepTime(answerPage5)
@@ -250,32 +257,16 @@ const Questionnaire = (props) => {
 
     //const componentDidMount
 
-    const dots = [
-        {
-            question: "1",
-            index: 1
-        }, {
-            question: "2",
-            index: 2
-        }, {
-            question: "3",
-            index: 3
-        }, {
-            question: "4",
-            index: 4
-        }
-    ];
-
-    return (
-        <StyledContainer>
-            <StatusBar style="dark"/>
-            <InnerContainer>
-                <StyledDotPagination>
-                    {dots.map((_question, index) => (<StyledDot key={index.toString()} filled={index === currentPage}/>))}
-                </StyledDotPagination>
-
+  return (
+    <StyledContainer>
+      <StatusBar style="dark" />
+      <InnerContainer>
+        <StyledDotPagination>
+          {dots.map((_question, index) => (
+            <StyledDot key={index.toString()} filled={dots[index].pages.includes(questions[currentPage].page)} />
+          ))}
+        </StyledDotPagination>
                 <StyledTitle>{questions[currentPage].question}</StyledTitle>
-
                 <CheckboxContainer>
                     {questions[currentPage]
                         .answers
