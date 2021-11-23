@@ -108,32 +108,38 @@ class Login extends React.Component {
                         initialValues={{email: '', password: ''}}
                         validationSchema={signInValidationSchema}
                         onSubmit={(values) => {
-                            this.setState({loading:true});
+                            this.setState({
+                                loading: true
+                            });
                             this.props.clearSignin();
-                            this.props.onSignin(values);                           
-                            setTimeout( () =>{
-                                console.log(JSON.stringify(this.props))
-                                if(this.props.loginInfo.message.passed == true){
-                                    this.setState({loading:false});
-                                    if(this.props.loginInfo.message.firstTime == true){
+                            this.props.onSignin(values).then(resp => {
+                                if (this.props.loginInfo.message.passed == true) {
+                                    this.setState({
+                                        loading: false
+                                    });
+                                    if (this.props.loginInfo.message.firstTime == true) {
                                         this.props.navigation.navigate('Welcome_Post_Signup', {
-                                            name:this.props.loginInfo.message.name,
-                                            id:this.props.loginInfo.message.userId,
-                                            firstTime:this.props.loginInfo.message.firstTime,
+                                            name: this.props.loginInfo.message.name,
+                                            id: this.props.loginInfo.message.userId,
+                                            
                                         })
-                                    }else{
+                                    } else {
                                         this.props.navigation.navigate('Home', {
-                                            name:this.props.loginInfo.message.name,
-                                            id:this.props.loginInfo.message.userId,
-                                            firstTime:this.props.loginInfo.message.firstTime,
+                                            name: this.props.loginInfo.message.name,
+                                            id: this.props.loginInfo.message.userId,
+                                            firstTime: this.props.loginInfo.message.firstTime,
                                         })
                                     }
-
-                                }else{
-                                    this.setState({loading:false});
+                                
+                                } else {
+                                    this.setState({
+                                        loading: false
+                                    });
                                 }
-                            }, 2000)                      
-                        }}
+                            });
+
+                        }
+                    }
                     >{({handleChange, handleBlur, handleSubmit, values})=> (<StyledFormArea>
                         <MyTextInput 
                             placeholder="Email"
