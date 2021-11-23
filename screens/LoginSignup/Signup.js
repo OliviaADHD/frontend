@@ -88,12 +88,7 @@ class Signup extends React.Component {
         else{
             this.setState({hidePassword:true});
         }
-    }
-    setSelection = () => {
-
-    }
-
- 
+    } 
 
     render(){
         return(
@@ -105,45 +100,59 @@ class Signup extends React.Component {
                         validationSchema={signUpValidationSchema}
                         initialValues={{fullName: '', email: '', password: '',login:''}}
                         onSubmit={(values) => {
-                            this.setState({loading:true});
+                            let error = false;
+                            this.setState({
+                                loading: true
+                            });
                             this.props.cleanSignup();
                             this.props.cleanEmail();
                             this.props.cleanLogin();
-                            this.props.verifyLogin(values.login);
-                            this.props.verifyEmail(values.email);
-                            
-                            setTimeout(() => {  
-                                if(this.props.validateLoginInfo.message.passed == false){
-                                    this.setState({loginError:true});
-                                    this.setState({loading:false});
-                                }else{
-                                    this.setState({loginError:false});
+                            this.props.verifyLogin(values.login).then(resp => {
+                                if (this.props.validateLoginInfo.message.passed == false) {
+                                    this.setState({
+                                        loginError: true
+                                    });
+                                    this.setState({
+                                        loading: false
+                                    });
+                                    error = true;
+                                } else {
+                                    this.setState({
+                                        loginError: false
+                                    });
                                 }
-
-                                if(this.props.validateEmailInfo.message.passed == false){
-                                    this.setState({emailError:true});
-                                    this.setState({loading:false});
-                                }else{
-                                    this.setState({emailError:false});
+                            });
+                            this.props.verifyEmail(values.email).then(resp => {
+                                if (this.props.validateEmailInfo.message.passed == false) {
+                                    this.setState({
+                                        emailError: true
+                                    });
+                                    this.setState({
+                                        loading: false
+                                    });
+                                    error = true;
+                                } else {
+                                    this.setState({
+                                        emailError: false
+                                    });
                                 }
-                                
-                                if(this.props.validateEmailInfo.message.passed == true && this.props.validateLoginInfo.message.passed == true){
-                                    this.props.onSignup(values);
-                                    setTimeout( () =>{
-                                        if(this.props.signUpInfo.message.passed == true){
-                                            this.setState({loading:false});
-                                            navState = {
-
-                                            }
-                                            this.props.navigation.navigate('Welcome_Post_Signup', {
-                                                name:this.props.signUpInfo.message.name,
-                                                id:this.props.signUpInfo.message.userId
-                                            })
-                                        }
-                                    }, 2000)
-                                }
-                             }, 2000);
-                        }}
+                            });
+                            if (!error) {
+                                this.props.onSignup(values).then(resp => {
+                                    if (this.props.signUpInfo.message.passed == true) {
+                                        this.setState({
+                                            loading: false
+                                        });
+                                        this.props.navigation.navigate('Welcome_Post_Signup', {
+                                            name: this.props.signUpInfo.message.name,
+                                            id: this.props.signUpInfo.message.userId,
+                                            firstTime: true,
+                                        })
+                                    }
+                                })
+                            }
+                    }
+                    }
                     >
                     {({handleChange, values, handleSubmit, errors, isValid, isSubmitting, touched, handleBlur})=> (
                     <StyledFormArea>
@@ -295,7 +304,7 @@ const mapStateToProps = state => {
     const  {validateEmailInfo} = state;
     const  {validateLoginInfo} = state;
     console.log('login mapStateToProps ... state:' + JSON.stringify(state));
-    console.log('login mapStateToProps ... props:' + JSON.stringify(validateLoginInfo.message));
+    //console.log('login mapStateToProps ... props:' + JSON.stringify(validateLoginInfo.message));
     //console.log('login mapStateToProps ... props:' + JSON.stringify({validateEmailInfo}));
     //console.log('login mapStateToProps ... props:' + JSON.stringify({signUpInfo}));
     return {validateLoginInfo, validateEmailInfo, signUpInfo};
