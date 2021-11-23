@@ -18,43 +18,81 @@ import { StatusBar } from 'expo-status-bar';
 import {StyleSheet } from "react-native";
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 
+
+const handleAgeGroup = (ageGroup) => {
+  switch (ageGroup) {
+    case '18-25 Years': return 1;
+    case '25-35 Years': return 2;
+    case '35-45 Years': return 3;
+    case '45-55 Years': return 4;
+    case '55 and above': return 5;
+    default:return null;
+  }
+}
+
+
+const handleStatus = (stat) =>{
+  
+}
+
+
 const Questionnaire = () => {
+
+
   const [answerPage1, setAnswerPage1] = useState(undefined);
   const [answerPage2, setAnswerPage2] = useState(undefined);
   const [answerPage3, setAnswerPage3] = useState(undefined);
   const [answerPage4, setAnswerPage4] = useState(undefined);
+  const [answerPage5, setAnswerPage5] = useState(undefined);
 
   const [warningPage1, setWarningPage1] = useState(false);
   const [warningPage2, setWarningPage2] = useState(false);
   const [warningPage3, setWarningPage3] = useState(false);
   const [warningPage4, setWarningPage4] = useState(false);
+  const [warningPage5, setWarningPage5] = useState(false);
 
   const questions = [
     {
       page: 1,
       question: 'What age group do you fall under?',
       answers: [
-        'younger than 18 Years',
         '18-25 Years',
-        '26-35 Years',
-        '36-45 Years',
-        '46-55 Years',
+        '25-35 Years',
+        '35-45 Years',
+        '45-55 Years',
         '55 and above',
       ],
       multipleAnswers: false,
       setAnswer: setAnswerPage1,
       selectedAnswer: answerPage1,
       displayWarning: warningPage1,
-      warning: "Please select a category!",
+      warning: "Please pick one",
       setWarning: setWarningPage1,
       nextPage: 2,
       previousPage: undefined,
     },
     {
       page: 2,
-      question: 'Choose one or more of these, if you have felt/had.',
+      question: 'How do you relate yourself with ADHD?',
       answers: [
         'Diagnosed ADHD',
+        'Undiagnosed ADHD',
+        'I have symptoms',
+        'Not Sure',
+      ],
+      multipleAnswers: false,
+      setAnswer: setAnswerPage2,
+      selectedAnswer: answerPage2,
+      displayWarning: warningPage2,
+      warning: "Please pick one",
+      setWarning: setWarningPage1,
+      nextPage: (answerPage2 === undefined || !answerPage2.split('&').includes('Diagnosed ADHD'))? 3:4,
+      previousPage: 1,
+    },
+    {
+      page: 3,
+      question: 'Choose one or more of these, if you have felt/had.',
+      answers: [
         'Tardiness in undermining your goals',
         'Difficulty keeping your mind focused on your tasks',
         'Trouble in starting, finishing and prioritizing your daily tasks',
@@ -65,26 +103,26 @@ const Questionnaire = () => {
       setAnswer: setAnswerPage2,
       selectedAnswer: answerPage2,
       displayWarning: warningPage2,
-      warning: "Please select at least one answer!",
+      warning: "Please pick one",
       setWarning: setWarningPage2,
-      nextPage: (answerPage2 === undefined || !answerPage2.split('&').includes('Diagnosed ADHD'))?4:3,
-      previousPage: 1,
-    },
-    {
-      page: 3,
-      question: 'If you have ADHD, How many years it has been diagnosed?',
-      answers: ['< 1 years', '1-3 years', '3-6 years', '6 + years'],
-      multipleAnswers: false,
-      setAnswer: setAnswerPage3,
-      selectedAnswer: answerPage3,
-      displayWarning: warningPage3,
-      warning: "Please select an answer!",
-      setWarning: setWarningPage3,
-      nextPage: 4,
+      nextPage: 5,
       previousPage: 2,
     },
     {
       page: 4,
+      question: 'If you have ADHD, How many years it has been diagnosed?',
+      answers: ['< 1 years', '1-3 years', '3-6 years', '6 + years'],
+      multipleAnswers: false,
+      setAnswer: setAnswerPage4,
+      selectedAnswer: answerPage4,
+      displayWarning: warningPage4,
+      warning: "Please pick one",
+      setWarning: setWarningPage4,
+      nextPage: 5,
+      previousPage: 2,
+    },
+    {
+      page: 5,
       question: 'How do you sleep most of the time?',
       answers: [
         'I sleep well',
@@ -92,40 +130,45 @@ const Questionnaire = () => {
         'I suffer from insomnia',
         'I go to bed too late',
         'I feel sleepy suddenly during the day (Narcolepsy)',
+        'Waking up frequently at night',
       ],
-      multipleAnswers: false,
-      setAnswer: setAnswerPage4,
-      selectedAnswer: answerPage4,
-      displayWarning: warningPage4,
-      warning: "Please select an answer!",
+      multipleAnswers: true,
+      setAnswer: setAnswerPage5,
+      selectedAnswer: answerPage5,
+      displayWarning: warningPage5,
+      warning: "Please pick one",
       setWarning: setWarningPage4,
       nextPage: undefined,
-      previousPage: (answerPage2 === undefined || !answerPage2.split('&').includes('Diagnosed ADHD'))?2:3,
+      previousPage: (answerPage2 === undefined || !answerPage2.split('&').includes('Diagnosed ADHD'))? 3:4,
     },
   ];
 
   const userAnswers = [
     {
-      question: 'What age group do you fall under?',
-      answer: answerPage1,
+      question: 'ageGroup',
+      answer: handleAgeGroup(answerPage1),
     },
     {
-      question: 'Choose one or more of these, if you have felt/had.',
-      answer: (answerPage2===undefined)?answerPage2:answerPage2.split("&"),
+      question: 'status',
+      answer: answerPage2,
     },
     {
-      question: 'If you have ADHD, How many years it has been diagnosed?',
+      question: 'symptoms',
       answer: answerPage3,
     },
     {
-      question: 'How do you sleep most of the time?',
+      question: 'duration',
       answer: answerPage4,
+    },
+    {
+      question: 'sleepTime',
+      answer: answerPage5,
     },
   ];
 
   const [currentPage, setCurrentPage] = useState(0);
   const handleSubmit = (userAnswers) => {
-    console.log('userAnswers', userAnswers);
+    console.log('userAnswers1', userAnswers);
   };
 
   const dots = [{question: "1", index: 1},
@@ -133,6 +176,9 @@ const Questionnaire = () => {
                  {question: "3", index: 3},
                 {question: "4", index: 4},
                   ];
+
+
+
 
   return (
     <StyledContainer>
@@ -276,6 +322,7 @@ class OwnCheckbox extends BouncyCheckbox{
 
 }
 }
+
 
 
 export default Questionnaire;
