@@ -77,7 +77,7 @@ const Signup = ({navigation}) => {
                         onSubmit={(values) => {
                             setLoading(true);
                             dispatch(beforeSignUP())
-                            .then(() => dispatch(beforeValidEmail()))
+                            .then(resp => dispatch(beforeValidEmail()))
                             .then(resp => dispatch(beforeValidLogin()))
                             .then(resp => dispatch(verifyLogin(values.login)))
                             .then(resp => {
