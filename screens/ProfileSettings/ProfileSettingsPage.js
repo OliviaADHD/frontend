@@ -5,6 +5,7 @@ import { StatusBar } from "expo-status-bar";
 import {
   StyledContainer,
   InnerContainer,
+  Colors,
   MediumExtraText,
   StyledFormArea,
   StyledButton,
@@ -23,7 +24,7 @@ export default function ProfileSettingsPage({navigation, route}) {
 
         <View style={{flex: 1, justifyContent: 'space-between', padding: 8, paddingTop: 30, flexDirection:'row', alignItems: 'baseline'}}>
 
-        <Image source={require('../../assets/images/foxicon.png')} style={{width: 70, height: 70,}}/>
+        <Image source={require('../../assets/images/foxicon.png')} style={{width: 70, height: 70, borderRadius: 50, borderWidth: 5, borderColor: Colors.purple}}/>
 
         <View>
           <Text style={{fontSize: 15, paddingLeft: 15}}>
