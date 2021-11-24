@@ -15,6 +15,7 @@ import axios from "axios";
 import {link} from '../../config/config'
 
 export const beforeSignUP = () => async dispatch => {
+  console.log('dispatching before SignUp');
   dispatch({
     type: SIGN_UP,
     payload: {}
@@ -22,6 +23,7 @@ export const beforeSignUP = () => async dispatch => {
 };
 
 export const beforeSignIn = () => async dispatch => {
+  console.log('dispatching SIGN_IN');
   dispatch({
     type: SIGN_IN,
     payload: {}
@@ -29,6 +31,7 @@ export const beforeSignIn = () => async dispatch => {
 };
 
 export const beforeValidEmail = () => async dispatch => {
+  console.log('dispatching before VLID Email');
   dispatch({
     type: VERIFY_EMAIL,
     payload: {}
@@ -70,6 +73,7 @@ export const newUser = (user) => async dispatch => {
   
 export const signIn = (loginData) => async dispatch => {
   try {
+    console.log('trying to sign in with');
     console.log(loginData);
     const res = await axios.get(link + "login2/"+loginData.email+"/"+loginData.password);
     dispatch({

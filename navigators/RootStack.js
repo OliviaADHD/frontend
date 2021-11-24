@@ -56,7 +56,7 @@ const RootStack = () => {
                     component = {Welcome}
                     />
                 <Stack.Screen name='Login' component={Login} />
-                <Stack.Screen options={{  headerLeft: null }} name='Signup' component={Signup} />
+                <Stack.Screen name='Signup' component={Signup} />
                 <Stack.Screen name='Privacy' component={Privacy} options={{
                     title:'Privacy Policy',
                     headerStyle:{backgroundColor:'#eee', height:60},

@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import { StatusBar } from "expo-status-bar";
 import { Formik, Field } from 'formik'
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {Ionicons} from '@expo/vector-icons';
 import { View,CheckBox, StyleSheet, ActivityIndicator } from "react-native";
 import {
@@ -52,46 +52,21 @@ const signUpValidationSchema = yup.object().shape({
       .required('Password is required'),
   })
 
-class Signup extends React.Component {
-    constructor(props){
-        super(props);
-        this.state = {
-            hidePassword: true,
-            loginError:false,
-            emailError:false,
-            isSelected: false,
-            isDisabled: true,
-            signUpInfo:{},
-            validateLoginInfo:{},
-            validateEmailInfo:{},
-            loading: false,
-
-        }
-        this.state.validateLoginInfo = this.props.validateLoginInfo;
-        this.state.validateEmailInfo = this.props.validateEmailInfo;
-    }
 
 
+const Signup = ({navigation}) => {
+    const [hidePassword, setHidePassword] = useState(true);
+    const [loginError, setLoginError] = useState(false);
+    const [emailError, setEmailError] = useState(false);
+    const [isSelected, setIsSelected] = useState(false);
+    const loginValidityState = useSelector(state => state.validateLoginInfo); // these are at the start simply Object {"message":{}}
+    const emailValidityState = useSelector(state => state.validateEmailInfo);
+    const signUpState = useSelector(state => state.signUpInfo);
+    const [loading, setLoading] = useState(false);
 
-    updateLoginError = () => {
-             
-    }
+    const dispatch = useDispatch();
 
-
-    updateEmailError = () => {
-        this.setState({emailError:true});
-    }
-    setHidePassword= () =>{
-        if(this.state.hidePassword == true){
-            this.setState({hidePassword:false});
-        }
-        else{
-            this.setState({hidePassword:true});
-        }
-    } 
-
-    render(){
-        return(
+    return(
             <StyledContainer>
                 <StatusBar style="dark"/>
                 <InnerContainer>
@@ -100,57 +75,47 @@ class Signup extends React.Component {
                         validationSchema={signUpValidationSchema}
                         initialValues={{fullName: '', email: '', password: '',login:''}}
                         onSubmit={(values) => {
-                            let error = false;
-                            this.setState({
-                                loading: true
-                            });
-                            this.props.cleanSignup();
-                            this.props.cleanEmail();
-                            this.props.cleanLogin();
-                            this.props.verifyLogin(values.login).then(resp => {
-                                if (this.props.validateLoginInfo.message.passed == false) {
-                                    this.setState({
-                                        loginError: true
-                                    });
-                                    this.setState({
-                                        loading: false
-                                    });
-                                    error = true;
+                            setLoading(true);
+                            dispatch(beforeSignUP())
+                            .then(() => dispatch(beforeValidEmail()))
+                            .then(resp => dispatch(beforeValidLogin()))
+                            .then(resp => dispatch(verifyLogin(values.login)))
+                            .then(resp => {
+                                if (loginValidityState.message.passed === false) {
+                                    setLoginError(true);
+                                    setLoading(false);
                                 } else {
-                                    this.setState({
-                                        loginError: false
-                                    });
+                                    setLoginError(false);
                                 }
-                            });
-                            this.props.verifyEmail(values.email).then(resp => {
-                                if (this.props.validateEmailInfo.message.passed == false) {
-                                    this.setState({
-                                        emailError: true
-                                    });
-                                    this.setState({
-                                        loading: false
-                                    });
-                                    error = true;
+                            })
+                            .then(resp => dispatch(verifyEmail(values.email)))
+                            .then(resp => {
+                                if (emailValidityState.message.passed === false) {
+                                    setEmailError(true);
+                                    setLoading(false);
                                 } else {
-                                    this.setState({
-                                        emailError: false
-                                    });
+                                    setEmailError(false);
+                                }})
+                            .then(resp => {
+                                if ((loginError === false) && (emailError === false)) {
+                                    dispatch(newUser(values));
                                 }
+                            })
+                            .then(resp => {
+                                if (signUpState.message.passed === true) {
+                                    console.log('Suceeeesss?');
+                                    setLoading(false);
+                                    navigation.navigate('Welcome_Post_Signup');
+                                } else {
+                                    setLoading(false);
+                                }
+                            })
+                            .then(resp => {
+                                console.log('all the way to here :)');
+                                console.log('loginValidityState', loginValidityState);
+                                console.log('emailValidityState', emailValidityState);
+                                console.log('signUpState', signUpState);
                             });
-                            if (!error) {
-                                this.props.onSignup(values).then(resp => {
-                                    if (this.props.signUpInfo.message.passed == true) {
-                                        this.setState({
-                                            loading: false
-                                        });
-                                        this.props.navigation.navigate('Welcome_Post_Signup', {
-                                            name: this.props.signUpInfo.message.name,
-                                            id: this.props.signUpInfo.message.userId,
-                                            firstTime: true,
-                                        })
-                                    }
-                                })
-                            }
                     }
                     }
                     >
@@ -181,7 +146,7 @@ class Signup extends React.Component {
                             </ErrorMessage> 
                         }
 
-                        { this.state.loginError &&
+                        { loginError &&
                             <ErrorMessage>
                                 <ErrorText>Login exists</ErrorText>
                             </ErrorMessage> 
@@ -201,7 +166,7 @@ class Signup extends React.Component {
                             </ErrorMessage> 
                         }
 
-                        { this.state.emailError &&
+                        { emailError &&
                             <ErrorMessage>
                                 <ErrorText>Email Exists</ErrorText>
                             </ErrorMessage> 
@@ -213,10 +178,10 @@ class Signup extends React.Component {
                             onChangeText={handleChange('password')}
                             onBlur={handleBlur('password')}
                             value={values.password}
-                            secureTextEntry={this.state.hidePassword}
+                            secureTextEntry={hidePassword}
                             isPassword={true}
-                            hidePassword={this.state.hidePassword}
-                            setHidePassword={this.setHidePassword}
+                            hidePassword={hidePassword}
+                            setHidePassword={setHidePassword}
                         />
                         { touched.password && errors.password &&
                             <ErrorMessage>
@@ -225,11 +190,11 @@ class Signup extends React.Component {
                         }
                         <PrivacyArea>
                             <CheckBox
-                                value={this.state.isSelected}
-                                onValueChange={this.setSelection}
+                                value={isSelected}
+                                onValueChange={(value)=>setIsSelected(value)}
                                 style={styles.checkbox}
                             />
-                            <PrivacyText  onPress = {() => this.props.navigation.navigate('Privacy')}>I Agree With Terms Of Privacy Policy.</PrivacyText>
+                            <PrivacyText  onPress = {() => navigation.navigate('Privacy')}>I Agree With Terms Of Privacy Policy.</PrivacyText>
                         </PrivacyArea>
 
 
@@ -251,14 +216,14 @@ class Signup extends React.Component {
                         <ExtraView style={{paddingTop: "0%", paddingBottom: "0%", marginBottom: "0%",
                          marginTop: "0%", height: "14%"}}> 
                             <ExtraText style={{paddingTop: "0%", paddingBottom: "0%"}}>Already Have An Account?</ExtraText>
-                            <TextLink onPress = {() => this.props.navigation.navigate("Login")} testID={"Textlink"}>
+                            <TextLink onPress = {() => navigation.navigate("Login")} testID={"Textlink"}>
                                 <TextLinkContent style={{paddingTop: "0%", paddingBottom: "0%"}}>Login</TextLinkContent>
                             </TextLink>
                         </ExtraView>
                     </StyledFormArea>)}
                     </Formik>
                 </InnerContainer>
-                {this.state.loading &&
+                {loading &&
                     <View style={styles.loading}>
                         <ActivityIndicator size="large" color="#694398"/>
                     </View>
@@ -267,7 +232,7 @@ class Signup extends React.Component {
         );
     }
 
-};
+
 
 const styles = StyleSheet.create({
     checkbox: {
@@ -299,27 +264,6 @@ export const MyTextInput = ({isPassword, icon, hidePassword, setHidePassword, ..
     )
 }
 
-const mapStateToProps = state => {
-    const  {signUpInfo} = state;
-    const  {validateEmailInfo} = state;
-    const  {validateLoginInfo} = state;
-    console.log('login mapStateToProps ... state:' + JSON.stringify(state));
-    //console.log('login mapStateToProps ... props:' + JSON.stringify(validateLoginInfo.message));
-    //console.log('login mapStateToProps ... props:' + JSON.stringify({validateEmailInfo}));
-    //console.log('login mapStateToProps ... props:' + JSON.stringify({signUpInfo}));
-    return {validateLoginInfo, validateEmailInfo, signUpInfo};
-};
 
-const mapDispatchToProps = {
-    onSignup :  newUser,
-    cleanSignup : beforeSignUP,
-    cleanEmail: beforeValidEmail,
-    cleanLogin: beforeValidLogin,
-    verifyEmail: verifyEmail,
-    verifyLogin: verifyLogin
-};
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps,
-  )(Signup);
+export default Signup;

@@ -6,7 +6,12 @@ import {
 
 
 const signInState = {
-    message: {}    
+    message: {
+        passed: undefined,
+        userId: 0,
+        name: 'testUser',
+        firstTime: true
+    }    
 }
 
 
