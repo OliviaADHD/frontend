@@ -21,12 +21,12 @@ export default function ProfileSettingsPage({navigation, route}) {
 
       <InnerContainer>
 
-        <View>
+        <View style={{flex: 1, justifyContent: 'space-between', padding: 8, paddingTop: 30, flexDirection:'row', alignItems: 'baseline'}}>
 
         <Image source={require('../../assets/images/foxicon.png')} style={{width: 70, height: 70,}}/>
 
-        <View style={{flex: 1, paddingLeft: '25%', paddingTop: '15%'}}>
-          <Text style={{fontSize: 15}}>
+        <View>
+          <Text style={{fontSize: 15, paddingLeft: 15}}>
             {fullName}{"\n"}
             {email}{"\n"}
           </Text>
