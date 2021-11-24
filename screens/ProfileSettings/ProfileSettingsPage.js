@@ -22,16 +22,38 @@ export default function ProfileSettingsPage({navigation, route}) {
 
       <InnerContainer>
 
-        <View style={{flex: 1, justifyContent: 'space-between', padding: 8, paddingTop: 30, flexDirection:'row', alignItems: 'baseline'}}>
+        <View style={{flex: 1, justifyContent: 'space-between', padding: 8, paddingTop: 40, flexDirection:'row', alignItems: 'baseline'
+      }}>
 
-        <Image source={require('../../assets/images/foxicon.png')} style={{width: 70, height: 70, borderRadius: 50, borderWidth: 5, borderColor: Colors.purple}}/>
+        <Image source={require('../../assets/images/foxicon.png')} 
+        style={{
+          width: 70, 
+          height: 70, 
+          borderRadius: 50, borderWidth: 5, 
+          borderColor: Colors.purple}}/>
 
-        <View>
-          <Text style={{fontSize: 15, paddingLeft: 15}}>
+        <View 
+        style={{
+          paddingLeft: 15, 
+          flexDirection:'row'}}>
+            
+          <Text 
+          style={{
+            fontSize: 15, 
+            fontWeight: 'bold'}}>
+            
             {fullName}{"\n"}
             {email}{"\n"}
+
           </Text>
+
+          <Image source={require('../../assets/images/penPurple.png')} 
+          style={{
+            width: 15, 
+            height: 15}}/>
         </View>
+
+        
 
     </View>
 
