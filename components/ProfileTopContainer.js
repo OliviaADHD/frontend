@@ -6,7 +6,7 @@ import {
   StyledContainer,
   InnerContainer,
   Colors,
-}from '../../components/styles';
+}from "./styles";
 
 export default function ProfileTopContainer({navigation, route}) {
   
@@ -14,11 +14,11 @@ export default function ProfileTopContainer({navigation, route}) {
   const [profileData, setProfileData] = useState(fullName="Samira Bahram", email="samirabahrampour@gmail.com")
 
   return (
-    <StyledContainer> 
+    // <StyledContainer> 
 
-      <StatusBar style="dark"/>
+    //   <StatusBar style="dark"/>
 
-      <InnerContainer>
+      // <InnerContainer>
 
         <View 
           style={{
@@ -31,7 +31,7 @@ export default function ProfileTopContainer({navigation, route}) {
             paddingRight: 15
       }}>
 
-          <Image source={require('../../assets/images/foxicon.png')} 
+          <Image source={require('../assets/images/foxicon.png')} 
             style={{
               width: 70, 
               height: 70,
@@ -58,11 +58,11 @@ export default function ProfileTopContainer({navigation, route}) {
 
             <TouchableOpacity 
               activeOpacity={0.5}
-              onPress = {() => navigation.navigate('ToBeDefinedButWorks')}
+              onPress = {() => navigation.navigate('ToBeDefined')}
             >
               
               <Image 
-                source={require('../../assets/images/penPurple.png')} 
+                source={require('../assets/images/penPurple.png')} 
                 style={{
                   width: 17, 
                   height: 17,
@@ -75,9 +75,9 @@ export default function ProfileTopContainer({navigation, route}) {
 
         </View>
 
-      </InnerContainer>
+    //   </InnerContainer>
 
-    </StyledContainer>
+    // </StyledContainer>
   )
 }
 
