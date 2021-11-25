@@ -342,3 +342,24 @@ export const EditPeriodBtn = styled.View`
     left: 15px;
 `;
 
+export const ProfileListTouch = styled.TouchableOpacity`
+width: 100%;
+padding-left: 20px;
+`;
+
+export const ProfileListText = styled.Text`
+width: 100%;
+border: 2px;
+border-color: white;
+padding: 25px 0px;
+`;
+
+// export const ProfileMenuBlock = styled.View`
+// width: 90%;
+// height: 80%;
+// border: solid 5px white;
+// `;
+
+// export const ProfileTextInnerView = styled.View`
+// border: solid 1px ${lightpurple}
+// `;

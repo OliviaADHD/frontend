@@ -6,6 +6,9 @@ import {
   StyledContainer,
   InnerContainer,
   Colors,
+  ProfileListText,
+  ProfileListTouch,
+  StyledFormArea
 } from '../../components/styles';
 
 import ProfileTopContainer from "../../components/ProfileTopContainer";
@@ -24,119 +27,83 @@ export default function ProfileSettingsPage({navigation}) {
 
         <ProfileTopContainer/>
 
-        <View
-          style={{
-            // alignContent: "flex-start"
-            // display: "flex",
-            // alignItems: "flex-start",
-            // flexDirection: "column",
-            // justifyContent: "center",
-            alignItems: "center",
-            // paddingVertical: 200,
-            flex: 1,
-            // paddingVertical: 30,
-            // width: 30,
-            // height: 100,
-            paddingBottom: 300,
-            paddingEnd: 150,
-
-            justifyContent: "space-evenly",
-
-          }}
-        >
+        <StyledFormArea>
         
         <View
         style={{
-          flex: 1,
-          paddingBottom: 70,
-          borderColor: Colors.purple,
-          borderWidth: 2,
+          borderTopWidth: 1,
+          borderBottomWidth: 1,
+          borderTopColor: Colors.lightpurple,
+          borderBottomColor: Colors.lightpurple
         }}
         >
-        <TouchableOpacity
-          style={{
-            flex: 1,
-            paddingBottom: 100,
-            paddingTop: 20,
-            // borderTopWidth: 2,
-            // borderWidth: 2,
-            // borderTopColor: Colors.purple,
-            // borderColor: Colors.purple,
-            // width: 300
-          }}
+        <ProfileListTouch
             activeOpacity={0.5}
             onPress = {() => navigation.navigate('ToBeDefined')}
           >
-        <Text
-        style={{
-          paddingLeft: 40,
-          width: 300
-        }}
-        >
+        
+        <ProfileListText>
           Preferences
-        </Text>
-        </TouchableOpacity>
+        </ProfileListText>
+        
+        </ProfileListTouch>
 
         </View>
 
-        {/* <View
+        <View
         style={{
-          paddingBottom: 30
+          borderBottomWidth: 1,
+          borderBottomColor: Colors.lightpurple
         }}
-        > */}
-        <TouchableOpacity 
-        style={{
-          flex: 1,
-          paddingBottom: 100
-        }}
+        >
+
+        <ProfileListTouch 
             activeOpacity={0.5}
             onPress = {() => navigation.navigate('ToBeDefined')}
           >
-        <Text> 
+        <ProfileListText> 
           Setting and Privacy
-        </Text>
-        </TouchableOpacity>
-        {/* </View> */}
+        </ProfileListText>
+        </ProfileListTouch>
 
-        {/* <View
+        </View>
+
+        <View
         style={{
-          paddingVertical: 20
+          borderBottomWidth: 1,
+          borderBottomColor: Colors.lightpurple
         }}
-        > */}
-        <TouchableOpacity 
-        style={{
-          flex: 1,
-          paddingBottom: 100
-        }}
+        >
+        <ProfileListTouch
             activeOpacity={0.5}
             onPress = {() => navigation.navigate('ToBeDefined')}
           >
-        <Text>
+        <ProfileListText>
           Help
-        </Text>
-        </TouchableOpacity>
-        {/* </View> */}
+        </ProfileListText>
+        </ProfileListTouch>
 
-        {/* <View
+        </View>
+
+        <View
         style={{
-          paddingVertical: 20
+          borderBottomWidth: 1,
+          borderBottomColor: Colors.lightpurple
         }}
-        > */}
-        <TouchableOpacity 
-        // style={{
-        //   flex: 1,
-        //   paddingBottom: 50
-        // }}
+        >
+
+        <ProfileListTouch
             activeOpacity={0.5}
             onPress = {() => navigation.navigate('Login')}
           >
-        <Text>
+        <ProfileListText>
           Sign Out
-        </Text>
-      </TouchableOpacity>
-      {/* </View> */}
+        </ProfileListText>
+      </ProfileListTouch>
 
         </View>
+
+        </StyledFormArea>
 
         {/* <Profile 
         style={{
