@@ -354,12 +354,3 @@ border-color: white;
 padding: 25px 0px;
 `;
 
-// export const ProfileMenuBlock = styled.View`
-// width: 90%;
-// height: 80%;
-// border: solid 5px white;
-// `;
-
-// export const ProfileTextInnerView = styled.View`
-// border: solid 1px ${lightpurple}
-// `;
