@@ -31,37 +31,53 @@ export default function ProfileSettingsPage({navigation}) {
             // alignItems: "flex-start",
             // flexDirection: "column",
             // justifyContent: "center",
-            // alignItems: "center",
+            alignItems: "center",
             // paddingVertical: 200,
             flex: 1,
             // paddingVertical: 30,
-            paddingBottom: 400,
+            // width: 30,
+            // height: 100,
+            paddingBottom: 300,
             paddingEnd: 150,
+
             justifyContent: "space-evenly",
 
           }}
         >
         
-        {/* <View
+        <View
         style={{
           flex: 1,
-          paddingBottom: 70
+          paddingBottom: 70,
+          borderColor: Colors.purple,
+          borderWidth: 2,
         }}
-        > */}
+        >
         <TouchableOpacity
           style={{
             flex: 1,
-            paddingBottom: 50
+            paddingBottom: 100,
+            paddingTop: 20,
+            // borderTopWidth: 2,
+            // borderWidth: 2,
+            // borderTopColor: Colors.purple,
+            // borderColor: Colors.purple,
+            // width: 300
           }}
             activeOpacity={0.5}
             onPress = {() => navigation.navigate('ToBeDefined')}
           >
-        <Text>
+        <Text
+        style={{
+          paddingLeft: 40,
+          width: 300
+        }}
+        >
           Preferences
         </Text>
         </TouchableOpacity>
 
-        {/* </View> */}
+        </View>
 
         {/* <View
         style={{
@@ -71,12 +87,12 @@ export default function ProfileSettingsPage({navigation}) {
         <TouchableOpacity 
         style={{
           flex: 1,
-          paddingBottom: 50
+          paddingBottom: 100
         }}
             activeOpacity={0.5}
             onPress = {() => navigation.navigate('ToBeDefined')}
           >
-        <Text>
+        <Text> 
           Setting and Privacy
         </Text>
         </TouchableOpacity>
@@ -90,7 +106,7 @@ export default function ProfileSettingsPage({navigation}) {
         <TouchableOpacity 
         style={{
           flex: 1,
-          paddingBottom: 50
+          paddingBottom: 100
         }}
             activeOpacity={0.5}
             onPress = {() => navigation.navigate('ToBeDefined')}
