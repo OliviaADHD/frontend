@@ -13,8 +13,10 @@ import {
 }from '../../components/styles';
 
 export default function ProfileSettingsPage({navigation, route}) {
+  
   // const {fullName, email, id} = route.params;
   const [profileData, setProfileData] = useState(fullName="Samira Bahram", email="samirabahrampour@gmail.com")
+
   return (
     <StyledContainer> 
 
@@ -42,11 +44,14 @@ export default function ProfileSettingsPage({navigation, route}) {
             borderWidth: 5, 
             borderColor: Colors.purple,
           }}/>
-            
+        
+
+        <View style={{flexDirection: "row"}}>
           <Text 
             style={{
               fontWeight: 'bold',
               // alignSelf: "center",
+              // alignItems: "center",
               paddingLeft: 20,
               paddingHorizontal: 10,
               paddingRight: 20
@@ -66,13 +71,15 @@ export default function ProfileSettingsPage({navigation, route}) {
               style={{
                 width: 17, 
                 height: 17,
-                alignSelf: "center",
-                alignItems: "center",
-                // flexDirection: 'column'
+                // alignSelf: "center",
+                // alignItems: "center",
+                // flexDirection: 'row'
               }}
             />
             
           </TouchableOpacity>
+
+        </View>
 
         </View>
 
