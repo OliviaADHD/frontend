@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, TouchableOpacity } from "react-native";
 import { StatusBar } from "expo-status-bar";
 
 import {
@@ -22,38 +22,34 @@ export default function ProfileSettingsPage({navigation, route}) {
 
       <InnerContainer>
 
-        <View style={{
-          flex: 1, 
-          justifyContent: 'space-between', 
-          paddingTop: 40, 
-          flexDirection: 'row', 
-          alignItems: 'baseline', 
-          flexWrap: "wrap",
-          paddingRight: 15
+        <View 
+          style={{
+            flex: 1, 
+            justifyContent: 'space-between', 
+            paddingTop: 40, 
+            flexDirection: 'row', 
+            alignItems: 'baseline', 
+            flexWrap: "wrap",
+            paddingRight: 15
       }}>
 
         <Image source={require('../../assets/images/foxicon.png')} 
-        style={{
-          width: 70, 
-          height: 70,
-          // alignSelf: "center",
-          borderRadius: 50, 
-          borderWidth: 5, 
-          borderColor: Colors.purple,
+          style={{
+            width: 70, 
+            height: 70,
+            // alignSelf: "center",
+            borderRadius: 50, 
+            borderWidth: 5, 
+            borderColor: Colors.purple,
           }}/>
-
-        {/* <View 
-        style={{
-          paddingLeft: 15, 
-          flexDirection:'row'}}> */}
             
           <Text 
-          style={{
-            fontWeight: 'bold',
-            // alignSelf: "center",
-            paddingLeft: 20,
-            paddingHorizontal: 10,
-            paddingRight: 20
+            style={{
+              fontWeight: 'bold',
+              // alignSelf: "center",
+              paddingLeft: 20,
+              paddingHorizontal: 10,
+              paddingRight: 20
             }}>
             
             <Text style={{fontSize:15}}>{fullName}{"\n"}</Text>
@@ -61,19 +57,24 @@ export default function ProfileSettingsPage({navigation, route}) {
 
           </Text>
 
-          <Image source={require('../../assets/images/penPurple.png')} 
-          style={{
-            width: 17, 
-            height: 17,
-            alignSelf: "center",
-            alignItems: "center",
-            flexDirection: 'column'
-            }}/>
-        {/* </View> */}
+          <TouchableOpacity 
+            activeOpacity={0.5}
+            onPress = {() => navigation.navigate("ToBeDefinedButWorks")}>
+            
+            <Image 
+              source={require('../../assets/images/penPurple.png')} 
+              style={{
+                width: 17, 
+                height: 17,
+                alignSelf: "center",
+                alignItems: "center",
+                // flexDirection: 'column'
+              }}
+            />
+            
+          </TouchableOpacity>
 
-        
-
-    </View>
+        </View>
 
       </InnerContainer>
 
