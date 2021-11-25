@@ -55,7 +55,7 @@ export default function ProfileTopContainer({navigation, route}) {
           >
               
             <Image 
-              source={require('../assets/images/penPurple.png')} 
+              source={require('../assets/images/penBlack.png')} 
               style={{
                 width: 17, 
                 height: 17,
