@@ -3,8 +3,6 @@ import { View, Text, Image, TouchableOpacity } from "react-native";
 import { StatusBar } from "expo-status-bar";
 
 import {
-  StyledContainer,
-  InnerContainer,
   Colors,
 }from "./styles";
 
@@ -14,11 +12,7 @@ export default function ProfileTopContainer({navigation, route}) {
   const [profileData, setProfileData] = useState(fullName="Samira Bahram", email="samirabahrampour@gmail.com")
 
   return (
-    // <StyledContainer> 
 
-    //   <StatusBar style="dark"/>
-
-      // <InnerContainer>
 
         <View 
           style={{
@@ -75,9 +69,6 @@ export default function ProfileTopContainer({navigation, route}) {
 
         </View>
 
-    //   </InnerContainer>
-
-    // </StyledContainer>
   )
 }
 

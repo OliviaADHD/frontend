@@ -10,10 +10,8 @@ import {
 
 import ProfileTopContainer from "../../components/ProfileTopContainer";
 
-export default function ProfileSettingsPage({navigation, route}) {
-  
-  // const {fullName, email, id} = route.params;
-  // const [profileData, setProfileData] = useState(fullName="Samira Bahram", email="samirabahrampour@gmail.com")
+export default function ProfileSettingsPage({navigation}) {
+
 
   return (
     <StyledContainer> 
