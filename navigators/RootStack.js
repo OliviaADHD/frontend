@@ -34,7 +34,7 @@ import ToDoList from '../screens/Dashboard/ToDoList';
 
 import ProfileSettingsPage from '../screens/ProfileSettings/ProfileSettingsPage';
 
-import CprofileTopContainer from '../screens/ProfileSettings/CprofileTopContainer';
+// import CprofileTopContainer from '../components/CprofileTopContainer';
 
 const Stack = createStackNavigator();
 
@@ -53,7 +53,7 @@ const RootStack = () => {
                     paddingLeft: 20
                 }
             }}
-            initialRouteName = 'CprofileTopContainer'
+            initialRouteName = 'ProfileSettingsPage'
             >   
                 <Stack.Screen name="Welcome" 
                     options ={{animationEnabled: true, header: () => null}}
@@ -88,7 +88,7 @@ const RootStack = () => {
 
                 <Stack.Screen name="ProfileSettingsPage" component={ProfileSettingsPage} />
 
-                <Stack.Screen name="CprofileTopContainer" component={CprofileTopContainer} />
+                {/* <Stack.Screen name="CprofileTopContainer" component={CprofileTopContainer} /> */}
 
             </Stack.Navigator>
             

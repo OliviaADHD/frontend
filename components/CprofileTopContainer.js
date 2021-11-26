@@ -1,11 +1,11 @@
 import React, {useState} from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
-import { StatusBar } from "expo-status-bar";
+// import { StatusBar } from "expo-status-bar";
 
 import {
   Colors,
-} from '../../components/styles';
+} from './styles';
 
 class CprofileTopContainer extends React.Component {
   constructor(props) {
@@ -19,7 +19,6 @@ class CprofileTopContainer extends React.Component {
 
   render() {
     return(
-
 
       <View 
       style={{

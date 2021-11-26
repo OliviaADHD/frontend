@@ -11,7 +11,9 @@ import {
   StyledFormArea
 } from '../../components/styles';
 
-import ProfileTopContainer from "../../components/ProfileTopContainer";
+// import ProfileTopContainer from "../../components/ProfileTopContainer";
+
+import CprofileTopContainer from "../../components/CprofileTopContainer";
 
 import Profile from "../Dashboard/Profile";
 
@@ -23,7 +25,8 @@ export default function ProfileSettingsPage({navigation}) {
       <StatusBar style="dark"/>
 
       <InnerContainer>
-        <ProfileTopContainer/>
+        {/* <ProfileTopContainer/> */}
+        <CprofileTopContainer/>
         <StyledFormArea>
         
           <View
