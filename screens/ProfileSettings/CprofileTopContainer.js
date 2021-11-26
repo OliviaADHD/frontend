@@ -15,17 +15,11 @@ class CprofileTopContainer extends React.Component {
       email: 'samirabahrampour@gmail.com',
     }
 
-  // constructor() {
-  
-  //   this.state = {
-  //     fullName: 'Samira Bahram',
-  //     email: 'samirabahrampour@gmail.com',
-  //   }
-
   }
 
   render() {
     return(
+
 
       <View 
       style={{
@@ -86,18 +80,18 @@ class CprofileTopContainer extends React.Component {
   }
 }
 
-// const mapStateToProps = state => {
-//   const  {fullName} = state;
-//   const  {email} = state;
+const mapStateToProps = state => {
+  const  {fullName} = state;
+  const  {email} = state;
 
-//   console.log('user data mapStateToProps ... state:' + JSON.stringify(state));
+  console.log('user data mapStateToProps ... state:' + JSON.stringify(state));
 
-//   return {fullName, email};
-// };
-
-// export default connect(
-//   mapStateToProps,
-// )(CprofileTopContainer);
+  return {fullName, email};
+};
 
 export default connect(
+  mapStateToProps,
 )(CprofileTopContainer);
+
+// export default connect(
+// )(CprofileTopContainer);
