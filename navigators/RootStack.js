@@ -34,8 +34,6 @@ import ToDoList from '../screens/Dashboard/ToDoList';
 
 import ProfileSettingsPage from '../screens/ProfileSettings/ProfileSettingsPage';
 
-// import CprofileTopContainer from '../components/CprofileTopContainer';
-
 const Stack = createStackNavigator();
 
 const RootStack = () => {
@@ -85,10 +83,7 @@ const RootStack = () => {
                 <Stack.Screen name="Home" component={Home}  options ={{header: () => null}} />
                 <Stack.Screen name="ToDoList" component={ToDoList} />
                 <Stack.Screen name="Profile" component={Profile} />
-
                 <Stack.Screen name="ProfileSettingsPage" component={ProfileSettingsPage} />
-
-                {/* <Stack.Screen name="CprofileTopContainer" component={CprofileTopContainer} /> */}
 
             </Stack.Navigator>
             
