@@ -11,10 +11,9 @@ class CprofileTopContainer extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      fullName: 'Samira Bahram',
-      email: 'samirabahrampour@gmail.com',
+      fullName: '',
+      email: '',
     }
-
   }
 
   render() {
@@ -31,7 +30,7 @@ class CprofileTopContainer extends React.Component {
         paddingRight: 15
       }}>
 
-      <Image source={require('../../assets/images/foxicon.png')}
+      <Image source={require('../assets/images/foxicon.png')}
         style={{
           width: 70, 
           height: 70,
@@ -62,7 +61,7 @@ class CprofileTopContainer extends React.Component {
           >
               
             <Image 
-              source={require('../../assets/images/penBlack.png')} 
+              source={require('../assets/images/penBlack.png')} 
               style={{
                 width: 17, 
                 height: 17,
