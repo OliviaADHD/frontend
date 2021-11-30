@@ -1,7 +1,9 @@
-import React, {useState} from "react";
-import { View, Text, Button, TouchableOpacity, Switch } from "react-native";
+import React, {useState, useEffect} from "react";
+import axios from 'axios';
+import { View, Text, Button, TouchableOpacity, Switch, Alert } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { Formik, Field, Form } from 'formik';
+import { Formik, Field, Form, useFormik } from 'formik';
+import { Picker, useRef } from '@react-native-picker/picker';
 
 import {
   StyledContainer,
@@ -22,6 +24,41 @@ export default function ProfilePreferencesPage({navigation}) {
   //   language: '',
   //   mode: false
   // })
+
+  //! Trying to implement dropdown with:
+  //! https://javascript.plainenglish.io/implementing-dropdown-select-boxes-in-react-native-with-formik-a897d1b3db48
+  //! https://www.npmjs.com/package/@react-native-picker/picker
+
+  const languages = [
+    {name: 'English', id: 1},
+    {name: 'French', id: 2},
+    {name: 'Spanish', id: 3},
+  ]
+
+  // const pickerRef = useRef();
+
+  // function open() {
+  //   pickerRef.current.focus();
+  // }
+
+  // function close() {
+  //   pickerRef.current.blur();
+  // }
+
+  const formik = useFormik({
+    initialValues: { language: '' },
+    onSubmit: values => {
+      axios({
+        method: 'post',
+        url: 'domain-name' + url,
+          data: {
+            'language': values.language},
+            headers: {'Content-Type': 'application/json'}
+          }).then(response => {
+          }).catch(err => {
+            Alert.alert('An error occured', err.message, [{ text: 'Okay'}]);
+          })}
+  });
 
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
@@ -51,9 +88,25 @@ export default function ProfilePreferencesPage({navigation}) {
           </View>
           
           <View>
-            <Text>
-              Language
-            </Text>
+          <Picker 
+          // ref={pickerRef}
+            enabled={true} 
+            mode="dropdown"
+            placeholder='Language'
+            onValueChange={formik.handleChange('language')}
+            selectedValue={formik.values.language}
+      >
+       {languages.map((item) => {
+        
+          (<Picker.Item 
+              label={item.name.toString()} 
+              value={item.name.toString()} 
+              key={item.id.toString()} 
+          />)
+        })}
+    </Picker>
+
+    
           </View>
 
 
@@ -82,6 +135,14 @@ export default function ProfilePreferencesPage({navigation}) {
       />
           
           </View> 
+
+          <Button 
+            mode="contained" 
+            title='submit' 
+            onPress={formik.handleSubmit}
+      >
+        Enter
+      </Button>
         </StyledFormArea>
         {/* <Profile/> */}
       </InnerContainer>
