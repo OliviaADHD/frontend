@@ -250,7 +250,6 @@ const Questionnaire = (props) => {
     const handleSubmit = (userAnswers) => {
         userAnswers.sleepTime = handleSleepTime(answerPage5)
         userAnswers.symptoms = handleSymptoms(answerPage3)
-        console.log('userAnswers1', userAnswers);
         props.beforePOST();
         props.newQuestions(userAnswers);
     };

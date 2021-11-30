@@ -1,1 +1,1 @@
-export var link = "https://0b6d-2a01-c23-6d3e-4a00-2db8-9325-ddb9-f697.ngrok.io/";
+export var link = "http://1e57-2a01-c23-74d3-7c00-4480-254f-55ce-2b99.ngrok.io/";

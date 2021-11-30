@@ -15,7 +15,9 @@ export const beforePOST = () => async dispatch => {
   export const newQuestions = (questions) => async dispatch => {
     try {
       console.log(JSON.stringify(questions));
-      const res = await axios.post(link+"questions", JSON.stringify(questions));
+      const res = await axios.post(link+"questions/", questions,{
+        'Content-Type': 'application/json',
+      });
       dispatch({
         type: NEW_QUESTIONS_SUCCESS,
         payload: {
@@ -23,7 +25,6 @@ export const beforePOST = () => async dispatch => {
         }
       });
     } catch (err) {
-      console.warn("error: " + err)
       dispatch({
         type: NEW_QUESTIONS_FAILED,
         payload: {
