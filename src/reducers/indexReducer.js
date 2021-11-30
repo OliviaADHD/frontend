@@ -4,6 +4,7 @@ import signUpReducer from './signUpReducer';
 import validateEmailReducer from './validateEmailReducer';
 import validateLoginReducer from './validateLoginReducer';
 import menstruationReducer from './menstruationReducer';
+import questionReducer from './questionReducer';
 
 const rootReducer = combineReducers({
     loginInfo: loginReducer,
@@ -11,6 +12,8 @@ const rootReducer = combineReducers({
     validateEmailInfo: validateEmailReducer,
     validateLoginInfo: validateLoginReducer,
     menstruationInfo: menstruationReducer,
+    questionsReducer: questionReducer
+
 });
 
 export default rootReducer;
