@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
 
@@ -89,6 +89,3 @@ const mapStateToProps = state => {
 export default connect(
   mapStateToProps,
 )(ProfileTopContainer);
-
-// export default connect(
-// )(ProfileTopContainer);
