@@ -50,39 +50,35 @@ export default function ProfilePreferencesPage({navigation}) {
 
           </View>
           
+          <View>
+            <Text>
+              Language
+            </Text>
+          </View>
+
+
+
           <View
             style={{
-              borderColor: "#000000",
-              borderWidth: 2,
-              // width: 150,
+              // borderColor: "#000000",
+              // borderWidth: 2,
               display: 'flex',
-              // flex: 1,
+
               flexDirection: 'row',
               flexWrap: 'wrap',
-              // alignContent: 'flex-start',
-              // justifyContent: 'space-between',
-              // alignItems: 'stretch',
+
               justifyContent: 'space-between',
               alignItems: 'center',
-              // paddingVertical: 20,
-              // position: 'absolute'
+
             }}
           >
-            <Text
-              style={{
-                // alignItems: 'stretch',
-                // paddingBottom: 100,
-                // textAlignVertical: 'center'
-                // alignItems: 'baseline'
-              }}
-            >Dark Mode</Text>
+            <Text>Dark Mode</Text>
           <Switch
         trackColor={{ false: Colors.darkgray, true: Colors.purple}}
         thumbColor={isEnabled ? Colors.white : "#f4f3f4"}
         ios_backgroundColor="#3e3e3e"
         onValueChange={toggleSwitch}
         value={isEnabled}
-        // style={{alignItems: 'center'}}
       />
           
           </View> 
