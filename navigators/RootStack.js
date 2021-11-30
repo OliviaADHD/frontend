@@ -64,7 +64,7 @@ const RootStack = () => {
                     header: () => null,
                 }} />
                 <Stack.Screen name='Welcome_Post_Signup' component={Welcome_Post_Signup} options ={{header: () => null}}/>
-                <Stack.Screen name="Questionnaire" component={Questionnaire} />
+                <Stack.Screen name="Questionnaire" component={Questionnaire} options ={{header: () => null}} />
                 <Stack.Screen name="CalendarInitial" component={CalendarInitial} />
                   
                 <Stack.Screen name="ResetPassword" component={ResetPassword} />
