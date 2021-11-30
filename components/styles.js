@@ -325,6 +325,14 @@ export const ButtonContainers = styled.View`
     align-items: center; */
 `;
 
+// export const BouncyCheck = styled.View`
+//   height: 30%;
+//   width: 150%;
+//   align-items: center;
+//   justify-content: center;
+//   border-radius: 12px;
+// `;
+
 export const InputMoodBtn = styled.View`
     width: 142px;
     height: 44px;
