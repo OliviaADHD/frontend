@@ -36,7 +36,7 @@ export default function ProfileSettingsPage({navigation}) {
           >
             <ProfileListTouch
               activeOpacity={0.5}
-              onPress = {() => navigation.navigate('ToBeDefined')}
+              onPress = {() => navigation.navigate('ProfilePreferencesPage')}
             >            
             <ProfileListText> Preferences </ProfileListText>          
             </ProfileListTouch>
@@ -78,7 +78,7 @@ export default function ProfileSettingsPage({navigation}) {
             >
             <ProfileListTouch
               activeOpacity={0.5}
-              onPress = {() => navigation.navigate('Login')}
+              onPress = {() => navigation.replace('Login')}
             >            
               <ProfileListText> Sign Out </ProfileListText>         
             </ProfileListTouch>
