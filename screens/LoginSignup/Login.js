@@ -10,7 +10,6 @@ import * as Google from 'expo-auth-session/providers/google';
 import * as Facebook from 'expo-auth-session/providers/facebook';
 import { ResponseType } from 'expo-auth-session';
 import * as WebBrowser from 'expo-web-browser';
-import { connect } from "react-redux";
 import { signIn, beforeSignIn } from '../../src/actions/user/user'
 import {
   StyledContainer,
@@ -52,17 +51,13 @@ const signInValidationSchema = yup.object().shape({
 const Login = ({navigation}) => {
     const dispatch = useDispatch();
     const [hidePassword, setHidePassword] = useState(true);
-    const [loginError, setLoginError] = useState(false);
     const [loading, setLoading] = useState(false);
     const userData = useSelector(state => state.userName);
     const loginState = useSelector(state => state.loginInfo);
-    //errorMessage: null,
-    //        hidePassword:true,
-    //        loginInfo:{},
-    //        loading: false
+    const networkError = useSelector(state => state.networkAvailability);
 
-    /*
-    const [GoogleLogin, setGoogleLogin] = useState("texxt");
+
+    /*const [GoogleLogin, setGoogleLogin] = useState("texxt");
     const [request, response, promptAsync] = Google.useAuthRequest({
         expoClientId: '51546200734-nm24i67drlpn5dkcnaj4ckta6k2cnfff.apps.googleusercontent.com',
         iosClientId: '51546200734-nm24i67drlpn5dkcnaj4ckta6k2cnfff.apps.googleusercontent.com',
@@ -91,7 +86,26 @@ const Login = ({navigation}) => {
         }
     }, [responseFb]);
     */
-        return(
+    
+    
+    
+
+    
+    useEffect(() => {
+        if (loginState.message.passed){
+            if (userData.firstTime) {
+                navigation.replace('Welcome_Post_Signup');
+            } else {
+                navigation.replace('Home', {
+                    name: userData.Name,
+                    id: userData.ID,
+                    firstTime: userData.firstTime,
+                });
+            }
+        }
+    });
+
+    return(
             <StyledContainer>
                 <StatusBar style="dark"/>
                 <InnerContainer>
@@ -102,32 +116,11 @@ const Login = ({navigation}) => {
                         onSubmit={(values) => {
                             setLoading(true);
                             dispatch(beforeSignIn())
-                            .then(resp => {
-                                dispatch(signIn(values))
-                            })
-                            .then(resp => {
-                                setLoading(false);
-                                if (loginState.message.passed === true){
-                                    //user passed. Where to navigate?
-                                    if (userData.firstTime === true) {
-                                        navigation.replace('Welcome_Post_Signup', {
-                                            name: userData.Name,
-                                            id: userData.ID});
-                                    } else {
-                                        navigation.replace('Home', {
-                                            name: userData.Name,
-                                            id: userData.ID,
-                                            firstTime: userData.firstTime,
-                                        });
-                                    }
-                                } else {
-                                    console.log("something went wrong..."); 
-                                    setLoginError(true);
-                                    console.log(loginState);}
-                            });
-
-                        }
-                    }
+                            .then(() => dispatch(signIn(values)))
+                            .then(setLoading(false));
+                        }}
+                        
+                    
                     >{({handleChange, handleBlur, handleSubmit, values})=> (<StyledFormArea>
                         <MyTextInput 
                             placeholder="Email"
@@ -147,17 +140,23 @@ const Login = ({navigation}) => {
                             hidePassword={hidePassword}
                             setHidePassword={setHidePassword}
                         />
-                        { loginError &&
-                            <ErrorMessage>
-                                <ErrorText>Login Failed</ErrorText>
-                            </ErrorMessage> 
-                        }
                         <ForgotPassword>
                             <ForgotPasswordText>Forgot Password?</ForgotPasswordText>
                         </ForgotPassword>
                         <StyledButton onPress={handleSubmit}>
                             <ButtonText>Login</ButtonText>
                         </StyledButton>
+                        {networkError.error && 
+                            <ErrorMessage>
+                                <ErrorText>No network connection. Please try again later.</ErrorText>
+                            </ErrorMessage>
+                        }
+                        { loginState.message.error &&
+                            <ErrorMessage>
+                                <ErrorText>{loginState.message.errorMessage}</ErrorText>
+                            </ErrorMessage> 
+                        }
+
                         <Or>Or</Or>
                         <IconContainer>
                             <EachIconContainer onPress={async()=>{

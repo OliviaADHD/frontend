@@ -24,33 +24,30 @@ const headers = {
 }
 
 export const beforeSignUP = () => async dispatch => {
-  console.log('dispatching before SignUp');
   dispatch({
     type: SIGN_UP,
-    payload: {}
+    payload: {passed: false}
   });
 };
 
 export const beforeSignIn = () => async dispatch => {
-  console.log('dispatching SIGN_IN');
   dispatch({
     type: SIGN_IN,
-    payload: {}
+    payload: {passed: false, error: false}
   });
 };
 
 export const beforeValidEmail = () => async dispatch => {
-  console.log('dispatching before VLID Email');
   dispatch({
     type: VERIFY_EMAIL,
-    payload: {}
+    payload: {passed: false}
   });
 };
 
 export const beforeValidLogin = () => async dispatch => {
   dispatch({
     type: VERIFY_LOGIN,
-    payload: {}
+    payload: {passed: false}
   });
 };
 
@@ -66,7 +63,7 @@ export const newUser = (user) => async dispatch => {
     dispatch({type: SET_FIRST_TIME, payload: true})
   })
   .catch(err =>{
-    if (!err.status) {
+    if (!err.response.status) {
       //it's a network error!
       dispatch({
         type: SET_NETWORK_ERROR_TRUE,
@@ -77,39 +74,50 @@ export const newUser = (user) => async dispatch => {
         payload: {
           passed:false,
           error: "Sign up failed"}});
+      dispatch({
+            type: SET_NETWORK_ERROR_FALSE,
+            payload: {}});
     }
   });
 };
   
-export const signIn = (loginData) => async dispatch => {
+export const signIn = (loginData) => {//async dispatch => {
+  return dispatch => {
   axios.post(link + "login", loginData,{
     headers: headers
   }, {timout: 2})
   .then(res => {
       dispatch({
         type: SIGN_IN_SUCCESS,
-        payload: {passed:true}
+        payload: {passed:true, error: false}
       });
       dispatch({type: SET_USER_NAME, payload: res.data.name});
       dispatch({type: SET_USER_ID, payload: res.data.userId});
       dispatch({type: SET_FIRST_TIME, payload: res.data.firstTime});
+      dispatch({
+        type: SET_NETWORK_ERROR_FALSE,
+        payload: {}});
   })
   .catch(err => {
-    if (!err.status) {
+    if (!err.response.status) {
     //it's a network error!
     dispatch({
       type: SET_NETWORK_ERROR_TRUE,
-      payload: {}})
+      payload: {}});
   } else {
     dispatch({
       type: SIGN_IN_FAILED,
       payload: {
         passed:false,
-        error: "Login failed",
+        error: true,
+        errorMessage: "Login failed",
       }
      });
+     dispatch({
+      type: SET_NETWORK_ERROR_FALSE,
+      payload: {}});
   }});
-};
+}};
 
 export const verifyEmail = (email) => async dispatch => {
   axios.post(link+"validation/email/"+email, {timout: 2})
@@ -124,7 +132,7 @@ export const verifyEmail = (email) => async dispatch => {
       }});
   })
   .catch (err => {
-    if (!err.status) {
+    if (!err.response.status) {
       //it's a network error!
       dispatch({
         type: SET_NETWORK_ERROR_TRUE,
@@ -157,7 +165,7 @@ export const verifyLogin = (login) => async dispatch => {
     });
   })
   .catch (err => {
-    if (!err.status) {
+    if (!err.response.status) {
       //it's a network error!
       dispatch({
         type: SET_NETWORK_ERROR_TRUE,
