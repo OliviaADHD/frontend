@@ -3,6 +3,7 @@ import { StatusBar } from "expo-status-bar";
 import { Formik } from "formik";
 import {Ionicons} from '@expo/vector-icons';
 import { StyleSheet, ActivityIndicator, View } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 import RootStack from "../../navigators/RootStack";
 import* as AuthSession from 'expo-auth-session';
 import * as Google from 'expo-auth-session/providers/google';
@@ -46,28 +47,20 @@ const signInValidationSchema = yup.object().shape({
   })
 
 
-WebBrowser.maybeCompleteAuthSession();
+//WebBrowser.maybeCompleteAuthSession();
 
-class Login extends React.Component {
-    
-    constructor(props){
-        super(props);
-        this.state = {
-            errorMessage: null,
-            hidePassword:true,
-            loginInfo:{},
-            loading: false
-        }    
-    }
+const Login = ({navigation}) => {
+    const dispatch = useDispatch();
+    const [hidePassword, setHidePassword] = useState(true);
+    const [loginError, setLoginError] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const userData = useSelector(state => state.userName);
+    const loginState = useSelector(state => state.loginInfo);
+    //errorMessage: null,
+    //        hidePassword:true,
+    //        loginInfo:{},
+    //        loading: false
 
-    setHidePassword= () =>{
-        if(this.state.hidePassword == true){
-            this.setState({hidePassword:false});
-        }
-        else{
-            this.setState({hidePassword:true});
-        }
-    }
     /*
     const [GoogleLogin, setGoogleLogin] = useState("texxt");
     const [request, response, promptAsync] = Google.useAuthRequest({
@@ -98,7 +91,6 @@ class Login extends React.Component {
         }
     }, [responseFb]);
     */
-    render(){
         return(
             <StyledContainer>
                 <StatusBar style="dark"/>
@@ -108,34 +100,30 @@ class Login extends React.Component {
                         initialValues={{email: '', password: ''}}
                         validationSchema={signInValidationSchema}
                         onSubmit={(values) => {
-                            this.setState({
-                                loading: true
-                            });
-                            this.props.clearSignin();
-                            this.props.onSignin(values).then(resp => {
-                                if (this.props.loginInfo.message.passed == true) {
-                                    this.setState({
-                                        loading: false
-                                    });
-                                    if (this.props.loginInfo.message.firstTime == true) {
-                                        this.props.navigation.navigate('Welcome_Post_Signup', {
-                                            name: this.props.loginInfo.message.name,
-                                            id: this.props.loginInfo.message.userId,
-                                            
-                                        })
+                            setLoading(true);
+                            dispatch(beforeSignIn())
+                            .then(resp => {
+                                dispatch(signIn(values))
+                            })
+                            .then(resp => {
+                                setLoading(false);
+                                if (loginState.message.passed === true){
+                                    //user passed. Where to navigate?
+                                    if (userData.firstTime === true) {
+                                        navigation.replace('Welcome_Post_Signup', {
+                                            name: userData.Name,
+                                            id: userData.ID});
                                     } else {
-                                        this.props.navigation.navigate('Home', {
-                                            name: this.props.loginInfo.message.name,
-                                            id: this.props.loginInfo.message.userId,
-                                            firstTime: this.props.loginInfo.message.firstTime,
-                                        })
+                                        navigation.replace('Home', {
+                                            name: userData.Name,
+                                            id: userData.ID,
+                                            firstTime: userData.firstTime,
+                                        });
                                     }
-                                
                                 } else {
-                                    this.setState({
-                                        loading: false
-                                    });
-                                }
+                                    console.log("something went wrong..."); 
+                                    setLoginError(true);
+                                    console.log(loginState);}
                             });
 
                         }
@@ -154,12 +142,12 @@ class Login extends React.Component {
                             onChangeText={handleChange('password')}
                             onBlur={handleBlur('password')}
                             value={values.password}
-                            secureTextEntry={this.state.hidePassword}
+                            secureTextEntry={hidePassword}
                             isPassword={true}
-                            hidePassword={this.state.hidePassword}
-                            setHidePassword={this.setHidePassword}
+                            hidePassword={hidePassword}
+                            setHidePassword={setHidePassword}
                         />
-                        { this.state.errorMessage &&
+                        { loginError &&
                             <ErrorMessage>
                                 <ErrorText>Login Failed</ErrorText>
                             </ErrorMessage> 
@@ -192,22 +180,22 @@ class Login extends React.Component {
                         </IconContainer>
                         <ExtraView>
                             <ExtraText>Would You Like To Join Us? </ExtraText>
-                            <TextLink onPress = {() =>  this.props.navigation.navigate("Signup")}>
+                            <TextLink onPress = {() =>  navigation.navigate("Signup")}>
                                 <TextLinkContent>Signup</TextLinkContent>
                             </TextLink>
                         </ExtraView>
                     </StyledFormArea>)}
                     </Formik>
                 </InnerContainer>
-                {this.state.loading &&
+                {loading &&
                     <View style={styles.loading}>
                         <ActivityIndicator size="large" color="#694398"/>
                     </View>
                 }
             </StyledContainer>   
         );
+    
     }
-};
 
 const styles = StyleSheet.create({
     loading: {
@@ -221,7 +209,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     }
-  });
+  })
 
 const MyTextInput = ({isPassword, icon, hidePassword, setHidePassword, ...props}) => {
     return (
@@ -236,20 +224,5 @@ const MyTextInput = ({isPassword, icon, hidePassword, setHidePassword, ...props}
     )
 }
 
-const mapStateToProps = state => {
-    const { loginInfo } = state;
-    //console.log('login mapStateToProps ... state:' + JSON.stringify(state));
-    //console.log('login mapStateToProps ... props:' + JSON.stringify({ message }));
-    return { loginInfo };
-};
 
-
-const mapDispatchToProps = {
-    onSignin :  signIn,
-    clearSignin: beforeSignIn,
-};
-
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps,
-  )(Login);
+export default Login;

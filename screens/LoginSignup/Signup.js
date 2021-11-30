@@ -61,6 +61,7 @@ const Signup = ({navigation}) => {
     const [isSelected, setIsSelected] = useState(false);
     const loginValidityState = useSelector(state => state.validateLoginInfo); // these are at the start simply Object {"message":{}}
     const emailValidityState = useSelector(state => state.validateEmailInfo);
+    const networkError = useSelector(state => state.networkAvailability);
     const signUpState = useSelector(state => state.signUpInfo);
     const [loading, setLoading] = useState(false);
 
@@ -81,41 +82,47 @@ const Signup = ({navigation}) => {
                             .then(resp => dispatch(beforeValidLogin()))
                             .then(resp => dispatch(verifyLogin(values.login)))
                             .then(resp => {
-                                if (loginValidityState.message.passed === false) {
-                                    setLoginError(true);
-                                    setLoading(false);
-                                } else {
-                                    setLoginError(false);
+                                    if (networkError.error === true){
+                                        console.log('network error, stop verifying');
+                                        setLoading(false);
+                                    } else {
+                                        if (loginValidityState.message.passed === false) {
+                                            setLoginError(true);
+                                            setLoading(false);
+                                        } else {
+                                            setLoginError(false);
+                                        }
+                                        dispatch(verifyEmail(values.email))
+                                        .then(resp => {
+                                            if (emailValidityState.message.passed === false) {
+                                                setEmailError(true);
+                                                setLoading(false);
+                                            } else {
+                                                setEmailError(false);
+                                            }})
+                                        .then(resp => {
+                                            if ((loginError === false) && (emailError === false)) {
+                                                dispatch(newUser(values));
+                                            }
+                                        })
+                                        .then(resp => {
+                                            if (signUpState.message.passed === true) {
+                                                setLoading(false);
+                                                navigation.replace('Welcome_Post_Signup');
+                                            } else {
+                                                setLoading(false);
+                                            }
+                                        })
+                                        .then(resp => {
+                                            console.log('all the way to here :)');
+                                            console.log('loginValidityState', loginValidityState);
+                                            console.log('emailValidityState', emailValidityState);
+                                            console.log('signUpState', signUpState);
+                                        });
+                                    }
                                 }
-                            })
-                            .then(resp => dispatch(verifyEmail(values.email)))
-                            .then(resp => {
-                                if (emailValidityState.message.passed === false) {
-                                    setEmailError(true);
-                                    setLoading(false);
-                                } else {
-                                    setEmailError(false);
-                                }})
-                            .then(resp => {
-                                if ((loginError === false) && (emailError === false)) {
-                                    dispatch(newUser(values));
-                                }
-                            })
-                            .then(resp => {
-                                if (signUpState.message.passed === true) {
-                                    console.log('Suceeeesss?');
-                                    setLoading(false);
-                                    navigation.navigate('Welcome_Post_Signup');
-                                } else {
-                                    setLoading(false);
-                                }
-                            })
-                            .then(resp => {
-                                console.log('all the way to here :)');
-                                console.log('loginValidityState', loginValidityState);
-                                console.log('emailValidityState', emailValidityState);
-                                console.log('signUpState', signUpState);
-                            });
+                            );
+                            
                     }
                     }
                     >
@@ -201,6 +208,12 @@ const Signup = ({navigation}) => {
                             <StyledButton onPress={handleSubmit} testID='SubmitButton'>
                                 <ButtonText>Signup</ButtonText>
                             </StyledButton>
+                        
+                        {networkError.error && 
+                            <ErrorMessage>
+                                <ErrorText>No network connection. Please try again later.</ErrorText>
+                            </ErrorMessage>
+                        }
 
                         <IconContainer style={{marginBottom: "0%", paddingBottom: "0%"}}>
                             <EachIconContainer>
@@ -216,7 +229,7 @@ const Signup = ({navigation}) => {
                         <ExtraView style={{paddingTop: "0%", paddingBottom: "0%", marginBottom: "0%",
                          marginTop: "0%", height: "14%"}}> 
                             <ExtraText style={{paddingTop: "0%", paddingBottom: "0%"}}>Already Have An Account?</ExtraText>
-                            <TextLink onPress = {() => navigation.navigate("Login")} testID={"Textlink"}>
+                            <TextLink onPress = {() => navigation.replace("Login")} testID={"Textlink"}>
                                 <TextLinkContent style={{paddingTop: "0%", paddingBottom: "0%"}}>Login</TextLinkContent>
                             </TextLink>
                         </ExtraView>
