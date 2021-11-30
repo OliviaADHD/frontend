@@ -5,12 +5,14 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "test": "jest"
   },
   "dependencies": {
     "@react-native-community/google-signin": "^5.0.0",
     "@react-navigation/native": "^6.0.3",
     "@react-navigation/stack": "^6.0.8",
+    "axios": "^0.23.0",
     "expo": "~42.0.1",
     "expo-auth-session": "~3.3.1",
     "expo-constants": "~11.0.1",
@@ -19,6 +21,7 @@
     "expo-random": "~11.2.0",
     "expo-status-bar": "~1.0.4",
     "formik": "^2.2.9",
+    "jest": "26.5.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
@@ -31,12 +34,31 @@
     "react-native-web": "~0.13.12",
     "react-redux": "^7.2.5",
     "redux": "^4.1.1",
+    "redux-thunk": "^2.3.0",
     "styled-components": "^5.3.1",
     "up": "^1.0.2",
     "yup": "^0.32.9"
   },
+  "jest": {
+    "preset": "jest-expo",
+    "setupFiles": [
+      "./screens/tests/jestSetup.js",
+      "./node_modules/react-native-gesture-handler/jestSetup.js"
+    ],
+    "setupFilesAfterEnv": [
+      "@testing-library/jest-native/extend-expect"
+    ],
+    "transformIgnorePatterns": [
+      "node_modules/(?!(jest-)?react-native|react-clone-referenced-element|@react-native-community|expo(nent)?|@expo(nent)?/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|@sentry/.*)"
+    ],
+    "moduleNameMapper": {
+      "styled-components": "<rootDir>/node_modules/styled-components/native/dist/styled-components.native.cjs.js"
+    }
+  },
   "devDependencies": {
     "@babel/core": "^7.9.0",
+    "@testing-library/jest-native": "^4.0.2",
+    "@testing-library/react-native": "^7.2.0",
     "babel-eslint": "^10.1.0",
     "eslint": "^7.32.0",
     "eslint-config-airbnb": "^18.2.1",
@@ -46,7 +68,9 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.26.1",
     "eslint-plugin-react-hooks": "^4.2.0",
-    "prettier": "^2.4.1"
+    "jest-expo": "^42.1.0",
+    "prettier": "^2.4.1",
+    "react-test-renderer": "16.13.1"
   },
   "private": true
 }
