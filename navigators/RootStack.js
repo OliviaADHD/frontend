@@ -63,7 +63,7 @@ const RootStack = () => {
                     title:'Privacy Policy',
                     header: () => null,
                 }} />
-                <Stack.Screen name='Welcome_Post_Signup' component={Welcome_Post_Signup} options ={{header: () => null}}/>
+                <Stack.Screen name='Welcome_Post_Signup' component={Welcome_Post_Signup} />
                 <Stack.Screen name="Questionnaire" component={Questionnaire} options ={{header: () => null}} />
                 <Stack.Screen name="CalendarInitial" component={CalendarInitial} />
                   
