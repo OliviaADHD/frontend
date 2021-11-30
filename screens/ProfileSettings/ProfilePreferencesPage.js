@@ -1,5 +1,5 @@
-import React from "react";
-import { View, Text, Button, TouchableOpacity } from "react-native";
+import React, {useState} from "react";
+import { View, Text, Button, TouchableOpacity, Switch } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { Formik, Field, Form } from 'formik';
 
@@ -22,6 +22,9 @@ export default function ProfilePreferencesPage({navigation}) {
   //   language: '',
   //   mode: false
   // })
+
+  const [isEnabled, setIsEnabled] = useState(false);
+  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
   return (
     <StyledContainer> 
@@ -46,18 +49,43 @@ export default function ProfilePreferencesPage({navigation}) {
             <Text> Preferences </Text>          
 
           </View>
-
-          <Text
-            fields={{
-              mode: {
-                label: 'Dark mode',
-
-              }
+          
+          <View
+            style={{
+              borderColor: "#000000",
+              borderWidth: 2,
+              // width: 150,
+              display: 'flex',
+              // flex: 1,
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+              // alignContent: 'flex-start',
+              // justifyContent: 'space-between',
+              // alignItems: 'stretch',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              // paddingVertical: 20,
+              // position: 'absolute'
             }}
           >
-
-          </Text>
-
+            <Text
+              style={{
+                // alignItems: 'stretch',
+                // paddingBottom: 100,
+                // textAlignVertical: 'center'
+                // alignItems: 'baseline'
+              }}
+            >Dark Mode</Text>
+          <Switch
+        trackColor={{ false: Colors.darkgray, true: Colors.purple}}
+        thumbColor={isEnabled ? Colors.white : "#f4f3f4"}
+        ios_backgroundColor="#3e3e3e"
+        onValueChange={toggleSwitch}
+        value={isEnabled}
+        // style={{alignItems: 'center'}}
+      />
+          
+          </View> 
         </StyledFormArea>
         {/* <Profile/> */}
       </InnerContainer>
