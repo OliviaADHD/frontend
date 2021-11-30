@@ -49,30 +49,41 @@ export default function ProfilePreferencesPage({navigation}) {
 
         <Formik
           initialValues={{ language: '', mode: false}}
-          onSubmit={values => console.log(values)}
+          onSubmit={(values, actions) => {
+            setTimeout(() => {
+              alert(JSON.stringify(values, null, 2));
+              actions.setSubmitting(false);
+            }, 1000);
+          }}
         >
 
-{({ handleChange, handleBlur, handleSubmit, values }) => (
+{({ handleChange, handleBlur, handleSubmit, values, isSubmitting }) => (
 
           <View>
 
-              <Text
-              style={{
-                borderBottomWidth: 1,
-                borderBottomColor: Colors.lightpurple
-              }}> 
-              Language 
-              </Text>            
+            <Form>
 
-              <Text
-              style={{
-                borderBottomWidth: 1,
-                borderBottomColor: Colors.lightpurple
-              }}> 
+            <Field>
+            <Text> Language </Text> 
+            <Text value='English'>English</Text>
+              <Text value='French'>French</Text>
+              <Text value='Spanish'>Spanish</Text>
+              {/* <Option value='English'><Text>English</Text></Option>
+              <Option value='French'><Text>French</Text></Option>
+              <Option value='Spanish'><Text>Spanish</Text></Option> */}
+            
+              
+            </Field>
+
+                         
+
+              <Text> 
               Dark mode 
               </Text>            
             
             <Button onPress={handleSubmit} title='Save all changes' />
+
+            </Form>
 
           </View>
 
