@@ -83,7 +83,6 @@ const Signup = ({navigation}) => {
                             .then(resp => dispatch(verifyLogin(values.login)))
                             .then(resp => {
                                     if (networkError.error === true){
-                                        console.log('network error, stop verifying');
                                         setLoading(false);
                                     } else {
                                         if (loginValidityState.message.passed === false) {
@@ -112,12 +111,6 @@ const Signup = ({navigation}) => {
                                             } else {
                                                 setLoading(false);
                                             }
-                                        })
-                                        .then(resp => {
-                                            console.log('all the way to here :)');
-                                            console.log('loginValidityState', loginValidityState);
-                                            console.log('emailValidityState', emailValidityState);
-                                            console.log('signUpState', signUpState);
                                         });
                                     }
                                 }
