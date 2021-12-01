@@ -25,8 +25,6 @@ const MonthlyCalendar =({navigation}) => {
 
 
     return (
-        <StyledContainer>  
-            <StatusBar style="dark"/>
             <InnerContainer>
                 <ButtonGroupContainer>
                     <ButtonGroup>
@@ -68,9 +66,8 @@ const MonthlyCalendar =({navigation}) => {
                 </ButtonContainers>
                 <MediumExtraText style={{ color : '#694398', marginTop : '50%'}}>Mood Analysis Chart</MediumExtraText>
               </InnerContainer>  
-        </StyledContainer> 
     );
 }
 
-export default MonthlyCalendar
+export default MonthlyCalendar;
     

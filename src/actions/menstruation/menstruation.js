@@ -15,32 +15,41 @@ import {link} from '../../config/config'
 //Menstruation regular not done yet, as I have to change the backend for this!
 
 export const initializeMenstruationAfterLogin = (userId) => async dispatch =>{
-    axios.get(link+"/menstruation"+"/checkUserMenstruationDataExists", userId, {timeout: 2})
-    .then(resp => axios.get(link+"/menstruation"+"/getUserData", userId, {timeout: 2}))
-    .then(res => res.json())
-    .then(data =>{
-        console.log('not first time user found!');
-        dispatch({type: SET_MENS_REGULAR, payload: data.regular});
-        dispatch({type: SET_START_LAST_PERIOD, payload: data.LastPeriodStarts});
-        dispatch({type: SET_PERIOD_CYCLE_LENGTH, payload: data.periodCycleLengths});
-        dispatch({type: SET_PERIOD_LENGTH, payload: data.PeriodLengths});
-        dispatch({type: SET_FIRST_TIME_MENS, payload: data.firstTime});
-        dispatch({type: SET_NETWORK_ERROR_FALSE, payload: {}});
-        dispatch({type: MENS_INIT_TRUE, payload: {}});
-    })
+    axios.get(link+"/menstruation"+"/checkUserMenstruationDataExists/"+userId, {timeout: 20})
     .catch(err => {
-        if (!err.response.status) {
-            //it's a network error!
-            dispatch({
-            type: SET_NETWORK_ERROR_TRUE,
-            payload: {}});
-        } else {
-            console.log('first time user');
-            //Data does not exist yet! It's the first time
-            dispatch({type: SET_FIRST_TIME_MENS, payload: true});
+        console.log('some error when looking whether that user exists',err);
+            })
+    .then(resp => {
+        console.log('user exists!');
+        axios.get(link+"/menstruation"+"/getUserData/"+userId, {timeout: 2}, )
+        .catch(err => {
+            console.log(err);
+            if (!err.response.status) {
+                //it's a network error!
+                dispatch({
+                type: SET_NETWORK_ERROR_TRUE,
+                payload: {}});
+            } else {
+                console.log('error initializing', err);
+                //Data does not exist yet! It's the first time
+                dispatch({type: SET_FIRST_TIME_MENS, payload: true});
+                dispatch({type: MENS_INIT_TRUE, payload: {}});
+            }})
+        .then(res => res.data)
+        .catch(err =>console.log(err))
+        .then(data =>{
+            console.log("data, data", data);
+            console.log('not first time user found!');
+            dispatch({type: SET_MENS_REGULAR, payload: data.regular});
+            dispatch({type: SET_START_LAST_PERIOD, payload: data.LastPeriodStarts});
+            dispatch({type: SET_PERIOD_CYCLE_LENGTH, payload: data.periodCycleLengths});
+            dispatch({type: SET_PERIOD_LENGTH, payload: data.PeriodLengths});
+            dispatch({type: SET_FIRST_TIME_MENS, payload: data.firstTime});
+            dispatch({type: SET_NETWORK_ERROR_FALSE, payload: {}});
             dispatch({type: MENS_INIT_TRUE, payload: {}});
-        }
-    });
+        });
+        
+        });
 
 };
 
@@ -64,7 +73,7 @@ export const setMensDataFirstTime = (mensData) => async dispatch =>{
             type: SET_NETWORK_ERROR_TRUE,
             payload: {}});
         } else {
-            console.log('wthf?? this should have worked....');
+            console.log('error when trying to send menstruation data to the backend');
             console.log('error was', err.response.status);
             console.log('error was', err.response.body);
             console.log({...err});

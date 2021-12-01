@@ -19,8 +19,8 @@ import Welcome_Post_Signup from '../screens/Onboarding/Welcome_Post_Signup';
 
 
 import Intro_Period_Prediction from '../screens/Menstruation/Intro_Period_Prediction';
-import YearlyCalendar from '../screens/Menstruation/YearlyCalendar';
-import MonthlyCalendar from '../screens/Menstruation/MonthlyCalendar';
+
+
 
 import Cycle from '../screens/Dashboard/Cycle';
 import Awareness from '../screens/Dashboard/Awareness';import Home from '../screens/Dashboard/Home';
@@ -64,8 +64,6 @@ const RootStack = () => {
                 <Stack.Screen name="ResetPassword" component={ResetPassword} />
                 <Stack.Screen name="MessageResetPassword" component={MessageResetPassword} />
                 <Stack.Screen name="Intro_Period_Prediction" component={Intro_Period_Prediction} />
-                <Stack.Screen name="YearlyCalendar" component={YearlyCalendar} />
-                <Stack.Screen name="MonthlyCalendar" component={MonthlyCalendar} />
 
                 <Stack.Screen name="Cycle" component={Cycle} />
                 <Stack.Screen name="Awareness" component={Awareness} />

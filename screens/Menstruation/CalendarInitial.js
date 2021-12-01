@@ -24,6 +24,7 @@ import { View } from "react-native";
 
 const CalendarInitial =({firstPage, setFirstPage, selectedDate, setSelectedDate}) => {
     const [error, setError] = useState(false);
+    const [markedDate, setMarkedDate] =useState(undefined);
     const NextClicked = () => {
         if (selectedDate === undefined){
             setError(true);
@@ -49,10 +50,12 @@ const CalendarInitial =({firstPage, setFirstPage, selectedDate, setSelectedDate}
                 current={Date()}
                 maxDate={new Date()}
                 onDayPress={(day) => {
-                    setSelectedDate(day.dateString);
+                    console.log(day);
+                    setSelectedDate(day.date+"/"+day.month+"/"+day.year);
+                    setMarkedDate(day.dateString);
                 }}
                 markedDates={{
-                    [selectedDate]: {
+                    [markedDate]: {
                                         selected: true,
                                         disableTouchEvent: true,
                                         selectedColor: '#F1EFFE',

@@ -11,7 +11,7 @@ import {
 
 const menstruationData = {
     initialized: false,
-    firstTime: true,
+    firstTime: false,
     regular: true,
     startLastPeriod: [],
     periodCycleLength: [],

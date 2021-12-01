@@ -16,6 +16,8 @@ import CalenderInitial from "../Menstruation/CalendarInitial";
 import Infonotice_Menstruation from "../Menstruation/Infonotice_Menstruation";
 import CyclePeriod1 from "../Menstruation/CyclePeriod1";
 import CyclePeriod2 from "../Menstruation/CyclePeriod2";
+import MonthlyCalendar from '../Menstruation/MonthlyCalendar';
+import YearlyCalendar from '../Menstruation/YearlyCalendar';
 
 
 const Cycle = ({navigation}) => {
@@ -77,6 +79,20 @@ const Cycle = ({navigation}) => {
     ];
 
 
+    //All pages concerning time != first time
+    const pages =[
+        {
+            page: 0,
+            pageName: "MonthlyCalendar",
+            screen: <MonthlyCalendar/>
+        },
+        {
+            page: 1,
+            pageName: "YearlyCalendar",
+            screen: <YearlyCalendar/>
+        }
+
+    ]
     return(
         <StyledContainer>
             <StatusBar style="dark"/>
@@ -88,6 +104,8 @@ const Cycle = ({navigation}) => {
                 {menstruationData.firstTime && (firstPage<4) &&
                     FirstTime[firstPage].screen
                     }
+                {!menstruationData.firstTime &&
+                <Text>>Not the first time</Text>}
             </InnerContainer>
             <DashBoardBottomMenu currentScreen={"Cycle"} navigation={navigation}/>
         </StyledContainer>
