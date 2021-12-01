@@ -20,7 +20,7 @@ import {
 
 // import Profile from "../Dashboard/Profile";
 
-const languages = ['English', 'French', 'Spanish']
+// const languages = ['English', 'French', 'Spanish']
 
 export default function ProfilePreferencesPage({navigation}) {
 
@@ -33,11 +33,11 @@ export default function ProfilePreferencesPage({navigation}) {
   //! https://javascript.plainenglish.io/implementing-dropdown-select-boxes-in-react-native-with-formik-a897d1b3db48
   //! https://www.npmjs.com/package/@react-native-picker/picker
 
-  // const languages = useState([
-  //   {name: 'English', id: 0},
-  //   {name: 'French', id: 1},
-  //   {name: 'Spanish', id: 2},
-  // ])
+  const languages = [
+    {name: 'English', id: 0},
+    {name: 'French', id: 1},
+    {name: 'Spanish', id: 2},
+  ]
 
 
 
@@ -96,24 +96,45 @@ export default function ProfilePreferencesPage({navigation}) {
           </View>
           
           <View>
+            <Text>Language</Text>
           <SelectPicker 
             // ref={pickerRef ? open : close}
             enabled={true} 
             mode="dialogue"
-            placeholder='Language'
+            placeholder={{label: 'Select an option', value: null}}
+            // placeholder='Language'
             selectedValue={formik.values.language}
             onValueChange={formik.handleChange('language')}
             
-      >
-       {languages.map((item, index) => {
+      > 
+       {Object.values(languages).map((item) => 
         
           (<SelectPicker.Item 
-              label={item.name.toString()} 
-              value={item.name.toString()} 
-              key={item.id.toString()} 
+            
+              label={item.name} 
+              value={item.name} 
+              key={item.id} 
           />)
-})}
+)}
     </SelectPicker>
+
+{/* <SelectPicker
+  enabled={true} 
+      placeholder='Language'
+			onValueChange={(value) => {
+				// Do anything you want with the value. 
+				// For example, save in state.
+        
+				setSelected(value);
+			}}
+			selected={selected}
+			>
+			
+			{Object.values(languages).map((val, index) => (
+				<SelectPicker.Item label={val} value={val} key={index} />
+			))}
+
+		</SelectPicker> */}
 
     {/* <SelectPicker.Item label='Language' value='' />
     <SelectPicker.Item label='English' value='English' />
