@@ -119,14 +119,14 @@ export default function ProfilePreferencesPage({navigation}) {
             
             <Switch
               trackColor={{ false: Colors.darkgray, true: Colors.purple}}
-              thumbColor={'switch' ? Colors.white : "#f4f3f4"}
+              thumbColor={formik.values.switch ? Colors.white : "#f4f3f4"}
               // thumbColor={isEnabled ? Colors.white : "#f4f3f4"}
               ios_backgroundColor="#3e3e3e"
-              value={values.switch}
+              value={formik.values.switch}
               // onValueChange={toggleSwitch}
-              onValueChange={value => setFieldValue('switch', value)}
+              onValueChange={value => formik.setFieldValue('switch', value)}
               
-              // value={isEnabled}
+              // value={isEnabled.switch}
             />
           
           </View> 
