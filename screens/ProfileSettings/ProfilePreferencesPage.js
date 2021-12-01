@@ -68,11 +68,14 @@ export default function ProfilePreferencesPage({navigation}) {
               // borderTopColor: Colors.lightpurple,
               borderBottomColor: Colors.lightpurple, 
               width: 120,
-              alignItems: 'center'
+              alignItems: 'center',
+              marginBottom: 20,
+              paddingBottom: 15, 
+              paddingTop: 20
             }}
           >
                       
-            <Text> Preferences </Text>          
+            <Text style={{fontWeight: 'bold'}}> Preferences </Text>          
 
           </View>
           
@@ -86,11 +89,13 @@ export default function ProfilePreferencesPage({navigation}) {
             alignItems: 'center',
             borderBottomWidth: 1,            
             borderBottomColor: Colors.lightpurple,
-            marginBottom: 20            
+            marginBottom: 20,
+            paddingBottom: 20,
+            paddingTop: 10           
           }}
           >
             
-            <Text>Language</Text>
+            <Text style={{paddingLeft: 22}}>Language</Text>
           
             <View>
 
@@ -129,18 +134,19 @@ export default function ProfilePreferencesPage({navigation}) {
           <View
             style={{
               //borderColor: "#000000",
-              borderBottomWidth: 1,
               display: 'flex',
               flexDirection: 'row',
               flexWrap: 'wrap',
               justifyContent: 'space-between',
               alignItems: 'center',
+              borderBottomWidth: 1,
               borderBottomColor: Colors.lightpurple,
-              marginBottom: 20
+              marginBottom: 20,
+              paddingBottom: 10
             }}
           >
 
-            <Text>Dark Mode</Text>
+            <Text style={{paddingLeft: 22}}>Dark Mode</Text>
             
             <Switch
               trackColor={{ false: Colors.darkgray, true: Colors.purple}}
