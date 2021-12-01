@@ -75,7 +75,7 @@ export default function ProfilePreferencesPage({navigation}) {
             }}
           >
                       
-            <Text style={{fontWeight: 'bold'}}> Preferences </Text>          
+            <Text style={{fontWeight: 'bold', fontSize: 14}}> Preferences </Text>          
 
           </View>
           
@@ -95,7 +95,7 @@ export default function ProfilePreferencesPage({navigation}) {
           }}
           >
             
-            <Text style={{paddingLeft: 22}}>Language</Text>
+            <Text style={{paddingLeft: 22, fontSize: 14}}>Language</Text>
           
             <View>
 
@@ -108,6 +108,7 @@ export default function ProfilePreferencesPage({navigation}) {
                 // flexWrap: 'wrap',
                 justifyContent: 'space-between',
                 alignItems: 'flex-start',
+                marginRight: 22
               }}
               enabled={true} 
               mode="dialogue"
@@ -118,7 +119,7 @@ export default function ProfilePreferencesPage({navigation}) {
        
               {Object.values(languages).map((item) => 
                 (<SelectPicker.Item
-                  style={{fontSize: 13, fontFamily: 'roboto'}} 
+                  style={{fontSize: 14, fontFamily: 'roboto'}} 
                   label={item.name} 
                   value={item.name} 
                   key={item.id} 
@@ -146,9 +147,10 @@ export default function ProfilePreferencesPage({navigation}) {
             }}
           >
 
-            <Text style={{paddingLeft: 22}}>Dark Mode</Text>
+            <Text style={{paddingLeft: 22, fontSize: 14}}>Dark Mode</Text>
             
             <Switch
+              style={{marginRight: 22}}
               trackColor={{ false: Colors.darkgray, true: Colors.purple}}
               thumbColor={formik.values.switch ? Colors.white : "#f4f3f4"}              
               ios_backgroundColor="#3e3e3e"
@@ -162,13 +164,13 @@ export default function ProfilePreferencesPage({navigation}) {
           </View> 
 
           <Button 
-            style={{backgroundColor: '#7047EB'}}
+            style={{backgroundColor: '#7047EB', borderRadius: 10, paddingTop: 8, paddingBottom: 8, marginTop: 100}}
             mode="contained"
             uppercase={false} 
             title='save' 
             onPress={formik.handleSubmit}
           >
-          Save all changes
+          <Text style={{fontSize: 12}}>Save all changes</Text>
           </Button>
         </StyledFormArea>
         {/* <Profile/> */}
