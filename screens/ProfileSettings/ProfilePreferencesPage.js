@@ -1,9 +1,9 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useRef} from "react";
 import axios from 'axios';
 import { View, Text, TouchableOpacity, Switch, Alert } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { Formik, Field, Form, useFormik } from 'formik';
-import { Picker, useRef } from '@react-native-picker/picker';
+import { Picker as SelectPicker } from '@react-native-picker/picker';
 import { Button, Title, TextInput } from 'react-native-paper';
 
 
@@ -37,15 +37,15 @@ export default function ProfilePreferencesPage({navigation}) {
     {name: 'Spanish', id: 3},
   ]
 
-  // const pickerRef = useRef();
+  const pickerRef = useRef();
 
-  // function open() {
-  //   pickerRef.current.focus();
-  // }
+  function open() {
+    pickerRef.current.focus();
+  }
 
-  // function close() {
-  //   pickerRef.current.blur();
-  // }
+  function close() {
+    pickerRef.current.blur();
+  }
 
   const formik = useFormik({
     initialValues: { language: '' },
@@ -89,27 +89,28 @@ export default function ProfilePreferencesPage({navigation}) {
 
           </View>
           
-          <View>
-          <Picker 
-          // ref={pickerRef}
+          {/* <View> */}
+          <SelectPicker 
+          ref={pickerRef}
             enabled={true} 
             mode="dropdown"
             placeholder='Language'
-            onValueChange={formik.handleChange('language')}
             selectedValue={formik.values.language}
+            onValueChange={formik.handleChange('language')}
+            
       >
        {languages.map((item) => {
         
-          (<Picker.Item 
+          (<SelectPicker.Item 
               label={item.name.toString()} 
               value={item.name.toString()} 
               key={item.id.toString()} 
           />)
         })}
-    </Picker>
+    </SelectPicker>
 
     
-          </View>
+          {/* </View> */}
 
 
 
