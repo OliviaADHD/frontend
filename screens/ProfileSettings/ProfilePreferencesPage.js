@@ -16,6 +16,7 @@ import {
   StyledFormArea
 } from '../../components/styles';
 
+
 // import ProfileTopContainer from "../../components/ProfileTopContainer";
 
 // import Profile from "../Dashboard/Profile";
@@ -102,13 +103,14 @@ export default function ProfilePreferencesPage({navigation}) {
             <SelectPicker
               style={{
                 display: 'flex',
-                width: 120,
+                width: 110,
                 // flex: 1,
                 // flexDirection: 'row',
                 // flexWrap: 'wrap',
                 justifyContent: 'space-between',
                 alignItems: 'flex-start',
-                marginRight: 22
+                marginRight: 22,
+                transform : [{scale: 1.5}]
               }}
               enabled={true} 
               mode="dialogue"
@@ -119,7 +121,7 @@ export default function ProfilePreferencesPage({navigation}) {
        
               {Object.values(languages).map((item) => 
                 (<SelectPicker.Item
-                  style={{fontSize: 14, fontFamily: 'roboto'}} 
+                  style={{fontSize: 10, fontFamily: 'roboto', transform: [{scale: 0.2}]}} 
                   label={item.name} 
                   value={item.name} 
                   key={item.id} 
@@ -150,7 +152,7 @@ export default function ProfilePreferencesPage({navigation}) {
             <Text style={{paddingLeft: 22, fontSize: 14}}>Dark Mode</Text>
             
             <Switch
-              style={{marginRight: 22}}
+              style={{marginRight: 19, transform : [{scale: 1.1}]}}
               trackColor={{ false: Colors.darkgray, true: Colors.purple}}
               thumbColor={formik.values.switch ? Colors.white : "#f4f3f4"}              
               ios_backgroundColor="#3e3e3e"
