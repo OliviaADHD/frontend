@@ -2,13 +2,16 @@ import React from 'react';
 import { StatusBar } from "expo-status-bar";
 
 import {
-  StyledContainer,
-  InnerContainer,
   MediumExtraText,
   StyledFormArea,
   StyledButton,
   ButtonText,
-}from '../../components/styles';
+}from '../../components/LoginSignup/messageReset';
+
+import {
+  StyledContainer,
+  InnerContainer
+} from '../../components/general/style';
 
 export default function MessageResetPassword({navigation}) {
   return (
@@ -18,7 +21,7 @@ export default function MessageResetPassword({navigation}) {
 
       <InnerContainer>
 
-        <MediumExtraText style={{ fontSize: 20, marginTop : '40%' }}>
+        <MediumExtraText>
           To reset your password, please check your emails and go back to the Login page.
         </MediumExtraText>
 

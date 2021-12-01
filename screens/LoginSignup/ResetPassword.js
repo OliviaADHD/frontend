@@ -5,15 +5,18 @@ import { Formik } from 'formik';
 import { View } from "react-native";
 
 import {
-  StyledContainer,
-  InnerContainer,
   MediumExtraText,
   StyledTextInput,
   StyledFormArea,
   StyledButton,
   ButtonText,
   BlockText,
-}from '../../components/styles';
+}from '../../components/LoginSignup/resetPassword';
+
+import {  
+  StyledContainer,
+  InnerContainer
+} from '../../components/general/style'
 
 
 export default function ResetPassword({navigation}) {
@@ -28,9 +31,9 @@ export default function ResetPassword({navigation}) {
     <StatusBar style="dark"/>
     <InnerContainer>
 
-      <MediumExtraText style={{ color : '#694398', marginTop : '20%', paddingBottom: '10%' }}>Forgot your password?</MediumExtraText>
+      <MediumExtraText>Forgot your password?</MediumExtraText>
         
-      <BlockText style={{textAlign: 'center'}}>
+      <BlockText>
         Enter Your Registered Email Below To Receive Password Reset Instruction{"\n"}{"\n"}
       </BlockText>
         
@@ -80,7 +83,7 @@ export default function ResetPassword({navigation}) {
                 <StyledButton type="submit" disabled={isSubmitting} onPress={() => {
                   handleSubmit
                   navigation.navigate("MessageResetPassword")
-                  }} style={{paddingTop:'5%', paddingBottom: '5%', marginTop: '10%'}}>
+                  }}>
                   <ButtonText>Submit</ButtonText>
                 </StyledButton>
 

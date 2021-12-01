@@ -2,12 +2,14 @@ import React, {useState, useEffect} from "react";
 import { StatusBar } from "expo-status-bar";
 import { ActivityIndicator } from "react-native";
 import {
-    StyledContainer,
-    InnerContainer,
     PageLogoWelcome,
     LoadScreenBottomImage,
     ExtraText,
-}from '../../components/styles';
+}from '../../components/LoginSignup/welcome';
+import {
+  StyledContainer,
+  InnerContainer
+} from '../../components/general/style'
 
 const Welcome =(props) => {
     const [authLoaded, setAuthLoaded] = useState(false);
