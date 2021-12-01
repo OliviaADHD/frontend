@@ -35,6 +35,13 @@ const Cycle = ({navigation}) => {
     const [startDate, setStartDate] = useState(undefined);
     const [cycleLength, setCycleLength] = useState(undefined);
     const [periodLength, setPeriodLength] = useState(undefined);
+    const mensFirstTimeData = {
+        userId: userData.userId,
+        lastPeriodStart: startDate,
+        periodLength: periodLength,
+        periodCycleLength: cycleLength,
+        regular: 0 //int for the enum true for the backend
+    };
     const FirstTime = [
         {
             page: 0,
@@ -62,10 +69,13 @@ const Cycle = ({navigation}) => {
             pageName: "CyclePeriod2",
             nextPage: undefined,
             answer: periodLength,
-            screen: <CyclePeriod2 firstPage={firstPage} setFirstPage={setfirstPage} DaySelected={periodLength} SetDaySelected={setPeriodLength}/>
+            screen: <CyclePeriod2   firstPage={firstPage} setFirstPage={setfirstPage} 
+                                    DaySelected={periodLength} SetDaySelected={setPeriodLength}
+                                    allMensData={mensFirstTimeData}
+                                    />
         }
     ];
-    
+
 
     return(
         <StyledContainer>

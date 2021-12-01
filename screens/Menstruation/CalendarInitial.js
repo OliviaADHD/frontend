@@ -35,7 +35,7 @@ const CalendarInitial =({firstPage, setFirstPage, selectedDate, setSelectedDate}
         const today = new Date();
         const tomorrow = new Date(today);
         tomorrow.setDate(tomorrow.getDate()+1);
-        const tomorrowDate = tomorrow.getFullYear()+"-"+tomorrow.getMonth()+"-"+tomorrow.getDate();
+        const tomorrowDate = tomorrow.getDate()+"/"+tomorrow.getMonth()+"/"+tomorrow.getFullYear();
         setSelectedDate(tomorrowDate);
         setFirstPage(firstPage+1);
       };

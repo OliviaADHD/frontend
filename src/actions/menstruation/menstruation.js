@@ -44,8 +44,10 @@ export const initializeMenstruationAfterLogin = (userId) => async dispatch =>{
 
 };
 
-export const setUserDataFirstTime = (mensData) => async dispatch =>{
-    axios.post(link+"/menstruation"+"/setUserDataFirstTime", mensData, {timout: 2})
+export const setMensDataFirstTime = (mensData) => async dispatch =>{
+    axios.put(link+"/menstruation"+"/setUserDataFirstTime", mensData, {timout: 2}, {
+        'Content-Type': 'application/json',
+      })
     .then(resp => {
         console.log('successful posted');
         dispatch({type: SET_MENS_REGULAR, payload: true});
@@ -63,6 +65,9 @@ export const setUserDataFirstTime = (mensData) => async dispatch =>{
             payload: {}});
         } else {
             console.log('wthf?? this should have worked....');
+            console.log('error was', err.response.status);
+            console.log('error was', err.response.body);
+            console.log({...err});
         }
     });
 }

@@ -21,14 +21,19 @@ import {
 }from '../../components/stylesCalendar';
 
 import ScrollableDaySelector from "../../components/ScrollableSelectionBox";
+import { useDispatch} from "react-redux";
+import { setMensDataFirstTime } from "../../src/actions/menstruation/menstruation";
 
-const CyclePeriod2 = ({firstPage, setFirstPage, DaySelected, SetDaySelected}) =>{
+const CyclePeriod2 = ({firstPage, setFirstPage, DaySelected, SetDaySelected, allMensData}) =>{
+    const dispatch = useDispatch();
     const [warning, SetWarning] = useState(false);
 
     const NextClicked = () => {
-        console.log('next was clicked');
         if (DaySelected!=undefined){
             SetWarning(false);
+            allMensData.periodLength = DaySelected;
+            dispatch(setMensDataFirstTime(allMensData));
+            console.log(allMensData);
             setFirstPage(firstPage+1);
         } else {
             SetWarning(true);
@@ -37,6 +42,9 @@ const CyclePeriod2 = ({firstPage, setFirstPage, DaySelected, SetDaySelected}) =>
 
     const NotSureClicked = () => {
         SetDaySelected(5);
+        allMensData.periodLength = 5;
+        console.log("just before dispatching:", allMensData);
+        dispatch(setMensDataFirstTime(allMensData));
         setFirstPage(firstPage+1);
     }
 

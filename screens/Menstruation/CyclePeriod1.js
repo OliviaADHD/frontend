@@ -27,19 +27,15 @@ const CyclePeriod1 = ({firstPage, setFirstPage, DaySelected, SetDaySelected}) =>
 
 
     const NextClicked = () => {
-        console.log('next was clicked');
         if (DaySelected!=undefined){
             SetWarning(false);
-            console.log("a specific day was selected: " + DaySelected);
             setFirstPage(firstPage+1);
         } else {
-            console.log(" no specific day was selected, display warning");
             SetWarning(true);
         }
     };
 
     const NotSureClicked = () => {
-        console.log('Not sure was clicked, and the Day was '+DaySelected);
         SetDaySelected(28);
         setFirstPage(firstPage+1);
     }
