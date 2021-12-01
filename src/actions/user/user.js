@@ -14,6 +14,10 @@ import { SIGN_UP,
 import axios from "axios";
 import {link} from '../../config/config'
 
+const headers = {
+  'Content-Type': 'application/json',
+}
+
 export const beforeSignUP = () => async dispatch => {
   dispatch({
     type: SIGN_UP,
@@ -70,8 +74,9 @@ export const newUser = (user) => async dispatch => {
   
 export const signIn = (loginData) => async dispatch => {
   try {
-    console.log(loginData);
-    const res = await axios.get(link + "login2/"+loginData.email+"/"+loginData.password);
+    const res = await axios.post(link + "login", loginData,{
+      headers: headers
+    });
     dispatch({
       type: SIGN_IN_SUCCESS,
       payload: {

@@ -10,11 +10,12 @@ export const Colors = {
     disabledPurple:"#aa91c9",
     black: "#000000",
     gray: "#d3d3d3",
+    darkgray: "#979797",
     red: "#FF0000",
     lightpurple: "#C7A3D2"
 };
 
-const { white, purple, black, gray,lightpurple,  red,disabledPurple} = Colors;
+const { white, purple, disabledPurple, black, gray, darkgray, red, lightpurple} = Colors;
 
 export const StyledContainer = styled.View`
   flex: 1;
@@ -323,6 +324,14 @@ export const ButtonContainers = styled.View`
     /* justify-content: space-between;
     align-items: center; */
 `;
+
+// export const BouncyCheck = styled.View`
+//   height: 30%;
+//   width: 150%;
+//   align-items: center;
+//   justify-content: center;
+//   border-radius: 12px;
+// `;
 
 export const InputMoodBtn = styled.View`
     width: 142px;
