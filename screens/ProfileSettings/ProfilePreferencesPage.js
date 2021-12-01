@@ -20,47 +20,31 @@ import {
 
 // import Profile from "../Dashboard/Profile";
 
-// const languages = ['English', 'French', 'Spanish']
-
 export default function ProfilePreferencesPage({navigation}) {
-
-  // const [preferences, setPreferences] = useState({
-  //   language: '',
-  //   mode: false
-  // })
-
-  //! Trying to implement dropdown with:
-  //! https://javascript.plainenglish.io/implementing-dropdown-select-boxes-in-react-native-with-formik-a897d1b3db48
-  //! https://www.npmjs.com/package/@react-native-picker/picker
+  
 
   const languages = [
     {name: 'English', id: 0},
     {name: 'French', id: 1},
     {name: 'Spanish', id: 2},
   ]
+  
+  // const [isEnabled, setIsEnabled] = useState(false);
+  // const toggleSwitch = () => setIsEnabled(previousState => !previousState);
 
 
 
-  const [selected, setSelected] = useState();
-
-  const pickerRef = useRef();
-
-  function open() {
-    pickerRef.current.focus();
-  }
-
-  function close() {
-    pickerRef.current.blur();
-  }
+  // const [selected, setSelected] = useState();
 
   const formik = useFormik({
-    initialValues: { language: '' },
+    initialValues: { language: '', switch: false },
     onSubmit: values => {
       axios({
         method: 'post',
         url: 'domain-name' + url,
           data: {
-            'language': values.language},
+            'language': values.language,
+            'switch': values.switch},
             headers: {'Content-Type': 'application/json'}
           }).then(response => {
           }).catch(err => {
@@ -68,13 +52,10 @@ export default function ProfilePreferencesPage({navigation}) {
           })}
   });
 
-  const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
-
   return (
-    <StyledContainer> 
+  <StyledContainer> 
 
-      <StatusBar style="dark"/>
+    <StatusBar style="dark"/>
 
       <InnerContainer>
         {/* <ProfileTopContainer/> */}
@@ -96,54 +77,28 @@ export default function ProfilePreferencesPage({navigation}) {
           </View>
           
           <View>
+            
             <Text>Language</Text>
-          <SelectPicker 
-            // ref={pickerRef ? open : close}
-            enabled={true} 
-            mode="dialogue"
-            placeholder={{label: 'Select an option', value: null}}
-            // placeholder='Language'
-            selectedValue={formik.values.language}
-            onValueChange={formik.handleChange('language')}
-            
-      > 
-       {Object.values(languages).map((item) => 
-        
-          (<SelectPicker.Item 
-            
-              label={item.name} 
-              value={item.name} 
-              key={item.id} 
-          />)
-)}
-    </SelectPicker>
+          
+            <SelectPicker
+              enabled={true} 
+              mode="dialogue"
+              // placeholder={{label: 'Language', value: null}}
+              selectedValue={formik.values.language}
+              onValueChange={formik.handleChange('language')}            
+            > 
+       
+              {Object.values(languages).map((item) => 
+                (<SelectPicker.Item 
+                  label={item.name} 
+                  value={item.name} 
+                  key={item.id} 
+                />)
+              )}
+    
+            </SelectPicker>
 
-{/* <SelectPicker
-  enabled={true} 
-      placeholder='Language'
-			onValueChange={(value) => {
-				// Do anything you want with the value. 
-				// For example, save in state.
-        
-				setSelected(value);
-			}}
-			selected={selected}
-			>
-			
-			{Object.values(languages).map((val, index) => (
-				<SelectPicker.Item label={val} value={val} key={index} />
-			))}
-
-		</SelectPicker> */}
-
-    {/* <SelectPicker.Item label='Language' value='' />
-    <SelectPicker.Item label='English' value='English' />
-    <SelectPicker.Item label='French' value='French' />
-    <SelectPicker.Item label='Spanish' value='Spanish' />
-    </SelectPicker> */}
           </View>
-
-
 
           <View
             style={{
@@ -159,15 +114,20 @@ export default function ProfilePreferencesPage({navigation}) {
 
             }}
           >
+
             <Text>Dark Mode</Text>
             
-          <Switch
-        trackColor={{ false: Colors.darkgray, true: Colors.purple}}
-        thumbColor={isEnabled ? Colors.white : "#f4f3f4"}
-        ios_backgroundColor="#3e3e3e"
-        onValueChange={toggleSwitch}
-        value={isEnabled}
-      />
+            <Switch
+              trackColor={{ false: Colors.darkgray, true: Colors.purple}}
+              thumbColor={'switch' ? Colors.white : "#f4f3f4"}
+              // thumbColor={isEnabled ? Colors.white : "#f4f3f4"}
+              ios_backgroundColor="#3e3e3e"
+              value={values.switch}
+              // onValueChange={toggleSwitch}
+              onValueChange={value => setFieldValue('switch', value)}
+              
+              // value={isEnabled}
+            />
           
           </View> 
 
@@ -175,9 +135,9 @@ export default function ProfilePreferencesPage({navigation}) {
             mode="contained" 
             title='submit' 
             onPress={formik.handleSubmit}
-      >
-        Enter
-      </Button>
+          >
+          Save all changes
+          </Button>
         </StyledFormArea>
         {/* <Profile/> */}
       </InnerContainer>
