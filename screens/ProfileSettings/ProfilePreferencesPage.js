@@ -1,9 +1,11 @@
 import React, {useState, useEffect} from "react";
 import axios from 'axios';
-import { View, Text, Button, TouchableOpacity, Switch, Alert } from "react-native";
+import { View, Text, TouchableOpacity, Switch, Alert } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { Formik, Field, Form, useFormik } from 'formik';
 import { Picker, useRef } from '@react-native-picker/picker';
+import { Button, Title, TextInput } from 'react-native-paper';
+
 
 import {
   StyledContainer,
@@ -126,6 +128,7 @@ export default function ProfilePreferencesPage({navigation}) {
             }}
           >
             <Text>Dark Mode</Text>
+            
           <Switch
         trackColor={{ false: Colors.darkgray, true: Colors.purple}}
         thumbColor={isEnabled ? Colors.white : "#f4f3f4"}
