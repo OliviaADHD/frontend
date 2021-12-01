@@ -14,7 +14,7 @@ const rootReducer = combineReducers({
     validateEmailInfo: validateEmailReducer,
     validateLoginInfo: validateLoginReducer,
     menstruationInfo: menstruationReducer,
-    questionsReducer: questionReducer
+    questionsReducer: questionReducer,
     networkAvailability: networkAvailabilityReducer,
     userName: userNameReducer
 });

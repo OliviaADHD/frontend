@@ -1,21 +1,83 @@
 import React, {useState} from "react";
 import { StatusBar } from "expo-status-bar";
-import {Text} from 'react-native';
+import {Text, View} from 'react-native';
 
 import {
     StyledContainer,
     InnerContainer, 
+    ErrorText,
+    ErrorMessage,
 } from '../../components/styles';
+import { useDispatch, useSelector } from "react-redux";
+import { initializeMenstruationAfterLogin } from "../../src/actions/menstruation/menstruation";
 
 import DashBoardBottomMenu from "../../components/DashboardBottomMenu";
+import CalenderInitial from "../Menstruation/CalendarInitial";
+import Infonotice_Menstruation from "../Menstruation/Infonotice_Menstruation";
+import CyclePeriod1 from "../Menstruation/CyclePeriod1";
+import CyclePeriod2 from "../Menstruation/CyclePeriod2";
 
 
 const Cycle = ({navigation}) => {
+    const dispatch = useDispatch();
+    const [openedPage, setOpenedPage] = useState(true); // so that it only checks once when you open the page
+    const userData = useSelector(state => state.userName);
+    const menstruationData = useSelector(state => state.menstruationInfo);
+    const networkError = useSelector(state => state.networkAvailability); 
+    if (!menstruationData.initialized && openedPage){
+        console.log('initializing!')
+        dispatch(initializeMenstruationAfterLogin(userData.userId));
+        setOpenedPage(false);
+    }
+    
+    //All states etc concerning the first time case!
+    const [firstPage, setfirstPage] = useState(0);
+    const [startDate, setStartDate] = useState(undefined);
+    const [cycleLength, setCycleLength] = useState(undefined);
+    const [periodLength, setPeriodLength] = useState(undefined);
+    const FirstTime = [
+        {
+            page: 0,
+            pageName: "Infonotice_Menstruation",
+            nextPage: 1,
+            answer: undefined,
+            screen: <Infonotice_Menstruation firstPage={firstPage} setFirstPage={setfirstPage}/>
+        },
+        {
+            page: 1,
+            pageName: "CalenderInitial",
+            nextPage: 2,
+            answer: startDate,
+            screen: <CalenderInitial firstPage={firstPage} setFirstPage={setfirstPage} selectedDate={startDate} setSelectedDate={setStartDate}/>
+        },
+        {
+            page: 2,
+            pageName: "CyclePeriod1",
+            nextPage: 3,
+            answer: cycleLength,
+            screen: <CyclePeriod1 firstPage={firstPage} setFirstPage={setfirstPage} DaySelected={cycleLength} SetDaySelected={setCycleLength}/>
+        },
+        {
+            page: 3,
+            pageName: "CyclePeriod2",
+            nextPage: undefined,
+            answer: periodLength,
+            screen: <CyclePeriod2 firstPage={firstPage} setFirstPage={setfirstPage} DaySelected={periodLength} SetDaySelected={setPeriodLength}/>
+        }
+    ];
+    
+
     return(
         <StyledContainer>
             <StatusBar style="dark"/>
             <InnerContainer style={{height: "60%",flex: 0}}>
-                <Text>Test for Cycle Page</Text>
+                {networkError.error && 
+                            <ErrorMessage>
+                                <ErrorText>No network connection. Please try again later.</ErrorText>
+                            </ErrorMessage>}
+                {menstruationData.firstTime && (firstPage<4) &&
+                    FirstTime[firstPage].screen
+                    }
             </InnerContainer>
             <DashBoardBottomMenu currentScreen={"Cycle"} navigation={navigation}/>
         </StyledContainer>

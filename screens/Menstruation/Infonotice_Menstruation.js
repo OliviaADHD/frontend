@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text } from "react-native";
+import { Text, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import {
   TextBlockBorders,
@@ -10,16 +10,16 @@ import {
   StyledButton,
   ButtonText
 }from '../../components/styles';
+import { NextBtnContainer } from '../../components/stylesCalendar';
+import { StyledButtonNext } from '../../components/stylesCalendar';
 import {
   StyledTitleCentered,
 }from '../../components/stylesMenstruation';
 
-export default function Infonotice_Menstruation({navigation}) {
+export default function Infonotice_Menstruation({firstPage, setFirstPage}) {
   return (
 
-    <StyledContainer>   
-    <StatusBar style="dark"/>
-      <InnerContainer> 
+    <View>
         <TextBlockBorders>
 
           <StyledTitleCentered style={{ marginBottom : '10%'}}>Did you know?</StyledTitleCentered>
@@ -33,16 +33,15 @@ export default function Infonotice_Menstruation({navigation}) {
                 <Text style={{fontWeight: 'bold'}}>Cycle</Text>  refers to all the days from the first day of period to the day before the next period. Your cycle includes your period.{"\n"}{"\n"}
               </BlockText>
             </Text>
-
-        <StyledFormArea style={{ marginTop : '5%'}}>
-          <StyledButton onPress = {() => navigation.navigate("CyclePeriod1")}>
-            <ButtonText>Next</ButtonText>
-          </StyledButton>
-        </StyledFormArea>
-        
+        <NextBtnContainer style={{marginTop: '5%'}}>
+                    <StyledButtonNext
+                        onPress={() => setFirstPage(firstPage+1)}>
+                        <ButtonText>Next</ButtonText>
+                    </StyledButtonNext>
+        </NextBtnContainer>
+      
         </TextBlockBorders>
-      </InnerContainer>
-    </StyledContainer>
+    </View>
 
 
   )

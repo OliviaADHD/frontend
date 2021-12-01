@@ -22,33 +22,25 @@ import {
 
 import ScrollableDaySelector from "../../components/ScrollableSelectionBox";
 
-const CyclePeriod2 = ({navigation}) =>{
-    const [DaySelected, SetDaySelected] = useState(undefined);
+const CyclePeriod2 = ({firstPage, setFirstPage, DaySelected, SetDaySelected}) =>{
     const [warning, SetWarning] = useState(false);
-    var NextScreen = "Signup";
-    var NotSureScreen = "Signup";
-
 
     const NextClicked = () => {
         console.log('next was clicked');
         if (DaySelected!=undefined){
             SetWarning(false);
-            console.log("a specific day was selected: " + DaySelected);
-            navigation.navigate(NextScreen);
+            setFirstPage(firstPage+1);
         } else {
-            console.log(" no specific day was selected, display warning");
             SetWarning(true);
         }
     };
 
     const NotSureClicked = () => {
-        console.log('Not sure was clicked, and the Day was '+DaySelected);
-        navigation.navigate(NotSureScreen);
+        SetDaySelected(5);
+        setFirstPage(firstPage+1);
     }
 
     return(
-        <StyledContainer>
-            <StatusBar style="dark"/>
             <InnerContainer>
                 <StyledTitleCentered style={{marginBottom: '0%'}}
                     >How long does your period usually last?
@@ -79,7 +71,6 @@ const CyclePeriod2 = ({navigation}) =>{
                     </StyledButtonNotSure>
                 </StyledButtonNotSureContainer> 
             </InnerContainer>
-        </StyledContainer>
     );
 };
 

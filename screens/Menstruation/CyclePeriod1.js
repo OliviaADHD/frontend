@@ -22,11 +22,8 @@ import {
 
 import ScrollableDaySelector from "../../components/ScrollableSelectionBox";
 
-const CyclePeriod1 = ({navigation}) =>{
-    const [DaySelected, SetDaySelected] = useState(undefined);
+const CyclePeriod1 = ({firstPage, setFirstPage, DaySelected, SetDaySelected}) =>{
     const [warning, SetWarning] = useState(false);
-    var NextScreen = "CyclePeriod2";
-    var NotSureScreen = "Signup";
 
 
     const NextClicked = () => {
@@ -34,7 +31,7 @@ const CyclePeriod1 = ({navigation}) =>{
         if (DaySelected!=undefined){
             SetWarning(false);
             console.log("a specific day was selected: " + DaySelected);
-            navigation.navigate(NextScreen);
+            setFirstPage(firstPage+1);
         } else {
             console.log(" no specific day was selected, display warning");
             SetWarning(true);
@@ -43,12 +40,11 @@ const CyclePeriod1 = ({navigation}) =>{
 
     const NotSureClicked = () => {
         console.log('Not sure was clicked, and the Day was '+DaySelected);
-        navigation.navigate(NotSureScreen);
+        SetDaySelected(28);
+        setFirstPage(firstPage+1);
     }
 
     return(
-        <StyledContainer>
-            <StatusBar style="dark"/>
             <InnerContainer>
                 <StyledTitleCentered style={{marginBottom: '0%'}}
                     >How long is your periodic cycle?
@@ -80,7 +76,6 @@ const CyclePeriod1 = ({navigation}) =>{
                     </StyledButtonNotSure>
                 </StyledButtonNotSureContainer> 
             </InnerContainer>
-        </StyledContainer>
     );
 };
 

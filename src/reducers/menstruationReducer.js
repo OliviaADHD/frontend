@@ -3,13 +3,16 @@ import {
     SET_START_LAST_PERIOD, 
     SET_PERIOD_CYCLE_LENGTH,
     SET_PERIOD_LENGTH,
-    SET_FIRST_TIME
+    SET_FIRST_TIME_MENS,
+    MENS_INIT_FALSE,
+    MENS_INIT_TRUE
 } from "../actions/types";
 
 
 const menstruationData = {
-    firstTime: undefined,
-    regular: undefined,
+    initialized: false,
+    firstTime: true,
+    regular: true,
     startLastPeriod: [],
     periodCycleLength: [],
     periodLength: []  
@@ -17,7 +20,17 @@ const menstruationData = {
 
 const menstruationReducer = (state = menstruationData, action) => {
     switch (action.type){
-        case SET_FIRST_TIME:
+        case MENS_INIT_FALSE:
+            return{
+                ...state,
+                initialized: false
+            };
+        case MENS_INIT_TRUE:
+            return{
+                ...state,
+                initialized: true
+            };
+        case SET_FIRST_TIME_MENS:
             return{
                 ...state,
                 firstTime: action.payload
