@@ -13,7 +13,7 @@ import {
   StyledButton,
   ButtonText,
   BlockText,
-}from './../components/styles';
+}from '../../components/styles';
 
 
 export default function ResetPassword({navigation}) {
