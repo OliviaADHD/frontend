@@ -79,28 +79,20 @@ export default function ProfilePreferencesPage({navigation}) {
           <View
           style={{
             // borderColor: "#000000",
-            // borderWidth: 2,
             display: 'flex',
             flexDirection: 'row',
             flexWrap: 'wrap',
             justifyContent: 'space-between',
             alignItems: 'center',
+            borderBottomWidth: 1,            
+            borderBottomColor: Colors.lightpurple,
+            marginBottom: 20            
           }}
           >
             
             <Text>Language</Text>
           
-            <View
-            // style={{
-            //   display: 'flex',
-            //   width: 160,
-            //   // flex: 1,
-            //   // flexDirection: 'row',
-            //   // flexWrap: 'wrap',
-            //   justifyContent: 'space-between',
-            //   alignItems: 'flex-end',
-            // }}
-            >
+            <View>
 
             <SelectPicker
               style={{
@@ -111,7 +103,6 @@ export default function ProfilePreferencesPage({navigation}) {
                 // flexWrap: 'wrap',
                 justifyContent: 'space-between',
                 alignItems: 'flex-start',
-                borderColor: Colors.gray,
               }}
               enabled={true} 
               mode="dialogue"
@@ -137,13 +128,15 @@ export default function ProfilePreferencesPage({navigation}) {
 
           <View
             style={{
-              // borderColor: "#000000",
-              // borderWidth: 2,
+              //borderColor: "#000000",
+              borderBottomWidth: 1,
               display: 'flex',
               flexDirection: 'row',
               flexWrap: 'wrap',
               justifyContent: 'space-between',
               alignItems: 'center',
+              borderBottomColor: Colors.lightpurple,
+              marginBottom: 20
             }}
           >
 
