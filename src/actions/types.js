@@ -16,6 +16,15 @@ export const VERIFY_LOGIN = 'VERIFY_LOGIN';
 export const VERIFY_LOGIN_SUCCESS = 'VERIFY_LOGIN_SUCCESS';
 export const VERIFY_LOGIN_FAILED = 'VERIFY_LOGIN_FAILED';
 
+//User name
+export const SET_USER_NAME = 'SET_USER_NAME';
+export const SET_USER_ID = 'SET_USER_ID';
+export const SET_FIRST_TIME = 'SET_FIRST_TIME';
+
+//Network availability
+export const SET_NETWORK_ERROR_FALSE = "SET_NETWORK_ERROR_FALSE";
+export const SET_NETWORK_ERROR_TRUE = "SET_NETWORK_ERROR_TRUE";
+
 // POST NEW QUESTIONS
 
 export const NEW_QUESTIONS = 'NEW_QUESTIONS';
