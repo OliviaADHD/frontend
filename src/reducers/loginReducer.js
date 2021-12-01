@@ -6,7 +6,9 @@ import {
 
 
 const signInState = {
-    message: {}    
+    message: 
+    {passed: false,
+    error: false}    
 }
 
 

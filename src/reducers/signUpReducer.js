@@ -11,7 +11,7 @@ import {
 } from "../actions/types";
 
 const signUpState = {
-    message: {}    
+    message: {passed: false}    
 }
 
 const signUpReducer = (state = signUpState, action) => {
