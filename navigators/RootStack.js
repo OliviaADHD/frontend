@@ -32,7 +32,9 @@ import Home from '../screens/Dashboard/Home';
 import Profile from '../screens/Dashboard/Profile';
 import ToDoList from '../screens/Dashboard/ToDoList';
 
+import ProfileSettingsPage from '../screens/ProfileSettings/ProfileSettingsPage';
 import TutorialDashboard from '../screens/DashboardTutorial/TutorialDashboard';
+
 
 const Stack = createStackNavigator();
 
@@ -82,9 +84,11 @@ const RootStack = () => {
                 <Stack.Screen name="Home" component={Home}  options ={{header: () => null}} />
                 <Stack.Screen name="ToDoList" component={ToDoList} />
                 <Stack.Screen name="Profile" component={Profile} />
-                  
+                <Stack.Screen name="ProfileSettingsPage" component={ProfileSettingsPage} />                  
                 <Stack.Screen name='TutorialDashboard' component={TutorialDashboard} options ={{header: () => null}}/>
+
             </Stack.Navigator>
+            
             
         </NavigationContainer>
     )
