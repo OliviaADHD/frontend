@@ -20,6 +20,8 @@ import {
 
 // import Profile from "../Dashboard/Profile";
 
+const languages = ['English', 'French', 'Spanish']
+
 export default function ProfilePreferencesPage({navigation}) {
 
   // const [preferences, setPreferences] = useState({
@@ -31,11 +33,15 @@ export default function ProfilePreferencesPage({navigation}) {
   //! https://javascript.plainenglish.io/implementing-dropdown-select-boxes-in-react-native-with-formik-a897d1b3db48
   //! https://www.npmjs.com/package/@react-native-picker/picker
 
-  const languages = useState([
-    {name: 'English', id: 1},
-    {name: 'French', id: 2},
-    {name: 'Spanish', id: 3},
-  ])
+  // const languages = useState([
+  //   {name: 'English', id: 0},
+  //   {name: 'French', id: 1},
+  //   {name: 'Spanish', id: 2},
+  // ])
+
+
+
+  const [selected, setSelected] = useState();
 
   const pickerRef = useRef();
 
@@ -89,7 +95,7 @@ export default function ProfilePreferencesPage({navigation}) {
 
           </View>
           
-          {/* <View> */}
+          <View>
           <SelectPicker 
             // ref={pickerRef ? open : close}
             enabled={true} 
@@ -99,14 +105,14 @@ export default function ProfilePreferencesPage({navigation}) {
             onValueChange={formik.handleChange('language')}
             
       >
-       {languages.map((item) => {
+       {languages.map((item, index) => {
         
           (<SelectPicker.Item 
-              label={item.name} 
-              value={item.name} 
-              key={item.id} 
+              label={item.name.toString()} 
+              value={item.name.toString()} 
+              key={item.id.toString()} 
           />)
-        })}
+})}
     </SelectPicker>
 
     {/* <SelectPicker.Item label='Language' value='' />
@@ -114,7 +120,7 @@ export default function ProfilePreferencesPage({navigation}) {
     <SelectPicker.Item label='French' value='French' />
     <SelectPicker.Item label='Spanish' value='Spanish' />
     </SelectPicker> */}
-          {/* </View> */}
+          </View>
 
 
 
