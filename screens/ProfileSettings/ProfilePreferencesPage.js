@@ -76,11 +76,43 @@ export default function ProfilePreferencesPage({navigation}) {
 
           </View>
           
-          <View>
+          <View
+          style={{
+            // borderColor: "#000000",
+            // borderWidth: 2,
+            display: 'flex',
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+          >
             
             <Text>Language</Text>
           
+            <View
+            // style={{
+            //   display: 'flex',
+            //   width: 160,
+            //   // flex: 1,
+            //   // flexDirection: 'row',
+            //   // flexWrap: 'wrap',
+            //   justifyContent: 'space-between',
+            //   alignItems: 'flex-end',
+            // }}
+            >
+
             <SelectPicker
+              style={{
+                display: 'flex',
+                width: 120,
+                // flex: 1,
+                // flexDirection: 'row',
+                // flexWrap: 'wrap',
+                justifyContent: 'space-between',
+                alignItems: 'flex-start',
+                borderColor: Colors.gray,
+              }}
               enabled={true} 
               mode="dialogue"
               // placeholder={{label: 'Language', value: null}}
@@ -89,7 +121,8 @@ export default function ProfilePreferencesPage({navigation}) {
             > 
        
               {Object.values(languages).map((item) => 
-                (<SelectPicker.Item 
+                (<SelectPicker.Item
+                  style={{fontSize: 13, fontFamily: 'roboto'}} 
                   label={item.name} 
                   value={item.name} 
                   key={item.id} 
@@ -98,6 +131,8 @@ export default function ProfilePreferencesPage({navigation}) {
     
             </SelectPicker>
 
+            </View>
+
           </View>
 
           <View
@@ -105,13 +140,10 @@ export default function ProfilePreferencesPage({navigation}) {
               // borderColor: "#000000",
               // borderWidth: 2,
               display: 'flex',
-
               flexDirection: 'row',
               flexWrap: 'wrap',
-
               justifyContent: 'space-between',
               alignItems: 'center',
-
             }}
           >
 
@@ -119,21 +151,22 @@ export default function ProfilePreferencesPage({navigation}) {
             
             <Switch
               trackColor={{ false: Colors.darkgray, true: Colors.purple}}
-              thumbColor={formik.values.switch ? Colors.white : "#f4f3f4"}
-              // thumbColor={isEnabled ? Colors.white : "#f4f3f4"}
+              thumbColor={formik.values.switch ? Colors.white : "#f4f3f4"}              
               ios_backgroundColor="#3e3e3e"
-              value={formik.values.switch}
-              // onValueChange={toggleSwitch}
-              onValueChange={value => formik.setFieldValue('switch', value)}
-              
+              value={formik.values.switch}             
+              onValueChange={value => formik.setFieldValue('switch', value)}    
+              // thumbColor={isEnabled ? Colors.white : "#f4f3f4"}
+              // onValueChange={toggleSwitch}          
               // value={isEnabled.switch}
             />
           
           </View> 
 
           <Button 
-            mode="contained" 
-            title='submit' 
+            style={{backgroundColor: '#7047EB'}}
+            mode="contained"
+            uppercase={false} 
+            title='save' 
             onPress={formik.handleSubmit}
           >
           Save all changes
@@ -142,6 +175,7 @@ export default function ProfilePreferencesPage({navigation}) {
         {/* <Profile/> */}
       </InnerContainer>
     </StyledContainer>
+
 
   )
 }
