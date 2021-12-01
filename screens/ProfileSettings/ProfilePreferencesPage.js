@@ -96,9 +96,7 @@ export default function ProfilePreferencesPage({navigation}) {
           }}
           >
             
-            <Text style={{paddingLeft: 22, fontSize: 14}}>Language</Text>
-          
-            <View>
+            <Text style={{paddingLeft: 22, fontSize: 15}}>Language</Text>
 
             <SelectPicker
               style={{
@@ -121,7 +119,7 @@ export default function ProfilePreferencesPage({navigation}) {
        
               {Object.values(languages).map((item) => 
                 (<SelectPicker.Item
-                  style={{fontSize: 10, fontFamily: 'roboto', transform: [{scale: 0.2}]}} 
+                  style={{fontSize: 10, transform: [{scale: 0.2}]}} 
                   label={item.name} 
                   value={item.name} 
                   key={item.id} 
@@ -131,8 +129,6 @@ export default function ProfilePreferencesPage({navigation}) {
             </SelectPicker>
 
             </View>
-
-          </View>
 
           <View
             style={{
