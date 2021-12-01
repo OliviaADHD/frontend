@@ -31,11 +31,11 @@ export default function ProfilePreferencesPage({navigation}) {
   //! https://javascript.plainenglish.io/implementing-dropdown-select-boxes-in-react-native-with-formik-a897d1b3db48
   //! https://www.npmjs.com/package/@react-native-picker/picker
 
-  const languages = [
+  const languages = useState([
     {name: 'English', id: 1},
     {name: 'French', id: 2},
     {name: 'Spanish', id: 3},
-  ]
+  ])
 
   const pickerRef = useRef();
 
@@ -91,9 +91,9 @@ export default function ProfilePreferencesPage({navigation}) {
           
           {/* <View> */}
           <SelectPicker 
-          ref={pickerRef}
+            // ref={pickerRef ? open : close}
             enabled={true} 
-            mode="dropdown"
+            mode="dialogue"
             placeholder='Language'
             selectedValue={formik.values.language}
             onValueChange={formik.handleChange('language')}
@@ -102,14 +102,18 @@ export default function ProfilePreferencesPage({navigation}) {
        {languages.map((item) => {
         
           (<SelectPicker.Item 
-              label={item.name.toString()} 
-              value={item.name.toString()} 
-              key={item.id.toString()} 
+              label={item.name} 
+              value={item.name} 
+              key={item.id} 
           />)
         })}
     </SelectPicker>
 
-    
+    {/* <SelectPicker.Item label='Language' value='' />
+    <SelectPicker.Item label='English' value='English' />
+    <SelectPicker.Item label='French' value='French' />
+    <SelectPicker.Item label='Spanish' value='Spanish' />
+    </SelectPicker> */}
           {/* </View> */}
 
 
