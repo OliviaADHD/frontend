@@ -7,7 +7,7 @@ export function makeDateString(date){
     var dayStr = (day<10)? "0"+day: ""+day;
     
     var retstr = date.getFullYear()+"-"+monthStr+"-"+dayStr;
-    console.log(retstr, date);
+    //console.log(retstr, date);
     return retstr
 };
 
@@ -24,7 +24,7 @@ export function calculateNextPeriods(numberOfPeriods, startDate,lenCycles, lenPe
     //make a datetime object from the startDate
     let datepieces = startDate[0].split('/');
     var startDateFormatted = new Date(datepieces[2], datepieces[1], datepieces[0]);
-    console.log(lenCycles, lenPeriods);
+    //console.log(lenCycles, lenPeriods);
     
     //make lenCycle and lenPeriod. for the moment just take the last value
     const lenCycle = lenCycles[lenCycles.length -1];
