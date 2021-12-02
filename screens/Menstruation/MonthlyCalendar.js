@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StatusBar } from "expo-status-bar";
+import { useSelector } from "react-redux";
 import {
     StyledContainer,
     ButtonText,
@@ -19,10 +19,16 @@ import {
     StyledCalendar
 }from '../../components/stylesCalendar';
 
+import {addDays, makeDateString, calculateNextPeriods} from "../../components/Menstruation/helperFunctions";
 
 const MonthlyCalendar =({pageNav, setPage}) => {
-    const [selectedDate, setSelectedDate] = useState()
+    const menstruationData = useSelector(state => state.menstruationInfo);
+    const [selectedDate, setSelectedDate] = useState();
 
+    const nextPeriods = calculateNextPeriods(20, 
+                                            menstruationData.startLastPeriod,
+                                            menstruationData.periodCycleLength,
+                                            menstruationData.periodLength);
 
 
     return (
@@ -42,7 +48,7 @@ const MonthlyCalendar =({pageNav, setPage}) => {
                     </ButtonGroup>
                 </ButtonGroupContainer>
                 
-                <StyledCalendar style={{marginTop: "4%", marginBottom: "2%", height: "50%"}}>
+                <StyledCalendar style={{marginTop: "4%", marginBottom: "2%", height: "62%"}}>
                         <Calendar
                             current={Date()}
                             onDayPress={(day) =>console.log(day)}
@@ -50,7 +56,9 @@ const MonthlyCalendar =({pageNav, setPage}) => {
                             onPressArrowLeft={subtractMonth => subtractMonth()}
                             onPressArrowRight={addMonth => addMonth()}
                             enableSwipeMonths={true} 
+                            maxDate={'2022-02-30'}
                             theme={{
+                                
                                 todayTextColor: '#7047EB',
                                 dayTextColor: '#333333',
                                 textDisabledColor: '#BDBDBD',
@@ -64,19 +72,17 @@ const MonthlyCalendar =({pageNav, setPage}) => {
                                 textDayHeaderFontSize: 15,
                                 textSectionTitleColor: '#7047EB',
                               }}
-                            markedDates={{
-                                '2021-11-15': {selected: true, selectedColor: '#694398'},
-                            }}
+                            markedDates={nextPeriods}
                         
                         />
                     </StyledCalendar>
                 
                 <ButtonContainers style={{width: "70%",
-                                          marginTop: "0%", top: "5%", alignItems: "center"}}>
+                                          marginTop: "0%", top: "0%", alignItems: "center"}}>
                     <InputMoodBtn><ButtonText onPress = {() => setPage(pageNav.Mood)} >Input Mood</ButtonText></InputMoodBtn>
                     <EditPeriodBtn><ButtonText onPress = {() => setPage(pageNav.Period)} >Input Period</ButtonText></EditPeriodBtn>
                 </ButtonContainers>
-                <MediumExtraText style={{ color : Colors.black, margin : '0%', width: "60%", top: "6%",
+                <MediumExtraText style={{ color : Colors.black, margin : '0%', width: "60%", top: "3%",
                                             textDecorationLine: "underline",
                                             padding: "0%", paddingTop: "0%", paddingBottom: "0%",
                                         height: "7%"}}>Mood Analysis Chart</MediumExtraText>
