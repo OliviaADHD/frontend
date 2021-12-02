@@ -10,10 +10,16 @@ import {
     StyledCalendarList,
 }from '../../components/styles';
 import {CalendarList} from 'react-native-calendars';
+import { useSelector } from "react-redux";
+import {calculateNextPeriods} from "../../components/Menstruation/helperFunctions";
 
 
 const YearlyCalendar =({pageNav, setPage}) => {
-
+    const menstruationData = useSelector(state => state.menstruationInfo);
+    const nextPeriods = calculateNextPeriods(20, 
+        menstruationData.startLastPeriod,
+        menstruationData.periodCycleLength,
+        menstruationData.periodLength);
 
     return (
         <InnerContainer>  
@@ -32,10 +38,11 @@ const YearlyCalendar =({pageNav, setPage}) => {
                         </ButtonGroupChild>
                     </ButtonGroup>
                 </ButtonGroupContainer>
-                <StyledCalendarList>
-                        <CalendarList
+                <StyledCalendarList styles={{height: "50%", backgroundColor: "green"}}>
+                        <CalendarList styles={{height:"20%", paddingBottom: "20%"}}
                             current={Date()}
-                            onDayPress={(day) =>onDayPress(day)}
+                            onDayPress={(day) =>console.log(day)}
+                            markedDates={nextPeriods}
                         />
                 </StyledCalendarList>
         </InnerContainer> 

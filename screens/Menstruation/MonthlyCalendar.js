@@ -56,7 +56,6 @@ const MonthlyCalendar =({pageNav, setPage}) => {
                             onPressArrowLeft={subtractMonth => subtractMonth()}
                             onPressArrowRight={addMonth => addMonth()}
                             enableSwipeMonths={true} 
-                            maxDate={'2022-02-30'}
                             theme={{
                                 
                                 todayTextColor: '#7047EB',
