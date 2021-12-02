@@ -1,6 +1,5 @@
-import React, {useState} from "react";
-import { StatusBar } from "expo-status-bar";
-
+import React, {useState, useEffect} from "react";
+import { BackHandler } from "react-native";
 import {
     StyledContainer,
     InnerContainer, 
@@ -23,8 +22,22 @@ import {
 import ScrollableDaySelector from "../../components/ScrollableSelectionBox";
 
 const CyclePeriod1 = ({firstPage, setFirstPage, DaySelected, SetDaySelected}) =>{
-    const [warning, SetWarning] = useState(false);
+    //backhandler
+    const backAction = () => {
+        setFirstPage(firstPage-1);
+        return true;
+      };
+    
+      useEffect(() => {
+        BackHandler.addEventListener("hardwareBackPress", backAction);
+    
+        return () =>
+          BackHandler.removeEventListener("hardwareBackPress", backAction);
+      }, []);
+    
 
+    //the rest of the screen
+    const [warning, SetWarning] = useState(false);
 
     const NextClicked = () => {
         if (DaySelected!=undefined){
