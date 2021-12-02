@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import { StatusBar } from "expo-status-bar";
+import React, {useState, useEffect} from "react";
+import { BackHandler } from "react-native";
 
 import {
     StyledContainer,
@@ -25,6 +25,21 @@ import { useDispatch} from "react-redux";
 import { setMensDataFirstTime } from "../../src/actions/menstruation/menstruation";
 
 const CyclePeriod2 = ({firstPage, setFirstPage, DaySelected, SetDaySelected, allMensData}) =>{
+    //backhandler
+    const backAction = () => {
+        setFirstPage(firstPage-1);
+        return true;
+      };
+    
+      useEffect(() => {
+        BackHandler.addEventListener("hardwareBackPress", backAction);
+    
+        return () =>
+          BackHandler.removeEventListener("hardwareBackPress", backAction);
+      }, []);
+    
+
+    //the rest of the screen
     const dispatch = useDispatch();
     const [warning, SetWarning] = useState(false);
 
