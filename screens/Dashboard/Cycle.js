@@ -93,6 +93,7 @@ const Cycle = ({navigation}) => {
         }
 
     ]
+
     return(
         <StyledContainer>
             <StatusBar style="dark"/>
@@ -105,7 +106,7 @@ const Cycle = ({navigation}) => {
                     FirstTime[firstPage].screen
                     }
                 {!menstruationData.firstTime &&
-                <Text>>Not the first time</Text>}
+                <Text>Not the first time</Text>}
             </InnerContainer>
             <DashBoardBottomMenu currentScreen={"Cycle"} navigation={navigation}/>
         </StyledContainer>
