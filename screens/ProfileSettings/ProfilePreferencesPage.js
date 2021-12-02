@@ -17,9 +17,9 @@ import {
 } from '../../components/styles';
 
 
-// import ProfileTopContainer from "../../components/ProfileTopContainer";
+import ProfileTopContainer from "../../components/ProfileTopContainer";
 
-// import Profile from "../Dashboard/Profile";
+import Profile from "../Dashboard/Profile";
 
 export default function ProfilePreferencesPage({navigation}) {
   
@@ -59,7 +59,7 @@ export default function ProfilePreferencesPage({navigation}) {
     <StatusBar style="dark"/>
 
       <InnerContainer>
-        {/* <ProfileTopContainer/> */}
+        <ProfileTopContainer/>
         <StyledFormArea>
         
           <View
@@ -72,7 +72,7 @@ export default function ProfilePreferencesPage({navigation}) {
               alignItems: 'center',
               marginBottom: 20,
               paddingBottom: 15, 
-              paddingTop: 20
+              paddingTop: 10
             }}
           >
                       
