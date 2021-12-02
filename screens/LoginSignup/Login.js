@@ -12,8 +12,6 @@ import { ResponseType } from 'expo-auth-session';
 import * as WebBrowser from 'expo-web-browser';
 import { signIn, beforeSignIn } from '../../src/actions/user/user'
 import {
-  StyledContainer,
-  InnerContainer,
   PageLogo,
   StyledFormArea,
   StyledTextInput,
@@ -32,7 +30,16 @@ import {
   TextLinkContent,
   ErrorText,
   ErrorMessage,
-} from '../../components/styles';
+} from '../../components/LoginSignup/login';
+
+import {  
+    StyledContainer,
+    InnerContainer,
+    Loading
+} from '../../components/general/style';
+
+
+
 
 import * as yup from 'yup'
 
@@ -187,28 +194,14 @@ const Login = ({navigation}) => {
                     </Formik>
                 </InnerContainer>
                 {loading &&
-                    <View style={styles.loading}>
+                    <Loading>
                         <ActivityIndicator size="large" color="#694398"/>
-                    </View>
+                    </Loading>
                 }
             </StyledContainer>   
         );
     
     }
-
-const styles = StyleSheet.create({
-    loading: {
-        position: 'absolute',
-        left: 0,
-        right: 0,
-        top: 0,
-        bottom: 0,
-        opacity: 0.5,
-        backgroundColor: 'black',
-        justifyContent: 'center',
-        alignItems: 'center'
-    }
-  })
 
 const MyTextInput = ({isPassword, icon, hidePassword, setHidePassword, ...props}) => {
     return (

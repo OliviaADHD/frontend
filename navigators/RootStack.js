@@ -6,13 +6,14 @@ const { white, black } = Colors;
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import ResetPassword from './../screens/ResetPassword';
-import MessageResetPassword from './../screens/MessageResetPassword';
 
-import Login from './../screens/LoginSignup/Login';
 import Welcome from '../screens/LoginSignup/Welcome';
+import Login from './../screens/LoginSignup/Login';
 import Signup from './../screens/LoginSignup/Signup';
 import Privacy from '../screens/LoginSignup/Privacy';
+import ResetPassword from './../screens/LoginSignup/ResetPassword';
+import MessageResetPassword from './../screens/LoginSignup/MessageResetPassword';
+
 import Questionnaire from '../screens/Onboarding/Questionnaire';
 import Welcome_Post_Signup from '../screens/Onboarding/Welcome_Post_Signup';
 
@@ -27,7 +28,9 @@ import Awareness from '../screens/Dashboard/Awareness';import Home from '../scre
 import Profile from '../screens/Dashboard/Profile';
 import ToDoList from '../screens/Dashboard/ToDoList';
 
+import ProfileSettingsPage from '../screens/ProfileSettings/ProfileSettingsPage';
 import TutorialDashboard from '../screens/DashboardTutorial/TutorialDashboard';
+
 
 const Stack = createStackNavigator();
 
@@ -70,9 +73,11 @@ const RootStack = () => {
                 <Stack.Screen name="Home" component={Home}  options ={{header: () => null}} />
                 <Stack.Screen name="ToDoList" component={ToDoList} />
                 <Stack.Screen name="Profile" component={Profile} />
-                  
+                <Stack.Screen name="ProfileSettingsPage" component={ProfileSettingsPage} />                  
                 <Stack.Screen name='TutorialDashboard' component={TutorialDashboard} options ={{header: () => null}}/>
+
             </Stack.Navigator>
+            
             
         </NavigationContainer>
     )
