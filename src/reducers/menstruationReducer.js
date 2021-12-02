@@ -10,7 +10,7 @@ import {
 
 
 const menstruationData = {
-    initialized: true, //should be false, this is for testing
+    initialized: false, //should be false, this is for testing
     firstTime: false,
     regular: true,
     startLastPeriod: ['11/10/2021'], //some default values for testing
