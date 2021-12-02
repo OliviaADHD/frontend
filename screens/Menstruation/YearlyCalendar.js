@@ -11,7 +11,7 @@ import {
 import {CalendarList} from 'react-native-calendars';
 
 
-const YearlyCalendar =({navigation}) => {
+const YearlyCalendar =({pageNav, setPage}) => {
 
 
     return (
@@ -19,7 +19,7 @@ const YearlyCalendar =({navigation}) => {
             <StatusBar style="dark"/>
                 <ButtonGroupContainer>
                     <ButtonGroup>
-                        <ButtonGroupChild><ButtonText onPress = {() => navigation.navigate("MonthlyCalendar")} style={{color: 'black'}}>Month</ButtonText></ButtonGroupChild>
+                        <ButtonGroupChild><ButtonText onPress = {() => setPage(pageNav.MonthlyCalendar)} style={{color: 'black'}}>Month</ButtonText></ButtonGroupChild>
                         <ButtonGroupChild><ButtonText  style={{color: 'black'}}>Year</ButtonText></ButtonGroupChild>
                     </ButtonGroup>
                 </ButtonGroupContainer>

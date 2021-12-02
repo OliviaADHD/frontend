@@ -80,19 +80,36 @@ const Cycle = ({navigation}) => {
 
 
     //All pages concerning time != first time
+    const [secondPage, setSecondPage] = useState(0);
+    const pageNav = {
+        MonthlyCalendar: 0,
+        YearlyCalendar: 1,
+        Mood: 2,
+        Period: 3
+    }
     const pages =[
         {
             page: 0,
             pageName: "MonthlyCalendar",
-            screen: <MonthlyCalendar/>
+            screen: <MonthlyCalendar pageNav={pageNav} setPage={setSecondPage}/>
         },
         {
             page: 1,
             pageName: "YearlyCalendar",
-            screen: <YearlyCalendar/>
+            screen: <YearlyCalendar pageNav={pageNav} setPage={setSecondPage}/>
+        },
+        {
+            page: 2,
+            pageName: "Mood",
+            screen: <Text>Mood screen needs to be implemented</Text>
+        },
+        {
+            page: 3,
+            pageName: "Period",
+            screen: <Text>Period screen needs to be implemented</Text>
         }
-
     ]
+
 
     return(
         <StyledContainer>
@@ -106,7 +123,7 @@ const Cycle = ({navigation}) => {
                     FirstTime[firstPage].screen
                     }
                 {!menstruationData.firstTime &&
-                <Text>Not the first time</Text>}
+                pages[secondPage].screen}
             </InnerContainer>
             <DashBoardBottomMenu currentScreen={"Cycle"} navigation={navigation}/>
         </StyledContainer>

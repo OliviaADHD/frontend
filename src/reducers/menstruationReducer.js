@@ -10,12 +10,12 @@ import {
 
 
 const menstruationData = {
-    initialized: false,
+    initialized: true, //should be false, this is for testing
     firstTime: false,
     regular: true,
-    startLastPeriod: [],
-    periodCycleLength: [],
-    periodLength: []  
+    startLastPeriod: ['11/10/2021'], //some default values for testing
+    periodCycleLength: [28], //some default values for testing
+    periodLength: [5]   //some default values for testing
 }
 
 const menstruationReducer = (state = menstruationData, action) => {
