@@ -20,6 +20,7 @@ import {
     StyledCalendar
 }from '../../components/stylesCalendar';
 import {Calendar} from 'react-native-calendars';
+import {makeDateString} from "../../components/Menstruation/helperFunctions";
 import { View } from "react-native";
 
 const CalendarInitial =({firstPage, setFirstPage, selectedDate, setSelectedDate}) => {
@@ -36,7 +37,7 @@ const CalendarInitial =({firstPage, setFirstPage, selectedDate, setSelectedDate}
         const today = new Date();
         const tomorrow = new Date(today);
         tomorrow.setDate(tomorrow.getDate()+1);
-        const tomorrowDate = tomorrow.getDate()+"/"+tomorrow.getMonth()+"/"+tomorrow.getFullYear();
+        const tomorrowDate = makeDateString(tomorrow);
         setSelectedDate(tomorrowDate);
         setFirstPage(firstPage+1);
       };
