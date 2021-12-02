@@ -9,9 +9,10 @@ import {
     StyledButton,
     ButtonText,
 }from '../../components/styles';
+import {useSelector } from "react-redux";
 
-const Welcome_Post_Signup = ({navigation, route }) => {
-  const { name, id } = route.params;
+const Welcome_Post_Signup = ({navigation}) => {
+  const userData = useSelector(state => state.userName);
   
   return (
     
@@ -21,7 +22,7 @@ const Welcome_Post_Signup = ({navigation, route }) => {
 
       <CenteredImage source={require('../../assets/images/woman_waving.png')} />
         
-      <MediumExtraText>Hi {name}, We Would Love To Know About You!</MediumExtraText>
+      <MediumExtraText>Hi {userData.Name}, We Would Love To Know About You!</MediumExtraText>
       
       <StyledFormArea>
         <StyledButton onPress = {() => navigation.replace("Questionnaire")}>

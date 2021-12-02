@@ -1,31 +1,26 @@
-import {
-    SIGN_IN,
-    SIGN_IN_SUCCESS,
-    SIGN_IN_FAILED,
+import { 
+    NEW_QUESTIONS, 
+    NEW_QUESTIONS_SUCCESS,
+    NEW_QUESTIONS_FAILED,
 } from "../actions/types";
 
-
-const signInState = {
-    message: 
-    {passed: false,
-    error: false}    
+const questionState = {
+    message: {}    
 }
 
-
-
-const signInReducer = (state = signInState, action) => {
+const questionReducer = (state = questionState, action) => {
     switch (action.type){
-        case SIGN_IN:
+        case NEW_QUESTIONS:
             return{
                 ...state,
                 message:action.payload
             };
-        case SIGN_IN_SUCCESS:
+        case NEW_QUESTIONS_SUCCESS:
             return{
                 ...state,
                 message:action.payload
             };
-        case SIGN_IN_FAILED:
+        case NEW_QUESTIONS_FAILED:
             return{
                 ...state,
                 message:action.payload
@@ -36,4 +31,4 @@ const signInReducer = (state = signInState, action) => {
 
 }
 
-export default signInReducer;
+export default questionReducer;

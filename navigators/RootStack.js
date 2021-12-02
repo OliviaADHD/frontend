@@ -32,9 +32,10 @@ import Home from '../screens/Dashboard/Home';
 import Profile from '../screens/Dashboard/Profile';
 import ToDoList from '../screens/Dashboard/ToDoList';
 
+import ProfileSettingsPage from '../screens/ProfileSettings/ProfileSettingsPage';
 import TutorialDashboard from '../screens/DashboardTutorial/TutorialDashboard';
-
 import ProfilePreferencesPage from '../screens/ProfileSettings/ProfilePreferencesPage';
+
 
 const Stack = createStackNavigator();
 
@@ -53,21 +54,21 @@ const RootStack = () => {
                     paddingLeft: 20
                 }
             }}
-            initialRouteName = 'ProfilePreferencesPage'
+            initialRouteName = 'Welcome'
+
             >   
                 <Stack.Screen name="Welcome" 
                     options ={{animationEnabled: true, header: () => null}}
                     component = {Welcome}
                     />
                 <Stack.Screen name='Login' component={Login} />
-                <Stack.Screen options={{  headerLeft: null }} name='Signup' component={Signup} />
+                <Stack.Screen name='Signup' component={Signup} />
                 <Stack.Screen name='Privacy' component={Privacy} options={{
                     title:'Privacy Policy',
-                    headerStyle:{backgroundColor:'#eee', height:60},
-                    headerTintColor:'black'
+                    header: () => null,
                 }} />
-                <Stack.Screen name='Welcome_Post_Signup' component={Welcome_Post_Signup} options ={{header: () => null}}/>
-                <Stack.Screen name="Questionnaire" component={Questionnaire} />
+                <Stack.Screen name='Welcome_Post_Signup' component={Welcome_Post_Signup} />
+                <Stack.Screen name="Questionnaire" component={Questionnaire} options ={{header: () => null}} />
                 <Stack.Screen name="CalendarInitial" component={CalendarInitial} />
                   
                 <Stack.Screen name="ResetPassword" component={ResetPassword} />
@@ -85,12 +86,12 @@ const RootStack = () => {
                 <Stack.Screen name="Home" component={Home}  options ={{header: () => null}} />
                 <Stack.Screen name="ToDoList" component={ToDoList} />
                 <Stack.Screen name="Profile" component={Profile} />
-                  
-                <Stack.Screen name='TutorialDashboard' component={TutorialDashboard} options ={{header: () => null}}/>
-            
+                <Stack.Screen name="ProfileSettingsPage" component={ProfileSettingsPage} />                  
+                <Stack.Screen name='TutorialDashboard' component={TutorialDashboard} options ={{header: () => null}}/>            
                 <Stack.Screen name="ProfilePreferencesPage" component={ProfilePreferencesPage} />
-            
+
             </Stack.Navigator>
+            
             
         </NavigationContainer>
     )

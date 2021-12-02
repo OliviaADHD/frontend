@@ -325,6 +325,14 @@ export const ButtonContainers = styled.View`
     align-items: center; */
 `;
 
+// export const BouncyCheck = styled.View`
+//   height: 30%;
+//   width: 150%;
+//   align-items: center;
+//   justify-content: center;
+//   border-radius: 12px;
+// `;
+
 export const InputMoodBtn = styled.View`
     width: 142px;
     height: 44px;
@@ -341,5 +349,17 @@ export const EditPeriodBtn = styled.View`
     background-color: ${purple};
     text-align: center;
     left: 15px;
+`;
+
+export const ProfileListTouch = styled.TouchableOpacity`
+width: 100%;
+padding-left: 20px;
+`;
+
+export const ProfileListText = styled.Text`
+width: 100%;
+border: 2px;
+border-color: white;
+padding: 25px 0px;
 `;
 
