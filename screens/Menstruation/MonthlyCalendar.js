@@ -36,7 +36,7 @@ const MonthlyCalendar =({pageNav, setPage}) => {
                 <ButtonGroupContainer style={{marginTop: "8%", 
                                         height: "6%",
                                         alignItems: "center"}}>
-                    <ButtonGroup style={{width: "62%", height: "100%",
+                    <ButtonGroup style={{width: "61.5%", height: "100%", 
                                         left: "0%", top: "0%", padding: "1%", alignItems: "center"}}>
                         <ButtonGroupChild style={{backgroundColor: Colors.purple, alignItems: "center"}}>
                             <ButtonText  style={{color: Colors.white}}>Month</ButtonText>
