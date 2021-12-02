@@ -18,6 +18,7 @@ import CyclePeriod1 from "../Menstruation/CyclePeriod1";
 import CyclePeriod2 from "../Menstruation/CyclePeriod2";
 import MonthlyCalendar from '../Menstruation/MonthlyCalendar';
 import YearlyCalendar from '../Menstruation/YearlyCalendar';
+import Intro_Period_Prediction from "../Menstruation/Intro_Period_Prediction";
 
 
 const Cycle = ({navigation}) => {
@@ -85,7 +86,8 @@ const Cycle = ({navigation}) => {
         MonthlyCalendar: 0,
         YearlyCalendar: 1,
         Mood: 2,
-        Period: 3
+        Period: 3,
+        EditPeriod: 4
     }
     const pages =[
         {
@@ -106,7 +108,13 @@ const Cycle = ({navigation}) => {
         {
             page: 3,
             pageName: "Period",
-            screen: <Text>Period screen needs to be implemented</Text>
+            screen: <Intro_Period_Prediction pageNav={pageNav} 
+                                setPage={setSecondPage}/>
+        },
+        {
+            page: 4,
+            pageName: "EditPeriod",
+            screen: <Text>Edit Period still needs to be created</Text>
         }
     ]
 
