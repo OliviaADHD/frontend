@@ -1,22 +1,20 @@
 import React, {useState} from "react";
-import { StatusBar } from "expo-status-bar";
+import {StatusBar} from "expo-status-bar";
 import {Text} from 'react-native';
 
-import {
-    StyledContainer,
-    InnerContainer, 
-} from '../../css/styles';
+import {StyledContainer} from '../../css/general/style';
+
+import {InnerContainerRemake} from '../../css/Dashboard/profile';
 
 import DashBoardBottomMenu from "../../components/DashboardBottomMenu";
 
-
 const Profile = ({navigation}) => {
-    return(
+    return (
         <StyledContainer>
             <StatusBar style="dark"/>
-            <InnerContainer style={{height: "60%",flex: 0}}>
+            <InnerContainerRemake>
                 <Text>Test for Profile Page</Text>
-            </InnerContainer>
+            </InnerContainerRemake>
             <DashBoardBottomMenu currentScreen={"Profile"} navigation={navigation}/>
         </StyledContainer>
     )

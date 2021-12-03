@@ -1,22 +1,20 @@
 import React, {useState} from "react";
-import { StatusBar } from "expo-status-bar";
+import {StatusBar} from "expo-status-bar";
 import {Text} from 'react-native';
 
-import {
-    StyledContainer,
-    InnerContainer, 
-} from '../../css/styles';
+import {StyledContainer} from '../../css/general/style';
+
+import {InnerContainerRemake} from '../../css/Dashboard/todolist';
 
 import DashBoardBottomMenu from "../../components/DashboardBottomMenu";
 
-
 const ToDoList = ({navigation}) => {
-    return(
+    return (
         <StyledContainer>
             <StatusBar style="dark"/>
-            <InnerContainer style={{height: "60%",flex: 0}}>
+            <InnerContainerRemake>
                 <Text>Test for ToDoList Page</Text>
-            </InnerContainer>
+            </InnerContainerRemake>
             <DashBoardBottomMenu currentScreen={"ToDoList"} navigation={navigation}/>
         </StyledContainer>
     )
