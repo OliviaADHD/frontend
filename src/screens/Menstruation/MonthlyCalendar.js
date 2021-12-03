@@ -19,7 +19,7 @@ import {
     StyledCalendar
 }from '../../css/stylesCalendar';
 
-import {calculateNextPeriods} from "../../css/Menstruation/helperFunctions";
+import {calculateNextPeriods} from "../../helpers/menstruation";
 
 const MonthlyCalendar =({pageNav, setPage}) => {
     const menstruationData = useSelector(state => state.menstruationInfo);

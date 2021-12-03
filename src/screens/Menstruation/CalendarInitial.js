@@ -20,7 +20,7 @@ import {
     StyledCalendar
 }from '../../css/stylesCalendar';
 import {Calendar} from 'react-native-calendars';
-import {makeDateString} from "../../css/Menstruation/helperFunctions";
+import {makeDateString} from "../../helpers/menstruation";
 
 const CalendarInitial =({firstPage, setFirstPage, selectedDate, setSelectedDate}) => {
     //backhandler

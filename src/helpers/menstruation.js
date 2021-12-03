@@ -1,4 +1,4 @@
-import { Colors } from "../styles";
+import { Colors } from "../css/styles";
 
 export function makeDateString(date){
     var month = date.getMonth() + 1;

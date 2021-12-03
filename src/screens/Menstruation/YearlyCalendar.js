@@ -11,7 +11,7 @@ import {
 }from '../../css/styles';
 import {CalendarList} from 'react-native-calendars';
 import { useSelector } from "react-redux";
-import {calculateNextPeriods} from "../../css/Menstruation/helperFunctions";
+import {calculateNextPeriods} from "../../helpers/menstruation";
 
 
 const YearlyCalendar =({pageNav, setPage}) => {
