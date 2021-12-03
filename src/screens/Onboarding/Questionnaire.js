@@ -2,18 +2,19 @@ import React, {useState} from 'react';
 import {
     StyledContainer,
     InnerContainer,
+    Colors
+} from '../../css/general/style';
+import {
     ButtonText,
     StyledTitle,
     CheckboxContainer,
     StyledCheckbox,
-    white,
-    Colors,
     StyledDotPagination,
     StyledDot,
     StyledButton,
     ErrorMessage,
     ErrorText
-} from '../../css/styles';
+} from '../../css/Onboarding/questionarrie';
 import {StatusBar} from 'expo-status-bar';
 import {StyleSheet} from "react-native";
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
