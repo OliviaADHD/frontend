@@ -19,7 +19,7 @@ import {
 
 import ProfileTopContainer from "../../components/ProfileTopContainer";
 
-import Profile from "../Dashboard/Profile";
+import DashBoardBottomMenu from "../../components/DashboardBottomMenu";
 
 export default function ProfilePreferencesPage({navigation}) {
   
@@ -72,7 +72,7 @@ export default function ProfilePreferencesPage({navigation}) {
               alignItems: 'center',
               marginBottom: 20,
               paddingBottom: 15, 
-              paddingTop: 10
+              paddingTop: 50
             }}
           >
                       
@@ -145,7 +145,9 @@ export default function ProfilePreferencesPage({navigation}) {
             }}
           >
 
-            <Text style={{paddingLeft: 22, fontSize: 14}}>Dark Mode</Text>
+            <Text style={{paddingLeft: 22, fontSize: 14}}>
+              Dark Mode
+            </Text>
             
             <Switch
               style={{marginRight: 19, transform : [{scale: 1.1}]}}
@@ -162,7 +164,7 @@ export default function ProfilePreferencesPage({navigation}) {
           </View> 
 
           <Button 
-            style={{backgroundColor: '#7047EB', borderRadius: 10, paddingTop: 8, paddingBottom: 8, marginTop: 100}}
+            style={{backgroundColor: '#7047EB', borderRadius: 10, paddingTop: 8, paddingBottom: 8, marginTop: 90}}
             mode="contained"
             uppercase={false} 
             title='save' 
@@ -171,8 +173,11 @@ export default function ProfilePreferencesPage({navigation}) {
           <Text style={{fontSize: 12}}>Save all changes</Text>
           </Button>
         </StyledFormArea>
-        {/* <Profile/> */}
+
+        <DashBoardBottomMenu currentScreen={"Profile"} navigation={navigation}/>
+
       </InnerContainer>
+    
     </StyledContainer>
 
 
