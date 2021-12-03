@@ -13,6 +13,12 @@ export const Colors = {
 
 const { lightpurple, darkgray, purple, white } = Colors;
 
+
+export const StyledFormArea = styled.View`
+    width: 90%;
+    height: 75%;
+`;
+
 export const PageTitle = styled.Text`
   font-weight: bold;
   font-size: 14px

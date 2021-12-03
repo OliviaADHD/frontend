@@ -4,10 +4,11 @@ import { View, Text, Switch, Alert } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { useFormik } from 'formik';
 import { Picker as SelectPicker } from '@react-native-picker/picker';
-import { Button } from 'react-native-paper';
+// import { Button } from 'react-native-paper';
 
 import { 
   Colors,
+  StyledFormArea,
   PageTitle,
   PageTitleFormat,
   SectionPurpleBottomLine 
@@ -21,7 +22,6 @@ import {
   // Colors,
   // ProfileListText,
   // ProfileListTouch,
-  StyledFormArea
 } from '../../components/styles';
 
 import ProfileTopContainer from "../../components/ProfileTopContainer";

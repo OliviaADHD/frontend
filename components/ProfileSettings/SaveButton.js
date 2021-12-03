@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text } from 'react-native';
 import { Button } from 'react-native-paper';
+import style from '../general'
 
 const Colors = {
   white: "#ffffff",
