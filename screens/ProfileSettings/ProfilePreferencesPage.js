@@ -46,9 +46,10 @@ export default function ProfilePreferencesPage({navigation}) {
   });
 
   return (
-  <StyledContainer> 
+    
+    <StyledContainer> 
 
-    <StatusBar style="dark"/>
+      <StatusBar style="dark"/>
 
       <InnerContainer>
         
