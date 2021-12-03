@@ -30,7 +30,7 @@ import Profile from '../screens/Dashboard/Profile';
 import ToDoList from '../screens/Dashboard/ToDoList';
 
 import ProfileSettingsPage from '../screens/ProfileSettings/ProfileSettingsPage';
-import TutorialDashboard from '../screens/DashboardTutorial/TutorialDashboard';
+import TutorialDashboard from '../screens/Dashboard/Tutorial';
 
 
 const Stack = createStackNavigator();
