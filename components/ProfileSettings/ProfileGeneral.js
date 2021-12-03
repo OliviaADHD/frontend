@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import Constants from 'expo-constants';
+const StatusBarHeight = Constants.statusBarHeight;
 
 export const Colors = {
   white: "#ffffff",
@@ -13,6 +15,17 @@ export const Colors = {
 
 const { lightpurple, darkgray, purple, white } = Colors;
 
+export const StyledContainer = styled.View`
+  flex: 1;
+  margin-top: ${StatusBarHeight}px;
+  background-color: ${white};
+`;
+
+export const InnerContainer = styled.View`
+  flex: 1;
+  width: 100%;
+  align-items: center;
+`;
 
 export const StyledFormArea = styled.View`
     width: 90%;

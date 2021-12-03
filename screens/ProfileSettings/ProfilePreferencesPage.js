@@ -13,7 +13,7 @@ import {
   PageTitle,
   PageTitleFormat,
   SectionPurpleBottomLine 
-} from "../../components/ProfileSettings/profileGeneral";
+} from "../../components/ProfileSettings/ProfileGeneral";
 
 import SaveButton from "../../components/ProfileSettings/SaveButton";
 
