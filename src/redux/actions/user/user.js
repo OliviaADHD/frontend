@@ -23,6 +23,8 @@ const headers = {
   'Content-Type': 'application/json',
 }
 
+const userLink = link + "user/";
+
 export const beforeSignUP = () => async dispatch => {
   dispatch({
     type: SIGN_UP,
@@ -54,7 +56,7 @@ export const beforeValidLogin = () => async dispatch => {
 
 
 export const newUser = (user) => async dispatch => {
-  axios.post(link+"signup", user, {timeout: 2})
+  axios.post(userLink+"signup", user, {timeout: 2})
   .then(resp => {
     dispatch({type: SIGN_UP_SUCCESS,
               payload: {passed: true}});
@@ -63,6 +65,7 @@ export const newUser = (user) => async dispatch => {
     dispatch({type: SET_FIRST_TIME, payload: true})
   })
   .catch(err =>{
+    console.warn("Caught netwr")
     if (!err.response.status) {
       //it's a network error!
       dispatch({
@@ -83,7 +86,7 @@ export const newUser = (user) => async dispatch => {
   
 export const signIn = (loginData) => {//async dispatch => {
   return dispatch => {
-  axios.post(link + "login", loginData,{
+  axios.post(userLink + "login", loginData,{
     headers: headers
   }, {timout: 2})
   .then(res => {
@@ -120,7 +123,7 @@ export const signIn = (loginData) => {//async dispatch => {
 }};
 
 export const verifyEmail = (email) => async dispatch => {
-  axios.post(link+"validation/email/"+email, {timout: 2})
+  axios.post(userLink+"email/"+email, {timout: 2})
   .then(resp => {
     dispatch({
       type: SET_NETWORK_ERROR_FALSE,
@@ -152,7 +155,7 @@ export const verifyEmail = (email) => async dispatch => {
 };
 
 export const verifyLogin = (login) => async dispatch => {
-  axios.post(link+"validation/login/"+login, {timeout: 2})
+  axios.post(userLink+"login/"+login, {timeout: 2})
   .then(resp => {
     dispatch({
       type: SET_NETWORK_ERROR_FALSE,
