@@ -8,8 +8,12 @@ import { Button } from 'react-native-paper';
 
 import { 
   Colors,
-  PageTitle 
-} from "../../components/ProfileSettings/ProfileGeneral";
+  PageTitle,
+  PageTitleFormat,
+  SectionPurpleBottomLine 
+} from "../../components/ProfileSettings/profileGeneral";
+
+import SaveButton from "../../components/ProfileSettings/SaveButton";
 
 import {
   StyledContainer,
@@ -60,44 +64,21 @@ export default function ProfilePreferencesPage({navigation}) {
 
         <StyledFormArea>
         
-          <View
-            style={{
-              borderBottomWidth: 2,
-              borderBottomColor: Colors.lightpurple, 
-              width: 120,
-              alignItems: 'center',
-              marginBottom: 20,
-              paddingBottom: 15, 
-              paddingTop: 50
-            }}
-          >
-                      
-            {/* <Text style={{fontWeight: 'bold', fontSize: 14}}> Preferences </Text>           */}
+          <PageTitleFormat>
+
             <PageTitle> Preferences </PageTitle>      
 
-          </View>
+          </PageTitleFormat>
           
-          <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            flexWrap: 'wrap',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            borderBottomWidth: 1,            
-            borderBottomColor: Colors.lightpurple,
-            marginBottom: 20,
-            paddingBottom: 20,
-            paddingTop: 10           
-          }}
-          >
+          <SectionPurpleBottomLine
+          style={{ paddingBottom: 20, paddingTop: 10 }}>
             
             <Text style={{paddingLeft: 22, fontSize: 15}}>Language</Text>
 
             <SelectPicker
               style={{
-                display: 'flex',
                 width: 110,
+                display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'flex-start',
                 marginRight: 22,
@@ -120,30 +101,17 @@ export default function ProfilePreferencesPage({navigation}) {
     
             </SelectPicker>
 
-            </View>
+          </SectionPurpleBottomLine>
 
-          <View
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              flexWrap: 'wrap',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              borderBottomWidth: 1,
-              borderBottomColor: Colors.lightpurple,
-              marginBottom: 20,
-              paddingBottom: 10
-            }}
-          >
+          <SectionPurpleBottomLine
+            style={{ paddingBottom: 10 }}>
 
             <Text style={{paddingLeft: 22, fontSize: 14}}>
               Dark Mode
             </Text>
             
             <Switch
-              style={{
-                marginRight: 19, 
-                transform : [{scale: 1.1}]}}
+              style={{ marginRight: 19, transform : [{scale: 1.1}]}}
               trackColor={{ false: Colors.darkgray, true: Colors.purple}}
               thumbColor={formik.values.switch ? Colors.white : "#f4f3f4"}              
               ios_backgroundColor="#3e3e3e"
@@ -151,23 +119,15 @@ export default function ProfilePreferencesPage({navigation}) {
               onValueChange={value => formik.setFieldValue('switch', value)}
             />
           
-          </View> 
+          </SectionPurpleBottomLine> 
 
-          <Button 
-            style={{
-              backgroundColor: '#7047EB', 
-              borderRadius: 10, 
-              paddingTop: 8, 
-              paddingBottom: 8, 
-              marginTop: 90}}
+          <SaveButton 
             mode="contained"
             uppercase={false} 
             title='save' 
             onPress={formik.handleSubmit}
           >
-
-          <Text style={{fontSize: 12}}>Save all changes</Text>
-          </Button>
+          </SaveButton>
 
         </StyledFormArea>
 
