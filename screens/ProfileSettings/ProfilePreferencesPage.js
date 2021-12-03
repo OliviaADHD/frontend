@@ -1,21 +1,24 @@
-import React, {useState, useEffect, useRef} from "react";
+import React from "react";
 import axios from 'axios';
-import { View, Text, TouchableOpacity, Switch, Alert } from "react-native";
+import { View, Text, Switch, Alert } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { Formik, Field, Form, useFormik } from 'formik';
+import { useFormik } from 'formik';
 import { Picker as SelectPicker } from '@react-native-picker/picker';
-import { Button, Title, TextInput } from 'react-native-paper';
+import { Button } from 'react-native-paper';
 
+import { 
+  Colors,
+  PageTitle 
+} from "../../components/ProfileSettings/ProfileGeneral";
 
 import {
   StyledContainer,
   InnerContainer,
-  Colors,
+  // Colors,
   // ProfileListText,
   // ProfileListTouch,
   StyledFormArea
 } from '../../components/styles';
-
 
 import ProfileTopContainer from "../../components/ProfileTopContainer";
 
@@ -29,13 +32,6 @@ export default function ProfilePreferencesPage({navigation}) {
     {name: 'French', id: 1},
     {name: 'Spanish', id: 2},
   ]
-  
-  // const [isEnabled, setIsEnabled] = useState(false);
-  // const toggleSwitch = () => setIsEnabled(previousState => !previousState);
-
-
-
-  // const [selected, setSelected] = useState();
 
   const formik = useFormik({
     initialValues: { language: '', switch: false },
@@ -59,14 +55,14 @@ export default function ProfilePreferencesPage({navigation}) {
     <StatusBar style="dark"/>
 
       <InnerContainer>
+        
         <ProfileTopContainer/>
+
         <StyledFormArea>
         
           <View
             style={{
-              // borderTopWidth: 1,
               borderBottomWidth: 2,
-              // borderTopColor: Colors.lightpurple,
               borderBottomColor: Colors.lightpurple, 
               width: 120,
               alignItems: 'center',
@@ -76,13 +72,13 @@ export default function ProfilePreferencesPage({navigation}) {
             }}
           >
                       
-            <Text style={{fontWeight: 'bold', fontSize: 14}}> Preferences </Text>          
+            {/* <Text style={{fontWeight: 'bold', fontSize: 14}}> Preferences </Text>           */}
+            <PageTitle> Preferences </PageTitle>      
 
           </View>
           
           <View
           style={{
-            // borderColor: "#000000",
             display: 'flex',
             flexDirection: 'row',
             flexWrap: 'wrap',
@@ -102,9 +98,6 @@ export default function ProfilePreferencesPage({navigation}) {
               style={{
                 display: 'flex',
                 width: 110,
-                // flex: 1,
-                // flexDirection: 'row',
-                // flexWrap: 'wrap',
                 justifyContent: 'space-between',
                 alignItems: 'flex-start',
                 marginRight: 22,
@@ -112,7 +105,6 @@ export default function ProfilePreferencesPage({navigation}) {
               }}
               enabled={true} 
               mode="dialogue"
-              // placeholder={{label: 'Language', value: null}}
               selectedValue={formik.values.language}
               onValueChange={formik.handleChange('language')}            
             > 
@@ -132,7 +124,6 @@ export default function ProfilePreferencesPage({navigation}) {
 
           <View
             style={{
-              //borderColor: "#000000",
               display: 'flex',
               flexDirection: 'row',
               flexWrap: 'wrap',
@@ -150,28 +141,34 @@ export default function ProfilePreferencesPage({navigation}) {
             </Text>
             
             <Switch
-              style={{marginRight: 19, transform : [{scale: 1.1}]}}
+              style={{
+                marginRight: 19, 
+                transform : [{scale: 1.1}]}}
               trackColor={{ false: Colors.darkgray, true: Colors.purple}}
               thumbColor={formik.values.switch ? Colors.white : "#f4f3f4"}              
               ios_backgroundColor="#3e3e3e"
               value={formik.values.switch}             
-              onValueChange={value => formik.setFieldValue('switch', value)}    
-              // thumbColor={isEnabled ? Colors.white : "#f4f3f4"}
-              // onValueChange={toggleSwitch}          
-              // value={isEnabled.switch}
+              onValueChange={value => formik.setFieldValue('switch', value)}
             />
           
           </View> 
 
           <Button 
-            style={{backgroundColor: '#7047EB', borderRadius: 10, paddingTop: 8, paddingBottom: 8, marginTop: 90}}
+            style={{
+              backgroundColor: '#7047EB', 
+              borderRadius: 10, 
+              paddingTop: 8, 
+              paddingBottom: 8, 
+              marginTop: 90}}
             mode="contained"
             uppercase={false} 
             title='save' 
             onPress={formik.handleSubmit}
           >
+
           <Text style={{fontSize: 12}}>Save all changes</Text>
           </Button>
+
         </StyledFormArea>
 
         <DashBoardBottomMenu currentScreen={"Profile"} navigation={navigation}/>
@@ -179,7 +176,6 @@ export default function ProfilePreferencesPage({navigation}) {
       </InnerContainer>
     
     </StyledContainer>
-
 
   )
 }
