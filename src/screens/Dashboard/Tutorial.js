@@ -16,7 +16,7 @@ import { Background,
     ButtonPressable,
     ButtonTextBottomDashboard,
     RoundedPurpleBox
-} from "../../css/stylesDashboardTutorial";
+} from "../../css/Dashboard/tutorial";
 
 import DashBoardBottomMenuStatic from "../../components/DashboardBottomMenuStatic";
 import AlarmBell from "../../components/AlarmBell";
