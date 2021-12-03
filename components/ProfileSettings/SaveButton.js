@@ -1,7 +1,6 @@
 import React from 'react';
 import { Text } from 'react-native';
 import { Button } from 'react-native-paper';
-import style from '../general'
 
 const Colors = {
   white: "#ffffff",
@@ -10,7 +9,7 @@ const Colors = {
 
 const { white, purple } = Colors;
 
-export default function saveButton() {
+export default function SaveButton() {
   return (
 
     <Button 

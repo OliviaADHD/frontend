@@ -4,10 +4,11 @@ import { View, Text, Switch, Alert } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { useFormik } from 'formik';
 import { Picker as SelectPicker } from '@react-native-picker/picker';
-// import { Button } from 'react-native-paper';
 
 import { 
   Colors,
+  StyledContainer,
+  InnerContainer,
   StyledFormArea,
   PageTitle,
   PageTitleFormat,
@@ -16,16 +17,7 @@ import {
 
 import SaveButton from "../../components/ProfileSettings/SaveButton";
 
-import {
-  StyledContainer,
-  InnerContainer,
-  // Colors,
-  // ProfileListText,
-  // ProfileListTouch,
-} from '../../components/styles';
-
 import ProfileTopContainer from "../../components/ProfileTopContainer";
-
 import DashBoardBottomMenu from "../../components/DashboardBottomMenu";
 
 export default function ProfilePreferencesPage({navigation}) {
