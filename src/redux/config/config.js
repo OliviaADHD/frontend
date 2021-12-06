@@ -1,3 +1,3 @@
-//export var link = "http://96f6-2a01-c23-6d3e-4a00-2db8-9325-ddb9-f697.ngrok.io/";
-export var link = "http://10.0.2.2:8080/";
+export var link = "https://6386-2a01-c23-7152-4600-1dca-7965-b414-8432.ngrok.io/";
+//export var link = "http://10.0.2.2:8080/";
 
