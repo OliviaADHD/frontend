@@ -2,22 +2,13 @@ import React from "react";
 import { View } from "react-native";
 import { StatusBar } from "expo-status-bar";
 
-import {
-  // StyledContainer,
-  // InnerContainer,
-  // Colors,
-  ProfileListText,
-  ProfileListTouch,
-  // StyledFormArea
-} from '../../components/styles';
-
 import { 
   Colors,
   StyledContainer,
   InnerContainer,
   StyledFormArea,
-  PageTitle,
-  PageTitleFormat,
+  ProfileListTouch,
+  ProfileListText,
   SectionPurpleBottomLine 
 } from "../../components/ProfileSettings/ProfileGeneral";
 

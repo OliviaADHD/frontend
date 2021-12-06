@@ -36,6 +36,17 @@ export const SectionPurpleBottomLine = styled.View`
   border-bottom-width: 1px;
   border-bottom-color: ${lightpurple};
 `
+export const ProfileListTouch = styled.TouchableOpacity`
+width: 100%;
+padding-left: 20px;
+`;
+
+export const ProfileListText = styled.Text`
+width: 100%;
+border: 2px;
+border-color: white;
+padding: 25px 0px;
+`;
 
 export const PageTitle = styled.Text`
   font-weight: bold;
