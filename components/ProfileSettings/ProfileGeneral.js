@@ -60,7 +60,7 @@ padding: 8% 0%;
 
 export const PageTitle = styled.Text`
   font-weight: bold;
-  font-size: 14px
+  font-size: 14px;
 `;
 
 export const PageTitleFormat = styled.View`
@@ -68,9 +68,9 @@ export const PageTitleFormat = styled.View`
   border-bottom-color: ${lightpurple}; 
   width: 45%;
   align-items: center;
-  margin-bottom: 20px;
-  padding-bottom: 15px; 
-  padding-top: 50px;
+  margin-bottom: 10%;
+  padding-bottom: 5%; 
+  padding-top: 16%;
 `;
 
 export const InlineSeveralItems = styled.View`
@@ -84,5 +84,5 @@ align-items: center;
 export const SubSectionPurpleBottomLine = styled(InlineSeveralItems)`  
   border-bottom-width: 1px;            
   border-bottom-color: ${lightpurple};
-  margin-bottom: 20px;
+  margin-bottom: 7%;
 `;
