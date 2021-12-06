@@ -11,8 +11,6 @@ import {
   SectionPurpleBottomLine 
 } from "../../components/ProfileSettings/ProfileGeneral";
 
-// import ProfileTopContainer from "../../components/ProfileTopContainer";
-
 import ProfileTopContainer from "../../components/ProfileSettings/ProfileTopContainer";
 
 import DashBoardBottomMenu from "../../components/DashboardBottomMenu";
@@ -51,7 +49,7 @@ export default function ProfileSettingsPage({navigation}) {
           <SectionPurpleBottomLine>
             <ProfileListTouch
               activeOpacity={0.5}
-              onPress = {() => navigation.navigate('ToBeDefined')}
+              onPress = {() => navigation.navigate('ProfileHelpPage')}
             >
               <ProfileListText> Help </ProfileListText>            
             </ProfileListTouch>

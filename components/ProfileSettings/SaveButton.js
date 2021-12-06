@@ -2,12 +2,9 @@ import React from 'react';
 import { Text } from 'react-native';
 import { Button } from 'react-native-paper';
 
-const Colors = {
-  white: "#ffffff",
-  purple: "#694398",
-};
-
-const { white, purple } = Colors;
+import { 
+  Colors,
+} from "../../components/ProfileSettings/ProfileGeneral";
 
 export default function SaveButton() {
   return (
