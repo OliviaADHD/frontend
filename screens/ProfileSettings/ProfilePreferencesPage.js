@@ -17,7 +17,10 @@ import {
 
 import SaveButton from "../../components/ProfileSettings/SaveButton";
 
-import ProfileTopContainer from "../../components/ProfileTopContainer";
+// import ProfileTopContainer from "../../components/ProfileSettings/ProfileTopContainer";
+
+import ProfileTopContainer from "../../components/ProfileSettings/ProfileTopContainer";
+
 import DashBoardBottomMenu from "../../components/DashboardBottomMenu";
 
 export default function ProfilePreferencesPage({navigation}) {

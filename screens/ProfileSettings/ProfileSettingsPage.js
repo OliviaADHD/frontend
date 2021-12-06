@@ -11,7 +11,9 @@ import {
   SectionPurpleBottomLine 
 } from "../../components/ProfileSettings/ProfileGeneral";
 
-import ProfileTopContainer from "../../components/ProfileTopContainer";
+// import ProfileTopContainer from "../../components/ProfileTopContainer";
+
+import ProfileTopContainer from "../../components/ProfileSettings/ProfileTopContainer";
 
 import DashBoardBottomMenu from "../../components/DashboardBottomMenu";
 

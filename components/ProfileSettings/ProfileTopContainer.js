@@ -2,9 +2,9 @@ import React from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
 
-import {
+import { 
   Colors,
-} from './styles';
+} from "../../components/ProfileSettings/ProfileGeneral";
 
 class ProfileTopContainer extends React.Component {
   constructor(props) {
@@ -29,7 +29,8 @@ class ProfileTopContainer extends React.Component {
         paddingRight: 15
       }}>
 
-      <Image source={require('../assets/images/foxicon.png')}
+      <Image source={require('../../assets/images/foxicon.png')}
+      // /Users/i-mac/frontend/assets/images/foxicon.png
         style={{
           width: 70, 
           height: 70,
@@ -60,7 +61,7 @@ class ProfileTopContainer extends React.Component {
           >
               
             <Image 
-              source={require('../assets/images/penBlack.png')} 
+              source={require('../../assets/images/penBlack.png')} 
               style={{
                 width: 17, 
                 height: 17,
