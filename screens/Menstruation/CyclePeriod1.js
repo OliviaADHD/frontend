@@ -1,6 +1,5 @@
-import React, {useState} from "react";
-import { StatusBar } from "expo-status-bar";
-
+import React, {useState, useEffect} from "react";
+import { BackHandler } from "react-native";
 import {
     StyledContainer,
     InnerContainer, 
@@ -22,33 +21,39 @@ import {
 
 import ScrollableDaySelector from "../../components/ScrollableSelectionBox";
 
-const CyclePeriod1 = ({navigation}) =>{
-    const [DaySelected, SetDaySelected] = useState(undefined);
-    const [warning, SetWarning] = useState(false);
-    var NextScreen = "CyclePeriod2";
-    var NotSureScreen = "Signup";
+const CyclePeriod1 = ({firstPage, setFirstPage, DaySelected, SetDaySelected}) =>{
+    //backhandler
+    const backAction = () => {
+        setFirstPage(firstPage-1);
+        return true;
+      };
+    
+      useEffect(() => {
+        BackHandler.addEventListener("hardwareBackPress", backAction);
+    
+        return () =>
+          BackHandler.removeEventListener("hardwareBackPress", backAction);
+      }, []);
+    
 
+    //the rest of the screen
+    const [warning, SetWarning] = useState(false);
 
     const NextClicked = () => {
-        console.log('next was clicked');
         if (DaySelected!=undefined){
             SetWarning(false);
-            console.log("a specific day was selected: " + DaySelected);
-            navigation.navigate(NextScreen);
+            setFirstPage(firstPage+1);
         } else {
-            console.log(" no specific day was selected, display warning");
             SetWarning(true);
         }
     };
 
     const NotSureClicked = () => {
-        console.log('Not sure was clicked, and the Day was '+DaySelected);
-        navigation.navigate(NotSureScreen);
+        SetDaySelected(28);
+        setFirstPage(firstPage+1);
     }
 
     return(
-        <StyledContainer>
-            <StatusBar style="dark"/>
             <InnerContainer>
                 <StyledTitleCentered style={{marginBottom: '0%'}}
                     >How long is your periodic cycle?
@@ -80,7 +85,6 @@ const CyclePeriod1 = ({navigation}) =>{
                     </StyledButtonNotSure>
                 </StyledButtonNotSureContainer> 
             </InnerContainer>
-        </StyledContainer>
     );
 };
 

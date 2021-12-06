@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import { StatusBar } from "expo-status-bar";
+import React, {useState, useEffect} from "react";
+import { BackHandler } from "react-native";
 
 import {
     StyledContainer,
@@ -21,34 +21,49 @@ import {
 }from '../../components/stylesCalendar';
 
 import ScrollableDaySelector from "../../components/ScrollableSelectionBox";
+import { useDispatch} from "react-redux";
+import { setMensDataFirstTime } from "../../src/actions/menstruation/menstruation";
 
-const CyclePeriod2 = ({navigation}) =>{
-    const [DaySelected, SetDaySelected] = useState(undefined);
+const CyclePeriod2 = ({firstPage, setFirstPage, DaySelected, SetDaySelected, allMensData}) =>{
+    //backhandler
+    const backAction = () => {
+        setFirstPage(firstPage-1);
+        return true;
+      };
+    
+      useEffect(() => {
+        BackHandler.addEventListener("hardwareBackPress", backAction);
+    
+        return () =>
+          BackHandler.removeEventListener("hardwareBackPress", backAction);
+      }, []);
+    
+
+    //the rest of the screen
+    const dispatch = useDispatch();
     const [warning, SetWarning] = useState(false);
-    var NextScreen = "Signup";
-    var NotSureScreen = "Signup";
-
 
     const NextClicked = () => {
-        console.log('next was clicked');
         if (DaySelected!=undefined){
             SetWarning(false);
-            console.log("a specific day was selected: " + DaySelected);
-            navigation.navigate(NextScreen);
+            allMensData.periodLength = DaySelected;
+            dispatch(setMensDataFirstTime(allMensData));
+            console.log(allMensData);
+            setFirstPage(firstPage+1);
         } else {
-            console.log(" no specific day was selected, display warning");
             SetWarning(true);
         }
     };
 
     const NotSureClicked = () => {
-        console.log('Not sure was clicked, and the Day was '+DaySelected);
-        navigation.navigate(NotSureScreen);
+        SetDaySelected(5);
+        allMensData.periodLength = 5;
+        console.log("just before dispatching:", allMensData);
+        dispatch(setMensDataFirstTime(allMensData));
+        setFirstPage(firstPage+1);
     }
 
     return(
-        <StyledContainer>
-            <StatusBar style="dark"/>
             <InnerContainer>
                 <StyledTitleCentered style={{marginBottom: '0%'}}
                     >How long does your period usually last?
@@ -79,7 +94,6 @@ const CyclePeriod2 = ({navigation}) =>{
                     </StyledButtonNotSure>
                 </StyledButtonNotSureContainer> 
             </InnerContainer>
-        </StyledContainer>
     );
 };
 

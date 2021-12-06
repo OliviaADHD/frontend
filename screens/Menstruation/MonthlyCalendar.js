@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StatusBar } from "expo-status-bar";
+import { useSelector } from "react-redux";
 import {
     StyledContainer,
     ButtonText,
@@ -11,6 +11,7 @@ import {
     InputMoodBtn,
     EditPeriodBtn,
     MediumExtraText,
+    Colors
 }from '../../components/styles';
 
 import {Calendar} from 'react-native-calendars';
@@ -18,31 +19,45 @@ import {
     StyledCalendar
 }from '../../components/stylesCalendar';
 
+import {calculateNextPeriods} from "../../components/Menstruation/helperFunctions";
 
-const MonthlyCalendar =({navigation}) => {
-    const [selectedDate, setSelectedDate] = useState()
+const MonthlyCalendar =({pageNav, setPage}) => {
+    const menstruationData = useSelector(state => state.menstruationInfo);
+    const [selectedDate, setSelectedDate] = useState();
 
+    const nextPeriods = calculateNextPeriods(20, 
+                                            menstruationData.startLastPeriod,
+                                            menstruationData.periodCycleLength,
+                                            menstruationData.periodLength);
 
 
     return (
-        <StyledContainer>  
-            <StatusBar style="dark"/>
             <InnerContainer>
-                <ButtonGroupContainer>
-                    <ButtonGroup>
-                        <ButtonGroupChild><ButtonText  style={{color: 'black'}}>Month</ButtonText></ButtonGroupChild>
-                        <ButtonGroupChild><ButtonText onPress = {() => navigation.navigate("YearlyCalendar")} style={{color: 'black'}}>Year</ButtonText></ButtonGroupChild>
+                <ButtonGroupContainer style={{marginTop: "8%", 
+                                        height: "6%",
+                                        alignItems: "center"}}>
+                    <ButtonGroup style={{width: "61.5%", height: "100%", 
+                                        left: "0%", top: "0%", padding: "1%", alignItems: "center"}}>
+                        <ButtonGroupChild style={{backgroundColor: Colors.purple, alignItems: "center"}}>
+                            <ButtonText  style={{color: Colors.white}}>Month</ButtonText>
+                        </ButtonGroupChild>
+                        <ButtonGroupChild>
+                            <ButtonText onPress = {() => setPage(pageNav.YearlyCalendar)} 
+                            style={{color: 'black'}}>Year</ButtonText>
+                        </ButtonGroupChild>
                     </ButtonGroup>
                 </ButtonGroupContainer>
-                <StyledCalendar>
+                
+                <StyledCalendar style={{marginTop: "4%", marginBottom: "2%", height: "62%"}}>
                         <Calendar
                             current={Date()}
-                            onDayPress={(day) =>onDayPress(day)}
+                            onDayPress={(day) =>console.log(day)}
                             monthFormat={'MMMM yyyy'}
                             onPressArrowLeft={subtractMonth => subtractMonth()}
                             onPressArrowRight={addMonth => addMonth()}
                             enableSwipeMonths={true} 
                             theme={{
+                                
                                 todayTextColor: '#7047EB',
                                 dayTextColor: '#333333',
                                 textDisabledColor: '#BDBDBD',
@@ -56,21 +71,23 @@ const MonthlyCalendar =({navigation}) => {
                                 textDayHeaderFontSize: 15,
                                 textSectionTitleColor: '#7047EB',
                               }}
-                            markedDates={{
-                                '2021-11-15': {selected: true, selectedColor: '#694398'},
-                            }}
+                            markedDates={nextPeriods}
                         
                         />
-                </StyledCalendar>
-                <ButtonContainers>
-                    <InputMoodBtn><ButtonText onPress = {() => navigation.navigate("Mood")} >Input Mood</ButtonText></InputMoodBtn>
-                    <EditPeriodBtn><ButtonText onPress = {() => navigation.navigate("Period")} >Input Period</ButtonText></EditPeriodBtn>
+                    </StyledCalendar>
+                
+                <ButtonContainers style={{width: "70%",
+                                          marginTop: "0%", top: "0%", alignItems: "center"}}>
+                    <InputMoodBtn><ButtonText onPress = {() => setPage(pageNav.Mood)} >Input Mood</ButtonText></InputMoodBtn>
+                    <EditPeriodBtn><ButtonText onPress = {() => setPage(pageNav.Period)} >Input Period</ButtonText></EditPeriodBtn>
                 </ButtonContainers>
-                <MediumExtraText style={{ color : '#694398', marginTop : '50%'}}>Mood Analysis Chart</MediumExtraText>
+                <MediumExtraText style={{ color : Colors.black, margin : '0%', width: "60%", top: "3%",
+                                            textDecorationLine: "underline",
+                                            padding: "0%", paddingTop: "0%", paddingBottom: "0%",
+                                        height: "7%"}}>Mood Analysis Chart</MediumExtraText>
               </InnerContainer>  
-        </StyledContainer> 
     );
 }
 
-export default MonthlyCalendar
+export default MonthlyCalendar;
     

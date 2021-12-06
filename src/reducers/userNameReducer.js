@@ -4,7 +4,7 @@ import { SET_USER_NAME,
 
 const userData = {
     Name: "testName",
-    ID: "testLogin",
+    userId: 1,
     firstTime: true  
 }
 
@@ -18,7 +18,7 @@ const userNameReducer = (state = userData, action) => {
         case SET_USER_ID:
             return{
                 ...state,
-                ID: action.payload
+                userId: action.payload
             };
         case SET_FIRST_TIME:
             return{
