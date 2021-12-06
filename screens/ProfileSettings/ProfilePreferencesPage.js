@@ -1,6 +1,6 @@
 import React from "react";
 import axios from 'axios';
-import { View, Text, Switch, Alert } from "react-native";
+import { Text, Switch, Alert } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { useFormik } from 'formik';
 import { Picker as SelectPicker } from '@react-native-picker/picker';

@@ -1,14 +1,13 @@
 import React from "react";
-import { View } from "react-native";
 import { StatusBar } from "expo-status-bar";
 
 import { 
-  Colors,
   StyledContainer,
   InnerContainer,
-  StyledFormArea,
+  TopPaddingStyledFormArea,
   ProfileListTouch,
   ProfileListText,
+  FirstSectionItem,
   SectionPurpleBottomLine 
 } from "../../components/ProfileSettings/ProfileGeneral";
 
@@ -27,21 +26,16 @@ export default function ProfileSettingsPage({navigation}) {
 
         <ProfileTopContainer/>
         
-        <StyledFormArea>
+        <TopPaddingStyledFormArea>
         
-          <SectionPurpleBottomLine
-            style={{
-              borderTopWidth: 1,
-              borderTopColor: Colors.lightpurple,
-            }}
-          >
+          <FirstSectionItem>
             <ProfileListTouch
               activeOpacity={0.5}
               onPress = {() => navigation.navigate('ProfilePreferencesPage')}
             >            
             <ProfileListText> Preferences </ProfileListText>          
             </ProfileListTouch>
-          </SectionPurpleBottomLine>
+          </FirstSectionItem>
 
           <SectionPurpleBottomLine>
             <ProfileListTouch 
@@ -70,11 +64,12 @@ export default function ProfileSettingsPage({navigation}) {
             </ProfileListTouch>
           </SectionPurpleBottomLine>
 
-        </StyledFormArea>
+        </TopPaddingStyledFormArea>
 
         <DashBoardBottomMenu currentScreen={"Profile"} navigation={navigation}/>
 
       </InnerContainer>
+
     </StyledContainer>
 
   )

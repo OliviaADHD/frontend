@@ -32,20 +32,30 @@ export const StyledFormArea = styled.View`
     height: 75%;
 `;
 
+export const TopPaddingStyledFormArea = styled(StyledFormArea)`
+padding-top: 15%;
+`
+
 export const SectionPurpleBottomLine = styled.View`
   border-bottom-width: 1px;
   border-bottom-color: ${lightpurple};
 `
+
+export const FirstSectionItem = styled(SectionPurpleBottomLine)`
+border-top-width: 1px;
+border-top-color: ${lightpurple};
+`
+
 export const ProfileListTouch = styled.TouchableOpacity`
 width: 100%;
-padding-left: 20px;
+padding-left: 10%;
 `;
 
 export const ProfileListText = styled.Text`
 width: 100%;
 border: 2px;
 border-color: white;
-padding: 25px 0px;
+padding: 8% 0%;
 `;
 
 export const PageTitle = styled.Text`
