@@ -56,7 +56,7 @@ class ProfileTopContainer extends React.Component {
 
           <TouchableOpacity 
             activeOpacity={0.5}
-            onPress = {() => this.props.navigation.navigate('ToBeDefined')}
+            onPress = {() => this.props.navigation.navigate('ToBeDefinedEditPage')}
           >
               
             <Image 
