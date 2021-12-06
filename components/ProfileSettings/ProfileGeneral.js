@@ -32,6 +32,11 @@ export const StyledFormArea = styled.View`
     height: 75%;
 `;
 
+export const SectionPurpleBottomLine = styled.View`
+  border-bottom-width: 1px;
+  border-bottom-color: ${lightpurple};
+`
+
 export const PageTitle = styled.Text`
   font-weight: bold;
   font-size: 14px
@@ -55,7 +60,7 @@ justify-content: space-between;
 align-items: center;
 `
 
-export const SectionPurpleBottomLine = styled(InlineSeveralItems)`  
+export const SubSectionPurpleBottomLine = styled(InlineSeveralItems)`  
   border-bottom-width: 1px;            
   border-bottom-color: ${lightpurple};
   margin-bottom: 20px;

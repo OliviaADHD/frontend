@@ -12,7 +12,7 @@ import {
   StyledFormArea,
   PageTitle,
   PageTitleFormat,
-  SectionPurpleBottomLine 
+  SubSectionPurpleBottomLine 
 } from "../../components/ProfileSettings/ProfileGeneral";
 
 import SaveButton from "../../components/ProfileSettings/SaveButton";
@@ -63,7 +63,7 @@ export default function ProfilePreferencesPage({navigation}) {
 
           </PageTitleFormat>
           
-          <SectionPurpleBottomLine
+          <SubSectionPurpleBottomLine
           style={{ paddingBottom: 20, paddingTop: 10 }}>
             
             <Text style={{paddingLeft: 22, fontSize: 15}}>Language</Text>
@@ -94,9 +94,9 @@ export default function ProfilePreferencesPage({navigation}) {
     
             </SelectPicker>
 
-          </SectionPurpleBottomLine>
+          </SubSectionPurpleBottomLine>
 
-          <SectionPurpleBottomLine
+          <SubSectionPurpleBottomLine
             style={{ paddingBottom: 10 }}>
 
             <Text style={{paddingLeft: 22, fontSize: 14}}>
@@ -112,7 +112,7 @@ export default function ProfilePreferencesPage({navigation}) {
               onValueChange={value => formik.setFieldValue('switch', value)}
             />
           
-          </SectionPurpleBottomLine> 
+          </SubSectionPurpleBottomLine> 
 
           <SaveButton 
             mode="contained"
