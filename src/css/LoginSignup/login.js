@@ -53,17 +53,13 @@ export const ButtonText = styled.Text`
 
 
 export const ForgotPassword = styled.TouchableOpacity`
-    background-color: ${white};
-    height: 15%;
+    height: 10%;
 `;
 
 export const ForgotPasswordText = styled.Text`
     font-size: 15px;
-    height: 100%;
-    width: 127px;
-    margin-top: 0.5%;
-    margin-left: 4%;
-    margin-bottom: 0.5%;
+    height: 45%;
+    text-align: center;
 `;
 
 export const Or = styled.Text`
