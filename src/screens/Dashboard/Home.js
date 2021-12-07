@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {StatusBar} from "expo-status-bar";
 import {Text} from 'react-native';
 
-import {StyledContainer} from '../../css/general/style';
+import {StyledContainer, InnerContainer} from '../../css/general/style';
 
 import {InnerContainerRemake} from '../../css/Dashboard/home';
 
