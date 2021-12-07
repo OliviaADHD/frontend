@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         flexDirection: "row",
         height: "10%",
+        backgroundColor: Colors.white
 
         
     },
