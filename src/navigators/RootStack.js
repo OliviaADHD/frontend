@@ -51,7 +51,7 @@ const RootStack = () => {
                     paddingLeft: 20
                 }
             }}
-            initialRouteName = 'Preferences'
+            initialRouteName = 'Welcome'
 
             >   
                 <Stack.Screen name="Welcome" 
