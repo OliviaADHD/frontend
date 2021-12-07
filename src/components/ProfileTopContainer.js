@@ -3,12 +3,8 @@ import { View, Text, Image, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
 
 import { 
-  Colors,
-<<<<<<< HEAD:src/components/ProfileSettings/ProfileTopContainer.js
-} from "../../components/ProfileSettings/ProfileGeneral";
-=======
+  Colors
 } from '../css/general/style';
->>>>>>> develop:src/components/ProfileTopContainer.js
 
 class ProfileTopContainer extends React.Component {
   constructor(props) {
@@ -34,10 +30,7 @@ class ProfileTopContainer extends React.Component {
       }}>
 
       <Image source={require('../../assets/images/foxicon.png')}
-<<<<<<< HEAD:src/components/ProfileSettings/ProfileTopContainer.js
       // /Users/i-mac/frontend/assets/images/foxicon.png
-=======
->>>>>>> develop:src/components/ProfileTopContainer.js
         style={{
           width: 70, 
           height: 70,

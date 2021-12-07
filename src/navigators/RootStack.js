@@ -64,6 +64,7 @@ const RootStack = () => {
                     title:'Privacy Policy',
                     header: () => null,
                 }} />
+                <Stack.Screen name='TutorialDashboard' component={TutorialDashboard} options ={{header: () => null}}/>   
                 <Stack.Screen name='Welcome_Post_Signup' component={Welcome_Post_Signup} />
                 <Stack.Screen name="Questionnaire" component={Questionnaire} options ={{header: () => null}} />
                   
@@ -76,8 +77,8 @@ const RootStack = () => {
                 <Stack.Screen name="Home" component={Home}  options ={{header: () => null}} />
                 <Stack.Screen name="ToDoList" component={ToDoList} />
                 <Stack.Screen name="Profile" component={Profile} />
-                <Stack.Screen name="ProfileSettingsPage" component={ProfileSettingsPage} />                  
-                <Stack.Screen name='TutorialDashboard' component={TutorialDashboard} options ={{header: () => null}}/>            
+
+                <Stack.Screen name="ProfileSettingsPage" component={ProfileSettingsPage} />
                 <Stack.Screen name="ProfilePreferencesPage" component={ProfilePreferencesPage} />
 
             </Stack.Navigator>

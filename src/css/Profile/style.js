@@ -1,19 +1,9 @@
 import styled from 'styled-components';
 import Constants from 'expo-constants';
+import {Colors} from '../general/style';
+
 const StatusBarHeight = Constants.statusBarHeight;
-
-export const Colors = {
-  white: "#ffffff",
-  purple: "#694398",
-  disabledPurple:"#aa91c9",
-  black: "#000000",
-  gray: "#d3d3d3",
-  darkgray: "#979797",
-  red: "#FF0000",
-  lightpurple: "#C7A3D2"
-};
-
-const { lightpurple, darkgray, purple, white } = Colors;
+const { lightpurple, white } = Colors;
 
 export const StyledContainer = styled.View`
   flex: 1;

@@ -2,16 +2,12 @@ import React from 'react';
 import { Text } from 'react-native';
 import { Button } from 'react-native-paper';
 
-import { 
-  Colors,
-} from "../../components/ProfileSettings/ProfileGeneral";
-
 export default function SaveButton() {
   return (
 
     <Button 
       style={{
-        backgroundColor: Colors.purple,
+        backgroundColor: "#694398",
         borderRadius: 10, 
         paddingTop: 8, 
         paddingBottom: 8, 
@@ -21,7 +17,7 @@ export default function SaveButton() {
       <Text 
         style={{
           fontSize: 12, 
-          color: Colors.white
+          color: "white"
         }}
       >
         Save all changes

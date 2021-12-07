@@ -9,10 +9,10 @@ import {
   ProfileListText,
   FirstSectionItem,
   SectionPurpleBottomLine
-} from "../../components/ProfileSettings/ProfileGeneral";
+} from "../../css/Profile/style";
 
 
-import ProfileTopContainer from "../../components/ProfileSettings/ProfileTopContainer";
+import ProfileTopContainer from "../../components/ProfileTopContainer";
 
 import DashBoardBottomMenu from "../../components/DashboardBottomMenu";
 
