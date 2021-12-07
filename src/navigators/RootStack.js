@@ -50,7 +50,7 @@ const RootStack = () => {
                     paddingLeft: 20
                 }
             }}
-            initialRouteName = 'Welcome'
+            initialRouteName = 'TutorialDashboard'
             >   
                 <Stack.Screen name="Welcome" 
                     options ={{animationEnabled: true, header: () => null}}
@@ -75,7 +75,7 @@ const RootStack = () => {
                 <Stack.Screen name="ToDoList" component={ToDoList} />
                 <Stack.Screen name="Profile" component={Profile} />
                 <Stack.Screen name="ProfileSettingsPage" component={ProfileSettingsPage} />                  
-                <Stack.Screen name='TutorialDashboard' component={TutorialDashboard} options ={{header: () => null}}/>
+                <Stack.Screen name='TutorialDashboard' component={TutorialDashboard}/>
 
             </Stack.Navigator>
             

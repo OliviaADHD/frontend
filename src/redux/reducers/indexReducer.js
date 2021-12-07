@@ -7,6 +7,7 @@ import menstruationReducer from './menstruationReducer';
 import questionReducer from './questionReducer';
 import networkAvailabilityReducer from './networkAvailabilityReducer';
 import userNameReducer from './userNameReducer';
+import dashboardTutorialReducer from './dashboardTutorialReducer';
 
 const rootReducer = combineReducers({
     loginInfo: loginReducer,
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
     menstruationInfo: menstruationReducer,
     questionsReducer: questionReducer,
     networkAvailability: networkAvailabilityReducer,
-    userName: userNameReducer
+    userName: userNameReducer,
+    dashboardTutorial: dashboardTutorialReducer,
 });
 
 export default rootReducer;
