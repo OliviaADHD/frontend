@@ -351,15 +351,3 @@ export const EditPeriodBtn = styled.View`
     left: 15px;
 `;
 
-export const ProfileListTouch = styled.TouchableOpacity`
-width: 100%;
-padding-left: 20px;
-`;
-
-export const ProfileListText = styled.Text`
-width: 100%;
-border: 2px;
-border-color: white;
-padding: 25px 0px;
-`;
-

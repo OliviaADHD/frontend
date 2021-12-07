@@ -1,19 +1,20 @@
 import React from "react";
-import { View } from "react-native";
 import { StatusBar } from "expo-status-bar";
 
-import {
+import { 
   StyledContainer,
   InnerContainer,
-  Colors,
-  ProfileListText,
+  TopPaddingStyledFormArea,
   ProfileListTouch,
-  StyledFormArea
-} from '../../css/styles';
+  ProfileListText,
+  FirstSectionItem,
+  SectionPurpleBottomLine
+} from "../../components/ProfileSettings/ProfileGeneral";
 
-import ProfileTopContainer from "../../components/ProfileTopContainer";
 
-import Profile from "../Dashboard/Profile";
+import ProfileTopContainer from "../../components/ProfileSettings/ProfileTopContainer";
+
+import DashBoardBottomMenu from "../../components/DashboardBottomMenu";
 
 export default function ProfileSettingsPage({navigation}) {
 
@@ -23,70 +24,53 @@ export default function ProfileSettingsPage({navigation}) {
       <StatusBar style="dark"/>
 
       <InnerContainer>
+
         <ProfileTopContainer/>
-        <StyledFormArea>
         
-          <View
-            style={{
-              borderTopWidth: 1,
-              borderBottomWidth: 1,
-              borderTopColor: Colors.lightpurple,
-              borderBottomColor: Colors.lightpurple
-            }}
-          >
+        <TopPaddingStyledFormArea>
+        
+          <FirstSectionItem>
             <ProfileListTouch
               activeOpacity={0.5}
               onPress = {() => navigation.navigate('ProfilePreferencesPage')}
             >            
             <ProfileListText> Preferences </ProfileListText>          
             </ProfileListTouch>
-          </View>
+          </FirstSectionItem>
 
-          <View
-            style={{
-              borderBottomWidth: 1,
-              borderBottomColor: Colors.lightpurple
-            }}
-          >
+          <SectionPurpleBottomLine>
             <ProfileListTouch 
               activeOpacity={0.5}
               onPress = {() => navigation.navigate('ToBeDefined')}
             >
               <ProfileListText> Setting and Privacy </ProfileListText>            
             </ProfileListTouch>
-          </View>
+          </SectionPurpleBottomLine>
 
-          <View
-            style={{
-              borderBottomWidth: 1,
-              borderBottomColor: Colors.lightpurple
-            }}
-          >
+          <SectionPurpleBottomLine>
             <ProfileListTouch
               activeOpacity={0.5}
-              onPress = {() => navigation.navigate('ToBeDefined')}
+              onPress = {() => navigation.navigate('ProfileHelpPage')}
             >
               <ProfileListText> Help </ProfileListText>            
             </ProfileListTouch>
-          </View>
+          </SectionPurpleBottomLine>
 
-          <View
-            style={{
-              borderBottomWidth: 1,
-              borderBottomColor: Colors.lightpurple
-            }}
-            >
+          <SectionPurpleBottomLine>
             <ProfileListTouch
               activeOpacity={0.5}
               onPress = {() => navigation.replace('Login')}
             >            
               <ProfileListText> Sign Out </ProfileListText>         
             </ProfileListTouch>
-          </View>
+          </SectionPurpleBottomLine>
 
-        </StyledFormArea>
-        {/* <Profile/> */}
+        </TopPaddingStyledFormArea>
+
+        <DashBoardBottomMenu currentScreen={"Profile"} navigation={navigation}/>
+
       </InnerContainer>
+
     </StyledContainer>
 
   )

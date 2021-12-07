@@ -30,6 +30,7 @@ import Profile from '../screens/Dashboard/Profile';
 import ToDoList from '../screens/Dashboard/ToDoList';
 
 import ProfileSettingsPage from '../screens/ProfileSettings/ProfileSettingsPage';
+import ProfilePreferencesPage from '../screens/ProfileSettings/ProfilePreferencesPage';
 import TutorialDashboard from '../screens/Dashboard/Tutorial';
 
 
@@ -51,6 +52,7 @@ const RootStack = () => {
                 }
             }}
             initialRouteName = 'Welcome'
+
             >   
                 <Stack.Screen name="Welcome" 
                     options ={{animationEnabled: true, header: () => null}}
@@ -75,7 +77,8 @@ const RootStack = () => {
                 <Stack.Screen name="ToDoList" component={ToDoList} />
                 <Stack.Screen name="Profile" component={Profile} />
                 <Stack.Screen name="ProfileSettingsPage" component={ProfileSettingsPage} />                  
-                <Stack.Screen name='TutorialDashboard' component={TutorialDashboard} options ={{header: () => null}}/>
+                <Stack.Screen name='TutorialDashboard' component={TutorialDashboard} options ={{header: () => null}}/>            
+                <Stack.Screen name="ProfilePreferencesPage" component={ProfilePreferencesPage} />
 
             </Stack.Navigator>
             
