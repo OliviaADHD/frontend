@@ -1,15 +1,17 @@
 import React, {useEffect} from 'react';
 import {StatusBar} from "expo-status-bar";
-
+import { useDispatch } from "react-redux";
 import {MediumExtraText, StyledFormArea, StyledButton, ButtonText} from '../../css/LoginSignup/messageReset';
 
 import {StyledContainer, InnerContainer} from '../../css/general/style';
+import { resetPass } from '../../redux/actions/user/reset'
+
 
 const MessageResetPassword = ({navigation, route}) => {
-      
+  const dispatch = useDispatch();
   
     useEffect(() => {
-        console.error(route.params)
+        dispatch(resetPass(route.params.email))
     })
     return (
         <StyledContainer>

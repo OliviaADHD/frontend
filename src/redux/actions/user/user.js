@@ -14,7 +14,7 @@ import { SIGN_UP,
     SET_USER_ID,
     SET_FIRST_TIME,
     SET_NETWORK_ERROR_TRUE,
-    SET_USER_NAME
+    SET_USER_NAME,
   } from "../types";
 import axios from "axios";
 import {link} from '../../config/config'
@@ -186,3 +186,6 @@ export const verifyLogin = (login) => async dispatch => {
     }
   })
 };
+
+
+
