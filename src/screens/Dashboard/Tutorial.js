@@ -259,23 +259,23 @@ const TutorialDashboard = ({navigation}) => {
     const tutDashboardData = useSelector(state => state.dashboardTutorial)
     const [calledOnce, setCalledOnce] = useState(false);
     if (!calledOnce) {
-        console.log('call the backend and check whether the user has already completed the tutorial');
         dispatch(initializeDashboardTutorial(userData.userId));
         setCalledOnce(true);
     };
 
-    if (tutDashboardData.tutorialDone) {
-        navigation.replace('Home');
-    }
+    useEffect(() => {
+        if (tutDashboardData.tutorialDone){
+            navigation.replace('Home');
+        }
+    }, 
+    [tutDashboardData])
 
 
     const [page, setPage] = useState(0);
 
     const TutorialFinished = () => {
-        console.log('finished tutorial, need to send something to backend');
         dispatch(setDashboardTutorialFinished(userData.userId));
-
-        //navigation.replace('Home');
+        navigation.replace('Home');
     };
 
     return(
