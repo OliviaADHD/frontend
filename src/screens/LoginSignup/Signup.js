@@ -1,6 +1,6 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { StatusBar } from "expo-status-bar";
-import { Formik, Field } from 'formik'
+import { Formik } from 'formik'
 import { useDispatch, useSelector } from "react-redux";
 import {Ionicons} from '@expo/vector-icons';
 import { View,CheckBox, StyleSheet, ActivityIndicator } from "react-native";
@@ -24,7 +24,7 @@ import {
     ErrorMessage,
     PrivacyText,
     PrivacyArea,
-    AbsoluteContainer
+    ErrorPrivacyText,
 }from '../../css/styles';
 
 import {newUser, verifyEmail, verifyLogin, beforeValidEmail, beforeValidLogin, beforeSignUP} from '../../redux/actions/user/user'
@@ -54,11 +54,12 @@ const signUpValidationSchema = yup.object().shape({
 
 
 
-const Signup = ({navigation}) => {
+const Signup = ({navigation, route}) => {
     const [hidePassword, setHidePassword] = useState(true);
     const [loginError, setLoginError] = useState(false);
     const [emailError, setEmailError] = useState(false);
     const [isSelected, setIsSelected] = useState(false);
+    const [policyError, setPolicyError] = useState(false);
     const loginValidityState = useSelector(state => state.validateLoginInfo); // these are at the start simply Object {"message":{}}
     const emailValidityState = useSelector(state => state.validateEmailInfo);
     const networkError = useSelector(state => state.networkAvailability);
@@ -67,6 +68,18 @@ const Signup = ({navigation}) => {
 
     const dispatch = useDispatch();
 
+    useEffect(() => {
+        console.error(route.params)
+        
+        if(route.params === undefined){
+            setIsSelected(false)
+        }
+        else{
+            setIsSelected(route.params.policyChecked)
+            setPolicyError(false)
+        }
+    })
+
     return(
             <StyledContainer>
                 <StatusBar style="dark"/>
@@ -74,47 +87,52 @@ const Signup = ({navigation}) => {
                     <PageLogo source={require('../../../assets/images/logo.png')} />
                     <Formik
                         validationSchema={signUpValidationSchema}
-                        initialValues={{fullName: '', email: '', password: '',login:''}}
+                        initialValues={{fullName: '', email: '', password: '',login:'', privacyPolicy: false}}
                         onSubmit={(values) => {
-                            setLoading(true);
-                            dispatch(beforeSignUP())
-                            .then(resp => dispatch(beforeValidEmail()))
-                            .then(resp => dispatch(beforeValidLogin()))
-                            .then(resp => dispatch(verifyLogin(values.login)))
-                            .then(resp => {
-                                    if (networkError.error === true){
-                                        setLoading(false);
-                                    } else {
-                                        if (loginValidityState.message.passed === false) {
-                                            setLoginError(true);
+                            if(!isSelected){
+                                setPolicyError(true)
+                            }
+                            else{
+                                setLoading(true);
+                                dispatch(beforeSignUP())
+                                .then(resp => dispatch(beforeValidEmail()))
+                                .then(resp => dispatch(beforeValidLogin()))
+                                .then(resp => dispatch(verifyLogin(values.login)))
+                                .then(resp => {
+                                        if (networkError.error === true){
                                             setLoading(false);
                                         } else {
-                                            setLoginError(false);
+                                            if (loginValidityState.message.passed === false) {
+                                                setLoginError(true);
+                                                setLoading(false);
+                                            } else {
+                                                setLoginError(false);
+                                            }
+                                            dispatch(verifyEmail(values.email))
+                                            .then(resp => {
+                                                if (emailValidityState.message.passed === false) {
+                                                    setEmailError(true);
+                                                    setLoading(false);
+                                                } else {
+                                                    setEmailError(false);
+                                                }})
+                                            .then(resp => {
+                                                if ((loginError === false) && (emailError === false)) {
+                                                    dispatch(newUser(values));
+                                                }
+                                            })
+                                            .then(resp => {
+                                                if (signUpState.message.passed === true) {
+                                                    setLoading(false);
+                                                    navigation.replace('Welcome_Post_Signup');
+                                                } else {
+                                                    setLoading(false);
+                                                }
+                                            });
                                         }
-                                        dispatch(verifyEmail(values.email))
-                                        .then(resp => {
-                                            if (emailValidityState.message.passed === false) {
-                                                setEmailError(true);
-                                                setLoading(false);
-                                            } else {
-                                                setEmailError(false);
-                                            }})
-                                        .then(resp => {
-                                            if ((loginError === false) && (emailError === false)) {
-                                                dispatch(newUser(values));
-                                            }
-                                        })
-                                        .then(resp => {
-                                            if (signUpState.message.passed === true) {
-                                                setLoading(false);
-                                                navigation.replace('Welcome_Post_Signup');
-                                            } else {
-                                                setLoading(false);
-                                            }
-                                        });
                                     }
-                                }
-                            );
+                                );
+                        }
                             
                     }
                     }
@@ -188,13 +206,18 @@ const Signup = ({navigation}) => {
                                 <ErrorText>{errors.password}</ErrorText>
                             </ErrorMessage> 
                         }
-                        <PrivacyArea>
+                        <PrivacyArea onPress = {() => navigation.navigate('Privacy')}>
                             <CheckBox
                                 value={isSelected}
                                 onValueChange={(value)=>setIsSelected(value)}
-                                style={styles.checkbox}
+                                disabled={true}
                             />
-                            <PrivacyText  onPress = {() => navigation.navigate('Privacy')}>I Agree With Terms Of Privacy Policy.</PrivacyText>
+                            { !policyError &&
+                                <PrivacyText>I Agree With Terms Of Privacy Policy.</PrivacyText>
+                            }
+                            { policyError &&
+                                <ErrorPrivacyText>I Agree With Terms Of Privacy Policy.</ErrorPrivacyText>
+                            }                           
                         </PrivacyArea>
 
 
@@ -241,9 +264,6 @@ const Signup = ({navigation}) => {
 
 
 const styles = StyleSheet.create({
-    checkbox: {
-      alignSelf: "center",
-    },
     loading: {
         position: 'absolute',
         left: 0,

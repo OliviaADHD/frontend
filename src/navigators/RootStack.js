@@ -51,15 +51,14 @@ const RootStack = () => {
                     paddingLeft: 20
                 }
             }}
-            initialRouteName = 'Login'
-
+            initialRouteName = 'Welcome'
             >   
                 <Stack.Screen name="Welcome" 
                     options ={{animationEnabled: true, header: () => null}}
                     component = {Welcome}
                     />
                 <Stack.Screen name='Login' component={Login} />
-                <Stack.Screen name='Signup' component={Signup} />
+                <Stack.Screen name='Signup' component={Signup} options ={{header: () => null}} />
                 <Stack.Screen name='Privacy' component={Privacy} options={{
                     title:'Privacy Policy',
                     header: () => null,
