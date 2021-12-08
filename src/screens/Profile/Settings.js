@@ -8,7 +8,7 @@ import {
     SectionPurpleBottomLine
 } from "../../css/Profile/settings";
 
-import { StyledContainer, InnerContainer} from "../../css/general/style"
+import { StyledContainer, InnerContainer} from "../../css/general/style";
 
 import ProfileTopContainer from "../../components/ProfileTopContainer";
 
