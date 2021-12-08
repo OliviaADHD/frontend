@@ -7,14 +7,14 @@ import { Picker as SelectPicker } from '@react-native-picker/picker';
 import { Colors } from "../../css/general/style";
 
 
-import { 
-  StyledContainer,
-  InnerContainer,
+import {
   StyledFormArea,
   PageTitle,
   PageTitleFormat,
   SubSectionPurpleBottomLine 
-} from "../../css/Profile/style";
+} from "../../css/Profile/preferences";
+
+import { StyledContainer, InnerContainer} from "../../css/general/style";
 
 import SaveButton from "../../components/SaveButton";
 
