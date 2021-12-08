@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import Constants from 'expo-constants';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
-
 const StatusBarHeight = Constants.statusBarHeight;
 
 export const Colors = {
@@ -149,6 +148,15 @@ export const PrivacyText = styled.Text`
     alignItems: center;
     justifyContent: center;
 `;
+
+export const ErrorPrivacyText = styled.Text`
+    color: ${red};
+    font-size: 15px;
+    text-align:center;
+    alignItems: center;
+    justifyContent: center;
+`;
+
 
 
 /*
