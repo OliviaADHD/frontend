@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import Constants from 'expo-constants';
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
-
 const StatusBarHeight = Constants.statusBarHeight;
 
 export const Colors = {
@@ -149,6 +148,15 @@ export const PrivacyText = styled.Text`
     alignItems: center;
     justifyContent: center;
 `;
+
+export const ErrorPrivacyText = styled.Text`
+    color: ${red};
+    font-size: 15px;
+    text-align:center;
+    alignItems: center;
+    justifyContent: center;
+`;
+
 
 
 /*
@@ -349,17 +357,5 @@ export const EditPeriodBtn = styled.View`
     background-color: ${purple};
     text-align: center;
     left: 15px;
-`;
-
-export const ProfileListTouch = styled.TouchableOpacity`
-width: 100%;
-padding-left: 20px;
-`;
-
-export const ProfileListText = styled.Text`
-width: 100%;
-border: 2px;
-border-color: white;
-padding: 25px 0px;
 `;
 

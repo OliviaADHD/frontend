@@ -2,8 +2,8 @@ import React from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
 
-import {
-  Colors,
+import { 
+  Colors
 } from '../css/general/style';
 
 class ProfileTopContainer extends React.Component {
@@ -30,6 +30,7 @@ class ProfileTopContainer extends React.Component {
       }}>
 
       <Image source={require('../../assets/images/foxicon.png')}
+      // /Users/i-mac/frontend/assets/images/foxicon.png
         style={{
           width: 70, 
           height: 70,
@@ -56,7 +57,7 @@ class ProfileTopContainer extends React.Component {
 
           <TouchableOpacity 
             activeOpacity={0.5}
-            onPress = {() => this.props.navigation.navigate('ToBeDefined')}
+            onPress = {() => this.props.navigation.navigate('ToBeDefinedEditPage')}
           >
               
             <Image 
