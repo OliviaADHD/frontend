@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { StatusBar } from "expo-status-bar";
 import { Formik, Field } from 'formik'
 import { useDispatch, useSelector } from "react-redux";
@@ -27,8 +27,15 @@ import {
     AbsoluteContainer
 }from '../../css/styles';
 
+import* as AuthSession from 'expo-auth-session';
+import * as Google from 'expo-auth-session/providers/google';
+import * as Facebook from 'expo-auth-session/providers/facebook';
+import { ResponseType } from 'expo-auth-session';
+import * as WebBrowser from 'expo-web-browser';
+
 import {newUser, verifyEmail, verifyLogin, beforeValidEmail, beforeValidLogin, beforeSignUP} from '../../redux/actions/user/user'
 import * as yup from 'yup'
+import axios from "axios";
 
 const signUpValidationSchema = yup.object().shape({
     fullName: yup
@@ -66,6 +73,57 @@ const Signup = ({navigation}) => {
     const [loading, setLoading] = useState(false);
 
     const dispatch = useDispatch();
+
+    //const [GoogleLogin, setGoogleLogin] = useState("texxt");
+    const [requestGoogle, responseGoogle, promptAsyncGoogle] = Google.useAuthRequest({
+        expoClientId: '51546200734-nm24i67drlpn5dkcnaj4ckta6k2cnfff.apps.googleusercontent.com',
+        iosClientId: '51546200734-nm24i67drlpn5dkcnaj4ckta6k2cnfff.apps.googleusercontent.com',
+        webClientId: '51546200734-qv54r4ur316rk4ll8lb37esgstngnr4i.apps.googleusercontent.com',
+        ClientSecret: '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',
+      });
+    
+    const getGoogleData = async (token) => {
+        console.log('getGoogleData in here');
+        axios.get('https://www.googleapis.com/oauth2/v3/userinfo',{
+            headers: {
+              Accept: 'application/json',
+              Authorization: `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            },
+            })
+        .then(resp => {console.log('resp google data', resp.data.email, resp.data.name)})
+        .catch(err => console.log('error get GoogleData', err));
+        //put here the dispatch stuff to send to the backend. Create redux action for 'googleSignup'.
+        // Then also change the Login, and verify that it works for both.
+    };
+
+    /*
+    async function fetchUserInfoGoogle(token) {
+        const response = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
+          method: 'GET',
+          headers: {
+            Accept: 'application/json',
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          },
+        });
+      
+        return await response.json();
+      }*/
+      
+    const [userDataGoogle, setUserDataGoogle] = useState(undefined);
+
+    useEffect(() => {
+        if (responseGoogle?.type === 'success'){
+            const {authentication: { accessToken } } = responseGoogle;
+            getGoogleData(accessToken);
+        }
+
+    }, [responseGoogle]);
+
+    useEffect(() => {
+        console.log(userDataGoogle)
+    }, [userDataGoogle]);
 
     return(
             <StyledContainer>
@@ -209,8 +267,13 @@ const Signup = ({navigation}) => {
                         }
 
                         <IconContainer style={{marginBottom: "0%", paddingBottom: "0%"}}>
-                            <EachIconContainer>
-                                <IconLogo  onPress={handleSubmit} source={require('../../../assets/images/google.png')} />
+                            <EachIconContainer onPress={async()=>{
+                                console.log("Trying to log in with google");
+                                promptAsyncGoogle();
+                                console.log("success?")
+
+                                }}>
+                                <IconLogo source={require('../../../assets/images/google.png')} />
                             </EachIconContainer>
                             <EachIconContainer>
                                 <IconLogo onPress={handleSubmit} source={require('../../../assets/images/facebook.png')} />
