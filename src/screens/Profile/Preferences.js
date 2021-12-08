@@ -22,7 +22,7 @@ import ProfileTopContainer from "../../components/ProfileTopContainer";
 
 import DashBoardBottomMenu from "../../components/DashboardBottomMenu";
 
-export default function ProfilePreferencesPage({navigation}) {
+export default function Preferences({navigation}) {
 
   const languages = [
     {name: 'English', id: 0},
