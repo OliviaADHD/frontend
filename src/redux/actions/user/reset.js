@@ -20,7 +20,7 @@ export const resetPass = (email) => async dispatch => {
     });
     axios.post(userLink+"reset-password", {email:email}, {
         headers: headers
-      } ,{timout: 2})
+      })
     .then(resp => {
       dispatch({
         type: PASSWORD_RESET_SUCCESS,

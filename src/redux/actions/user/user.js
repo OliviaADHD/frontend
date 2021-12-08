@@ -123,7 +123,7 @@ export const signIn = (loginData) => {//async dispatch => {
 }};
 
 export const verifyEmail = (email) => async dispatch => {
-  axios.post(userLink+"email/"+email, {timout: 2})
+  axios.post(userLink+"email/"+email)
   .then(resp => {
     dispatch({
       type: SET_NETWORK_ERROR_FALSE,
