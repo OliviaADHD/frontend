@@ -33,8 +33,27 @@ export const InlineSeveralItems = styled.View`
     align-items: center;
 `
 
-export const SubSectionPurpleBottomLine = styled(InlineSeveralItems)`  
-  border-bottom-width: 1px;            
-  border-bottom-color: ${lightpurple};
-  margin-bottom: 7%;
+export const LanguageSection = styled(InlineSeveralItems)`
+    border-bottom-width: 1px;            
+    border-bottom-color: ${lightpurple};
+    margin-bottom: 7%;
+    padding-bottom: 20px;
+    padding-top: 10px;
+`;
+
+export const LanguageSectionText =  styled.Text`
+    padding-left: 22px;
+    font-size: 15px;
+`;
+
+export const DarkModeSection = styled(InlineSeveralItems)`
+    border-bottom-width: 1px;            
+    border-bottom-color: ${lightpurple};
+    margin-bottom: 7%;
+    padding-bottom: 10px;
+`;
+
+export const DarkModeSectionText =  styled.Text`
+    padding-left: 22px;
+    font-size: 15px;
 `;
