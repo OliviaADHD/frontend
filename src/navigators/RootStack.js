@@ -32,6 +32,8 @@ import ToDoList from '../screens/Dashboard/ToDoList';
 import Settings from '../screens/Profile/Settings';
 import Preferences from '../screens/Profile/Preferences';
 
+import TodoEmpty from '../screens/TodoList/TodoEmpty';
+
 
 
 const Stack = createStackNavigator();
@@ -51,7 +53,7 @@ const RootStack = () => {
                     paddingLeft: 20
                 }
             }}
-            initialRouteName = 'Welcome'
+            initialRouteName = 'TodoEmpty'
 
             >   
                 <Stack.Screen name="Welcome" 
@@ -80,6 +82,8 @@ const RootStack = () => {
 
                 <Stack.Screen name="Settings" component={Settings} />
                 <Stack.Screen name="Preferences" component={Preferences} />
+
+                <Stack.Screen name="TodoEmpty" component={TodoEmpty} />
 
             </Stack.Navigator>
             
