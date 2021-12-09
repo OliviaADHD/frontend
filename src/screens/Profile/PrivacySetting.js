@@ -7,16 +7,18 @@ import { Colors } from "../../css/general/style";
 
 
 import { 
-  StyledContainer,
-  InnerContainer,
   StyledFormArea,
   PageTitle,
   PageTitleFormat,
-  SubSectionPurpleBottomLine,
   ProfileListTouch,
   ProfileListText,
   SectionPurpleBottomLine,
-} from "../../css/Profile/style";
+  SwitchSection,
+  SwitchSectionNoMargin,
+  SwitchSectionText
+} from "../../css/Profile/privacy";
+
+import { StyledContainer, InnerContainer} from "../../css/general/style";
 
 import SaveButton from "../../components/SaveButton";
 
@@ -59,12 +61,11 @@ export default function PrivacySetting({navigation}) {
 
         </PageTitleFormat>
         
-        <SubSectionPurpleBottomLine
-          style={{ paddingBottom: 10 }}>
+        <SwitchSection>
 
-          <Text style={{paddingLeft: 22, fontSize: 14}}>
+          <SwitchSectionText>
             Hide my Photo
-          </Text>
+          </SwitchSectionText>
           
           <Switch
             style={{ marginRight: 19, transform : [{scale: 1.1}]}}
@@ -75,7 +76,7 @@ export default function PrivacySetting({navigation}) {
             onValueChange={value => formik.setFieldValue('photo', value)}
           />
         
-        </SubSectionPurpleBottomLine> 
+        </SwitchSection> 
 
         <SectionPurpleBottomLine>
           <ProfileListTouch 
@@ -86,12 +87,11 @@ export default function PrivacySetting({navigation}) {
           </ProfileListTouch>
       </SectionPurpleBottomLine>
 
-        <SubSectionPurpleBottomLine
-          style={{ paddingBottom: 10 }}>
+        <SwitchSectionNoMargin>
 
-          <Text style={{paddingLeft: 22, fontSize: 14}}>
+          <SwitchSectionText>
             Stop Notifications
-          </Text>
+          </SwitchSectionText>
           
           <Switch
             style={{ marginRight: 19, transform : [{scale: 1.1}]}}
@@ -102,7 +102,7 @@ export default function PrivacySetting({navigation}) {
             onValueChange={value => formik.setFieldValue('notify', value)}
           />
         
-        </SubSectionPurpleBottomLine> 
+        </SwitchSectionNoMargin> 
 
         <SaveButton 
           mode="contained"
