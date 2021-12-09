@@ -1,16 +1,14 @@
 import React from "react";
-import { StatusBar } from "expo-status-bar";
+import {StatusBar} from "expo-status-bar";
 
-import { 
-  StyledContainer,
-  InnerContainer,
-  TopPaddingStyledFormArea,
-  ProfileListTouch,
-  ProfileListText,
-  FirstSectionItem,
-  SectionPurpleBottomLine
-} from "../../css/Profile/style";
+import {
+    TopPaddingStyledFormArea,
+    ProfileListTouch,
+    ProfileListText,
+    SectionPurpleBottomLine
+} from "../../css/Profile/settings";
 
+import { StyledContainer, InnerContainer} from "../../css/general/style";
 
 import ProfileTopContainer from "../../components/ProfileTopContainer";
 
@@ -18,61 +16,67 @@ import DashBoardBottomMenu from "../../components/DashboardBottomMenu";
 
 export default function Settings({navigation}) {
 
-  return (
-    <StyledContainer> 
+    return (
+        <StyledContainer>
 
-      <StatusBar style="dark"/>
+            <StatusBar style="dark"/>
 
-      <InnerContainer>
+            <InnerContainer>
 
-        <ProfileTopContainer/>
-        
-        <TopPaddingStyledFormArea>
-        
-          <FirstSectionItem>
-            <ProfileListTouch
-              activeOpacity={0.5}
-              onPress = {() => navigation.navigate('Preferences')}
-            >            
-            <ProfileListText> Preferences </ProfileListText>          
-            </ProfileListTouch>
-          </FirstSectionItem>
+                <ProfileTopContainer/>
 
-          <SectionPurpleBottomLine>
-            <ProfileListTouch 
-              activeOpacity={0.5}
-              onPress = {() => navigation.navigate('ToBeDefined')}
-            >
-              <ProfileListText> Setting and Privacy </ProfileListText>            
-            </ProfileListTouch>
-          </SectionPurpleBottomLine>
+                <TopPaddingStyledFormArea>
 
-          <SectionPurpleBottomLine>
-            <ProfileListTouch
-              activeOpacity={0.5}
-              onPress = {() => navigation.navigate('ProfileHelpPage')}
-            >
-              <ProfileListText> Help </ProfileListText>            
-            </ProfileListTouch>
-          </SectionPurpleBottomLine>
+                    <SectionPurpleBottomLine>
+                        <ProfileListTouch
+                            activeOpacity={0.5}
+                            onPress={() => navigation.navigate('Preferences')}>
+                            <ProfileListText>
+                                Preferences
+                            </ProfileListText>
+                        </ProfileListTouch>
+                    </SectionPurpleBottomLine>
 
-          <SectionPurpleBottomLine>
-            <ProfileListTouch
-              activeOpacity={0.5}
-              onPress = {() => navigation.replace('Login')}
-            >            
-              <ProfileListText> Sign Out </ProfileListText>         
-            </ProfileListTouch>
-          </SectionPurpleBottomLine>
+                    <SectionPurpleBottomLine>
+                        <ProfileListTouch
+                            activeOpacity={0.5}
+                            onPress=
+                            {() => navigation.navigate('PrivacySetting')}>
+                            <ProfileListText>
+                                Setting and Privacy
+                            </ProfileListText>
+                        </ProfileListTouch>
+                    </SectionPurpleBottomLine>
 
-        </TopPaddingStyledFormArea>
+                    <SectionPurpleBottomLine>
+                        <ProfileListTouch
+                            activeOpacity={0.5}
+                            onPress=
+                            {() => navigation.navigate('ProfileHelpPage')}>
+                            <ProfileListText>
+                                Help
+                            </ProfileListText>
+                        </ProfileListTouch>
+                    </SectionPurpleBottomLine>
 
-        <DashBoardBottomMenu currentScreen={"Profile"} navigation={navigation}/>
+                    <SectionPurpleBottomLine>
+                        <ProfileListTouch
+                            activeOpacity={0.5}
+                            onPress=
+                            {() => navigation.replace('Login')}>
+                            <ProfileListText>
+                                Sign Out
+                            </ProfileListText>
+                        </ProfileListTouch>
+                    </SectionPurpleBottomLine>
 
-      </InnerContainer>
+                </TopPaddingStyledFormArea>
 
-    </StyledContainer>
+                <DashBoardBottomMenu currentScreen={"Profile"} navigation={navigation}/>
 
-  )
+            </InnerContainer>
+
+        </StyledContainer>
+
+    )
 }
-
