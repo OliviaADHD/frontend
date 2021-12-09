@@ -2,11 +2,13 @@ import React from "react";
 import {StatusBar} from "expo-status-bar";
 
 import {
-    TopPaddingStyledFormArea,
+    StyledFormArea,
+    PageTitleFormat,
+    PageTitle,
     ProfileListTouch,
     ProfileListText,
     SectionPurpleBottomLine
-} from "../../css/Profile/settings";
+} from "../../css/Profile/help";
 
 import { StyledContainer, InnerContainer} from "../../css/general/style";
 
@@ -14,7 +16,7 @@ import ProfileTopContainer from "../../components/ProfileTopContainer";
 
 import DashBoardBottomMenu from "../../components/DashboardBottomMenu";
 
-export default function Settings({navigation}) {
+export default function Help({navigation}) {
 
     return (
         <StyledContainer>
@@ -25,14 +27,20 @@ export default function Settings({navigation}) {
 
                 <ProfileTopContainer/>
 
-                <TopPaddingStyledFormArea>
+                <StyledFormArea>
+
+                <PageTitleFormat>
+
+                <PageTitle>Help Me</PageTitle>      
+    
+                </PageTitleFormat>
 
                     <SectionPurpleBottomLine>
                         <ProfileListTouch
                             activeOpacity={0.5}
                             onPress={() => navigation.navigate('Preferences')}>
                             <ProfileListText>
-                                Preferences
+                                FAQ
                             </ProfileListText>
                         </ProfileListTouch>
                     </SectionPurpleBottomLine>
@@ -43,7 +51,7 @@ export default function Settings({navigation}) {
                             onPress=
                             {() => navigation.navigate('PrivacySetting')}>
                             <ProfileListText>
-                                Setting and Privacy
+                                Instructions to use Olivia
                             </ProfileListText>
                         </ProfileListTouch>
                     </SectionPurpleBottomLine>
@@ -52,25 +60,13 @@ export default function Settings({navigation}) {
                         <ProfileListTouch
                             activeOpacity={0.5}
                             onPress=
-                            {() => navigation.navigate('Help')}>
+                            {() => navigation.navigate('ProfileHelpPage')}>
                             <ProfileListText>
-                                Help
+                                Terminology and Policy of Olivia
                             </ProfileListText>
                         </ProfileListTouch>
                     </SectionPurpleBottomLine>
-
-                    <SectionPurpleBottomLine>
-                        <ProfileListTouch
-                            activeOpacity={0.5}
-                            onPress=
-                            {() => navigation.replace('Login')}>
-                            <ProfileListText>
-                                Sign Out
-                            </ProfileListText>
-                        </ProfileListTouch>
-                    </SectionPurpleBottomLine>
-
-                </TopPaddingStyledFormArea>
+                </StyledFormArea>
 
                 <DashBoardBottomMenu currentScreen={"Profile"} navigation={navigation}/>
 
