@@ -19,14 +19,10 @@ export const PageTitleFormat = styled.View`
   border-bottom-color: ${lightpurple}; 
   width: 45%;
   align-items: center;
-  margin-bottom: 10%;
+  margin-bottom: 5%;
   padding-bottom: 5%; 
-  padding-top: 16%;
+  padding-top: 5%;
 `;
-
-export const TopPaddingStyledFormArea = styled(StyledFormArea)`
-    padding-top: 15%;
-`
 
 export const ProfileListTouch = styled.TouchableOpacity`
   

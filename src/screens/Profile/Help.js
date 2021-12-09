@@ -10,7 +10,7 @@ import {
     SectionPurpleBottomLine
 } from "../../css/Profile/help";
 
-import { StyledContainer, InnerContainer} from "../../css/general/style";
+import {StyledContainer, InnerContainer} from "../../css/general/style";
 
 import ProfileTopContainer from "../../components/ProfileTopContainer";
 
@@ -29,11 +29,11 @@ export default function Help({navigation}) {
 
                 <StyledFormArea>
 
-                <PageTitleFormat>
+                    <PageTitleFormat>
 
-                <PageTitle>Help Me</PageTitle>      
-    
-                </PageTitleFormat>
+                        <PageTitle>Help & Guidance</PageTitle>
+
+                    </PageTitleFormat>
 
                     <SectionPurpleBottomLine>
                         <ProfileListTouch
