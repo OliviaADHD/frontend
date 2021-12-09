@@ -162,39 +162,32 @@ const Signup = ({navigation}) => {
                             .then(resp => dispatch(beforeValidLogin()))
                             .then(resp => dispatch(verifyLogin(values.login)))
                             .then(resp => {
-                                    if (networkError.error === true){
-                                        setLoading(false);
+                                    if (resp === true){
+                                        setLoginError(false);
+                                        return dispatch(verifyEmail(values.email));
                                     } else {
-                                        if (loginValidityState.message.passed === false) {
-                                            setLoginError(true);
-                                            setLoading(false);
-                                        } else {
-                                            setLoginError(false);
-                                        }
-                                        dispatch(verifyEmail(values.email))
-                                        .then(resp => {
-                                            if (emailValidityState.message.passed === false) {
-                                                setEmailError(true);
-                                                setLoading(false);
-                                            } else {
-                                                setEmailError(false);
-                                            }})
-                                        .then(resp => {
-                                            if ((loginError === false) && (emailError === false)) {
-                                                dispatch(newUser(values));
-                                            }
-                                        })
-                                        .then(resp => {
-                                            if (signUpState.message.passed === true) {
-                                                setLoading(false);
-                                                navigation.replace('Welcome_Post_Signup');
-                                            } else {
-                                                setLoading(false);
-                                            }
-                                        });
+                                        setLoading(false);
+                                        setLoginError(true);
+                                        return false;
                                     }
+                                })
+                            .then(resp => {
+                                    if (resp === true){
+                                        setEmailError(false);
+                                        console.log('dispatching new User');
+                                        return dispatch(newUser(values));
+                                    } else {
+                                        setEmailError(true);
+                                        setLoading(false);
+                                        return false;
+                                    }
+                            })
+                            .then(resp => {
+                                if (resp === true){
+                                    navigation.replace('Welcome_Post_Signup');
                                 }
-                            );
+                                setLoading(false);
+                            });
                             
                     }
                     }
