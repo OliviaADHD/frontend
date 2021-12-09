@@ -53,7 +53,36 @@ export const beforeValidLogin = () => async dispatch => {
   });
 };
 
-
+export const newUserGoogle = (user) => async dispatch => {
+  return axios.post(userLink+"signup-google", user, {timeout: 2})
+  .then(resp => {console.log('data new google', resp);
+    dispatch({type: SIGN_UP_SUCCESS,
+              payload: {passed: true}});
+    dispatch({type: SET_USER_ID, payload: resp.data.userId});
+    dispatch({type:SET_USER_NAME, payload: resp.data.name});
+    dispatch({type: SET_FIRST_TIME, payload: true});
+    return true;
+  })
+  .catch(err =>{
+    console.warn("Caught error signup google (status code 500 usually means email sending error...)", err)
+    if (err.response.status === undefined) {
+      //it's a network error!
+      dispatch({
+        type: SET_NETWORK_ERROR_TRUE,
+        payload: {}});
+    } else {
+      dispatch({
+        type: SIGN_UP_FAILED,
+        payload: {
+          passed:false,
+          error: "Sign up failed"}});
+      dispatch({
+            type: SET_NETWORK_ERROR_FALSE,
+            payload: {}});
+    };
+    return false;
+  });
+};
 
 export const newUser = (user) => async dispatch => {
   axios.post(userLink+"signup", user, {timeout: 2})
@@ -123,8 +152,9 @@ export const signIn = (loginData) => {//async dispatch => {
 }};
 
 export const verifyEmail = (email) => async dispatch => {
-  axios.post(userLink+"email/"+email, {timout: 2})
+  return axios.post(userLink+"email/"+email, {timout: 2})
   .then(resp => {
+    console.log('verifying email successful');
     dispatch({
       type: SET_NETWORK_ERROR_FALSE,
       payload: {}});
@@ -133,9 +163,11 @@ export const verifyEmail = (email) => async dispatch => {
       payload: {
         passed:true
       }});
+    return true;
   })
   .catch (err => {
-    if (!err.response.status) {
+    console.log('verifying email unsuccessful');
+    if (err.response.status === undefined) {
       //it's a network error!
       dispatch({
         type: SET_NETWORK_ERROR_TRUE,
@@ -151,6 +183,7 @@ export const verifyEmail = (email) => async dispatch => {
         type: SET_NETWORK_ERROR_FALSE,
         payload: {}});
     }
+    return false;
   });
 };
 

@@ -33,7 +33,7 @@ import * as Facebook from 'expo-auth-session/providers/facebook';
 import { ResponseType } from 'expo-auth-session';
 import * as WebBrowser from 'expo-web-browser';
 
-import {newUser, verifyEmail, verifyLogin, beforeValidEmail, beforeValidLogin, beforeSignUP} from '../../redux/actions/user/user'
+import {newUser, newUserGoogle, verifyEmail, verifyLogin, beforeValidEmail, beforeValidLogin, beforeSignUP} from '../../redux/actions/user/user'
 import * as yup from 'yup'
 import axios from "axios";
 
@@ -74,16 +74,18 @@ const Signup = ({navigation}) => {
 
     const dispatch = useDispatch();
 
-    //const [GoogleLogin, setGoogleLogin] = useState("texxt");
+    //strategy: when clicking on 'google', it will change the 'responsegoogle'. One useEffect watches the responseGoogle, if it changes, it
+    // checks whether it was a successful connection and adds email+name to userDataGoogle. Another effects whatches userDataGoogle, and launches
+    // the registering part.
     const [requestGoogle, responseGoogle, promptAsyncGoogle] = Google.useAuthRequest({
         expoClientId: '51546200734-nm24i67drlpn5dkcnaj4ckta6k2cnfff.apps.googleusercontent.com',
         iosClientId: '51546200734-nm24i67drlpn5dkcnaj4ckta6k2cnfff.apps.googleusercontent.com',
         webClientId: '51546200734-qv54r4ur316rk4ll8lb37esgstngnr4i.apps.googleusercontent.com',
         ClientSecret: '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',
       });
+    const [userDataGoogle, setUserDataGoogle] = useState(undefined);
     
-    const getGoogleData = async (token) => {
-        console.log('getGoogleData in here');
+    const getGoogleData = async(token) => {
         axios.get('https://www.googleapis.com/oauth2/v3/userinfo',{
             headers: {
               Accept: 'application/json',
@@ -91,38 +93,58 @@ const Signup = ({navigation}) => {
               'Content-Type': 'application/json'
             },
             })
-        .then(resp => {console.log('resp google data', resp.data.email, resp.data.name)})
-        .catch(err => console.log('error get GoogleData', err));
-        //put here the dispatch stuff to send to the backend. Create redux action for 'googleSignup'.
-        // Then also change the Login, and verify that it works for both.
-    };
-
-    /*
-    async function fetchUserInfoGoogle(token) {
-        const response = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
-          method: 'GET',
-          headers: {
-            Accept: 'application/json',
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json'
-          },
-        });
-      
-        return await response.json();
-      }*/
-      
-    const [userDataGoogle, setUserDataGoogle] = useState(undefined);
+        .catch(err => console.log('error get GoogleData', err))
+        .then(resp => setUserDataGoogle({'email': resp.data.email, 'name': resp.data.name, 'success': true}));
+    } 
 
     useEffect(() => {
         if (responseGoogle?.type === 'success'){
             const {authentication: { accessToken } } = responseGoogle;
             getGoogleData(accessToken);
-        }
+        } else {setLoading(false);}
 
     }, [responseGoogle]);
 
+
     useEffect(() => {
-        console.log(userDataGoogle)
+        if (userDataGoogle?.success === true){
+            console.log('now time to sign up and send it all to the backend!')
+            setLoading(true);
+            dispatch(beforeSignUP())
+            .then(resp => dispatch(beforeValidEmail()))
+            .then(resp => {
+                        console.log('time to verify the email', networkError.error);
+                        if (networkError.error === true){
+                            setLoading(false);
+                            return false;
+                        } else {
+                            console.log('verify email');
+                            return dispatch(verifyEmail(userDataGoogle.email))
+                            //return true; 
+                        }})
+            .then(resp =>{
+                console.log('time to dispatch new user? ', resp)
+                if ((resp === true)){
+                    setEmailError(false);
+                    return dispatch(newUserGoogle({fullName: userDataGoogle.name, 
+                                                    email: userDataGoogle.email, 
+                                                    password: 'google',
+                                                    login:'google'}));
+                } else {
+                    setEmailError(true);
+                    setLoading(false);
+                    return false}
+                })
+            .then(resp =>{ 
+                setLoading(false);
+                if (resp === true){
+                    console.log('successful signup');
+                    navigation.replace('Welcome_Post_Signup');
+                }
+
+            });
+        }
+
     }, [userDataGoogle]);
 
     return(
@@ -269,6 +291,7 @@ const Signup = ({navigation}) => {
                         <IconContainer style={{marginBottom: "0%", paddingBottom: "0%"}}>
                             <EachIconContainer onPress={async()=>{
                                 console.log("Trying to log in with google");
+                                setLoading(true);
                                 promptAsyncGoogle();
                                 console.log("success?")
 
