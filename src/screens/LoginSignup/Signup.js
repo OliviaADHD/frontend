@@ -33,7 +33,7 @@ import * as Facebook from 'expo-auth-session/providers/facebook';
 import { ResponseType } from 'expo-auth-session';
 import * as WebBrowser from 'expo-web-browser';
 
-import {newUser, newUserGoogle, newUserGoogle2, verifyEmail, verifyLogin, beforeValidEmail, beforeValidLogin, beforeSignUP} from '../../redux/actions/user/user'
+import {newUser, newUserGoogle, verifyEmail, verifyLogin, beforeValidEmail, beforeValidLogin, beforeSignUP} from '../../redux/actions/user/user'
 import * as yup from 'yup'
 import axios from "axios";
 
@@ -87,18 +87,15 @@ const Signup = ({navigation}) => {
       });
     
     const setNewGoogleUser = async(token) => {
-        console.log('sending to backend ');
         dispatch(beforeSignUP())
-        .then(() =>dispatch(newUserGoogle2(token)))
+        .then(() =>dispatch(newUserGoogle(token)))
         .then(resp => {
             if (resp === true){
-                console.log('successfully signed up');
                 setLoading(false);
                 navigation.reset({
                     index: 0,
                     routes: [{ name: 'Welcome_Post_Signup' }]});
             } else {
-                console.log('failure when signing up with google');
                 setGoogleError(true);
                 setLoading(false);
                 setGoogleClicked(false);
@@ -109,6 +106,7 @@ const Signup = ({navigation}) => {
     useEffect(() => {
         if ((responseGoogle?.type === 'success') && (googleClicked === true)){
             const {authentication: { accessToken } } = responseGoogle;
+            setGoogleClicked(false);
             setNewGoogleUser(accessToken);
         } else {
             setLoading(false);
@@ -146,7 +144,6 @@ const Signup = ({navigation}) => {
                             .then(resp => {
                                     if (resp === true){
                                         setEmailError(false);
-                                        console.log('dispatching new User');
                                         return dispatch(newUser(values));
                                     } else {
                                         setEmailError(true);
@@ -155,10 +152,12 @@ const Signup = ({navigation}) => {
                                     }
                             })
                             .then(resp => {
-                                if (resp === true){
-                                    navigation.reset('Welcome_Post_Signup');
-                                }
                                 setLoading(false);
+                                if (resp === true){
+                                    navigation.reset({
+                                        index: 0,
+                                        routes: [{ name: 'Welcome_Post_Signup' }]});
+                                }
                             });
                             
                     }

@@ -56,10 +56,9 @@ export const beforeValidLogin = () => async dispatch => {
   });
 };
 
-export const newUserGoogle2 = (token) => async dispatch => {
-  return axios.post(userLink+"signup-google2/"+token, {timeout: 400})
+export const newUserGoogle = (token) => async dispatch => {
+  return axios.post(userLink+"signup-google/"+token, {timeout: 400})
   .then(resp => {
-      console.log('data new google', resp.data);
       dispatch({type: SIGN_UP_SUCCESS,
                 payload: {passed: true}});
       dispatch({type: SET_USER_ID, payload: resp.data.userId});
@@ -68,7 +67,6 @@ export const newUserGoogle2 = (token) => async dispatch => {
       return true;
     })
   .catch(err => {
-    console.warn("Caught error signup google (status code 500 usually means email sending error...)", err)
     if (err.response === undefined) {
       //it's a network error!
       dispatch({
@@ -88,37 +86,6 @@ export const newUserGoogle2 = (token) => async dispatch => {
   });
 }
 
-
-export const newUserGoogle = (user) => async dispatch => {
-  return axios.post(userLink+"signup-google", user, {timeout: 2})
-  .then(resp => {console.log('data new google', resp);
-    dispatch({type: SIGN_UP_SUCCESS,
-              payload: {passed: true}});
-    dispatch({type: SET_USER_ID, payload: resp.data.userId});
-    dispatch({type:SET_USER_NAME, payload: resp.data.name});
-    dispatch({type: SET_FIRST_TIME, payload: true});
-    return true;
-  })
-  .catch(err =>{
-    console.warn("Caught error signup google (status code 500 usually means email sending error...)", err)
-    if (err.response === undefined) {
-      //it's a network error!
-      dispatch({
-        type: SET_NETWORK_ERROR_TRUE,
-        payload: {}});
-    } else {
-      dispatch({
-        type: SIGN_UP_FAILED,
-        payload: {
-          passed:false,
-          error: "Sign up failed"}});
-      dispatch({
-            type: SET_NETWORK_ERROR_FALSE,
-            payload: {}});
-    };
-    return false;
-  });
-};
 
 export const newUser = (user) => async dispatch => {
   return axios.post(userLink+"signup", user, {timeout: 2})
@@ -151,26 +118,22 @@ export const newUser = (user) => async dispatch => {
   });
 };
 
-export const signInGoogle = (email) => async dispatch => {
-  return axios.post(userLink + "login-google/"+email, {timeout: 100})
+export const signInGoogle = (token) => async dispatch => {
+  return axios.post(userLink + "login-google/"+token, {timeout: 300})
   .then(res => {
-      clearTimeout(timeout);
-      console.log('signInGoogle successful');
-      dispatch({
-        type: SIGN_IN_SUCCESS,
-        payload: {passed:true, error: false}
-      });
       dispatch({type: SET_USER_NAME, payload: res.data.name});
       dispatch({type: SET_USER_ID, payload: res.data.userId});
       dispatch({type: SET_FIRST_TIME, payload: res.data.firstTime});
       dispatch({
+        type: SIGN_IN_SUCCESS,
+        payload: {passed:true, error: false}
+      });
+      dispatch({
         type: SET_NETWORK_ERROR_FALSE,
         payload: {}});
-      return true;
+      return {success: true, firstTime: res.data.firstTime};
   })
   .catch(err => {
-    console.log('signInGoogle failed', err);
-    console.log('response', err.response);
     if (err.response === undefined) {
     //it's a network error!
     dispatch({
@@ -189,7 +152,7 @@ export const signInGoogle = (email) => async dispatch => {
       type: SET_NETWORK_ERROR_FALSE,
       payload: {}});
   };
-  return false;
+  return {success: false};
   });
 
 };
@@ -209,7 +172,7 @@ export const signIn = (loginData) =>async dispatch => {
       dispatch({
         type: SET_NETWORK_ERROR_FALSE,
         payload: {}});
-      return true;
+      return {success: true, firstTime: res.data.firstTime};
   })
   .catch(err => {
     if (err.response === undefined) {
@@ -230,14 +193,13 @@ export const signIn = (loginData) =>async dispatch => {
       type: SET_NETWORK_ERROR_FALSE,
       payload: {}});
   };
-  return false;
+  return {success: false};
 });
 };
 
 export const verifyEmail = (email) => async dispatch => {
   return axios.post(userLink+"email/"+email, {timeout: 2})
   .then(resp => {
-    console.log('verifying email successful');
     dispatch({
       type: SET_NETWORK_ERROR_FALSE,
       payload: {}});
@@ -249,7 +211,6 @@ export const verifyEmail = (email) => async dispatch => {
     return true;
   })
   .catch (err => {
-    console.log('verifying email unsuccessful');
     if (err.response === undefined) {
       //it's a network error!
       dispatch({

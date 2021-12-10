@@ -64,64 +64,59 @@ const Login = ({navigation}) => {
     const networkError = useSelector(state => state.networkAvailability);
 
     //Google login
+    const [googleError, setGoogleError] = useState(false);
+    const [googleClicked, setGoogleClicked] = useState(false);
     const [requestGoogle, responseGoogle, promptAsyncGoogle] = Google.useAuthRequest({
         expoClientId: '51546200734-nm24i67drlpn5dkcnaj4ckta6k2cnfff.apps.googleusercontent.com',
         iosClientId: '51546200734-nm24i67drlpn5dkcnaj4ckta6k2cnfff.apps.googleusercontent.com',
         webClientId: '51546200734-qv54r4ur316rk4ll8lb37esgstngnr4i.apps.googleusercontent.com',
         ClientSecret: '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',
       });
-    const [userDataGoogle, setUserDataGoogle] = useState(undefined);
     
-    const getGoogleData = async(token) => {
-        console.log('s')
-        axios.get('https://www.googleapis.com/oauth2/v3/userinfo',{
-            headers: {
-              Accept: 'application/json',
-              Authorization: `Bearer ${token}`,
-              'Content-Type': 'application/json'
-            },
-            })
-        .catch(err => console.log('error get GoogleData', err))
-        .then(resp => setUserDataGoogle({'email': resp.data.email, 'name': resp.data.name, 'success': true}));
+    const makeGoogleLogin = async(token) => {
+        dispatch(beforeSignIn())
+        .then(() => dispatch(signInGoogle(token)))
+        .then((resp) => {
+            if (resp.success === true){
+                setLoading(false);
+                setGoogleClicked(false);
+                
+                if (resp.firstTime){
+
+                    navigation.reset({
+                        index: 0,
+                        routes: [{ name: 'Welcome_Post_Signup' }]});
+                    }
+                else {
+                    navigation.reset({
+                        index: 0,
+                        routes: [{ name: 'Home' }]});
+                }
+
+            } else {
+                setGoogleError(true);
+                setLoading(false);
+                setGoogleClicked(false);
+            }
+
+        })
+        .catch(err => console.log(error, err));
     } 
 
     useEffect(() => {
-        if (responseGoogle?.type === 'success'){
+        if ((responseGoogle?.type === 'success') && (googleClicked === true)){
+            setGoogleClicked(false);
             const {authentication: { accessToken } } = responseGoogle;
             //getGoogleData(accessToken);
-            console.log('send to backend to get data from the token');
-            axios.post(link + "user/"+"signup-google2/"+accessToken, {timeout: 400})
-            .then(resp => {console.log(resp);
-                            setLoading(false);})
-            .catch(err => {console.log('error??', err);
-                            setLoading(false);});
-
+            makeGoogleLogin(accessToken);
+            
 
         } else {setLoading(false);}
 
     }, [responseGoogle]);
 
 
-    useEffect(() => {
-        if (userDataGoogle?.success === true){
-            console.log('now time to log in and send it all to the backend!')
-            dispatch(beforeSignIn())
-            .then(() => {
-                console.log('logging in with google')
-                //let source = axios.CancelToken.source();
-                //setTimeout(() => {
-                //  source.cancel();
-                //}, 200); // connection timout in 5 ms
-                return dispatch(signInGoogle(userDataGoogle.email));
-            })
-            .then(resp => {
-                console.log('logging in with google was ', resp);
-                setLoading(false);
-            });
-            setUserDataGoogle({'success': false});
-        }
 
-    }, [userDataGoogle]);
 
 
     /*const [GoogleLogin, setGoogleLogin] = useState("texxt");
@@ -157,7 +152,7 @@ const Login = ({navigation}) => {
     
     
 
-    
+    /*
     useEffect(() => {
         if (loginState.message.passed){
             if (userData.firstTime) {
@@ -170,7 +165,7 @@ const Login = ({navigation}) => {
                 });
             }
         }
-    });
+    });*/
 
     return(
             <StyledContainer>
@@ -183,10 +178,24 @@ const Login = ({navigation}) => {
                         onSubmit={(values) => {
                             setLoading(true);
                             dispatch(beforeSignIn())
-                            .then(() => {
-                                return dispatch(signIn(values));})
-                            .then(resp => {
+                            .then(() => dispatch(signIn(values)))
+                            .then((resp) => {
+                                if (resp.success === true){
+                                    console.log('successfully logged in!', resp.firstTime);
+                                    setLoading(false);                                    
+                                    if (resp.firstTime){
+                                        navigation.reset({
+                                            index: 0,
+                                            routes: [{ name: 'Welcome_Post_Signup' }]});
+                                        }
+                                    else {
+                                        navigation.reset({
+                                            index: 0,
+                                            routes: [{ name: 'Home' }]});
+                                    }
+                                } else {
                                     setLoading(false);
+                                }
                             });
                         }}
                         
@@ -226,12 +235,18 @@ const Login = ({navigation}) => {
                                 <ErrorText>{loginState.message.errorMessage}</ErrorText>
                             </ErrorMessage> 
                         }
+                        {googleError && 
+                            <ErrorMessage>
+                                <ErrorText>Error signing in with google.</ErrorText>
+                            </ErrorMessage>
+                        }
 
                         <Or>Or</Or>
                         <IconContainer>
                             <EachIconContainer onPress={async()=>{
                                 console.log("Trying to log in with google");
                                 setLoading(true);
+                                setGoogleClicked(true);
                                 promptAsyncGoogle();
                                 console.log("success?")
 
