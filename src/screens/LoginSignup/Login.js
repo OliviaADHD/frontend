@@ -6,11 +6,10 @@ import { StyleSheet, ActivityIndicator, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import RootStack from "../../navigators/RootStack";
 import* as AuthSession from 'expo-auth-session';
-import * as Google from 'expo-auth-session/providers/google';
 import * as Facebook from 'expo-auth-session/providers/facebook';
 import { ResponseType } from 'expo-auth-session';
 import * as WebBrowser from 'expo-web-browser';
-import { signIn, beforeSignIn } from '../../redux/actions/user/user'
+import { signIn, beforeSignIn, signInGoogle } from '../../redux/actions/user/user'
 import {
   PageLogo,
   StyledFormArea,
@@ -38,10 +37,11 @@ import {
     Loading
 } from '../../css/general/style';
 
+import * as yup from 'yup';
 
-
-
-import * as yup from 'yup'
+import * as Google from 'expo-auth-session/providers/google';
+import axios from "axios";
+import {link} from '../../redux/config/config';
 
 const signInValidationSchema = yup.object().shape({
     email: yup
@@ -62,6 +62,66 @@ const Login = ({navigation}) => {
     const userData = useSelector(state => state.userName);
     const loginState = useSelector(state => state.loginInfo);
     const networkError = useSelector(state => state.networkAvailability);
+
+    //Google login
+    const [requestGoogle, responseGoogle, promptAsyncGoogle] = Google.useAuthRequest({
+        expoClientId: '51546200734-nm24i67drlpn5dkcnaj4ckta6k2cnfff.apps.googleusercontent.com',
+        iosClientId: '51546200734-nm24i67drlpn5dkcnaj4ckta6k2cnfff.apps.googleusercontent.com',
+        webClientId: '51546200734-qv54r4ur316rk4ll8lb37esgstngnr4i.apps.googleusercontent.com',
+        ClientSecret: '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',
+      });
+    const [userDataGoogle, setUserDataGoogle] = useState(undefined);
+    
+    const getGoogleData = async(token) => {
+        console.log('s')
+        axios.get('https://www.googleapis.com/oauth2/v3/userinfo',{
+            headers: {
+              Accept: 'application/json',
+              Authorization: `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            },
+            })
+        .catch(err => console.log('error get GoogleData', err))
+        .then(resp => setUserDataGoogle({'email': resp.data.email, 'name': resp.data.name, 'success': true}));
+    } 
+
+    useEffect(() => {
+        if (responseGoogle?.type === 'success'){
+            const {authentication: { accessToken } } = responseGoogle;
+            //getGoogleData(accessToken);
+            console.log('send to backend to get data from the token');
+            axios.post(link + "user/"+"signup-google2/"+accessToken, {timeout: 400})
+            .then(resp => {console.log(resp);
+                            setLoading(false);})
+            .catch(err => {console.log('error??', err);
+                            setLoading(false);});
+
+
+        } else {setLoading(false);}
+
+    }, [responseGoogle]);
+
+
+    useEffect(() => {
+        if (userDataGoogle?.success === true){
+            console.log('now time to log in and send it all to the backend!')
+            dispatch(beforeSignIn())
+            .then(() => {
+                console.log('logging in with google')
+                //let source = axios.CancelToken.source();
+                //setTimeout(() => {
+                //  source.cancel();
+                //}, 200); // connection timout in 5 ms
+                return dispatch(signInGoogle(userDataGoogle.email));
+            })
+            .then(resp => {
+                console.log('logging in with google was ', resp);
+                setLoading(false);
+            });
+            setUserDataGoogle({'success': false});
+        }
+
+    }, [userDataGoogle]);
 
 
     /*const [GoogleLogin, setGoogleLogin] = useState("texxt");
@@ -101,9 +161,9 @@ const Login = ({navigation}) => {
     useEffect(() => {
         if (loginState.message.passed){
             if (userData.firstTime) {
-                navigation.replace('Welcome_Post_Signup');
+                navigation.reset('Welcome_Post_Signup');
             } else {
-                navigation.replace('Home', {
+                navigation.reset('Home', {
                     name: userData.Name,
                     id: userData.ID,
                     firstTime: userData.firstTime,
@@ -123,8 +183,11 @@ const Login = ({navigation}) => {
                         onSubmit={(values) => {
                             setLoading(true);
                             dispatch(beforeSignIn())
-                            .then(() => dispatch(signIn(values)))
-                            .then(setLoading(false));
+                            .then(() => {
+                                return dispatch(signIn(values));})
+                            .then(resp => {
+                                    setLoading(false);
+                            });
                         }}
                         
                     
@@ -168,7 +231,8 @@ const Login = ({navigation}) => {
                         <IconContainer>
                             <EachIconContainer onPress={async()=>{
                                 console.log("Trying to log in with google");
-                                promptAsync();
+                                setLoading(true);
+                                promptAsyncGoogle();
                                 console.log("success?")
 
                             }}>
