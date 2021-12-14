@@ -253,6 +253,7 @@ const Questionnaire = (props) => {
         userAnswers.symptoms = handleSymptoms(answerPage3)
         props.beforePOST();
         props.newQuestions(userAnswers);
+        props.navigation.replace('TutorialDashboard');
     };
 
     //const componentDidMount
