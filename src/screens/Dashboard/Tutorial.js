@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { StatusBar } from "expo-status-bar";
 import {Text, View, StyleSheet,TouchableOpacity} from 'react-native';
 
@@ -20,10 +20,12 @@ import { Background,
 
 import DashBoardBottomMenuStatic from "../../components/DashboardBottomMenuStatic";
 import AlarmBell from "../../components/AlarmBell";
+import { useSelector, useDispatch } from "react-redux";
+import { initializeDashboardTutorial, setDashboardTutorialFinished } from "../../redux/actions/dashboardTutorial/dashboardTutorial";
 
 
 
-const TutorialDashboard = ({navigation, route}) => {
+const TutorialDashboard = ({navigation}) => {
     const TutorialPagesStyles = [
         {
             page: 0,
@@ -252,12 +254,27 @@ const TutorialDashboard = ({navigation, route}) => {
             }
         })}
     ];
-    const [name, setName] = useState("Amy");
-    //const { name, id } = route.params;
+    const dispatch = useDispatch();
+    const userData = useSelector(state => state.userName);
+    const tutDashboardData = useSelector(state => state.dashboardTutorial)
+    const [calledOnce, setCalledOnce] = useState(false);
+    if (!calledOnce) {
+        dispatch(initializeDashboardTutorial(userData.userId));
+        setCalledOnce(true);
+    };
+
+    useEffect(() => {
+        if (tutDashboardData.tutorialDone){
+            navigation.replace('Home');
+        }
+    }, 
+    [tutDashboardData])
+
+
     const [page, setPage] = useState(0);
 
     const TutorialFinished = () => {
-        console.log('finished tutorial, need to send something to backend');
+        dispatch(setDashboardTutorialFinished(userData.userId));
         navigation.replace('Home');
     };
 
@@ -270,7 +287,7 @@ const TutorialDashboard = ({navigation, route}) => {
             <InnerContainer style={{height: "80%"}}>
                 <DashboardTutorialTop> 
                     <DashboardTitle>
-                        Good Morning {name} 
+                        Good Morning {userData.Name} 
                     </DashboardTitle>
                     {TutorialPagesStyles[page].page === 0 &&
                     <RoundedPurpleBox>

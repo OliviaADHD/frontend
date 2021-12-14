@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import { StatusBar } from "expo-status-bar";
-import { Formik, Field } from 'formik'
+import { Formik } from 'formik'
 import { useDispatch, useSelector } from "react-redux";
 import {Ionicons} from '@expo/vector-icons';
 import { View,CheckBox, StyleSheet, ActivityIndicator } from "react-native";
@@ -24,7 +24,7 @@ import {
     ErrorMessage,
     PrivacyText,
     PrivacyArea,
-    AbsoluteContainer
+    ErrorPrivacyText,
 }from '../../css/styles';
 
 import* as AuthSession from 'expo-auth-session';
@@ -61,11 +61,12 @@ const signUpValidationSchema = yup.object().shape({
 
 
 
-const Signup = ({navigation}) => {
+const Signup = ({navigation, route}) => {
     const [hidePassword, setHidePassword] = useState(true);
     const [loginError, setLoginError] = useState(false);
     const [emailError, setEmailError] = useState(false);
     const [isSelected, setIsSelected] = useState(false);
+    const [policyError, setPolicyError] = useState(false);
     const loginValidityState = useSelector(state => state.validateLoginInfo); // these are at the start simply Object {"message":{}}
     const emailValidityState = useSelector(state => state.validateEmailInfo);
     const networkError = useSelector(state => state.networkAvailability);
@@ -117,6 +118,19 @@ const Signup = ({navigation}) => {
 
 
     
+
+    useEffect(() => {
+        console.error(route.params)
+        
+        if(route.params === undefined){
+            setIsSelected(false)
+        }
+        else{
+            setIsSelected(route.params.policyChecked)
+            setPolicyError(false)
+        }
+    })
+
     return(
             <StyledContainer>
                 <StatusBar style="dark"/>
@@ -124,7 +138,7 @@ const Signup = ({navigation}) => {
                     <PageLogo source={require('../../../assets/images/logo.png')} />
                     <Formik
                         validationSchema={signUpValidationSchema}
-                        initialValues={{fullName: '', email: '', password: '',login:''}}
+                        initialValues={{fullName: '', email: '', password: '',login:'', privacyPolicy: false}}
                         onSubmit={(values) => {
                             setLoading(true);
                             dispatch(beforeSignUP())
@@ -232,13 +246,18 @@ const Signup = ({navigation}) => {
                                 <ErrorText>{errors.password}</ErrorText>
                             </ErrorMessage> 
                         }
-                        <PrivacyArea>
+                        <PrivacyArea onPress = {() => navigation.navigate('Privacy')}>
                             <CheckBox
                                 value={isSelected}
                                 onValueChange={(value)=>setIsSelected(value)}
-                                style={styles.checkbox}
+                                disabled={true}
                             />
-                            <PrivacyText  onPress = {() => navigation.navigate('Privacy')}>I Agree With Terms Of Privacy Policy.</PrivacyText>
+                            { !policyError &&
+                                <PrivacyText>I Agree With Terms Of Privacy Policy.</PrivacyText>
+                            }
+                            { policyError &&
+                                <ErrorPrivacyText>I Agree With Terms Of Privacy Policy.</ErrorPrivacyText>
+                            }                           
                         </PrivacyArea>
 
 
@@ -297,9 +316,6 @@ const Signup = ({navigation}) => {
 
 
 const styles = StyleSheet.create({
-    checkbox: {
-      alignSelf: "center",
-    },
     loading: {
         position: 'absolute',
         left: 0,

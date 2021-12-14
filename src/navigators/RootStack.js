@@ -22,16 +22,18 @@ import Welcome_Post_Signup from '../screens/Onboarding/Welcome_Post_Signup';
 import Intro_Period_Prediction from '../screens/Menstruation/Intro_Period_Prediction';
 
 
-
+import TutorialDashboard from '../screens/Dashboard/Tutorial';
 import Cycle from '../screens/Dashboard/Cycle';
 import Awareness from '../screens/Dashboard/Awareness';
 import Home from '../screens/Dashboard/Home';
 import Profile from '../screens/Dashboard/Profile';
 import ToDoList from '../screens/Dashboard/ToDoList';
 
-import ProfileSettingsPage from '../screens/ProfileSettings/ProfileSettingsPage';
-import ProfilePreferencesPage from '../screens/ProfileSettings/ProfilePreferencesPage';
-import TutorialDashboard from '../screens/Dashboard/Tutorial';
+import Settings from '../screens/Profile/Settings';
+import Preferences from '../screens/Profile/Preferences';
+import PrivacySetting from '../screens/Profile/PrivacySetting';
+import Help from '../screens/Profile/Help';
+
 
 
 const Stack = createStackNavigator();
@@ -51,15 +53,14 @@ const RootStack = () => {
                     paddingLeft: 20
                 }
             }}
-            initialRouteName = 'Welcome'
-
+            initialRouteName = 'Settings'
             >   
                 <Stack.Screen name="Welcome" 
                     options ={{animationEnabled: true, header: () => null}}
                     component = {Welcome}
                     />
                 <Stack.Screen name='Login' component={Login} />
-                <Stack.Screen name='Signup' component={Signup} />
+                <Stack.Screen name='Signup' component={Signup} options ={{header: () => null}} />
                 <Stack.Screen name='Privacy' component={Privacy} options={{
                     title:'Privacy Policy',
                     header: () => null,
@@ -68,8 +69,8 @@ const RootStack = () => {
                 <Stack.Screen name='Welcome_Post_Signup' component={Welcome_Post_Signup} />
                 <Stack.Screen name="Questionnaire" component={Questionnaire} options ={{header: () => null}} />
                   
-                <Stack.Screen name="ResetPassword" component={ResetPassword} />
-                <Stack.Screen name="MessageResetPassword" component={MessageResetPassword} />
+                <Stack.Screen name="ResetPassword" component={ResetPassword}  options ={{header: () => null}} />
+                <Stack.Screen name="MessageResetPassword" component={MessageResetPassword}  options ={{header: () => null}} />
                 <Stack.Screen name="Intro_Period_Prediction" component={Intro_Period_Prediction} />
 
                 <Stack.Screen name="Cycle" component={Cycle} />
@@ -77,9 +78,15 @@ const RootStack = () => {
                 <Stack.Screen name="Home" component={Home}  options ={{header: () => null}} />
                 <Stack.Screen name="ToDoList" component={ToDoList} />
                 <Stack.Screen name="Profile" component={Profile} />
+           
+                <Stack.Screen name='TutorialDashboard' component={TutorialDashboard}/>
 
-                <Stack.Screen name="ProfileSettingsPage" component={ProfileSettingsPage} />
-                <Stack.Screen name="ProfilePreferencesPage" component={ProfilePreferencesPage} />
+
+                <Stack.Screen name="Settings" component={Settings} />
+                <Stack.Screen name="Preferences" component={Preferences} />
+                <Stack.Screen name="PrivacySetting" component={PrivacySetting} />
+                <Stack.Screen name="Help" component={Help} />
+
 
             </Stack.Navigator>
             

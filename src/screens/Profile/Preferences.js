@@ -7,14 +7,18 @@ import { Picker as SelectPicker } from '@react-native-picker/picker';
 import { Colors } from "../../css/general/style";
 
 
-import { 
-  StyledContainer,
-  InnerContainer,
+import {
   StyledFormArea,
   PageTitle,
   PageTitleFormat,
-  SubSectionPurpleBottomLine 
-} from "../../css/Profile/style";
+  SubSectionPurpleBottomLine,
+  LanguageSection,
+  LanguageSectionText,
+  DarkModeSection,
+  DarkModeSectionText,
+} from "../../css/Profile/preferences";
+
+import { StyledContainer, InnerContainer} from "../../css/general/style";
 
 import SaveButton from "../../components/SaveButton";
 
@@ -22,7 +26,7 @@ import ProfileTopContainer from "../../components/ProfileTopContainer";
 
 import DashBoardBottomMenu from "../../components/DashboardBottomMenu";
 
-export default function ProfilePreferencesPage({navigation}) {
+export default function Preferences({navigation}) {
 
   const languages = [
     {name: 'English', id: 0},
@@ -60,14 +64,13 @@ export default function ProfilePreferencesPage({navigation}) {
         
           <PageTitleFormat>
 
-            <PageTitle> Preferences </PageTitle>      
+            <PageTitle>Preferences</PageTitle>      
 
           </PageTitleFormat>
           
-          <SubSectionPurpleBottomLine
-          style={{ paddingBottom: 20, paddingTop: 10 }}>
+          <LanguageSection>
             
-            <Text style={{paddingLeft: 22, fontSize: 15}}>Language</Text>
+            <LanguageSectionText>Language</LanguageSectionText>
 
             <SelectPicker
               style={{
@@ -95,14 +98,13 @@ export default function ProfilePreferencesPage({navigation}) {
     
             </SelectPicker>
 
-          </SubSectionPurpleBottomLine>
+          </LanguageSection>
 
-          <SubSectionPurpleBottomLine
-            style={{ paddingBottom: 10 }}>
+          <DarkModeSection>
 
-            <Text style={{paddingLeft: 22, fontSize: 14}}>
+            <DarkModeSectionText>
               Dark Mode
-            </Text>
+            </DarkModeSectionText>
             
             <Switch
               style={{ marginRight: 19, transform : [{scale: 1.1}]}}
@@ -113,7 +115,7 @@ export default function ProfilePreferencesPage({navigation}) {
               onValueChange={value => formik.setFieldValue('switch', value)}
             />
           
-          </SubSectionPurpleBottomLine> 
+          </DarkModeSection> 
 
           <SaveButton 
             mode="contained"
