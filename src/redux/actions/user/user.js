@@ -14,7 +14,7 @@ import { SIGN_UP,
     SET_USER_ID,
     SET_FIRST_TIME,
     SET_NETWORK_ERROR_TRUE,
-    SET_USER_NAME
+    SET_USER_NAME,
   } from "../types";
 import axios from "axios";
 import {link} from '../../config/config'
@@ -123,7 +123,7 @@ export const signIn = (loginData) => {//async dispatch => {
 }};
 
 export const verifyEmail = (email) => async dispatch => {
-  axios.post(userLink+"email/"+email, {timout: 2})
+  axios.post(userLink+"email/"+email)
   .then(resp => {
     dispatch({
       type: SET_NETWORK_ERROR_FALSE,
@@ -186,3 +186,6 @@ export const verifyLogin = (login) => async dispatch => {
     }
   })
 };
+
+
+

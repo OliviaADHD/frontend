@@ -52,7 +52,6 @@ const RootStack = () => {
                 }
             }}
             initialRouteName = 'Welcome'
-
             >   
                 <Stack.Screen name="Welcome" 
                     options ={{animationEnabled: true, header: () => null}}
@@ -68,8 +67,8 @@ const RootStack = () => {
                 <Stack.Screen name='Welcome_Post_Signup' component={Welcome_Post_Signup} />
                 <Stack.Screen name="Questionnaire" component={Questionnaire} options ={{header: () => null}} />
                   
-                <Stack.Screen name="ResetPassword" component={ResetPassword} />
-                <Stack.Screen name="MessageResetPassword" component={MessageResetPassword} />
+                <Stack.Screen name="ResetPassword" component={ResetPassword}  options ={{header: () => null}} />
+                <Stack.Screen name="MessageResetPassword" component={MessageResetPassword}  options ={{header: () => null}} />
                 <Stack.Screen name="Intro_Period_Prediction" component={Intro_Period_Prediction} />
 
                 <Stack.Screen name="Cycle" component={Cycle} />

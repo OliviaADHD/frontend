@@ -38,9 +38,6 @@ import {
     Loading
 } from '../../css/general/style';
 
-
-
-
 import * as yup from 'yup'
 
 const signInValidationSchema = yup.object().shape({
@@ -147,7 +144,7 @@ const Login = ({navigation}) => {
                             hidePassword={hidePassword}
                             setHidePassword={setHidePassword}
                         />
-                        <ForgotPassword>
+                        <ForgotPassword onPress = {() =>  navigation.navigate("ResetPassword")}>
                             <ForgotPasswordText>Forgot Password?</ForgotPasswordText>
                         </ForgotPassword>
                         <StyledButton onPress={handleSubmit}>

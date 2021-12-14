@@ -1,99 +1,84 @@
 import React from "react";
-import { StatusBar } from "expo-status-bar";
-import { Formik } from 'formik';
+import {StatusBar} from "expo-status-bar";
+import {Formik} from 'formik';
 
-import { View } from "react-native";
+import {View} from "react-native";
 
 import {
-  MediumExtraText,
-  StyledTextInput,
-  StyledFormArea,
-  StyledButton,
-  ButtonText,
-  BlockText,
-}from '../../css/LoginSignup/resetPassword';
+    MediumExtraText,
+    StyledTextInput,
+    StyledFormArea,
+    StyledButton,
+    ButtonText,
+    BlockText,
+    ErrorMessage,
+    ErrorText
+} from '../../css/LoginSignup/resetPassword';
 
-import {  
-  StyledContainer,
-  InnerContainer
-} from '../../css/general/style'
+import {StyledContainer, InnerContainer} from '../../css/general/style';
 
+import * as yup from 'yup'
 
-export default function ResetPassword({navigation}) {
+const resetPasswordSchema = yup.object().shape({
+  email: yup
+    .string().label('Email')
+    .email("Please enter valid email")
+    .required('Email is required'),
+})
 
-
-  //! Form is based on this: https://formik.org/docs/overview
-  //! Fetch request not done
-  //! Error message not completed
+const ResetPassword = ({navigation}) => {
 
   return (
-  <StyledContainer>   
-    <StatusBar style="dark"/>
-    <InnerContainer>
+        <StyledContainer>
+            <StatusBar style="dark"/>
+            <InnerContainer>
 
-      <MediumExtraText>Forgot your password?</MediumExtraText>
-        
-      <BlockText>
-        Enter Your Registered Email Below To Receive Password Reset Instruction{"\n"}{"\n"}
-      </BlockText>
-        
-      <Formik
+                <MediumExtraText>Forgot your password?</MediumExtraText>
 
-        initialValues={{ email: '' }}
-        validate={values => {
-          const errors = {};
-          if (!values.email) {
-            errors.email = 'Required';
-          } 
-          return errors;
-        }}
-        onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(true);
-          }, 400);
-        }}
-      >{({    
-          values,
-          errors,
-          touched,
-          handleChange,
-          handleBlur,
-          handleSubmit,
-          isSubmitting})=> (
-            
-            <StyledFormArea>
-              <View>
-            
-                <StyledTextInput
-                  type="email"
-                  name="email" 
-                  placeholder="Email ID"
-                  onChangeText={handleChange('email')}
-                  onBlur={handleBlur('email')}
-                  value={values.email}
-                  keyboardType="email-address"
-                />
-              
-                {errors.email && touched.email && 
-                <ErrorMessage>
-                  <ErrorText>{errors.email}</ErrorText>
-                </ErrorMessage> }
+                <BlockText>
+                    Enter Your Registered Email Below To Receive Password Reset Instruction{"\n"}{"\n"}
+                </BlockText>
 
-                <StyledButton type="submit" disabled={isSubmitting} onPress={() => {
-                  handleSubmit
-                  navigation.navigate("MessageResetPassword")
-                  }}>
-                  <ButtonText>Submit</ButtonText>
-                </StyledButton>
+                <Formik
+                    initialValues={{email: ''}}
+                    validationSchema={resetPasswordSchema}
+                    onSubmit={(values) => {
+                      navigation.navigate("MessageResetPassword",{
+                        email:values.email
+                      })
+                     }}
+                    
+                  >{({values, errors, touched, handleChange, handleBlur, handleSubmit}) => (
+                        <StyledFormArea>
+                            <View>
+                                <StyledTextInput
+                                    type="email"
+                                    name="email"
+                                    placeholder="Email@email.com"
+                                    onChangeText={handleChange('email')}
+                                    onBlur={handleBlur('email')}
+                                    value={values.email}
+                                    keyboardType="email-address"/>
+                                  
+                                {errors.email && touched.email && 
+                                  <ErrorMessage>
+                                    <ErrorText>{errors.email}</ErrorText>
+                                </ErrorMessage>
+                               }
 
-              </View>
-            </StyledFormArea>
-          )}
+                                <StyledButton
+                                    onPress={handleSubmit}>
+                                    <ButtonText>Submit</ButtonText>
+                                </StyledButton>
 
-      </Formik>
-  
-    </InnerContainer>
-  </StyledContainer>
-  );
+                            </View>
+                        </StyledFormArea>
+                    )}
+
+                </Formik>
+            </InnerContainer>
+        </StyledContainer>
+    );
 }
+
+export default ResetPassword;

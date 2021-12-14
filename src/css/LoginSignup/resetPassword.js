@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import {Colors} from '../general/style';
 
-const { white, purple} = Colors;
+const { white, purple, red} = Colors;
 
 export const MediumExtraText = styled.Text`
   text-align: center;
@@ -54,4 +54,14 @@ export const BlockText = styled.Text`
     font-size: 15px;
     line-height: 25px;
     text-align: center;
+`;
+
+export const ErrorMessage = styled.TouchableOpacity`
+    background-color: ${white};
+`;
+export const ErrorText = styled.Text`
+    color: ${red};
+    font-size: 15px;
+    text-align:left;
+    margin: 0 0 0 20px;
 `;
