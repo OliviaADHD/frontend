@@ -31,6 +31,7 @@ import ToDoList from '../screens/Dashboard/ToDoList';
 
 import Settings from '../screens/Profile/Settings';
 import Preferences from '../screens/Profile/Preferences';
+import PrivacySetting from '../screens/Profile/PrivacySetting';
 
 
 
@@ -51,7 +52,7 @@ const RootStack = () => {
                     paddingLeft: 20
                 }
             }}
-            initialRouteName = 'Welcome'
+            initialRouteName = 'Settings'
             >   
                 <Stack.Screen name="Welcome" 
                     options ={{animationEnabled: true, header: () => null}}
@@ -82,6 +83,7 @@ const RootStack = () => {
 
                 <Stack.Screen name="Settings" component={Settings} />
                 <Stack.Screen name="Preferences" component={Preferences} />
+                <Stack.Screen name="PrivacySetting" component={PrivacySetting} />
 
 
             </Stack.Navigator>
