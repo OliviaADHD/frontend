@@ -12,13 +12,24 @@ import {
 const {white, purple} = Colors;
 
 export const NewTaskButton = styled(Button)`
+width: 50%;
+margin: 0 10px 0 10px;
+
 background-color: ${purple};
 `
 
+export const GroupText = styled.Text`
+color: ${white};
+`
+
 export const ButtonText = styled.Text`
-    font-size: 12; 
-    color: ${white};
-`;
+  font-size: 12px; 
+  
+`
+
+export const PlusSign = styled.Text`
+  font-size: 20px;
+`
 
 // export default function addTaskButton() {
 //   return (

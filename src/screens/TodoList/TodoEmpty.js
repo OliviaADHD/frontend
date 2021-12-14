@@ -7,22 +7,27 @@ import {
 
 } from "../../css/todoList/style"
 
-import {NewTaskButton, ButtonText} from "../../css/todoList/addTaskButton"
+import {NewTaskButton, GroupText, ButtonText, PlusSign} from "../../css/todoList/addTaskButton"
 
 export default function TodoEmpty() {
   return (
+
     <StyledContainer>
+
       <InnerContainer>
+
         <NewTaskButton>
-          <ButtonText>
 
-            New Task
+          <GroupText>
 
-          </ButtonText>
+          <PlusSign>+{'\n'}</PlusSign>
+          <ButtonText>New Task</ButtonText>
+
+          </GroupText>
+
         </NewTaskButton>
 
       </InnerContainer>
-
 
     </StyledContainer>
   )
