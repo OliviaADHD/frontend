@@ -27,8 +27,15 @@ import {
     ErrorPrivacyText,
 }from '../../css/styles';
 
-import {newUser, verifyEmail, verifyLogin, beforeValidEmail, beforeValidLogin, beforeSignUP} from '../../redux/actions/user/user'
+import* as AuthSession from 'expo-auth-session';
+import * as Google from 'expo-auth-session/providers/google';
+import * as Facebook from 'expo-auth-session/providers/facebook';
+import { ResponseType } from 'expo-auth-session';
+import * as WebBrowser from 'expo-web-browser';
+
+import {newUser, newUserGoogle, verifyEmail, verifyLogin, beforeValidEmail, beforeValidLogin, beforeSignUP} from '../../redux/actions/user/user'
 import * as yup from 'yup'
+import axios from "axios";
 
 const signUpValidationSchema = yup.object().shape({
     fullName: yup
@@ -68,6 +75,50 @@ const Signup = ({navigation, route}) => {
 
     const dispatch = useDispatch();
 
+    //strategy: when clicking on 'google', it will change the 'responsegoogle'. One useEffect watches the responseGoogle, if it changes, it
+    // checks whether it was a successful connection and adds email+name to userDataGoogle. Another effects whatches userDataGoogle, and launches
+    // the registering part.
+    const [googleClicked, setGoogleClicked] = useState(false);
+    const [googleError, setGoogleError] = useState(false);
+    const [requestGoogle, responseGoogle, promptAsyncGoogle] = Google.useAuthRequest({
+        expoClientId: '51546200734-nm24i67drlpn5dkcnaj4ckta6k2cnfff.apps.googleusercontent.com',
+        iosClientId: '51546200734-nm24i67drlpn5dkcnaj4ckta6k2cnfff.apps.googleusercontent.com',
+        webClientId: '51546200734-qv54r4ur316rk4ll8lb37esgstngnr4i.apps.googleusercontent.com',
+        ClientSecret: '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',
+      });
+    
+    const setNewGoogleUser = async(token) => {
+        dispatch(beforeSignUP())
+        .then(() =>dispatch(newUserGoogle(token)))
+        .then(resp => {
+            if (resp === true){
+                setLoading(false);
+                navigation.reset({
+                    index: 0,
+                    routes: [{ name: 'Welcome_Post_Signup' }]});
+            } else {
+                setGoogleError(true);
+                setLoading(false);
+                setGoogleClicked(false);
+            }
+        })
+    } 
+
+    useEffect(() => {
+        if ((responseGoogle?.type === 'success') && (googleClicked === true)){
+            const {authentication: { accessToken } } = responseGoogle;
+            setGoogleClicked(false);
+            setNewGoogleUser(accessToken);
+        } else {
+            setLoading(false);
+            setGoogleClicked(false);
+        }
+
+    }, [responseGoogle]);
+
+
+    
+
     useEffect(() => {
         console.error(route.params)
         
@@ -89,50 +140,39 @@ const Signup = ({navigation, route}) => {
                         validationSchema={signUpValidationSchema}
                         initialValues={{fullName: '', email: '', password: '',login:'', privacyPolicy: false}}
                         onSubmit={(values) => {
-                            if(!isSelected){
-                                setPolicyError(true)
-                            }
-                            else{
-                                setLoading(true);
-                                dispatch(beforeSignUP())
-                                .then(resp => dispatch(beforeValidEmail()))
-                                .then(resp => dispatch(beforeValidLogin()))
-                                .then(resp => dispatch(verifyLogin(values.login)))
-                                .then(resp => {
-                                        if (networkError.error === true){
-                                            setLoading(false);
-                                        } else {
-                                            if (loginValidityState.message.passed === false) {
-                                                setLoginError(true);
-                                                setLoading(false);
-                                            } else {
-                                                setLoginError(false);
-                                            }
-                                            dispatch(verifyEmail(values.email))
-                                            .then(resp => {
-                                                if (emailValidityState.message.passed === false) {
-                                                    setEmailError(true);
-                                                    setLoading(false);
-                                                } else {
-                                                    setEmailError(false);
-                                                }})
-                                            .then(resp => {
-                                                if ((loginError === false) && (emailError === false)) {
-                                                    dispatch(newUser(values));
-                                                }
-                                            })
-                                            .then(resp => {
-                                                if (signUpState.message.passed === true) {
-                                                    setLoading(false);
-                                                    navigation.replace('Welcome_Post_Signup');
-                                                } else {
-                                                    setLoading(false);
-                                                }
-                                            });
-                                        }
+                            setLoading(true);
+                            dispatch(beforeSignUP())
+                            .then(resp => dispatch(beforeValidEmail()))
+                            .then(resp => dispatch(beforeValidLogin()))
+                            .then(resp => dispatch(verifyLogin(values.login)))
+                            .then(resp => {
+                                    if (resp === true){
+                                        setLoginError(false);
+                                        return dispatch(verifyEmail(values.email));
+                                    } else {
+                                        setLoading(false);
+                                        setLoginError(true);
+                                        return false;
                                     }
-                                );
-                        }
+                                })
+                            .then(resp => {
+                                    if (resp === true){
+                                        setEmailError(false);
+                                        return dispatch(newUser(values));
+                                    } else {
+                                        setEmailError(true);
+                                        setLoading(false);
+                                        return false;
+                                    }
+                            })
+                            .then(resp => {
+                                setLoading(false);
+                                if (resp === true){
+                                    navigation.reset({
+                                        index: 0,
+                                        routes: [{ name: 'Welcome_Post_Signup' }]});
+                                }
+                            });
                             
                     }
                     }
@@ -230,10 +270,22 @@ const Signup = ({navigation, route}) => {
                                 <ErrorText>No network connection. Please try again later.</ErrorText>
                             </ErrorMessage>
                         }
+                        {googleError && 
+                            <ErrorMessage>
+                                <ErrorText>Error signing in with google.</ErrorText>
+                            </ErrorMessage>
+                        }
 
                         <IconContainer style={{marginBottom: "0%", paddingBottom: "0%"}}>
-                            <EachIconContainer>
-                                <IconLogo  onPress={handleSubmit} source={require('../../../assets/images/google.png')} />
+                            <EachIconContainer onPress={async()=>{
+                                console.log("Trying to sign up with google");
+                                setLoading(true);
+                                setGoogleClicked(true);
+                                promptAsyncGoogle();
+                                console.log("success?")
+
+                                }}>
+                                <IconLogo source={require('../../../assets/images/google.png')} />
                             </EachIconContainer>
                             <EachIconContainer>
                                 <IconLogo onPress={handleSubmit} source={require('../../../assets/images/facebook.png')} />
@@ -245,7 +297,7 @@ const Signup = ({navigation, route}) => {
                         <ExtraView style={{paddingTop: "0%", paddingBottom: "0%", marginBottom: "0%",
                          marginTop: "0%", height: "14%"}}> 
                             <ExtraText style={{paddingTop: "0%", paddingBottom: "0%"}}>Already Have An Account?</ExtraText>
-                            <TextLink onPress = {() => navigation.replace("Login")} testID={"Textlink"}>
+                            <TextLink onPress = {() => navigation.pop()} testID={"Textlink"}>
                                 <TextLinkContent style={{paddingTop: "0%", paddingBottom: "0%"}}>Login</TextLinkContent>
                             </TextLink>
                         </ExtraView>

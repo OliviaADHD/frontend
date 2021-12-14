@@ -6,11 +6,10 @@ import { StyleSheet, ActivityIndicator, View } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import RootStack from "../../navigators/RootStack";
 import* as AuthSession from 'expo-auth-session';
-import * as Google from 'expo-auth-session/providers/google';
 import * as Facebook from 'expo-auth-session/providers/facebook';
 import { ResponseType } from 'expo-auth-session';
 import * as WebBrowser from 'expo-web-browser';
-import { signIn, beforeSignIn } from '../../redux/actions/user/user'
+import { signIn, beforeSignIn, signInGoogle } from '../../redux/actions/user/user'
 import {
   PageLogo,
   StyledFormArea,
@@ -38,7 +37,12 @@ import {
     Loading
 } from '../../css/general/style';
 
-import * as yup from 'yup'
+import * as yup from 'yup';
+
+import * as Google from 'expo-auth-session/providers/google';
+import axios from "axios";
+import {link} from '../../redux/config/config';
+
 
 const signInValidationSchema = yup.object().shape({
     email: yup
@@ -59,6 +63,61 @@ const Login = ({navigation}) => {
     const userData = useSelector(state => state.userName);
     const loginState = useSelector(state => state.loginInfo);
     const networkError = useSelector(state => state.networkAvailability);
+
+    //Google login
+    const [googleError, setGoogleError] = useState(false);
+    const [googleClicked, setGoogleClicked] = useState(false);
+    const [requestGoogle, responseGoogle, promptAsyncGoogle] = Google.useAuthRequest({
+        expoClientId: '51546200734-nm24i67drlpn5dkcnaj4ckta6k2cnfff.apps.googleusercontent.com',
+        iosClientId: '51546200734-nm24i67drlpn5dkcnaj4ckta6k2cnfff.apps.googleusercontent.com',
+        webClientId: '51546200734-qv54r4ur316rk4ll8lb37esgstngnr4i.apps.googleusercontent.com',
+        ClientSecret: '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',
+      });
+    
+    const makeGoogleLogin = async(token) => {
+        dispatch(beforeSignIn())
+        .then(() => dispatch(signInGoogle(token)))
+        .then((resp) => {
+            if (resp.success === true){
+                setLoading(false);
+                setGoogleClicked(false);
+                
+                if (resp.firstTime){
+
+                    navigation.reset({
+                        index: 0,
+                        routes: [{ name: 'Welcome_Post_Signup' }]});
+                    }
+                else {
+                    navigation.reset({
+                        index: 0,
+                        routes: [{ name: 'Home' }]});
+                }
+
+            } else {
+                setGoogleError(true);
+                setLoading(false);
+                setGoogleClicked(false);
+            }
+
+        })
+        .catch(err => console.log(error, err));
+    } 
+
+    useEffect(() => {
+        if ((responseGoogle?.type === 'success') && (googleClicked === true)){
+            setGoogleClicked(false);
+            const {authentication: { accessToken } } = responseGoogle;
+            //getGoogleData(accessToken);
+            makeGoogleLogin(accessToken);
+            
+
+        } else {setLoading(false);}
+
+    }, [responseGoogle]);
+
+
+
 
 
     /*const [GoogleLogin, setGoogleLogin] = useState("texxt");
@@ -94,20 +153,20 @@ const Login = ({navigation}) => {
     
     
 
-    
+    /*
     useEffect(() => {
         if (loginState.message.passed){
             if (userData.firstTime) {
-                navigation.replace('Welcome_Post_Signup');
+                navigation.reset('Welcome_Post_Signup');
             } else {
-                navigation.replace('Home', {
+                navigation.reset('Home', {
                     name: userData.Name,
                     id: userData.ID,
                     firstTime: userData.firstTime,
                 });
             }
         }
-    });
+    });*/
 
     return(
             <StyledContainer>
@@ -121,7 +180,24 @@ const Login = ({navigation}) => {
                             setLoading(true);
                             dispatch(beforeSignIn())
                             .then(() => dispatch(signIn(values)))
-                            .then(setLoading(false));
+                            .then((resp) => {
+                                if (resp.success === true){
+                                    console.log('successfully logged in!', resp.firstTime);
+                                    setLoading(false);                                    
+                                    if (resp.firstTime){
+                                        navigation.reset({
+                                            index: 0,
+                                            routes: [{ name: 'Welcome_Post_Signup' }]});
+                                        }
+                                    else {
+                                        navigation.reset({
+                                            index: 0,
+                                            routes: [{ name: 'Home' }]});
+                                    }
+                                } else {
+                                    setLoading(false);
+                                }
+                            });
                         }}
                         
                     
@@ -160,12 +236,19 @@ const Login = ({navigation}) => {
                                 <ErrorText>{loginState.message.errorMessage}</ErrorText>
                             </ErrorMessage> 
                         }
+                        {googleError && 
+                            <ErrorMessage>
+                                <ErrorText>Error signing in with google.</ErrorText>
+                            </ErrorMessage>
+                        }
 
                         <Or>Or</Or>
                         <IconContainer>
                             <EachIconContainer onPress={async()=>{
                                 console.log("Trying to log in with google");
-                                promptAsync();
+                                setLoading(true);
+                                setGoogleClicked(true);
+                                promptAsyncGoogle();
                                 console.log("success?")
 
                             }}>
