@@ -18,6 +18,7 @@ export const InnerContainer = styled.View`
   align-items: center;
 `;
 
-// export const NewTaskButton = styled(Button)`
-// background-color: ${purple};
-// `
+export const StyledFormArea = styled.View`
+    width: 90%;
+    height: 75%;
+`;

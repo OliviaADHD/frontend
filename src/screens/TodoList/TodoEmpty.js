@@ -1,4 +1,5 @@
 import React from 'react';
+import { StatusBar } from "expo-status-bar";
 import { Text, Button, Icon, View, Image } from "react-native";
 
 import { 
@@ -13,7 +14,7 @@ export default function TodoEmpty({navigation}) {
   return (
 
     <StyledContainer>
-
+      <StatusBar style="dark"/>
       <InnerContainer>
 
         <ButtonContainer>
