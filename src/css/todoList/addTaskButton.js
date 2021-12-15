@@ -11,9 +11,14 @@ import {
 
 const {white, purple} = Colors;
 
+export const ButtonContainer = styled.View`
+margin-top: 90%;
+padding-top: 50%;
+margin-left: 35%;
+`
 
 export const NewTaskButton = styled(Button)`
-width: 40%;
+width: 100%;
 padding: 10px;
 background-color: ${purple};
 `

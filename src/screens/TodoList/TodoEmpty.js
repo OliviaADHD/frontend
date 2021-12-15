@@ -7,7 +7,7 @@ import {
 
 } from "../../css/todoList/style"
 
-import {NewTaskButton, ButtonText} from "../../css/todoList/addTaskButton"
+import {ButtonContainer, NewTaskButton, ButtonText} from "../../css/todoList/addTaskButton"
 
 export default function TodoEmpty({navigation}) {
   return (
@@ -15,6 +15,8 @@ export default function TodoEmpty({navigation}) {
     <StyledContainer>
 
       <InnerContainer>
+
+        <ButtonContainer>
 
         <NewTaskButton
           mode='contained'
@@ -31,10 +33,12 @@ export default function TodoEmpty({navigation}) {
 
         </NewTaskButton>
 
+        </ButtonContainer>
+
       </InnerContainer>
 
     </StyledContainer>
-    
+
   )
 }
 
