@@ -22,16 +22,16 @@ import Welcome_Post_Signup from '../screens/Onboarding/Welcome_Post_Signup';
 import Intro_Period_Prediction from '../screens/Menstruation/Intro_Period_Prediction';
 
 
-
+import TutorialDashboard from '../screens/Dashboard/Tutorial';
 import Cycle from '../screens/Dashboard/Cycle';
 import Awareness from '../screens/Dashboard/Awareness';
 import Home from '../screens/Dashboard/Home';
 import Profile from '../screens/Dashboard/Profile';
 import ToDoList from '../screens/Dashboard/ToDoList';
 
-import ProfileSettingsPage from '../screens/ProfileSettings/ProfileSettingsPage';
-import ProfilePreferencesPage from '../screens/ProfileSettings/ProfilePreferencesPage';
-import TutorialDashboard from '../screens/Dashboard/Tutorial';
+import Settings from '../screens/Profile/Settings';
+import Preferences from '../screens/Profile/Preferences';
+
 
 
 const Stack = createStackNavigator();
@@ -59,7 +59,7 @@ const RootStack = () => {
                     component = {Welcome}
                     />
                 <Stack.Screen name='Login' component={Login} />
-                <Stack.Screen name='Signup' component={Signup} />
+                <Stack.Screen name='Signup' component={Signup} options ={{header: () => null}} />
                 <Stack.Screen name='Privacy' component={Privacy} options={{
                     title:'Privacy Policy',
                     header: () => null,
@@ -78,8 +78,8 @@ const RootStack = () => {
                 <Stack.Screen name="ToDoList" component={ToDoList} />
                 <Stack.Screen name="Profile" component={Profile} />
 
-                <Stack.Screen name="ProfileSettingsPage" component={ProfileSettingsPage} />
-                <Stack.Screen name="ProfilePreferencesPage" component={ProfilePreferencesPage} />
+                <Stack.Screen name="Settings" component={Settings} />
+                <Stack.Screen name="Preferences" component={Preferences} />
 
             </Stack.Navigator>
             

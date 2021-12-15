@@ -16,7 +16,7 @@ import ProfileTopContainer from "../../components/ProfileTopContainer";
 
 import DashBoardBottomMenu from "../../components/DashboardBottomMenu";
 
-export default function ProfileSettingsPage({navigation}) {
+export default function Settings({navigation}) {
 
   return (
     <StyledContainer> 
@@ -32,7 +32,7 @@ export default function ProfileSettingsPage({navigation}) {
           <FirstSectionItem>
             <ProfileListTouch
               activeOpacity={0.5}
-              onPress = {() => navigation.navigate('ProfilePreferencesPage')}
+              onPress = {() => navigation.navigate('Preferences')}
             >            
             <ProfileListText> Preferences </ProfileListText>          
             </ProfileListTouch>
