@@ -24,9 +24,9 @@ export default function TodoEmpty({navigation}) {
               <Image
                 source={require('../../../assets/images/plus.png')}
                 style={{width: 25, height: 25, tintColor : '#FFFFFF'}}
-                onPress = {() => navigation.navigate("TBD")}
               />
             )}
+            onPress = {() => navigation.navigate("CreateTaskContainer")}
           >
 
             <ButtonText> New Task</ButtonText>

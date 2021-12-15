@@ -33,7 +33,7 @@ import Settings from '../screens/Profile/Settings';
 import Preferences from '../screens/Profile/Preferences';
 
 import TodoEmpty from '../screens/TodoList/TodoEmpty';
-
+import CreateTaskContainer from '../screens/TodoList/CreateTaskContainer'
 
 
 const Stack = createStackNavigator();
@@ -84,6 +84,8 @@ const RootStack = () => {
                 <Stack.Screen name="Preferences" component={Preferences} />
 
                 <Stack.Screen name="TodoEmpty" component={TodoEmpty} />
+
+                <Stack.Screen name="CreateTaskContainer" component={CreateTaskContainer} />
 
             </Stack.Navigator>
             
