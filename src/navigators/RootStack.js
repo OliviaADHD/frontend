@@ -31,6 +31,8 @@ import ToDoList from '../screens/Dashboard/ToDoList';
 
 import Settings from '../screens/Profile/Settings';
 import Preferences from '../screens/Profile/Preferences';
+import PrivacySetting from '../screens/Profile/PrivacySetting';
+import Help from '../screens/Profile/Help';
 
 
 
@@ -51,8 +53,7 @@ const RootStack = () => {
                     paddingLeft: 20
                 }
             }}
-            initialRouteName = 'Welcome'
-
+            initialRouteName = 'Settings'
             >   
                 <Stack.Screen name="Welcome" 
                     options ={{animationEnabled: true, header: () => null}}
@@ -68,8 +69,8 @@ const RootStack = () => {
                 <Stack.Screen name='Welcome_Post_Signup' component={Welcome_Post_Signup} />
                 <Stack.Screen name="Questionnaire" component={Questionnaire} options ={{header: () => null}} />
                   
-                <Stack.Screen name="ResetPassword" component={ResetPassword} />
-                <Stack.Screen name="MessageResetPassword" component={MessageResetPassword} />
+                <Stack.Screen name="ResetPassword" component={ResetPassword}  options ={{header: () => null}} />
+                <Stack.Screen name="MessageResetPassword" component={MessageResetPassword}  options ={{header: () => null}} />
                 <Stack.Screen name="Intro_Period_Prediction" component={Intro_Period_Prediction} />
 
                 <Stack.Screen name="Cycle" component={Cycle} />
@@ -77,9 +78,15 @@ const RootStack = () => {
                 <Stack.Screen name="Home" component={Home}  options ={{header: () => null}} />
                 <Stack.Screen name="ToDoList" component={ToDoList} />
                 <Stack.Screen name="Profile" component={Profile} />
+           
+                <Stack.Screen name='TutorialDashboard' component={TutorialDashboard}/>
+
 
                 <Stack.Screen name="Settings" component={Settings} />
                 <Stack.Screen name="Preferences" component={Preferences} />
+                <Stack.Screen name="PrivacySetting" component={PrivacySetting} />
+                <Stack.Screen name="Help" component={Help} />
+
 
             </Stack.Navigator>
             

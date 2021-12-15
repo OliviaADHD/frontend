@@ -22,7 +22,7 @@ class ProfileTopContainer extends React.Component {
       style={{
         flex: 1, 
         justifyContent: 'space-between', 
-        paddingTop: 40, 
+        paddingTop: 25, 
         flexDirection: 'row', 
         alignItems: 'baseline', 
         flexWrap: 'wrap',

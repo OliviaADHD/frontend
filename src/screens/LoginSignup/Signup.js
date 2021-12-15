@@ -118,6 +118,7 @@ const Signup = ({navigation, route}) => {
 
 
     
+
     useEffect(() => {
         console.error(route.params)
         

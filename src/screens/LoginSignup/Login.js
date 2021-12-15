@@ -44,6 +44,7 @@ import * as Google from 'expo-auth-session/providers/google';
 import axios from "axios";
 import {link} from '../../redux/config/config';
 
+
 const signInValidationSchema = yup.object().shape({
     email: yup
       .string().label('Email')
@@ -247,7 +248,7 @@ const Login = ({navigation}) => {
                             hidePassword={hidePassword}
                             setHidePassword={setHidePassword}
                         />
-                        <ForgotPassword>
+                        <ForgotPassword onPress = {() =>  navigation.navigate("ResetPassword")}>
                             <ForgotPasswordText>Forgot Password?</ForgotPasswordText>
                         </ForgotPassword>
                         <StyledButton onPress={handleSubmit}>
