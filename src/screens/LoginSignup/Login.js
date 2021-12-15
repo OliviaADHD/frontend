@@ -2,11 +2,11 @@ import React, {useState, useEffect} from "react";
 import { StatusBar } from "expo-status-bar";
 import { Formik } from "formik";
 import {Ionicons} from '@expo/vector-icons';
-import { StyleSheet, ActivityIndicator, View } from "react-native";
+import { StyleSheet, ActivityIndicator, View, Platform } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import RootStack from "../../navigators/RootStack";
 //import * as AuthSession from 'expo-auth-session';
-import {makeRedirectUri} from 'expo-auth-session';
+import {makeRedirectUri, useAuthRequest, AuthRequestConfig, DiscoveryDocument, exchangeCodeAsync} from 'expo-auth-session';
 import * as Facebook from 'expo-auth-session/providers/facebook';
 import { ResponseType } from 'expo-auth-session';
 import * as WebBrowser from 'expo-web-browser';
@@ -44,6 +44,19 @@ import * as Google from 'expo-auth-session/providers/google';
 import axios from "axios";
 import {link} from '../../redux/config/config';
 
+const discoveryfb = {
+    authorizationEndpoint: 'https://www.facebook.com/v12.0/dialog/oauth',
+    tokenEndpoint: 'https://graph.facebook.com/v12.0/oauth/access_token'
+};
+
+const configfb = {
+    clientId: '901148574169051',
+    scopes: ['public_profile'],
+    redirectUri: "https://auth.expo.io/@anja-roed/olivia",
+    extraParams: {
+        display: Platform.select({web: 'popup'})
+    }
+};
 
 const signInValidationSchema = yup.object().shape({
     email: yup
@@ -55,7 +68,8 @@ const signInValidationSchema = yup.object().shape({
   })
 
 
-//WebBrowser.maybeCompleteAuthSession();
+WebBrowser.maybeCompleteAuthSession();
+const useProxy = true;
 
 const Login = ({navigation}) => {
     const dispatch = useDispatch();
@@ -126,26 +140,113 @@ const Login = ({navigation}) => {
         scopes: ['public_profile', 'user_likes'],
         responseType: ResponseType.Code,
       });
+
+    const makeFbLogin = async(code, codeVerifier, state, url) => {
+        console.log('trying to get the token---------------------------------------------');
+        console.log(code);
+        console.log('-----------------------', code.length);
+        console.log('-----', state)
+        //axios.get('https://graph.facebook.com/v12.0/oauth/access_token?client_id=901148574169051&redirect_uri=https://auth.expo.io/@anja-roed/olivia&client_secret=2d91e92e61689798cfeb3efaa2280932&code='+code)
+        
+        /*axios.get('https://graph.facebook.com/v6.0/oauth/access_token?', {params: {
+                    client_id: '901148574169051',
+                    redirect_uri: "https://auth.expo.io/@anja-roed/olivia", //'fb901148574169051://authorize', <- needs to be changed to this once app is in production
+                    client_secret: '2d91e92e61689798cfeb3efaa2280932',
+                    code: code
+            }})
+        .then(reps => console.log(resp))
+        .catch(err => {
+            if (err.response){
+                console.log(err.response.data);
+                console.log(err.response.status);
+                console.log(err.response.headers);
+            } else {console.log('nope')}
+        })*/
+    }
+
+    //fb number 2 try
+    const [requestFb2, responseFb2, promptAsyncFb2] = useAuthRequest(configfb, discoveryfb);
+    //const [codeReqFb, codeRespFb, exCodeFb] = exchangeCodeAsync(configfb, discoveryfb);
+
+    const makeFbLogin2 = async(code, codeVerifier) => {
+        console.log('trying to get the token---------------------------------------------');
+        console.log(code);
+        console.log('---------------------------');
+        const tokenResult = exchangeCodeAsync(
+            {
+            code: code,
+            clientId: '901148574169051',
+            scopes: ['public_profile'],
+            redirectUri: "https://auth.expo.io/@anja-roed/olivia",
+            extraParams: {
+                code_verifier: codeVerifier || "",
+                },
+            }, discoveryfb);
+        return tokenResult;
+    }
+    
+    const getFbData = async(accessToken) => {
+        console.log('token for data', accessToken);
+        axios.get('https://graph.facebook.com/me', {
+            params: {
+                fields:  "name, email",
+                access_token: accessToken
+            },
+            headers: {
+                'Content-Type': 'application/json',
+              }
+        })
+        .then(resp =>console.log('reps', resp.data))
+        .catch(err => console.log('error', err));
+    }
+
+    useEffect(()=>{
+        setLoading(false);
+        
+        if ((responseFb2?.type === 'success') && (fbClicked === true)){     
+            console.log('Fb2222!!!------------------', configfb.redirectUri);
+            console.log(responseFb2);
+            const {code} = responseFb2.params;
+            const {codeVerifier} = requestFb2;
+            makeFbLogin2(code, codeVerifier)
+            .then(resp => {
+                console.log('#############');
+                console.log('access token?', resp.accessToken);
+                //console.log(resp);
+                //console.log(resp)
+                getFbData(resp.accessToken);
+            })
+            .catch(err => console.log(err))
+            setfbClicked(false);
+        }
+    }, [responseFb2])
     
     useEffect(() =>{
         if ((responseFb?.type === 'success') && (fbClicked === true)){
             setfbClicked(false);
             console.log("successfulley logged in with fb!");
-            const {code} = responseFb.params;
+            const {code, state} = responseFb.params;
+            //const {stateFb} = responseFb.params;
             //const {url} = responseFb.params;
             console.log('code', code);
-            console.log('responseFB', responseFb);
+            console.log('responseFB', state,' len:', state.length);
+            console.log('--------------------');
+            console.log('requestFb', requestFb);
+            const {codeVerifier, url} = requestFb;
+            console.log('codeVerifier', codeVerifier, ' len: ', codeVerifier.length)
+            console.log('url', url),
             setLoading(false);
+            makeFbLogin(code, codeVerifier, state, url);
             
-            axios.get('https://graph.facebook.com/v12.0/oauth/access_token?client_id=901148574169051&redirect_uri=https://auth.expo.io/@anja-roed/olivia&client_secret=2d91e92e61689798cfeb3efaa2280932&code='+code)
+            //axios.get('https://graph.facebook.com/v12.0/oauth/access_token?client_id=901148574169051&redirect_uri=https://auth.expo.io/@anja-roed/olivia&client_secret=2d91e92e61689798cfeb3efaa2280932&code='+code)
             //axios.get('https://graph.facebook.com/v12.0/oauth/access_token?', {params: {
             //        client_id: '901148574169051',
             //        redirect_uri:  'https://auth.expo.io/@anja-roed/olivia', //'fb901148574169051://authorize', <- needs to be changed to this once app is in production
             //        client_secret: '2d91e92e61689798cfeb3efaa2280932',
             //        code: code
             //}})
-            .then(reps => console.log(resp))
-            .catch(err => console.log('err', err))
+            //.then(reps => console.log(resp))
+            //.catch(err => console.log('err', err))
 
             //fetch('https://graph.facebook.com/v2.5/me?fields=email,name,friends&access_token=' + token)
             //.then((response) => response.json())            
@@ -283,7 +384,8 @@ const Login = ({navigation}) => {
                                 console.log("trying to log in with fb");
                                 setLoading(true);
                                 setfbClicked(true);
-                                promptAsyncFb();
+                                //promptAsyncFb();
+                                promptAsyncFb2({useProxy});
                                 console.log("success with fb?");}} >
                                 <IconLogo source={require('../../../assets/images/facebook.png')} />
                             </EachIconContainer>
