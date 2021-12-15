@@ -1,6 +1,6 @@
 import React from 'react';
-import { Text, Button, Icon, View } from "react-native";
-import { Image } from 'react-native-paper';
+import { Text, Button, Icon, View, Image } from "react-native";
+// import { Image } from 'react-native-paper';
 
 import { 
   StyledContainer,
@@ -17,17 +17,17 @@ export default function TodoEmpty({navigation}) {
 
       <InnerContainer>
 
-        {/* <NewTaskButton
-          icon={({ color }) => (
+        <NewTaskButton
+          icon={({ size, color }) => (
             <Image
           source={require('../../../assets/images/plus.png')}
-          style={{tintColor : color}}
+          style={{width: 22, height: 22, tintColor : '#FFFFFF'}}
           onPress = {() => navigation.navigate("TBD")}
           />
           )}
-        > */}
+        >
 
-<NewTaskButton
+{/* <NewTaskButton
           // icon={{require('../../../assets/images/plus.png')}}
           onPress = {() => navigation.navigate("TBD")}
         >
@@ -35,11 +35,11 @@ export default function TodoEmpty({navigation}) {
           <View
           source={require('../../../assets/images/plus.png')}
           color='#FFFFFF'
-          />
+          /> */}
           <GroupText>
 
           {/* <PlusSign>+{'\n'}</PlusSign> */}
-          <ButtonText>New Task</ButtonText>
+          <ButtonText> New Task</ButtonText>
 
           </GroupText>
 

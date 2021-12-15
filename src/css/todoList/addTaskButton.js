@@ -12,17 +12,17 @@ import {
 const {white, purple} = Colors;
 
 
-// export const NewTaskButton = styled(Button)`
-// width: 30%;
-// padding: 10px;
-// background-color: ${purple};
-// `
-
-export const NewTaskButton = styled.TouchableOpacity`
+export const NewTaskButton = styled(Button)`
 width: 30%;
 padding: 10px;
 background-color: ${purple};
 `
+
+// export const NewTaskButton = styled.TouchableOpacity`
+// width: 30%;
+// padding: 10px;
+// background-color: ${purple};
+// `
 
 // export const GroupText = styled.View`
 
