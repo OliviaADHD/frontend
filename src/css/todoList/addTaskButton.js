@@ -18,49 +18,8 @@ padding: 10px;
 background-color: ${purple};
 `
 
-// export const NewTaskButton = styled.TouchableOpacity`
-// width: 30%;
-// padding: 10px;
-// background-color: ${purple};
-// `
-
-// export const GroupText = styled.View`
-
-// display: flex;
-// flex-direction: row;
-// flex-wrap: wrap;
-// justify-content: space-between;
-// align-items: center;
-// `
-
-export const GroupText = styled.Text`
-color: ${white};
-`
-
 export const ButtonText = styled.Text`
   font-size: 12px; 
-
+  color: ${white};
 `
 
-export const PlusSign = styled.Text`
-  font-size: 20px;
-
-`
-
-// export default function addTaskButton() {
-//   return (
-//     <StyledContainer>
-//       <InnerContainer>
-
-//         <Text>
-
-//           New Task
-
-//         </Text>
-
-//       </InnerContainer>
-
-
-//     </StyledContainer>
-//   )
-// }
