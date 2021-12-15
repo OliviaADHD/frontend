@@ -136,12 +136,13 @@ const Login = ({navigation}) => {
             console.log('responseFB', responseFb);
             setLoading(false);
             
-            axios.get('https://graph.facebook.com/v12.0/oauth/access_token?', {params: {
-                    client_id: '901148574169051',
-                    redirect_uri:  'https://auth.expo.io/anja/olivia', //'fb901148574169051://authorize',
-                    client_secret: '2d91e92e61689798cfeb3efaa2280932',
-                    code: code
-            }})
+            axios.get('https://graph.facebook.com/v12.0/oauth/access_token?client_id=901148574169051&redirect_uri=https://auth.expo.io/@anja-roed/olivia&client_secret=2d91e92e61689798cfeb3efaa2280932&code='+code)
+            //axios.get('https://graph.facebook.com/v12.0/oauth/access_token?', {params: {
+            //        client_id: '901148574169051',
+            //        redirect_uri:  'https://auth.expo.io/@anja-roed/olivia', //'fb901148574169051://authorize', <- needs to be changed to this once app is in production
+            //        client_secret: '2d91e92e61689798cfeb3efaa2280932',
+            //        code: code
+            //}})
             .then(reps => console.log(resp))
             .catch(err => console.log('err', err))
 
