@@ -18,10 +18,11 @@ export default function TodoEmpty({navigation}) {
       <InnerContainer>
 
         <NewTaskButton
-          icon={({ size, color }) => (
+        mode='contained'
+          icon={() => (
             <Image
           source={require('../../../assets/images/plus.png')}
-          style={{width: 22, height: 22, tintColor : '#FFFFFF'}}
+          style={{width: 25, height: 25, tintColor : '#FFFFFF'}}
           onPress = {() => navigation.navigate("TBD")}
           />
           )}

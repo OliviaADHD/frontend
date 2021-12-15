@@ -13,7 +13,7 @@ const {white, purple} = Colors;
 
 
 export const NewTaskButton = styled(Button)`
-width: 30%;
+width: 40%;
 padding: 10px;
 background-color: ${purple};
 `
