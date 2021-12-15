@@ -18,20 +18,20 @@ export default function TodoEmpty({navigation}) {
 
         <ButtonContainer>
 
-        <NewTaskButton
-          mode='contained'
-          icon={() => (
-            <Image
-              source={require('../../../assets/images/plus.png')}
-              style={{width: 25, height: 25, tintColor : '#FFFFFF'}}
-              onPress = {() => navigation.navigate("TBD")}
-            />
-          )}
-        >
+          <NewTaskButton
+            mode='contained'
+            icon={() => (
+              <Image
+                source={require('../../../assets/images/plus.png')}
+                style={{width: 25, height: 25, tintColor : '#FFFFFF'}}
+                onPress = {() => navigation.navigate("TBD")}
+              />
+            )}
+          >
 
-          <ButtonText> New Task</ButtonText>
+            <ButtonText> New Task</ButtonText>
 
-        </NewTaskButton>
+          </NewTaskButton>
 
         </ButtonContainer>
 
