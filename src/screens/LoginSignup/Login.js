@@ -85,6 +85,11 @@ const Login = ({navigation}) => {
                         index: 0,
                         routes: [{ name: 'Welcome_Post_Signup' }]});
                     }
+                else if (resp.tutDone === false){
+                    navigation.reset({
+                        index: 0,
+                        routes: [{ name: 'TutorialDashboard' }]});
+                }
                 else {
                     navigation.reset({
                         index: 0,
@@ -169,6 +174,11 @@ const Login = ({navigation}) => {
                         index: 0,
                         routes: [{ name: 'Welcome_Post_Signup' }]});
                     }
+                else if (resp.tutDone === false){
+                    navigation.reset({
+                        index: 0,
+                        routes: [{ name: 'TutorialDashboard' }]});
+                    }
                 else {
                     navigation.reset({
                         index: 0,
@@ -232,6 +242,11 @@ const Login = ({navigation}) => {
                                             index: 0,
                                             routes: [{ name: 'Welcome_Post_Signup' }]});
                                         }
+                                    else if (resp.tutDone === false){
+                                        navigation.reset({
+                                            index: 0,
+                                            routes: [{ name: 'TutorialDashboard' }]});
+                                    }
                                     else {
                                         navigation.reset({
                                             index: 0,

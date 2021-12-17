@@ -15,6 +15,7 @@ import { SIGN_UP,
     SET_FIRST_TIME,
     SET_NETWORK_ERROR_TRUE,
     SET_USER_NAME,
+    DASHBOARD_TUT
   } from "../types";
 import axios from "axios";
 import {link} from '../../config/config'
@@ -127,10 +128,11 @@ export const signInGoogle = (token) => async dispatch => {
         type: SIGN_IN_SUCCESS,
         payload: {passed:true, error: false}
       });
+      dispatch({type: DASHBOARD_TUT, payload: res.data.tutDone});
       dispatch({
         type: SET_NETWORK_ERROR_FALSE,
         payload: {}});
-      return {success: true, firstTime: res.data.firstTime};
+      return {success: true, firstTime: res.data.firstTime, tutDone: res.data.tutDone};
   })
   .catch(err => {
     if (err.response === undefined) {
@@ -166,10 +168,11 @@ export const signInFacebook = (token) => async dispatch => {
         type: SIGN_IN_SUCCESS,
         payload: {passed:true, error: false}
       });
+      dispatch({type: DASHBOARD_TUT, payload: res.data.tutDone});
       dispatch({
         type: SET_NETWORK_ERROR_FALSE,
         payload: {}});
-      return {success: true, firstTime: res.data.firstTime};
+      return {success: true, firstTime: res.data.firstTime, tutDone: res.data.tutDone};
   })
   .catch(err => {
     if (err.response === undefined) {
@@ -236,10 +239,11 @@ export const signIn = (loginData) =>async dispatch => {
       dispatch({type: SET_USER_NAME, payload: res.data.name});
       dispatch({type: SET_USER_ID, payload: res.data.userId});
       dispatch({type: SET_FIRST_TIME, payload: res.data.firstTime});
+      dispatch({type: DASHBOARD_TUT, payload: res.data.tutDone});
       dispatch({
         type: SET_NETWORK_ERROR_FALSE,
         payload: {}});
-      return {success: true, firstTime: res.data.firstTime};
+      return {success: true, firstTime: res.data.firstTime, tutDone: res.data.tutDone};
   })
   .catch(err => {
     if (err.response === undefined) {
