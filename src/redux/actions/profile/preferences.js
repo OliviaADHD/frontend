@@ -25,7 +25,6 @@ export const beforePreferences = () => async dispatch => {
   };
 
   export const updatePreferences = (preferences) =>async dispatch => {
-    console.warn(preferences)
     return axios.post(profileLink + "preferences", preferences,{
       headers: headers
     }, {timeout: 2})

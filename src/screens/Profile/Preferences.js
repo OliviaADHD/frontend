@@ -4,7 +4,6 @@ import {Text, Switch, ActivityIndicator} from "react-native";
 import {StatusBar} from "expo-status-bar";
 import {useFormik} from 'formik';
 import {Picker as SelectPicker} from '@react-native-picker/picker';
-import {Colors} from "../../css/general/style";
 import { beforePreferences, updatePreferences } from '../../redux/actions/profile/preferences'
 import {
     StyledFormArea,
@@ -17,13 +16,13 @@ import {
     DarkModeSectionText
 } from "../../css/Profile/preferences";
 
-import {StyledContainer, InnerContainer, Loading} from "../../css/general/style";
+import {StyledContainer, InnerContainer, Loading, Colors} from "../../css/general/style";
 import {LongButton, ButtonText} from '../../css/components/saveButton'
 import SaveButton from "../../components/SaveButton";
 import ProfileTopContainer from "../../components/ProfileTopContainer";
 import DashBoardBottomMenu from "../../components/DashboardBottomMenu";
 import { useDispatch, useSelector } from "react-redux";
-
+import FlashMessage, { FlashMessageManager, showMessage, hideMessage } from "react-native-flash-message";
 
 const Preferences = ({navigation}) => {
     const dispatch = useDispatch();
@@ -54,13 +53,36 @@ const Preferences = ({navigation}) => {
           const preferenceBody = {
               language: result[0].id,
               darkMode: values.switch,
-              userId: 7
+              userId: 36
             }
-            //setLoading(true);
+            setLoading(true);
             dispatch(beforePreferences());
             dispatch(updatePreferences(preferenceBody))
-            .then(() => setLoading(false));
-            
+            .then(() => {
+              setLoading(false);
+              const message = {
+                  message: "Updated",
+                  description: "Your Profile has been updated",
+                  icon: { icon: "auto", position: "left" },
+                  type:"success",
+                  backgroundColor:Colors.purple, // background color
+                  color: Colors.white,
+              }
+              
+              showMessage(message);
+            })
+            .catch(err => {
+              setLoading(false);
+              const message = {
+                  message: "Updated",
+                  description: "Error happened",
+                  icon: { icon: "danger", position: "left" },
+                  type:"success",
+                  backgroundColor:Colors.red, // background color
+                  color: Colors.white,
+              }
+              showMessage(message);
+          });            
         }
     });
 
@@ -168,7 +190,7 @@ const Preferences = ({navigation}) => {
                   </Loading>
                 }
                 <DashBoardBottomMenu currentScreen={"Profile"} navigation={navigation}/>
-
+                <FlashMessage position="bottom" />
             </InnerContainer>
 
         </StyledContainer>
