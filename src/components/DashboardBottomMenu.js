@@ -33,7 +33,7 @@ class IconAndText extends React.Component {
 
 var iconName = ["blood-drop","list-1","ios-home-sharp","heartbeat","ios-person-sharp"];
 var iconType =  ["fontisto","fontisto","ionicon","font-awesome","ionicon"];
-var screens = ["Cycle", "ToDoList", "Home", "Awareness", "Profile"];
+var screens = ["Cycle", "ToDoList", "Home", "Awareness", "Settings"];
 
 
 const DashBoardBottomMenu = ({currentScreen,navigation}) => {
