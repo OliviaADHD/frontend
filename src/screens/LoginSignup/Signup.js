@@ -259,6 +259,7 @@ const Signup = ({navigation, route}) => {
                             onChangeText={handleChange('fullName')}
                             onBlur={handleBlur('fullName')}
                             value={values.fullName}
+                            style={(touched.fullName && errors.fullName)?{marginBottom: "1%"}:{}}
                         />
                         { touched.fullName && errors.fullName &&
                             <ErrorMessage>
@@ -271,6 +272,7 @@ const Signup = ({navigation, route}) => {
                         onChangeText={handleChange('login')}
                         onBlur={handleBlur('login')}
                         value={values.login}
+                        style={((touched.login && errors.login) || (loginError))?{marginBottom: "1%"}:{}}
                         />
                         { touched.login && errors.login &&
                             <ErrorMessage>
@@ -291,6 +293,7 @@ const Signup = ({navigation, route}) => {
                             onBlur={handleBlur('email')}
                             value={values.email}
                             keyboardType="email-address"
+                            style={((touched.email && errors.email) || (emailError))?{marginBottom: "1%"}:{}}
                         />
                         { touched.email && errors.email &&
                             <ErrorMessage>
@@ -314,13 +317,14 @@ const Signup = ({navigation, route}) => {
                             isPassword={true}
                             hidePassword={hidePassword}
                             setHidePassword={setHidePassword}
+                            style={((touched.password && errors.password))?{marginBottom: "1%"}:{}}
                         />
                         { touched.password && errors.password &&
                             <ErrorMessage>
                                 <ErrorText>{errors.password}</ErrorText>
                             </ErrorMessage> 
                         }
-                        <PrivacyArea onPress = {() => navigation.navigate('Privacy')}>
+                        <PrivacyArea onPress = {() => navigation.navigate('Privacy')} style={{alignItems: "center", marginBottom: "2%"}}>
                             <CheckBox
                                 value={isSelected}
                                 onValueChange={(value)=>setIsSelected(value)}
@@ -333,24 +337,23 @@ const Signup = ({navigation, route}) => {
                                 <ErrorPrivacyText>I Agree With Terms Of Privacy Policy.</ErrorPrivacyText>
                             }                           
                         </PrivacyArea>
-
-
-                            <StyledButton onPress={handleSubmit} testID='SubmitButton'>
+                            <StyledButton onPress={handleSubmit} testID='SubmitButton' 
+                                        style={(networkError.error || googleError || fbError)?{marginBottom: "0%"}:{marginBottom: "5%"}}>
                                 <ButtonText>Signup</ButtonText>
                             </StyledButton>
                         
                         {networkError.error && 
-                            <ErrorMessage>
+                            <ErrorMessage style={{alignSelf: "center"}}>
                                 <ErrorText>No network connection. Please try again later.</ErrorText>
                             </ErrorMessage>
                         }
                         {googleError && 
-                            <ErrorMessage>
+                            <ErrorMessage style={{alignSelf: "center"}}>
                                 <ErrorText>Error signing up with google.</ErrorText>
                             </ErrorMessage>
                         }
                         {fbError && 
-                            <ErrorMessage>
+                            <ErrorMessage style={{alignSelf: "center"}}>
                                 <ErrorText>Error signing up with facebook.</ErrorText>
                             </ErrorMessage>
                         }
@@ -410,12 +413,12 @@ const styles = StyleSheet.create({
     }
   });
 
-export const MyTextInput = ({isPassword, icon, hidePassword, setHidePassword, ...props}) => {
+export const MyTextInput = ({isPassword, icon, hidePassword, setHidePassword, style, ...props}) => {
     return (
         <View>
-            <StyledTextInput {...props} />
+            <StyledTextInput {...props} style={style} />
             {isPassword && (
-                <RightIcon onPress={() => setHidePassword(!hidePassword)}>
+                <RightIcon onPress={() => setHidePassword(!hidePassword)} style={[{height: "1%"}, (Object.keys(style).length === 0)?{top: "-75%"}:{top: "-65%"}]}>
                     <Ionicons name={hidePassword ? 'md-eye-off' : 'md-eye'} size={19}/>
                 </RightIcon>
             )}
