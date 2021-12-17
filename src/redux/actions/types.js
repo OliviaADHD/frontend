@@ -59,6 +59,10 @@ export const PREFERENCES = 'PREFERENCES';
 export const PREFERENCES_SUCCESS = 'PREFERENCES_SUCCESS';
 export const PREFERENCES_FAILED = 'PREFERENCES_FAILED';
 
+export const PRIVACY = 'PRIVACY';
+export const PRIVACY_SUCCESS = 'PRIVACY_SUCCESS';
+export const PRIVACY_FAILED = 'PRIVACY_FAILED';
+
 //Profile settings
 export const SET_LANGUAGE = 'SET_LANGUAGE';
 export const SET_DARKMODE = 'SET_DARKMODE';
