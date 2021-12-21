@@ -15,5 +15,6 @@ export const InputContainer = styled.View`
   background-color: ${white};
   width: 100%;
   height: 25%;
-  border: ${purple};
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
 `
