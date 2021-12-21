@@ -4,12 +4,12 @@ import {Colors} from '../general/style';
 import styled from 'styled-components';
 
 const StatusBarHeight = Constants.statusBarHeight;
-const { lightpurple, white } = Colors;
+const { lightpurple, white, darkgray } = Colors;
 
 export const StyledContainer = styled.View`
   flex: 1;
   margin-top: ${StatusBarHeight}px;
-  background-color: ${white};
+  background-color: ${darkgray};
 `;
 
 export const InnerContainer = styled.View`

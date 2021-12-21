@@ -9,7 +9,7 @@ import {
 
 } from "../../css/todoList/style"
 
-import {textPlaceholder} from "../../css/todoList/inputTaskContainer"
+import {InputContainer, TextPlaceholder} from "../../css/todoList/inputTaskContainer"
 
 export default function CreateTaskContainer({navigation}) {
   return (
@@ -18,11 +18,16 @@ export default function CreateTaskContainer({navigation}) {
       <StatusBar style="dark"/>
       <InnerContainer>
 
-        <StyledFormArea>
+        {/* <StyledFormArea> */}
+        <InputContainer>
+        <TextPlaceholder>
+            Create a small task
+          </TextPlaceholder>
+        
+        </InputContainer>
+          
 
-          <textPlaceholder>Create a small task</textPlaceholder>
-
-        </StyledFormArea>
+        {/* </StyledFormArea> */}
 
       </InnerContainer>
 
