@@ -5,7 +5,7 @@ import { Text, Button, Icon, View, Image } from "react-native";
 import { 
   StyledContainer,
   InnerContainer,
-  StyledFormArea,
+  // StyledFormArea,
 
 } from "../../css/todoList/style"
 

@@ -17,4 +17,5 @@ export const InputContainer = styled.View`
   height: 25%;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
+  margin-top: 75%;
 `
