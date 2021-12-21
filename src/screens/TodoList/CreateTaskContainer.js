@@ -9,6 +9,8 @@ import {
 
 } from "../../css/todoList/style"
 
+import {textPlaceholder} from "../../css/todoList/inputTaskContainer"
+
 export default function CreateTaskContainer({navigation}) {
   return (
 
@@ -18,7 +20,7 @@ export default function CreateTaskContainer({navigation}) {
 
         <StyledFormArea>
 
-          <Text>Hello</Text>
+          <textPlaceholder>Create a small task</textPlaceholder>
 
         </StyledFormArea>
 
