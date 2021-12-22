@@ -23,17 +23,7 @@ export default function CreateTaskContainer({navigation}) {
 
         <InputContainer>
 
-          {/* <Image
-          source={require('../../../assets/images/window-close.png')}
-          style={{width: 25, height: 25, tintColor : '#000000'}}
-        /> */}
-
-        {/* <CloseWindow>b</CloseWindow> */}
-
-        {/* <CloseWindow
-        // onPress = {() => navigation.navigate('TodoEmpty')}
-      /> */}
-<CloseWindow />
+          <CloseWindow />
       
           <TextPlaceholder>
               Create a small task
