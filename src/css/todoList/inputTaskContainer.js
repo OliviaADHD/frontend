@@ -23,5 +23,4 @@ export const InputContainer = styled.View`
 
 export const CloseWindowContainer = styled.View`
   padding: 5% 0% 0% 85%;
-
 `
