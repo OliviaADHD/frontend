@@ -19,12 +19,13 @@ export default function CloseWindow({navigation}) {
       </Button> */}
       <TouchableOpacity
         // activeOpacity={0.5}
-        // onPress = {() => navigation.navigate('TodoEmpty')}
+        onPress = {() => navigation.navigate('TodoEmpty')}
       >
         <Image
           source={require('../../../assets/images/window-close.png')}
           style={{width: 25, height: 25, tintColor : '#000000'}}
         />
+        
       </TouchableOpacity>
 
     </View>

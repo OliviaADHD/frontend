@@ -30,7 +30,6 @@ class ProfileTopContainer extends React.Component {
       }}>
 
       <Image source={require('../../assets/images/foxicon.png')}
-      // /Users/i-mac/frontend/assets/images/foxicon.png
         style={{
           width: 70, 
           height: 70,

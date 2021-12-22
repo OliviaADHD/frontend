@@ -24,8 +24,8 @@ export default function CreateTaskContainer({navigation}) {
         <InputContainer>
 
           <CloseWindow 
-            activeOpacity={0.5}
-            onPress = {() => navigation.navigate('TodoEmpty')}          
+            // activeOpacity={0.5}
+            // onPress = {() => navigation.navigate('TodoEmpty')}          
           />
       
           <TextPlaceholder>
