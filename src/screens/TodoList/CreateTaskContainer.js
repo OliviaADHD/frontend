@@ -2,6 +2,7 @@ import React from 'react';
 import { StatusBar } from "expo-status-bar";
 import { Text, Icon, View, Button, Image } from "react-native";
 // import {Button} from 'react-native-paper'
+import { Formik } from 'formik';
 
 import { 
   StyledContainer,
@@ -18,7 +19,7 @@ import SubmitArrow from './SubmitArrow';
 
 export default function CreateTaskContainer({navigation}) {
 
-  
+
 
 
   return (
@@ -38,15 +39,58 @@ export default function CreateTaskContainer({navigation}) {
 
           </IconsContainer>
 
-          <TextPlaceholder>
-            Create a small task
-          </TextPlaceholder>
+          <Formik
+
+initialValues={{ input: '' }}
+validate={values => {
+  const errors = {};
+  if (!values.input) {
+    errors.input = 'Required';
+  } 
+  return errors;
+}}
+onSubmit={(values, { setSubmitting }) => {
+  setTimeout(() => {
+    alert(JSON.stringify(values, null, 2));
+    setSubmitting(true);
+  }, 400);
+}}
+>{({    
+  values,
+  errors,
+  touched,
+  handleChange,
+  handleBlur,
+  handleSubmit,
+  isSubmitting})=> (
+
+          <TextPlaceholder
+            type='input'
+            name='input'
+            placeholder='Create a small task'
+            onChangeText={handleChange('input')}
+            onBlur={handleBlur('input')}
+            keyboardType='input'
+          />
+            
           
           <IconsContainer>
           
-            <SubmitArrow />
+            <SubmitArrow 
+              type='submit'
+              disabled={isSubmitting}
+              onPress={() => {
+                handleSubmit
+                navigation.navigate('Welcome')
+              }}
+            />
+              </IconsContainer>
+              )}
+
           
-          </IconsContainer>
+          
+            
+</Formik>
 
         </InputContainer>
 

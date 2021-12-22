@@ -16,8 +16,8 @@ export default function SubmitArrow() {
         mode='text'
         title=''
         activeOpacity={0.5}
-        onPress = {() => navigation.replace("TodoEmpty")}
-        raised theme={{ roundness: 100 }}
+        // onPress = {() => navigation.replace("TodoEmpty")}
+        // raised theme={{ roundness: 100 }}
         // color='#FFFFFF'
         color='#C7A3D2'
         style={{width: 50, height: 50, alignItems:'center', justifyContent:'center', borderRadius:50}}

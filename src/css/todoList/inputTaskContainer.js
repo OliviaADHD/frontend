@@ -6,7 +6,7 @@ import {Colors} from '../general/style';
 const {white, purple, gray} = Colors;
 
 
-export const TextPlaceholder = styled.Text`
+export const TextPlaceholder = styled.TextInput`
   font-size: 16px; 
   color: ${gray};
   padding: 5% 0 0 10%;
