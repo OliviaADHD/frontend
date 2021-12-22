@@ -8,12 +8,12 @@ export default function CloseWindow({navigation}) {
 
       <Button
         mode='contained'
-        // icon={() => (
-        //   <Image
-        //   source={require('../../../assets/images/window-close.png')}
-        //   style={{width: 25, height: 25, tintColor : '#FFFFFF'}}
-        // />
-        // )}
+        icon={() => (
+          <Image
+          source={require('../../../assets/images/window-close.png')}
+          style={{width: 25, height: 25, tintColor : '#000000'}}
+        />
+        )}
         onPress = {() => navigation.navigate('TodoEmpty')}
       />
 
