@@ -28,7 +28,7 @@ export default function CloseWindow() {
 
 
       <TouchableOpacity
-        mode='outlined'
+        // mode='outlined'
         title=''
         activeOpacity={0.5}
         onPress = {() => navigation.navigate('TodoEmpty')} 
