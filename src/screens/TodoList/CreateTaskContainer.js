@@ -1,7 +1,7 @@
 import React from 'react';
 import { StatusBar } from "expo-status-bar";
-import { Text, Icon, View, Image } from "react-native";
-import {Button} from 'react-native-paper'
+import { Text, Icon, View, Button, Image } from "react-native";
+// import {Button} from 'react-native-paper'
 
 import { 
   StyledContainer,
@@ -12,7 +12,7 @@ import {
 
 import {InputContainer, TextPlaceholder} from "../../css/todoList/inputTaskContainer"
 
-import {CloseWindow} from './CloseWindow'
+import CloseWindow from './CloseWindow'
 
 export default function CreateTaskContainer({navigation}) {
   return (
@@ -30,16 +30,10 @@ export default function CreateTaskContainer({navigation}) {
 
         {/* <CloseWindow>b</CloseWindow> */}
 
-        <Button
-        mode='contained'
-        icon={() => (
-          <Image
-          source={require('../../../assets/images/window-close.png')}
-          style={{width: 25, height: 25, tintColor : '#000000'}}
-        />
-        )}
-        onPress = {() => navigation.navigate('TodoEmpty')}
-      />
+        {/* <CloseWindow
+        // onPress = {() => navigation.navigate('TodoEmpty')}
+      /> */}
+<CloseWindow />
       
           <TextPlaceholder>
               Create a small task
