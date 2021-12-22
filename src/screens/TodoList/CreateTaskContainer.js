@@ -17,6 +17,10 @@ import CloseWindow from './CloseWindow'
 import SubmitArrow from './SubmitArrow';
 
 export default function CreateTaskContainer({navigation}) {
+
+  
+
+
   return (
 
     <StyledContainer>
@@ -25,21 +29,24 @@ export default function CreateTaskContainer({navigation}) {
 
         <InputContainer>
 
-        <IconsContainer>
+          <IconsContainer>
 
-        <CloseWindow 
-            // activeOpacity={0.5}
-            // onPress = {() => navigation.navigate('TodoEmpty')}          
-          />
+            <CloseWindow 
+                // activeOpacity={0.5}
+                // onPress = {() => navigation.navigate('TodoEmpty')}          
+              />
 
-        </IconsContainer>
+          </IconsContainer>
 
           <TextPlaceholder>
-              Create a small task
+            Create a small task
           </TextPlaceholder>
+          
           <IconsContainer>
-        <SubmitArrow />
-        </IconsContainer>
+          
+            <SubmitArrow />
+          
+          </IconsContainer>
 
         </InputContainer>
 
