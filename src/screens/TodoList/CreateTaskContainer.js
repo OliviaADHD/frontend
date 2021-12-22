@@ -10,9 +10,11 @@ import {
 
 } from "../../css/todoList/style"
 
-import {InputContainer, TextPlaceholder, CloseWindowContainer} from "../../css/todoList/inputTaskContainer"
+import {InputContainer, TextPlaceholder, IconsContainer} from "../../css/todoList/inputTaskContainer"
 
 import CloseWindow from './CloseWindow'
+
+import SubmitArrow from './SubmitArrow';
 
 export default function CreateTaskContainer({navigation}) {
   return (
@@ -23,21 +25,21 @@ export default function CreateTaskContainer({navigation}) {
 
         <InputContainer>
 
-        <CloseWindowContainer>
+        <IconsContainer>
 
         <CloseWindow 
             // activeOpacity={0.5}
             // onPress = {() => navigation.navigate('TodoEmpty')}          
           />
 
-        </CloseWindowContainer>
+        </IconsContainer>
 
           <TextPlaceholder>
               Create a small task
           </TextPlaceholder>
-
-
-        
+          <IconsContainer>
+        <SubmitArrow />
+        </IconsContainer>
 
         </InputContainer>
 

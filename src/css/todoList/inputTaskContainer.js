@@ -21,6 +21,6 @@ export const InputContainer = styled.View`
   background-color: ${white};
 `
 
-export const CloseWindowContainer = styled.View`
+export const IconsContainer = styled.View`
   padding: 5% 0% 0% 85%;
 `
