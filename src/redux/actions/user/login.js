@@ -13,6 +13,7 @@ import { SIGN_UP,
     SET_NETWORK_ERROR_FALSE,
     SET_USER_ID,
     SET_FIRST_TIME,
+    SET_EMAIL,
     SET_NETWORK_ERROR_TRUE,
     SET_USER_NAME,
     SET_HIDEPHOTO,
@@ -43,6 +44,8 @@ export const beforeSignIn = () => async dispatch => {
       dispatch({type: SET_USER_NAME, payload: res.data.name});
       dispatch({type: SET_USER_ID, payload: res.data.userId});
       dispatch({type: SET_FIRST_TIME, payload: res.data.firstTime});
+      dispatch({type: SET_EMAIL, payload: res.data.firstTime});
+
       dispatch({type: SET_HIDEPHOTO, payload: res.data.hidePhoto});
       dispatch({type:SET_NOTIFICATION, payload: res.data.stopNotification});
       dispatch({type: SET_DARKMODE, payload: res.data.darkMode});
@@ -93,6 +96,8 @@ export const beforeSignIn = () => async dispatch => {
         dispatch({type: SET_USER_NAME, payload: res.data.name});
         dispatch({type: SET_USER_ID, payload: res.data.userId});
         dispatch({type: SET_FIRST_TIME, payload: res.data.firstTime});
+        dispatch({type: SET_EMAIL, payload: loginData.email});
+
         dispatch({type: SET_HIDEPHOTO, payload: res.data.hidePhoto});
         dispatch({type:SET_NOTIFICATION, payload: res.data.stopNotification});
         dispatch({type: SET_DARKMODE, payload: res.data.darkMode});

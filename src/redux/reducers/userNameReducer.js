@@ -1,6 +1,7 @@
 import { SET_USER_NAME,
         SET_USER_ID,
-        SET_FIRST_TIME  } from "../actions/types";
+        SET_FIRST_TIME,
+        SET_EMAIL  } from "../actions/types";
 
 const userData = {
     Name: "",
@@ -25,6 +26,11 @@ const userNameReducer = (state = userData, action) => {
                 ...state,
                 firstTime: action.payload
             };
+        case SET_EMAIL:
+                return{
+                    ...state,
+                    email: action.payload
+                };
         default:
             return state;
     }
