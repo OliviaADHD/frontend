@@ -57,8 +57,13 @@ export const newUserGoogle = (token) => async dispatch => {
   .then(resp => {
       dispatch({type: SIGN_UP_SUCCESS,
                 payload: {passed: true}});
-      setUserData(resp);
-      setProfileData();
+      dispatch({type: SET_USER_ID, payload: resp.data.userId});
+      dispatch({type:SET_USER_NAME, payload: resp.data.name});
+      dispatch({type: SET_FIRST_TIME, payload: true});
+      dispatch({type: SET_HIDEPHOTO, payload: false});
+      dispatch({type:SET_NOTIFICATION, payload: true});
+      dispatch({type: SET_DARKMODE, payload: false});
+      dispatch({type: SET_LANGUAGE, payload: "English"});
       return true;
     })
   .catch(err => {
@@ -87,8 +92,13 @@ export const newUser = (user) => async dispatch => {
   .then(resp => {
     dispatch({type: SIGN_UP_SUCCESS,
               payload: {passed: true}});
-    setUserData(resp);
-    setProfileData();
+  dispatch({type: SET_USER_ID, payload: resp.data.userId});
+  dispatch({type:SET_USER_NAME, payload: resp.data.name});
+  dispatch({type: SET_FIRST_TIME, payload: true});
+    dispatch({type: SET_HIDEPHOTO, payload: false});
+    dispatch({type:SET_NOTIFICATION, payload: true});
+    dispatch({type: SET_DARKMODE, payload: false});
+    dispatch({type: SET_LANGUAGE, payload: "English"});
     return true;
   })
   .catch(err =>{
@@ -185,17 +195,12 @@ export const verifyLogin = (login) => async dispatch => {
 
 
 const setUserData = (resp) => async dispatch =>{
-  dispatch({type: SET_USER_ID, payload: resp.data.userId});
-  dispatch({type:SET_USER_NAME, payload: resp.data.name});
-  dispatch({type: SET_FIRST_TIME, payload: true});
+
 }
 
 
 const setProfileData = () => async dispatch =>{
-  dispatch({type: SET_HIDEPHOTO, payload: false});
-  dispatch({type:SET_NOTIFICATION, payload: true});
-  dispatch({type: SET_DARKMODE, payload: false});
-  dispatch({type: SET_LANGUAGE, payload: "English"});
+
 }
 
 

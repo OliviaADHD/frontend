@@ -178,6 +178,7 @@ const Login = ({navigation}) => {
                         validationSchema={signInValidationSchema}
                         onSubmit={(values) => {
                             setLoading(true);
+                            console.warn("dum");
                             dispatch(beforeSignIn())
                             .then(() => dispatch(signIn(values)))
                             .then((resp) => {
