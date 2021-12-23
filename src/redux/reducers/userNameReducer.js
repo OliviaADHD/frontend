@@ -3,9 +3,9 @@ import { SET_USER_NAME,
         SET_FIRST_TIME  } from "../actions/types";
 
 const userData = {
-    Name: "testName",
-    userId: 1,
-    firstTime: true  
+    Name: "",
+    userId: 0,
+    firstTime: null  
 }
 
 const userNameReducer = (state = userData, action) => {

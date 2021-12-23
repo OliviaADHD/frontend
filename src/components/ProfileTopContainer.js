@@ -79,12 +79,11 @@ class ProfileTopContainer extends React.Component {
 }
 
 const mapStateToProps = state => {
-  const  {fullName} = state;
-  const  {email} = state;
+  const  {userName} = state.userName;
 
-  console.log('user data mapStateToProps ... state:' + JSON.stringify(state));
+  console.log('user data mapStateToProps ... state:' + JSON.stringify(userName));
 
-  return {fullName, email};
+  return {userName};
 };
 
 export default connect(

@@ -113,6 +113,7 @@ export const beforeSignIn = () => async dispatch => {
 
 
 const setUserData = (res) => async dispatch => {
+  console.warn("login we entered");
   dispatch({type: SET_USER_NAME, payload: res.data.name});
   dispatch({type: SET_USER_ID, payload: res.data.userId});
   dispatch({type: SET_FIRST_TIME, payload: res.data.firstTime});
