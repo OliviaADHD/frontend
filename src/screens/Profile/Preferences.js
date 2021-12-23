@@ -18,12 +18,14 @@ import {StyledContainer, InnerContainer, Loading, Colors} from "../../css/genera
 import {LongButton, ButtonText} from '../../css/components/saveButton';
 import ProfileTopContainer from "../../components/ProfileTopContainer";
 import DashBoardBottomMenu from "../../components/DashboardBottomMenu";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import FlashMessage, {  showMessage } from "react-native-flash-message";
 
 const Preferences = ({navigation}) => {
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(false);
+    const userData = useSelector(state => state.userName);
+    const profileData = useSelector(state => state.profileInfo);
     const languages = [
         {
             name: 'English',
@@ -39,8 +41,8 @@ const Preferences = ({navigation}) => {
 
     const formik = useFormik({
         initialValues: {
-            language: 'English',
-            switch: false
+            language: profileData.language,
+            switch: profileData.darkMode
         },
         onSubmit: values => {
           if(values.language == ''){
@@ -50,7 +52,7 @@ const Preferences = ({navigation}) => {
           const preferenceBody = {
               language: result[0].id,
               darkMode: values.switch,
-              userId: 36
+              userId: userData.userId
           }
             setLoading(true);
             dispatch(beforePreferences());
