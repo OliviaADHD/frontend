@@ -33,7 +33,7 @@ import * as Facebook from 'expo-auth-session/providers/facebook';
 import { ResponseType } from 'expo-auth-session';
 import * as WebBrowser from 'expo-web-browser';
 
-import {newUser, newUserGoogle, verifyEmail, verifyLogin, beforeValidEmail, beforeValidLogin, beforeSignUP} from '../../redux/actions/user/user'
+import {newUser, newUserGoogle, verifyEmail, verifyLogin, beforeValidEmail, beforeValidLogin, beforeSignUP} from '../../redux/actions/user/signup'
 import * as yup from 'yup'
 import axios from "axios";
 
@@ -120,8 +120,6 @@ const Signup = ({navigation, route}) => {
     
 
     useEffect(() => {
-        console.error(route.params)
-        
         if(route.params === undefined){
             setIsSelected(false)
         }

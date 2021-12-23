@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {MediumExtraText, StyledFormArea, StyledButton, ButtonText} from '../../css/LoginSignup/messageReset';
 import {StyledContainer, InnerContainer, Loading} from '../../css/general/style';
 import { resetPass } from '../../redux/actions/user/reset';
-import {verifyEmail} from '../../redux/actions/user/user';
+import {verifyEmail} from '../../redux/actions/user/signup';
 
 const MessageResetPassword = ({navigation, route}) => {
   const dispatch = useDispatch();

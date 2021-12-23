@@ -9,7 +9,7 @@ import* as AuthSession from 'expo-auth-session';
 import * as Facebook from 'expo-auth-session/providers/facebook';
 import { ResponseType } from 'expo-auth-session';
 import * as WebBrowser from 'expo-web-browser';
-import { signIn, beforeSignIn, signInGoogle } from '../../redux/actions/user/user'
+import { signIn, beforeSignIn, signInGoogle } from '../../redux/actions/user/login'
 import {
   PageLogo,
   StyledFormArea,
