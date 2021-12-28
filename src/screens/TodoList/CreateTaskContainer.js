@@ -11,7 +11,7 @@ import {
 
 } from "../../css/todoList/style"
 
-import {InputContainer, TextPlaceholder, IconsContainer} from "../../css/todoList/inputTaskContainer"
+import {InputContainer, TextPlaceholder, IconsContainer, ItemsContainer} from "../../css/todoList/inputTaskContainer"
 
 import CloseWindow from './CloseWindow'
 
@@ -64,33 +64,33 @@ onSubmit={(values, { setSubmitting }) => {
   handleSubmit,
   isSubmitting})=> (
 
-          <TextPlaceholder
-            type='input'
-            name='input'
-            placeholder='Create a small task'
-            onChangeText={handleChange('input')}
-            onBlur={handleBlur('input')}
-            keyboardType='input'
-          />
-            
+    
+    <ItemsContainer>
+      <TextPlaceholder
+        type='input'
+        name='input'
+        placeholder='Create a small task'
+        onChangeText={handleChange('input')}
+        onBlur={handleBlur('input')}
+        keyboardType='default'/>
+        
+        <IconsContainer>
           
-          <IconsContainer>
-          
-            <SubmitArrow 
-              type='submit'
-              disabled={isSubmitting}
-              onPress={() => {
-                handleSubmit
-                navigation.navigate('Welcome')
-              }}
-            />
-              </IconsContainer>
-              )}
+          <SubmitArrow
+            type='submit'
+            disabled={isSubmitting}
+            onPress={() => {
+              handleSubmit;
+              navigation.navigate('Welcome');
+            } }
+          ></SubmitArrow>
+        
+        </IconsContainer>
+    </ItemsContainer>
 
-          
-          
-            
-</Formik>
+  )}
+ 
+  </Formik>
 
         </InputContainer>
 

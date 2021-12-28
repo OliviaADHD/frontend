@@ -9,7 +9,7 @@ const {white, purple, gray} = Colors;
 export const TextPlaceholder = styled.TextInput`
   font-size: 16px; 
   color: ${gray};
-  padding: 5% 0 0 10%;
+
 `
 
 export const InputContainer = styled.View`
@@ -19,6 +19,10 @@ export const InputContainer = styled.View`
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
   background-color: ${white};
+`
+
+export const ItemsContainer = styled.View`
+  padding: 5% 0% 0% 5%;
 `
 
 export const IconsContainer = styled.View`

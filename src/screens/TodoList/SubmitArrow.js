@@ -24,7 +24,7 @@ export default function SubmitArrow() {
       > 
         <Image
             source={require('../../../assets/images/PaperPlane.png')}
-            style={{width: 25, height: 25, tintColor : '#000000', alignSelf: 'center', alignItems: 'center', justifyContent: 'center'}}
+            style={{width: 25, height: 25, tintColor : '#000000', alignSelf: 'center', alignItems: 'center', justifyContent: 'center', marginBottom: 10, marginRight: 25}}
         />
 
       </TouchableOpacity>
