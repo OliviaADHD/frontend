@@ -9,7 +9,6 @@ const {white, purple, gray} = Colors;
 export const TextPlaceholder = styled.TextInput`
   font-size: 16px; 
   color: ${gray};
-
 `
 
 export const InputContainer = styled.View`
