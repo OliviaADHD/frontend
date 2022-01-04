@@ -128,7 +128,7 @@ const Login = ({navigation}) => {
     }, [responseGoogle]);
 
     //Facebook login
-    const [fbError, setfbError] = useState(false);
+    const [fbError, setfbError] = useState(true);
     const [fbClicked, setfbClicked] = useState(false);
 
     const discoveryfb = {
@@ -278,35 +278,35 @@ const Login = ({navigation}) => {
                             hidePassword={hidePassword}
                             setHidePassword={setHidePassword}
                         />
-                        <ForgotPassword onPress = {() =>  navigation.navigate("ResetPassword")}>
+                        <ForgotPassword onPress = {() =>  navigation.navigate("ResetPassword")} style={{alignSelf: "left"}}>
                             <ForgotPasswordText>Forgot Password?</ForgotPasswordText>
                         </ForgotPassword>
-                        <StyledButton onPress={handleSubmit}>
+                        <StyledButton onPress={handleSubmit} style={(fbError||networkError.error||loginState.message.error||googleError)?{marginBottom: "2%"}:{marginBottom: "7%"}}>
                             <ButtonText>Login</ButtonText>
                         </StyledButton>
                         {networkError.error && 
-                            <ErrorMessage>
+                            <ErrorMessage style={{alignSelf: "center"}}>
                                 <ErrorText>No network connection. Please try again later.</ErrorText>
                             </ErrorMessage>
                         }
                         { loginState.message.error &&
-                            <ErrorMessage>
+                            <ErrorMessage style={{alignSelf: "center"}}>
                                 <ErrorText>{loginState.message.errorMessage}</ErrorText>
                             </ErrorMessage> 
                         }
                         {googleError && 
-                            <ErrorMessage>
+                            <ErrorMessage style={{alignSelf: "center"}}>
                                 <ErrorText>Error signing in with google.</ErrorText>
                             </ErrorMessage>
                         }
                         {fbError && 
-                            <ErrorMessage>
+                            <ErrorMessage style={{alignSelf: "center"}}>
                                 <ErrorText>Error signing in with facebook.</ErrorText>
                             </ErrorMessage>
                         }
 
                         <Or>Or</Or>
-                        <IconContainer>
+                        <IconContainer style={{marginBottom: "2%"}}>
                             <EachIconContainer onPress={async()=>{
                                 setLoading(true);
                                 setGoogleClicked(true);
@@ -325,7 +325,7 @@ const Login = ({navigation}) => {
                                 <IconLogo  source={require('../../../assets/images/apple.png')} />
                             </EachIconContainer>
                         </IconContainer>
-                        <ExtraView>
+                        <ExtraView style={{marginTop: "0%"}}>
                             <ExtraText>Would You Like To Join Us? </ExtraText>
                             <TextLink onPress = {() =>  navigation.navigate("Signup")}>
                                 <TextLinkContent>Signup</TextLinkContent>
