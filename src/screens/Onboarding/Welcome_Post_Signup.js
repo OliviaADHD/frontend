@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { StatusBar } from "expo-status-bar";
 import {
     StyledContainer,
@@ -10,9 +10,20 @@ import {
     ButtonText,
 }from '../../css/styles';
 import {useSelector } from "react-redux";
+import {registerForPushNotificationsAsync, sendPushNotification} from '../../helpers/notifications';
 
 const Welcome_Post_Signup = ({navigation}) => {
   const userData = useSelector(state => state.userName);
+
+  useEffect(() => {
+    (() => registerForPushNotificationsAsync())();
+  },[]);
+
+  //example
+  const sendNotification = async() => {
+    console.warn(userData.token);
+    sendPushNotification(userData.token);
+  }
   
   return (
     
@@ -23,12 +34,17 @@ const Welcome_Post_Signup = ({navigation}) => {
       <CenteredImage source={require('../../../assets/images/woman_waving.png')} />
         
       <MediumExtraText>Hi {userData.Name}, We Would Love To Know About You!</MediumExtraText>
-      
       <StyledFormArea>
+      <StyledButton onPress = {() => sendNotification }>
+        <ButtonText>Test Push Notification</ButtonText>
+      </StyledButton>
+
         <StyledButton onPress = {() => navigation.replace("Questionnaire")}>
           <ButtonText>Proceed</ButtonText>
         </StyledButton>
-      </StyledFormArea>
+
+
+    </StyledFormArea>
     
     </InnerContainer>
 </StyledContainer>
