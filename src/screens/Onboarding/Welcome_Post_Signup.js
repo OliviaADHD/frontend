@@ -20,7 +20,9 @@ const Welcome_Post_Signup = ({navigation}) => {
   },[]);
 
   //example
-  const sendNotification = async() => {
+  const sendNotification = () => {
+    console.warn("Here we go")
+    console.warn(userData)
     console.warn(userData.token);
     sendPushNotification(userData.token);
   }
@@ -35,7 +37,7 @@ const Welcome_Post_Signup = ({navigation}) => {
         
       <MediumExtraText>Hi {userData.Name}, We Would Love To Know About You!</MediumExtraText>
       <StyledFormArea>
-      <StyledButton onPress = {() => sendNotification }>
+      <StyledButton onPress = {sendNotification }>
         <ButtonText>Test Push Notification</ButtonText>
       </StyledButton>
 

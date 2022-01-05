@@ -4,7 +4,7 @@ import { Text, View, Button, Platform } from 'react-native';
 import {PUSH_NOTIFICATIONS} from "../redux/actions/types";
 
 
-export const registerForPushNotificationsAsync = async() => {
+export const registerForPushNotificationsAsync = () => async dispatch => {
     let token;
     if (Constants.isDevice) {
       const { status: existingStatus } = await Notifications.getPermissionsAsync();
@@ -23,6 +23,7 @@ export const registerForPushNotificationsAsync = async() => {
       alert('Must use physical device for Push Notifications');
     }
     if(token){
+        console.warn("inside");
         dispatch({type: PUSH_NOTIFICATIONS, payload: token});
     }
     
