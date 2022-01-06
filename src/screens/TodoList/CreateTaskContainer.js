@@ -34,45 +34,7 @@ export default function CreateTaskContainer({navigation}) {
 
       <InnerContainer>
 
-      {/* <Formik
-
-initialValues={{ input: '' }}
-validate={values => {
-  const errors = {};
-  if (!values.input) {
-    errors.input = 'Required';
-  } 
-  return errors;
-}}
-onSubmit={(values, { setSubmitting }) => {
-  setTimeout(() => {
-    alert(JSON.stringify(values, null, 2));
-    setSubmitting(true);
-  }, 400);
-}}
->{({    
-  values,
-  errors,
-  touched,
-  handleChange,
-  handleBlur,
-  handleSubmit,
-  isSubmitting})=> ( */}
-
-
-
-        {/* <InputContainer> */}
-    {/* <ScrollView> */}
-          <IconsContainer>
-
-            <CloseWindow 
-                // activeOpacity={0.5}
-                // onPress = {() => navigation.navigate('TodoEmpty')}          
-              />
-
-          </IconsContainer>
-
-          <Formik
+      <Formik
 
 initialValues={{ input: '' }}
 validate={values => {
@@ -96,6 +58,44 @@ onSubmit={(values, { setSubmitting }) => {
   handleBlur,
   handleSubmit,
   isSubmitting})=> (
+
+
+
+        <InputContainer>
+    {/* <ScrollView> */}
+          <IconsContainer>
+
+            <CloseWindow 
+                // activeOpacity={0.5}
+                // onPress = {() => navigation.navigate('TodoEmpty')}          
+              />
+
+          </IconsContainer>
+
+          {/* <Formik
+
+initialValues={{ input: '' }}
+validate={values => {
+  const errors = {};
+  if (!values.input) {
+    errors.input = 'Required';
+  } 
+  return errors;
+}}
+onSubmit={(values, { setSubmitting }) => {
+  setTimeout(() => {
+    alert(JSON.stringify(values, null, 2));
+    setSubmitting(true);
+  }, 400);
+}}
+>{({    
+  values,
+  errors,
+  touched,
+  handleChange,
+  handleBlur,
+  handleSubmit,
+  isSubmitting})=> ( */}
 
     
     <ItemsContainer>
@@ -125,15 +125,15 @@ onSubmit={(values, { setSubmitting }) => {
       
     </ItemsContainer>
 
- )}
+ {/* )} */}
  
-  </Formik>
+  {/* </Formik> */}
 {/* </ScrollView> */}
-        {/* </InputContainer> */}
+        </InputContainer>
         
-{/* )}
+)}
  
-</Formik> */}
+</Formik>
       </InnerContainer>
       
     </StyledContainer>

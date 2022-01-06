@@ -11,10 +11,17 @@ export const TaskInputed= styled.TextInput`
   width: 100%;
   height: 25%;
   margin-top: auto;
-  border-top-left-radius: 25px;
-  border-top-right-radius: 25px;
-  background-color: ${white};
 `
+
+// export const TaskInputed= styled.TextInput`
+//   font-size: 16px;
+//   width: 100%;
+//   height: 25%;
+//   margin-top: auto;
+//   border-top-left-radius: 25px;
+//   border-top-right-radius: 25px;
+//   background-color: ${white};
+// `
 
 export const InputContainer = styled.View`
   width: 100%;
@@ -25,8 +32,18 @@ export const InputContainer = styled.View`
   background-color: ${white};
 `
 
+// export const InputContainer = styled.View`
+//   width: 100%;
+//   height: 25%;
+//   margin-top: 75%;
+//   border-top-left-radius: 25px;
+//   border-top-right-radius: 25px;
+//   background-color: ${white};
+// `
+
 export const ItemsContainer = styled.View`
   padding: 5% 0% 0% 5%;
+  background-color: ${white};
 `
 
 export const IconsContainer = styled.View`
