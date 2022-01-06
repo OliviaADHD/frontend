@@ -25,9 +25,10 @@ export default function CreateTaskContainer({navigation}) {
 
   return (
 
+    <KeyboardAwareScrollView>
 
-// {/* <KeyboardAwareScrollView> */}
-// {/* <ScrollView> */}
+{/* <KeyboardAwareScrollView> */}
+{/* <ScrollView> */}
     <StyledContainer>
       <StatusBar style="dark"/>
 
@@ -60,8 +61,8 @@ onSubmit={(values, { setSubmitting }) => {
 
 
 
-        <InputContainer>
-    <ScrollView>
+        {/* <InputContainer> */}
+    {/* <ScrollView> */}
           <IconsContainer>
 
             <CloseWindow 
@@ -127,8 +128,8 @@ onSubmit={(values, { setSubmitting }) => {
  )}
  
   </Formik>
-</ScrollView>
-        </InputContainer>
+{/* </ScrollView> */}
+        {/* </InputContainer> */}
         
 {/* )}
  
@@ -136,7 +137,7 @@ onSubmit={(values, { setSubmitting }) => {
       </InnerContainer>
       
     </StyledContainer>
-    // {/* </ScrollView> */}
-    // </KeyboardAwareScrollView>
+    {/* </ScrollView> */}
+    </KeyboardAwareScrollView>
   )
 }
