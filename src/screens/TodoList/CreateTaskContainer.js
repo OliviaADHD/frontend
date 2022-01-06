@@ -12,7 +12,7 @@ import {
 
 } from "../../css/todoList/style"
 
-import {InputContainer, TextPlaceholder, IconsContainer, ItemsContainer} from "../../css/todoList/inputTaskContainer"
+import {InputContainer, TaskInputed, IconsContainer, ItemsContainer} from "../../css/todoList/inputTaskContainer"
 
 import CloseWindow from './CloseWindow'
 
@@ -98,7 +98,7 @@ onSubmit={(values, { setSubmitting }) => {
 
     
     <ItemsContainer>
-      <TextPlaceholder
+      <TaskInputed
         type='input'
         name='input'
         placeholder='Create a small task'

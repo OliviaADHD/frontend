@@ -6,7 +6,7 @@ import {Colors} from '../general/style';
 const {white, purple, gray} = Colors;
 
 
-export const TextPlaceholder = styled.TextInput`
+export const TaskInputed= styled.TextInput`
   font-size: 16px; 
 `
 
