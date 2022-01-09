@@ -162,7 +162,6 @@ const discoveryfb = {
             if (resp.success === true){
                 setLoading(false);
                 setfbClicked(false);
-                console.log('first time??', resp.firstTime);
                 if (resp.firstTime){
 
                     navigation.reset({
