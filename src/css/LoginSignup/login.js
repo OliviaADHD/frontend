@@ -59,7 +59,8 @@ export const ForgotPassword = styled.TouchableOpacity`
 export const ForgotPasswordText = styled.Text`
     font-size: 15px;
     height: 45%;
-    text-align: center;
+    text-align: left;
+    margin-left: 5%;
 `;
 
 export const Or = styled.Text`

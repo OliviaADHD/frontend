@@ -49,19 +49,15 @@ const signInValidationSchema = yup.object().shape({
       .string().label('Password')
   })
 
-
 WebBrowser.maybeCompleteAuthSession();
 const useProxy = true;
 
-const Login = ({navigation}) => {
+const Login = ({navigation}) =>{
     const dispatch = useDispatch();
     const [hidePassword, setHidePassword] = useState(true);
     const [loading, setLoading] = useState(false);
-    const userData = useSelector(state => state.userName);
     const loginState = useSelector(state => state.loginInfo);
     const networkError = useSelector(state => state.networkAvailability);
-
-    //Google login
     const [googleError, setGoogleError] = useState(false);
     const [googleClicked, setGoogleClicked] = useState(false);
     const [requestGoogle, responseGoogle, promptAsyncGoogle] = Google.useAuthRequest({
@@ -127,11 +123,10 @@ const Login = ({navigation}) => {
 
     }, [responseGoogle]);
 
-    //Facebook login
-    const [fbError, setfbError] = useState(true);
+    const [fbError, setfbError] = useState(false);
     const [fbClicked, setfbClicked] = useState(false);
 
-    const discoveryfb = {
+const discoveryfb = {
         authorizationEndpoint: 'https://www.facebook.com/v12.0/dialog/oauth',
         tokenEndpoint: 'https://graph.facebook.com/v12.0/oauth/access_token'
     };
@@ -167,7 +162,7 @@ const Login = ({navigation}) => {
             if (resp.success === true){
                 setLoading(false);
                 setfbClicked(false);
-                
+                console.log('first time??', resp.firstTime);
                 if (resp.firstTime){
 
                     navigation.reset({
@@ -218,16 +213,13 @@ const Login = ({navigation}) => {
             setLoading(false);
         }
     }, [responseFb])
-    
-
-
 
     return(
-            <StyledContainer>
-                <StatusBar style="dark"/>
-                <InnerContainer>
-                    <PageLogo source={require('../../../assets/images/logo.png')} />
-                    <Formik
+        <StyledContainer>
+            <StatusBar style="dark"/>
+            <InnerContainer>
+                <PageLogo source={require('../../../assets/images/logo.png')} />
+                <Formik
                         initialValues={{email: '', password: ''}}
                         validationSchema={signInValidationSchema}
                         onSubmit={(values) => {
@@ -278,7 +270,7 @@ const Login = ({navigation}) => {
                             hidePassword={hidePassword}
                             setHidePassword={setHidePassword}
                         />
-                        <ForgotPassword onPress = {() =>  navigation.navigate("ResetPassword")} style={{alignSelf: "left"}}>
+                        <ForgotPassword onPress = {() =>  navigation.navigate("ResetPassword")}>
                             <ForgotPasswordText>Forgot Password?</ForgotPasswordText>
                         </ForgotPassword>
                         <StyledButton onPress={handleSubmit} style={(fbError||networkError.error||loginState.message.error||googleError)?{marginBottom: "2%"}:{marginBottom: "7%"}}>
@@ -294,6 +286,7 @@ const Login = ({navigation}) => {
                                 <ErrorText>{loginState.message.errorMessage}</ErrorText>
                             </ErrorMessage> 
                         }
+                        
                         {googleError && 
                             <ErrorMessage style={{alignSelf: "center"}}>
                                 <ErrorText>Error signing in with google.</ErrorText>
@@ -304,7 +297,6 @@ const Login = ({navigation}) => {
                                 <ErrorText>Error signing in with facebook.</ErrorText>
                             </ErrorMessage>
                         }
-
                         <Or>Or</Or>
                         <IconContainer style={{marginBottom: "2%"}}>
                             <EachIconContainer onPress={async()=>{
@@ -333,16 +325,15 @@ const Login = ({navigation}) => {
                         </ExtraView>
                     </StyledFormArea>)}
                     </Formik>
-                </InnerContainer>
-                {loading &&
+            </InnerContainer>
+            {loading &&
                     <Loading>
                         <ActivityIndicator size="large" color="#694398"/>
                     </Loading>
                 }
-            </StyledContainer>   
-        );
-    
-    }
+            </StyledContainer>);
+
+};
 
 const MyTextInput = ({isPassword, icon, hidePassword, setHidePassword, ...props}) => {
     return (
