@@ -20,7 +20,7 @@ import {StyleSheet} from "react-native";
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import { newQuestions,beforePOST } from '../../redux/actions/questionarrie/questionarrie'
 import { connect } from "react-redux";
-
+import {useSelector } from "react-redux";
 
 const handleAgeGroup = (ageGroup) => {
     switch (ageGroup) {
@@ -134,7 +134,7 @@ const handleSleepTime = (sleeps) => {
 }
 
 const Questionnaire = (props) => {
-
+    const userData = useSelector(state => state.userName);
     const [answerPage1, setAnswerPage1] = useState(undefined);
     const [answerPage2, setAnswerPage2] = useState(undefined);
     const [answerPage3, setAnswerPage3] = useState(undefined);
@@ -242,7 +242,7 @@ const Questionnaire = (props) => {
         ageGroup: handleAgeGroup(answerPage1),
         status: handleStatus(answerPage2),
         symptoms: answerPage3,
-        userId: 7,
+        userId: userData.userId,
         sleepTime: answerPage5,
         duration: handleDuration(answerPage4)
     };
