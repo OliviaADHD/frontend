@@ -54,7 +54,7 @@ const MessageResetPassword = ({navigation, route}) => {
                             To reset your password, please check your email and go back to the Login page.
                         </MediumExtraText>
                         <StyledFormArea>
-                            <StyledButton onPress= {() => navigation.navigate("Login")}>
+                            <StyledButton onPress= {() => navigation.replace("Login")}>
                                 <ButtonText>Back to Login page</ButtonText>
                             </StyledButton>
                         </StyledFormArea>
