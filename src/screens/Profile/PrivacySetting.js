@@ -27,16 +27,17 @@ import { StyledContainer, InnerContainer, Loading, Colors} from "../../css/gener
 export default function PrivacySetting({navigation}) {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
-
+  const userData = useSelector(state => state.userName);
+  const profileData = useSelector(state => state.profileInfo);
 
 
   const formik = useFormik({
-    initialValues: { photo: false, notify:false },
+    initialValues: { photo: profileData.hidePhoto, notify:profileData.stopNotification },
     onSubmit: values => {
       const privacyBody = {
         hidePhoto: values.photo,
         stopNotification: values.notify,
-        userId: 36
+        userId: userData.userId
       }
       setLoading(true);
       dispatch(beforePrivacy());

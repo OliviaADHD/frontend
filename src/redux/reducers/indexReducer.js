@@ -7,6 +7,7 @@ import menstruationReducer from './menstruationReducer';
 import questionReducer from './questionReducer';
 import networkAvailabilityReducer from './networkAvailabilityReducer';
 import userNameReducer from './userNameReducer';
+import profileReducer from './profileReducer';
 import dashboardTutorialReducer from './dashboardTutorialReducer';
 
 const rootReducer = combineReducers({
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
     questionsReducer: questionReducer,
     networkAvailability: networkAvailabilityReducer,
     userName: userNameReducer,
+    profileInfo: profileReducer,
     dashboardTutorial: dashboardTutorialReducer,
 });
 

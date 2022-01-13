@@ -2,20 +2,12 @@ import React from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
 
-import { 
-  Colors
-} from '../css/general/style';
+import {  Colors } from '../css/general/style';
+import {useSelector } from "react-redux";
 
-class ProfileTopContainer extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      fullName: '',
-      email: '',
-    }
-  }
-
-  render() {
+const ProfileTopContainer = ({navigation}) => {
+  const userData = useSelector(state => state.userName);
+  
     return(
 
       <View 
@@ -50,8 +42,8 @@ class ProfileTopContainer extends React.Component {
             paddingRight: 20
           }}>
               
-          <Text style={{fontSize:15}}>{this.state.fullName}{"\n"}</Text>
-          <Text style={{fontSize:12}}>{this.state.email}{"\n"}</Text>
+          <Text style={{fontSize:15}}>{userData.Name}{"\n"}</Text>
+          <Text style={{fontSize:12}}>{userData.email}{"\n"}</Text>
 
         </Text>
 
@@ -75,18 +67,6 @@ class ProfileTopContainer extends React.Component {
     </View>
 
     );
-  }
 }
 
-const mapStateToProps = state => {
-  const  {fullName} = state;
-  const  {email} = state;
-
-  console.log('user data mapStateToProps ... state:' + JSON.stringify(state));
-
-  return {fullName, email};
-};
-
-export default connect(
-  mapStateToProps,
-)(ProfileTopContainer);
+export default ProfileTopContainer;

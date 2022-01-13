@@ -31,8 +31,7 @@ import * as WebBrowser from 'expo-web-browser';
 
 import * as Google from 'expo-auth-session/providers/google';
 
-
-import {newUser, newUserGoogle, verifyEmail, verifyLogin, beforeValidEmail, beforeValidLogin, beforeSignUP, newUserFacebook} from '../../redux/actions/user/user'
+import {newUser, newUserGoogle, verifyEmail, verifyLogin, beforeValidEmail, beforeValidLogin, beforeSignUP, newUserFacebook} from '../../redux/actions/user/signup'
 import * as yup from 'yup'
 
 
@@ -194,8 +193,6 @@ const Signup = ({navigation, route}) => {
     /* 
     // commented out because it gave me (Anja) an error message....
     useEffect(() => {
-        console.error(route.params)
-        
         if(route.params === undefined){
             setIsSelected(false)
         }

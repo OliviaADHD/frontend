@@ -6,7 +6,7 @@ import { StyleSheet, ActivityIndicator, View, Platform } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import {useAuthRequest, exchangeCodeAsync} from 'expo-auth-session';
 import * as WebBrowser from 'expo-web-browser';
-import { signIn, beforeSignIn, signInGoogle, signInFacebook } from '../../redux/actions/user/user'
+import { signIn, beforeSignIn, signInGoogle, signInFacebook } from '../../redux/actions/user/login'
 import {
   PageLogo,
   StyledFormArea,
@@ -222,6 +222,7 @@ const Login = ({navigation}) => {
                         validationSchema={signInValidationSchema}
                         onSubmit={(values) => {
                             setLoading(true);
+                            console.warn("dum");
                             dispatch(beforeSignIn())
                             .then(() => dispatch(signIn(values)))
                             .then((resp) => {

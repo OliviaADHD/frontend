@@ -36,6 +36,7 @@ export const MENS_INIT_TRUE = 'MENS_INIT_TRUE';
 export const SET_USER_NAME = 'SET_USER_NAME';
 export const SET_USER_ID = 'SET_USER_ID';
 export const SET_FIRST_TIME = 'SET_FIRST_TIME';
+export const SET_EMAIL = 'SET_EMAIL';
 
 //Network availability
 export const SET_NETWORK_ERROR_FALSE = "SET_NETWORK_ERROR_FALSE";
