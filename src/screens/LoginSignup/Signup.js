@@ -3,7 +3,7 @@ import { StatusBar } from "expo-status-bar";
 import { Formik } from 'formik'
 import { useDispatch, useSelector } from "react-redux";
 import {Ionicons} from '@expo/vector-icons';
-import { View,CheckBox, StyleSheet, ActivityIndicator } from "react-native";
+import { View,CheckBox, StyleSheet, ActivityIndicator, Platform } from "react-native";
 import {
     StyledContainer,
     InnerContainer,
@@ -26,16 +26,18 @@ import {
     PrivacyArea,
     ErrorPrivacyText,
 }from '../../css/styles';
-
-import* as AuthSession from 'expo-auth-session';
-import * as Google from 'expo-auth-session/providers/google';
-import * as Facebook from 'expo-auth-session/providers/facebook';
-import { ResponseType } from 'expo-auth-session';
+import {useAuthRequest, exchangeCodeAsync} from 'expo-auth-session';
 import * as WebBrowser from 'expo-web-browser';
 
-import {newUser, newUserGoogle, verifyEmail, verifyLogin, beforeValidEmail, beforeValidLogin, beforeSignUP} from '../../redux/actions/user/user'
+import * as Google from 'expo-auth-session/providers/google';
+
+
+import {newUser, newUserGoogle, verifyEmail, verifyLogin, beforeValidEmail, beforeValidLogin, beforeSignUP, newUserFacebook} from '../../redux/actions/user/user'
 import * as yup from 'yup'
-import axios from "axios";
+
+
+WebBrowser.maybeCompleteAuthSession();
+const useProxy = true;
 
 const signUpValidationSchema = yup.object().shape({
     fullName: yup
@@ -116,9 +118,81 @@ const Signup = ({navigation, route}) => {
 
     }, [responseGoogle]);
 
+    //Fb signup
+    const [fbError, setfbError] = useState(false);
+    const [fbClicked, setfbClicked] = useState(false);
+    const discoveryfb = {
+        authorizationEndpoint: 'https://www.facebook.com/v12.0/dialog/oauth',
+        tokenEndpoint: 'https://graph.facebook.com/v12.0/oauth/access_token'
+    };
+    
+    const configfb = {
+        clientId: '901148574169051',
+        scopes: ['public_profile'],
+        redirectUri: "https://auth.expo.io/@anja-roed/olivia",
+        extraParams: {
+            display: Platform.select({web: 'popup'})
+        }
+    };
+    const [requestFb, responseFb, promptAsyncFb] = useAuthRequest(configfb, discoveryfb);
+
+    const getFbToken = async(code, codeVerifier) => {
+        const tokenResult = exchangeCodeAsync(
+            {
+            code: code,
+            clientId: '901148574169051',
+            scopes: ['public_profile'],
+            redirectUri: "https://auth.expo.io/@anja-roed/olivia",
+            extraParams: {
+                code_verifier: codeVerifier || "",
+                },
+            }, discoveryfb);
+        return tokenResult;
+    }
 
     
+    const setNewFacebookUser = async(token) => {
+        dispatch(beforeSignUP())
+        .then(() =>dispatch(newUserFacebook(token)))
+        .then(resp => {
+            if (resp === true){
+                setLoading(false);
+                navigation.reset({
+                    index: 0,
+                    routes: [{ name: 'Welcome_Post_Signup' }]});
+            } else {
+                setfbError(true);
+                setLoading(false);
+                setfbClicked(false);
+            }
+        })
+    } 
 
+    useEffect(()=>{
+        if ((responseFb?.type === 'success') && (fbClicked === true)){     
+            const {code} = responseFb.params;
+            const {codeVerifier} = requestFb;
+            getFbToken(code, codeVerifier)
+            .then(resp => {
+                setNewFacebookUser(resp.accessToken);
+            })
+            .catch(err => {
+                setfbError(true);
+                setfbClicked(false);
+                setLoading(false);
+            })
+        } else { 
+            if (fbClicked === true) {
+                setfbError(true);
+                setfbClicked(false);
+            } 
+            setLoading(false);
+        }
+    }, [responseFb])
+
+    
+    /* 
+    // commented out because it gave me (Anja) an error message....
     useEffect(() => {
         console.error(route.params)
         
@@ -129,7 +203,7 @@ const Signup = ({navigation, route}) => {
             setIsSelected(route.params.policyChecked)
             setPolicyError(false)
         }
-    })
+    })*/
 
     return(
             <StyledContainer>
@@ -272,23 +346,30 @@ const Signup = ({navigation, route}) => {
                         }
                         {googleError && 
                             <ErrorMessage>
-                                <ErrorText>Error signing in with google.</ErrorText>
+                                <ErrorText>Error signing up with google.</ErrorText>
+                            </ErrorMessage>
+                        }
+                        {fbError && 
+                            <ErrorMessage>
+                                <ErrorText>Error signing up with facebook.</ErrorText>
                             </ErrorMessage>
                         }
 
                         <IconContainer style={{marginBottom: "0%", paddingBottom: "0%"}}>
                             <EachIconContainer onPress={async()=>{
-                                console.log("Trying to sign up with google");
                                 setLoading(true);
                                 setGoogleClicked(true);
                                 promptAsyncGoogle();
-                                console.log("success?")
-
                                 }}>
                                 <IconLogo source={require('../../../assets/images/google.png')} />
                             </EachIconContainer>
-                            <EachIconContainer>
-                                <IconLogo onPress={handleSubmit} source={require('../../../assets/images/facebook.png')} />
+                            <EachIconContainer onPress={() => {
+
+                                setLoading(true);
+                                setfbClicked(true);
+                                promptAsyncFb({useProxy});
+                                }} >
+                                <IconLogo source={require('../../../assets/images/facebook.png')} />
                             </EachIconContainer>
                             <EachIconContainer>
                                 <IconLogo onPress={handleSubmit} source={require('../../../assets/images/apple.png')} />
