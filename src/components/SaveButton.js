@@ -3,10 +3,9 @@ import {LongButton, ButtonText} from '../css/components/saveButton'
 
 export default function SaveButton() {
   return (
-
-    <LongButton>
+    <LongButton onPress={() => console.log('Pressed1')} uppercase={false}>
       <ButtonText>
-        Save all changes
+        Update
       </ButtonText>
     </LongButton>
   )

@@ -1,11 +1,14 @@
-import React from "react";
+import React, {useState} from "react";
 import axios from 'axios';
-import { Text, Switch, Alert } from "react-native";
+import {Switch, ActivityIndicator} from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { useFormik } from 'formik';
-import { Colors } from "../../css/general/style";
-
-
+import FlashMessage, {  showMessage } from "react-native-flash-message";
+import { useDispatch } from "react-redux";
+import { beforePrivacy, updatePrivacy } from '../../redux/actions/profile/profile'
+import ProfileTopContainer from "../../components/ProfileTopContainer";
+import DashBoardBottomMenu from "../../components/DashboardBottomMenu";
+import {LongButton, ButtonText} from '../../css/components/saveButton';
 import { 
   StyledFormArea,
   PageTitle,
@@ -18,29 +21,53 @@ import {
   SwitchSectionText
 } from "../../css/Profile/privacy";
 
-import { StyledContainer, InnerContainer} from "../../css/general/style";
+import { StyledContainer, InnerContainer, Loading, Colors} from "../../css/general/style";
 
-import SaveButton from "../../components/SaveButton";
-
-import ProfileTopContainer from "../../components/ProfileTopContainer";
-
-import DashBoardBottomMenu from "../../components/DashboardBottomMenu";
 
 export default function PrivacySetting({navigation}) {
+  const dispatch = useDispatch();
+  const [loading, setLoading] = useState(false);
+
+
+
   const formik = useFormik({
     initialValues: { photo: false, notify:false },
     onSubmit: values => {
-      axios({
-        method: 'post',
-        url: 'domain-name' + url,
-          data: {
-            'language': values.language,
-            'switch': values.switch},
-            headers: {'Content-Type': 'application/json'}
-          }).then(response => {
-          }).catch(err => {
-            Alert.alert('An error occured', err.message, [{ text: 'Okay'}]);
-          })}
+      const privacyBody = {
+        hidePhoto: values.photo,
+        stopNotification: values.notify,
+        userId: 36
+      }
+      setLoading(true);
+      dispatch(beforePrivacy());
+      dispatch(updatePrivacy(privacyBody))
+      .then((resp) => {
+        setLoading(false);
+        if(resp){
+          const message = {
+            message: "Updated",
+            description: "Your Profile has been updated",
+            icon: { icon: "auto", position: "left" },
+            type:"success",
+            backgroundColor:Colors.purple, // background color
+            color: Colors.white,
+          }
+          showMessage(message);
+        }
+        else{
+          const message = {
+            message: "Updated",
+            description: "Error happened",
+            icon: { icon: "danger", position: "left" },
+            type:"success",
+            backgroundColor:Colors.red, // background color
+            color: Colors.white,
+          }
+        showMessage(message);
+        }
+      
+      });
+    }
   });
 
   return (    
@@ -104,18 +131,27 @@ export default function PrivacySetting({navigation}) {
         
         </SwitchSectionNoMargin> 
 
-        <SaveButton 
-          mode="contained"
-          uppercase={false} 
-          title='save' 
-          onPress={formik.handleSubmit}
-        >
-        </SaveButton>
+        <LongButton           
+        mode="contained"
+        uppercase={true} 
+        title='save' 
+        onPress={formik.handleSubmit}
+      >
+        <ButtonText>
+          Save all updates
+        </ButtonText>
+      </LongButton>
+
+        
 
       </StyledFormArea>
-
+      {loading &&
+        <Loading>
+            <ActivityIndicator size="large" color="#694398"/>
+        </Loading>
+      }
       <DashBoardBottomMenu currentScreen={"Profile"} navigation={navigation}/>
-
+      <FlashMessage position="bottom" />
     </InnerContainer>
   
   </StyledContainer>

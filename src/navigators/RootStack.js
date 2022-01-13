@@ -77,8 +77,6 @@ const RootStack = () => {
                 <Stack.Screen name="Home" component={Home}  options ={{header: () => null}} />
                 <Stack.Screen name="ToDoList" component={ToDoList} />
                 <Stack.Screen name="Profile" component={Profile} />
-           
-                <Stack.Screen name='TutorialDashboard' component={TutorialDashboard}/>
 
 
                 <Stack.Screen name="Settings" component={Settings} />

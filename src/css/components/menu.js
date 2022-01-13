@@ -1,9 +1,13 @@
 import styled from 'styled-components';
+import {Colors} from '../general/style';
+
+const {white} = Colors;
 
 export const GeneralContainer = styled.View`
     justify-content: space-between;
     flex-direction: row;
     height: 7%;
+    background-color: ${white};
 `;
 
 export const IconContainer = styled.View`
