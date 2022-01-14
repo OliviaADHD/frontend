@@ -254,6 +254,7 @@ const Signup = ({navigation, route}) => {
                             placeholder="Full Name"
                             label='Full Name'
                             onChangeText={handleChange('fullName')}
+                            style={(touched.fullName && errors.fullName)?{marginBottom: "1%"}:{}}
                             onBlur={handleBlur('fullName')}
                             value={values.fullName}
                         />
@@ -267,6 +268,7 @@ const Signup = ({navigation, route}) => {
                         label='Login'
                         onChangeText={handleChange('login')}
                         onBlur={handleBlur('login')}
+                        style={((touched.login && errors.login) || (loginError))?{marginBottom: "1%"}:{}}
                         value={values.login}
                         />
                         { touched.login && errors.login &&
@@ -287,6 +289,7 @@ const Signup = ({navigation, route}) => {
                             onChangeText={handleChange('email')}
                             onBlur={handleBlur('email')}
                             value={values.email}
+                            style={((touched.email && errors.email) || (emailError))?{marginBottom: "1%"}:{}}
                             keyboardType="email-address"
                         />
                         { touched.email && errors.email &&
@@ -310,6 +313,7 @@ const Signup = ({navigation, route}) => {
                             secureTextEntry={hidePassword}
                             isPassword={true}
                             hidePassword={hidePassword}
+                            style={((touched.password && errors.password))?{marginBottom: "1%"}:{}}
                             setHidePassword={setHidePassword}
                         />
                         { touched.password && errors.password &&
@@ -317,7 +321,7 @@ const Signup = ({navigation, route}) => {
                                 <ErrorText>{errors.password}</ErrorText>
                             </ErrorMessage> 
                         }
-                        <PrivacyArea onPress = {() => navigation.navigate('Privacy')}>
+                        <PrivacyArea onPress = {() => navigation.navigate('Privacy')} style={{alignItems: "center", marginBottom: "2%"}}>
                             <CheckBox
                                 value={isSelected}
                                 onValueChange={(value)=>setIsSelected(value)}
@@ -332,7 +336,8 @@ const Signup = ({navigation, route}) => {
                         </PrivacyArea>
 
 
-                            <StyledButton onPress={handleSubmit} testID='SubmitButton'>
+                            <StyledButton onPress={handleSubmit} testID='SubmitButton'
+                                    style={(networkError.error || googleError || fbError)?{marginBottom: "0%"}:{marginBottom: "5%"}}>
                                 <ButtonText>Signup</ButtonText>
                             </StyledButton>
                         
@@ -407,12 +412,12 @@ const styles = StyleSheet.create({
     }
   });
 
-export const MyTextInput = ({isPassword, icon, hidePassword, setHidePassword, ...props}) => {
+export const MyTextInput = ({isPassword, icon, hidePassword, setHidePassword, style, ...props}) => {
     return (
         <View>
-            <StyledTextInput {...props} />
+            <StyledTextInput {...props} style={style}/>
             {isPassword && (
-                <RightIcon onPress={() => setHidePassword(!hidePassword)}>
+                <RightIcon onPress={() => setHidePassword(!hidePassword)}  style={[{height: "1%"}, (Object.keys(style).length === 0)?{top: "-75%"}:{top: "-65%"}]}>
                     <Ionicons name={hidePassword ? 'md-eye-off' : 'md-eye'} size={19}/>
                 </RightIcon>
             )}

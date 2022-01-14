@@ -85,6 +85,11 @@ const Login = ({navigation}) => {
                         index: 0,
                         routes: [{ name: 'Welcome_Post_Signup' }]});
                     }
+                else if (resp.tutDone === false){
+                    navigation.reset({
+                        index: 0,
+                        routes: [{ name: 'TutorialDashboard' }]});
+                }
                 else {
                     navigation.reset({
                         index: 0,
@@ -169,6 +174,11 @@ const Login = ({navigation}) => {
                         index: 0,
                         routes: [{ name: 'Welcome_Post_Signup' }]});
                     }
+                else if (resp.tutDone === false){
+                    navigation.reset({
+                        index: 0,
+                        routes: [{ name: 'TutorialDashboard' }]});
+                    }
                 else {
                     navigation.reset({
                         index: 0,
@@ -233,6 +243,11 @@ const Login = ({navigation}) => {
                                             index: 0,
                                             routes: [{ name: 'Welcome_Post_Signup' }]});
                                         }
+                                    else if (resp.tutDone === false){
+                                        navigation.reset({
+                                            index: 0,
+                                            routes: [{ name: 'TutorialDashboard' }]});
+                                        }
                                     else {
                                         navigation.reset({
                                             index: 0,
@@ -267,7 +282,7 @@ const Login = ({navigation}) => {
                         <ForgotPassword onPress = {() =>  navigation.navigate("ResetPassword")}>
                             <ForgotPasswordText>Forgot Password?</ForgotPasswordText>
                         </ForgotPassword>
-                        <StyledButton onPress={handleSubmit}>
+                        <StyledButton onPress={handleSubmit} style={(fbError||networkError.error||loginState.message.error||googleError)?{marginBottom: "2%"}:{marginBottom: "7%"}}>
                             <ButtonText>Login</ButtonText>
                         </StyledButton>
                         {networkError.error && 
@@ -292,7 +307,7 @@ const Login = ({navigation}) => {
                         }
 
                         <Or>Or</Or>
-                        <IconContainer>
+                        <IconContainer style={{marginBottom: "2%"}}>
                             <EachIconContainer onPress={async()=>{
                                 setLoading(true);
                                 setGoogleClicked(true);
@@ -311,7 +326,7 @@ const Login = ({navigation}) => {
                                 <IconLogo  source={require('../../../assets/images/apple.png')} />
                             </EachIconContainer>
                         </IconContainer>
-                        <ExtraView>
+                        <ExtraView style={{marginTop: "0%"}}>
                             <ExtraText>Would You Like To Join Us? </ExtraText>
                             <TextLink onPress = {() =>  navigation.navigate("Signup")}>
                                 <TextLinkContent>Signup</TextLinkContent>
