@@ -260,15 +260,20 @@ const Login = ({navigation}) => {
                         }}
                         
                     
-                    >{({handleChange, handleBlur, handleSubmit, values})=> (<StyledFormArea>
+                    >{({handleChange, values, handleSubmit, errors, isValid, isSubmitting, touched, handleBlur})=> (<StyledFormArea>
                         <MyTextInput 
                             placeholder="Email"
                             onChangeText={handleChange('email')}
                             onBlur={handleBlur('email')}
                             value={values.email}
+                            style={((touched.email && errors.email))?{marginBottom: "1%"}:{}}
                             keyboardType="email-address"
                         />
-
+                        { touched.email && errors.email &&
+                            <ErrorMessage>
+                                <ErrorText>{errors.email}</ErrorText>
+                            </ErrorMessage> 
+                        }
                         <MyTextInput 
                             placeholder="Password"
                             onChangeText={handleChange('password')}
@@ -277,6 +282,7 @@ const Login = ({navigation}) => {
                             secureTextEntry={hidePassword}
                             isPassword={true}
                             hidePassword={hidePassword}
+                            style={((touched.password && errors.password))?{marginBottom: "1%"}:{}}
                             setHidePassword={setHidePassword}
                         />
                         <ForgotPassword onPress = {() =>  navigation.navigate("ResetPassword")}>
@@ -345,12 +351,12 @@ const Login = ({navigation}) => {
     
     }
 
-const MyTextInput = ({isPassword, icon, hidePassword, setHidePassword, ...props}) => {
+const MyTextInput = ({isPassword, icon, hidePassword, setHidePassword, style, ...props}) => {
     return (
         <View>
-            <StyledTextInput {...props} />
+            <StyledTextInput {...props}  style={style}/>
             {isPassword && (
-                <RightIcon onPress={() => setHidePassword(!hidePassword)}>
+                <RightIcon onPress={() => setHidePassword(!hidePassword)} style={[{height: "1%"}, (Object.keys(style).length === 0)?{top: "-75%"}:{top: "-65%"}]}>
                     <Ionicons name={hidePassword ? 'md-eye-off' : 'md-eye'} size={19}/>
                 </RightIcon>
             )}
