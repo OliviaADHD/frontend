@@ -13,6 +13,7 @@ export const Colors = {
     red: "#FF0000",
     lightpurple: "#C7A3D2",
     iconpurple:"#70449c",
+    lightgray: "#E5E5E5",
 };
 
 const { white, purple, disabledPurple, black, gray, darkgray, red, lightpurple} = Colors;

@@ -4,7 +4,7 @@ import { SET_USER_NAME,
         SET_EMAIL  } from "../actions/types";
 
 const userData = {
-    Name: "",
+    Name: "testName",
     userId: 0,
     firstTime: null  
 }
