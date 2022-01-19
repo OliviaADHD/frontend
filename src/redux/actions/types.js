@@ -74,3 +74,9 @@ export const SET_NOTIFICATION = 'SET_NOTIFICATION';
 export const CHANGE_EVENT = 'CHANGE_EVENT';
 export const ADD_EVENT = 'ADD_EVENT';
 export const DELETE_EVENT = 'DELETE_EVENT';
+
+//Task
+export const ADD_TASK = 'ADD_TASK';
+export const DELETE_TASK = 'DELETE_TASK';
+export const MARK_TASK_DONE = 'MARK_TASK_DONE';
+export const MARK_TASK_UNDONE = 'MARK_TASK_UNDONE';

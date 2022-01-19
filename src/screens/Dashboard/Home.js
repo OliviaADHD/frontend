@@ -32,6 +32,7 @@ const Home = ({navigation}) => {
     const [menuPosition, setMenuPosition] = useState(0);
     const [currentEventId, setcurrentEventId] = useState(undefined);
 
+    const taskData = useSelector(state => state.tasks);
     return (
         <StyledContainer>
             <StatusBar style="dark"/>
@@ -98,6 +99,9 @@ const Home = ({navigation}) => {
                         <View style={{height: "25%", width: "100%",
                                 backgroundColor: menuOpen?Colors.gray:Colors.white}}>
                             <StyledBoldTitle>Tasks</StyledBoldTitle>
+                            <Task 
+                                taskDetail={"Task 1"}
+                            />
                         </View>
             </InnerContainerRemake>
             <DashBoardBottomMenu currentScreen={"Home"} navigation={navigation}/>
@@ -159,7 +163,7 @@ const CalendarEvent = ({eventId, startTime, endTime, eventTitle,
             inProgress={inProgress}
             menuOpen={menuOpen}
             />
-        <DetailsTask
+        <DetailsEvent
             eventId = {eventId}
             EventTitle={eventTitle}
             EventDetails={eventDetails}
@@ -173,7 +177,7 @@ const CalendarEvent = ({eventId, startTime, endTime, eventTitle,
     </View>);
 };
 
-const DetailsTask = ({eventId, EventTitle, EventDetails, 
+const DetailsEvent = ({eventId, EventTitle, EventDetails, 
     inProgress, menuOpen, setMenuOpen, setMenuPosition, setcurrentEventId}) => {
     return(
         <View 
@@ -250,6 +254,23 @@ const CalendarTimingDetail = ({startTime, endTime, inProgress, menuOpen}) => {
     );
 };
 
+const Task = ({taskDetail}) => {
+    return (
+        <View style={{width: "92%", height: "25%", backgroundColor: Colors.gray,
+            flexDirection: "row", borderRadius: 5,
+            marginLeft: "4%", 
+            alignItems: "center", justifyContent: "space-between"}}>
+            <BlackText style={{marginLeft: "2%"}}>{taskDetail}</BlackText>
+            <BouncyCheckbox
+                    style={{width: "8%"}}
+                    size={18}
+                    fillColor={Colors.black}
+                    iconStyle={{borderColor: Colors.black, borderRadius: 0}}
+                    onPress={() => {console.log('need to built the functionality to delete this event...')}}
+                />
+        </View>
+    );
+}
 
 
 
