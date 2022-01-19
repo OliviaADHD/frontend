@@ -19,7 +19,7 @@ export const StyledBoldTitle = styled.Text`
 `;
 
 export const GrayText = styled.Text`
-  color: ${Colors.gray};
+  color: ${Colors.darkgray};
   font-size: 16px;
   max-width: 80%;
   text-align: justify;

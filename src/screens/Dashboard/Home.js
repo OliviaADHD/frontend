@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {StatusBar} from "expo-status-bar";
-import {Text, View, TouchableOpacity, Dimensions, Image} from 'react-native';
+import {Text, View, TouchableOpacity, Dimensions, Image, ScrollView, FlatList} from 'react-native';
 import { Colors } from "../../css/general/style";
 
 import {StyledContainer, InnerContainer} from '../../css/general/style';
@@ -25,10 +25,10 @@ const windowHeight = Dimensions.get('window').height;
 
 const Home = ({navigation}) => {
     const userData = useSelector(state => state.userName);
-    const testStart = new Date('December 17, 1995 08:00:00');
-    const testEnd = new Date('December 17, 1995 08:30:00');
+    const calenderEventData = useSelector(state => state.upcomingEvents);
     const [menuOpen, setMenuOpen] = useState(false);
     const [menuPosition, setMenuPosition] = useState(0);
+
     return (
         <StyledContainer>
             <StatusBar style="dark"/>
@@ -48,39 +48,14 @@ const Home = ({navigation}) => {
                         />
                     </View>
                 </View>
-                <View style={{height: "60%", width: "100%",
+                <View style={{height: "60%", width: "100%", flex: 1,
                             backgroundColor: menuOpen?Colors.gray:Colors.white}}>
                     <StyledBoldTitle>Upcomings</StyledBoldTitle>
-                    <CalendarEvent
-                        startTime={testStart}
-                        endTime={testEnd}
-                        eventTitle={"MyTestEvent!"}
-                        eventDetails={"all these things I need to do"}
-                        inProgress={false}
-                        menuOpen={menuOpen}
-                        setMenuOpen={setMenuOpen}
-                        setMenuPosition={setMenuPosition}
-                    />
-                    <CalendarEvent
-                        startTime={testStart}
-                        endTime={testEnd}
-                        eventTitle={"My other TestEvent!"}
-                        eventDetails={"all these things I need to do so so so so so so much, panic panic panic"}
-                        inProgress={true}
-                        menuOpen={menuOpen}
-                        setMenuOpen={setMenuOpen}
-                        setMenuPosition={setMenuPosition}
-                    />
-                    <CalendarEvent
-                        startTime={testStart}
-                        endTime={testEnd}
-                        eventTitle={"My other TestEvent!"}
-                        eventDetails={"all these things I need to do so so so so so so much, panic panic panic"}
-                        inProgress={false}
-                        menuOpen={menuOpen}
-                        setMenuOpen={setMenuOpen}
-                        setMenuPosition={setMenuPosition}
-                    />
+                <UpcomingsScrollable 
+                    calenderEventData={calenderEventData}
+                    menuOpen={menuOpen}
+                    setMenuOpen={setMenuOpen}
+                    setMenuPosition={setMenuPosition} />
                 </View>
                 {menuOpen && (
                     <View style={{backgroundColor: Colors.white,
@@ -125,11 +100,50 @@ const Home = ({navigation}) => {
     )
 };
 
+
+
+const UpcomingsScrollable = ({calenderEventData, 
+    menuOpen, setMenuOpen, setMenuPosition}) => {
+    let eventList = [];
+    const now = new Date();
+    for (const eventD of Object.keys(calenderEventData)){
+        eventList.push(
+            <CalendarEvent
+                key = {eventD}
+                startTime={calenderEventData[eventD].startDate}
+                endTime={calenderEventData[eventD].endDate}
+                eventTitle={calenderEventData[eventD].eventTitle}
+                eventDetails={calenderEventData[eventD].eventDetails}
+                inProgress={((calenderEventData[eventD].startDate < now) && (now <calenderEventData[eventD].endDate))}
+                menuOpen={menuOpen}
+                setMenuOpen={setMenuOpen}
+                setMenuPosition={setMenuPosition}
+            />)
+    }
+    return(
+        <View
+            style={{height: "100%",
+                flex: 1,
+                width: "100%",
+                alignItems: 'center',
+                paddingBottom: "0%",
+                paddingTop: "0%"}}>
+            <ScrollView showsVerticalScrollIndicator={false}
+                        overScrollMode={"never"}
+                        contentContainerStyle={{
+                            flexGrow: 1}}
+                                >
+                {eventList}
+            </ScrollView>
+        </View>
+    );
+};
+
 const CalendarEvent = ({startTime, endTime, eventTitle, 
     eventDetails, inProgress, menuOpen, setMenuOpen, setMenuPosition}) => {
 
     return(
-    <View style={{height: "30%", flexDirection: "row", paddingBottom: "1%",
+    <View style={{height: "25%", flexDirection: "row", paddingBottom: "1%",
     backgroundColor: menuOpen?Colors.gray:Colors.white}}>
         <CalendarTimingDetail 
             startTime={startTime}
@@ -211,7 +225,7 @@ const CalendarTimingDetail = ({startTime, endTime, inProgress, menuOpen}) => {
     const endTimeString = formatTiming(endTime);
     return(
         <View 
-        style={{bwidth: "20%", marginLeft: "3%",
+        style={{width: "20%", marginLeft: "3%",
                 marginRight: "3%",
                 alignItems: "center",
                 backgroundColor: menuOpen?Colors.gray:Colors.white}}>
@@ -226,5 +240,8 @@ const CalendarTimingDetail = ({startTime, endTime, inProgress, menuOpen}) => {
     </View>
     );
 };
+
+
+
 
 export default Home;

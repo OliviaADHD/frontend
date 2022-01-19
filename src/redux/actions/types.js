@@ -69,3 +69,8 @@ export const SET_LANGUAGE = 'SET_LANGUAGE';
 export const SET_DARKMODE = 'SET_DARKMODE';
 export const SET_HIDEPHOTO = 'SET_HIDEPHOTO';
 export const SET_NOTIFICATION = 'SET_NOTIFICATION';
+
+//CalendarEvents
+export const CHANGE_EVENT = 'CHANGE_EVENT';
+export const ADD_EVENT = 'ADD_EVENT';
+export const DELETE_EVENT = 'DELETE_EVENT';
