@@ -99,8 +99,8 @@ const Home = ({navigation}) => {
                         <View style={{height: "25%", width: "100%",
                                 backgroundColor: menuOpen?Colors.gray:Colors.white}}>
                             <StyledBoldTitle>Tasks</StyledBoldTitle>
-                            <Task 
-                                taskDetail={"Task 1"}
+                            <TasksScrollable 
+                                tasksData = {taskData}
                             />
                         </View>
             </InnerContainerRemake>
@@ -254,19 +254,50 @@ const CalendarTimingDetail = ({startTime, endTime, inProgress, menuOpen}) => {
     );
 };
 
-const Task = ({taskDetail}) => {
+const TasksScrollable = ({tasksData}) => {
+    let taskList = [];
+    for (const taskT of Object.keys(tasksData)) {
+        taskList.push(
+            <Task 
+                key ={taskT}
+                taskDetail = {tasksData[taskT].taskTitle}
+                taskId = {taskT}
+            />
+        )
+    }
     return (
-        <View style={{width: "92%", height: "25%", backgroundColor: Colors.gray,
-            flexDirection: "row", borderRadius: 5,
-            marginLeft: "4%", 
+        <View
+        style={{height: "100%",
+                flex: 1,
+                width: "95%",
+                alignItems: 'center',
+                paddingBottom: "0%",
+                paddingTop: "0%"}}>
+            <ScrollView showsVerticalScrollIndicator={false}
+                        overScrollMode={"never"}
+                        contentContainerStyle={{
+                            flexGrow: 1}}>
+                {taskList}
+            </ScrollView>
+        </View>
+    )
+}
+
+const Task = ({taskDetail, taskId}) => {
+    return (
+        <View style={{width: "100%", height: "15%", backgroundColor: Colors.gray,
+            flexDirection: "row", borderRadius: 5, flex: 1,
+            marginLeft: "4%", marginBottom: "2%",
             alignItems: "center", justifyContent: "space-between"}}>
-            <BlackText style={{marginLeft: "2%"}}>{taskDetail}</BlackText>
+            <BlackText style={{marginLeft: "2%",  width: "80%"}}>
+                {taskDetail}
+            </BlackText>
             <BouncyCheckbox
-                    style={{width: "8%"}}
+                    style={{width: "15%",}}
                     size={18}
                     fillColor={Colors.black}
                     iconStyle={{borderColor: Colors.black, borderRadius: 0}}
-                    onPress={() => {console.log('need to built the functionality to delete this event...')}}
+                    onPress={() => {console.log('set task to done? TBD')}}
                 />
         </View>
     );
