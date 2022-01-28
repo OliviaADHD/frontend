@@ -56,7 +56,8 @@ const Home = ({navigation}) => {
                             menuOpen={menuOpen}
                             setMenuOpen={setMenuOpen}
                             setMenuPosition={setMenuPosition}
-                            setcurrentEventId={setcurrentEventId} />
+                            setcurrentEventId={setcurrentEventId}
+                            windowHeight={windowHeight} />
                         </View>
                         {menuOpen && (
                             <View style={{backgroundColor: Colors.white,

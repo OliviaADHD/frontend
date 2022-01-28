@@ -40,7 +40,7 @@ const Task = ({taskDetail, taskId}) => {
                     size={18}
                     fillColor={Colors.black}
                     iconStyle={{borderColor: Colors.black, borderRadius: 0}}
-                    onPress={() => {console.log('set task to done? TBD')}}
+                    onPress={() => {console.log('TBD functionality when task done')}}
                 />
         </TaskView>
     );

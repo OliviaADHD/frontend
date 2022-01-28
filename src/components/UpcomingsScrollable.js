@@ -10,7 +10,7 @@ import {StyledBoldTitle, BlackText, UpcomingsScrollableView,
 
 
 const UpcomingsScrollable = ({calenderEventData, 
-    menuOpen, setMenuOpen, setMenuPosition, setcurrentEventId}) => {
+    menuOpen, setMenuOpen, setMenuPosition, setcurrentEventId, windowHeight}) => {
     let eventList = [];
     const now = new Date();
     for (const eventD of Object.keys(calenderEventData)){
@@ -27,6 +27,7 @@ const UpcomingsScrollable = ({calenderEventData,
                 setMenuOpen={setMenuOpen}
                 setMenuPosition={setMenuPosition}
                 setcurrentEventId={setcurrentEventId}
+                windowHeight={windowHeight}
             />)
     }
     return(
@@ -44,7 +45,7 @@ const UpcomingsScrollable = ({calenderEventData,
 
 const CalendarEvent = ({eventId, startTime, endTime, eventTitle, 
     eventDetails, inProgress, menuOpen, setMenuOpen, setMenuPosition,
-    setcurrentEventId}) => {
+    setcurrentEventId, windowHeight}) => {
 
     return(
     <CalenderEventView style={{backgroundColor: menuOpen?Colors.gray:Colors.white}}>
@@ -63,13 +64,14 @@ const CalendarEvent = ({eventId, startTime, endTime, eventTitle,
             setMenuOpen={setMenuOpen}
             setMenuPosition={setMenuPosition}
             setcurrentEventId={setcurrentEventId}
+            windowHeight={windowHeight}
         />
         
     </CalenderEventView>);
 };
 
 const DetailsEvent = ({eventId, EventTitle, EventDetails, 
-    inProgress, menuOpen, setMenuOpen, setMenuPosition, setcurrentEventId}) => {
+    inProgress, menuOpen, setMenuOpen, setMenuPosition, setcurrentEventId, windowHeight}) => {
     return(
         <DetailsEventView 
         style={{backgroundColor: inProgress?Colors.purple:(menuOpen?Colors.gray:Colors.white), 
@@ -85,7 +87,6 @@ const DetailsEvent = ({eventId, EventTitle, EventDetails,
             <DetailsEventView2>
                 <TouchableOpacity style={{alignItems:"flex-start"}}
                     onPress={(event)=>{
-                        console.log("open the menu and gray out the rest", eventId);
                         setcurrentEventId(eventId);
                         setMenuPosition(Math.floor(100*event.nativeEvent.pageY/windowHeight));
                         setMenuOpen(!menuOpen);
@@ -100,7 +101,7 @@ const DetailsEvent = ({eventId, EventTitle, EventDetails,
                     size={18}
                     fillColor={Colors.purple}
                     iconStyle={{borderColor: Colors.black, borderRadius: 0}}
-                    onPress={() => {console.log('need to built the functionality to delete this event...')}}
+                    onPress={() => {console.log('what should be done after clicking this?')}}
                 />)}
             </DetailsEventView2>
             
