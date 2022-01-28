@@ -1,8 +1,12 @@
 import React from "react";
 import {Colors} from "../css/general/style";
 import { View, ScrollView, Text, TouchableOpacity } from "react-native";
-import { StyledBoldTitle, SmallSolidDot, BlackText, GrayText, SolidDot, StyledDot, LongLine } from "../css/Dashboard/home";
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
+import {StyledBoldTitle, BlackText, UpcomingsScrollableView,
+    CalenderEventView, DetailsEventView, 
+    DetailsEventView2, SmallSolidDot,
+    GrayText, SolidDot, StyledDot, LongLine,
+    CalendarTimingDetailView} from "../css/components/UpcomingsScrollable";
 
 
 const UpcomingsScrollable = ({calenderEventData, 
@@ -26,13 +30,7 @@ const UpcomingsScrollable = ({calenderEventData,
             />)
     }
     return(
-        <View
-            style={{height: "100%",
-                flex: 1,
-                width: "100%",
-                alignItems: 'center',
-                paddingBottom: "0%",
-                paddingTop: "0%"}}>
+        <UpcomingsScrollableView>
             <ScrollView showsVerticalScrollIndicator={false}
                         overScrollMode={"never"}
                         contentContainerStyle={{
@@ -40,7 +38,7 @@ const UpcomingsScrollable = ({calenderEventData,
                                 >
                 {eventList}
             </ScrollView>
-        </View>
+        </UpcomingsScrollableView>
     );
 };
 
@@ -49,8 +47,7 @@ const CalendarEvent = ({eventId, startTime, endTime, eventTitle,
     setcurrentEventId}) => {
 
     return(
-    <View style={{height: "25%", flexDirection: "row", paddingBottom: "1%",
-    backgroundColor: menuOpen?Colors.gray:Colors.white}}>
+    <CalenderEventView style={{backgroundColor: menuOpen?Colors.gray:Colors.white}}>
         <CalendarTimingDetail 
             startTime={startTime}
             endTime={endTime}
@@ -68,16 +65,15 @@ const CalendarEvent = ({eventId, startTime, endTime, eventTitle,
             setcurrentEventId={setcurrentEventId}
         />
         
-    </View>);
+    </CalenderEventView>);
 };
 
 const DetailsEvent = ({eventId, EventTitle, EventDetails, 
     inProgress, menuOpen, setMenuOpen, setMenuPosition, setcurrentEventId}) => {
     return(
-        <View 
+        <DetailsEventView 
         style={{backgroundColor: inProgress?Colors.purple:(menuOpen?Colors.gray:Colors.white), 
-        borderRadius: inProgress?15:0, marginRight: "5%", padding: "2%",
-        width: "70%", flexDirection: "row"}}>
+        borderRadius: inProgress?15:0}}>
             <View style={{width: "90%"}}>
                 <StyledBoldTitle style={{color: inProgress?(menuOpen?Colors.gray:Colors.white):Colors.purple}}> 
                     {EventTitle}
@@ -86,8 +82,7 @@ const DetailsEvent = ({eventId, EventTitle, EventDetails,
                     {EventDetails}
                 </Text>
             </View>
-            <View style={{width: "10%", alignItems: "center", alignContent: "center",
-                        justifyContent: "space-between"}}>
+            <DetailsEventView2>
                 <TouchableOpacity style={{alignItems:"flex-start"}}
                     onPress={(event)=>{
                         console.log("open the menu and gray out the rest", eventId);
@@ -107,9 +102,9 @@ const DetailsEvent = ({eventId, EventTitle, EventDetails,
                     iconStyle={{borderColor: Colors.black, borderRadius: 0}}
                     onPress={() => {console.log('need to built the functionality to delete this event...')}}
                 />)}
-            </View>
+            </DetailsEventView2>
             
-        </View>
+        </DetailsEventView>
     )
 };
 
@@ -131,11 +126,8 @@ const CalendarTimingDetail = ({startTime, endTime, inProgress, menuOpen}) => {
     const startTimeString = formatTiming(startTime);
     const endTimeString = formatTiming(endTime);
     return(
-        <View 
-        style={{width: "20%", marginLeft: "3%",
-                marginRight: "3%",
-                alignItems: "center",
-                backgroundColor: menuOpen?Colors.gray:Colors.white}}>
+        <CalendarTimingDetailView 
+        style={{backgroundColor: menuOpen?Colors.gray:Colors.white}}>
             <BlackText style={{}}>{startTimeString}</BlackText>
             <GrayText >{endTimeString}</GrayText>
             <StyledDot style={{backgroundColor: menuOpen?Colors.gray:Colors.white}}>
@@ -144,7 +136,7 @@ const CalendarTimingDetail = ({startTime, endTime, inProgress, menuOpen}) => {
                 )}
             </StyledDot>
             <LongLine/>
-    </View>
+    </CalendarTimingDetailView>
     );
 };
 

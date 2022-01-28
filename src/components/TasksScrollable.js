@@ -3,7 +3,7 @@ import { View, ScrollView, } from "react-native";
 import {Colors} from "../css/general/style";
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 
-import { BlackText } from "../css/Dashboard/home";
+import { BlackText, TaskView, TasksScrollableView } from "../css/components/TasksScrollable";
 
 
 const TasksScrollable = ({tasksData}) => {
@@ -18,30 +18,21 @@ const TasksScrollable = ({tasksData}) => {
         )
     }
     return (
-        <View
-        style={{height: "100%",
-                flex: 1,
-                width: "95%",
-                alignItems: 'center',
-                paddingBottom: "0%",
-                paddingTop: "0%"}}>
+        <TasksScrollableView>
             <ScrollView showsVerticalScrollIndicator={false}
                         overScrollMode={"never"}
                         contentContainerStyle={{
                             flexGrow: 1}}>
                 {taskList}
             </ScrollView>
-        </View>
+        </TasksScrollableView>
     )
 }
 
 const Task = ({taskDetail, taskId}) => {
     return (
-        <View style={{width: "100%", height: "15%", backgroundColor: Colors.gray,
-            flexDirection: "row", borderRadius: 5, flex: 1,
-            marginLeft: "4%", marginBottom: "2%",
-            alignItems: "center", justifyContent: "space-between"}}>
-            <BlackText style={{marginLeft: "2%",  width: "80%"}}>
+        <TaskView>
+            <BlackText>
                 {taskDetail}
             </BlackText>
             <BouncyCheckbox
@@ -51,7 +42,7 @@ const Task = ({taskDetail, taskId}) => {
                     iconStyle={{borderColor: Colors.black, borderRadius: 0}}
                     onPress={() => {console.log('set task to done? TBD')}}
                 />
-        </View>
+        </TaskView>
     );
 }
 
