@@ -15,6 +15,7 @@ export const StyledBoldTitle = styled.Text`
   max-width: 80%;
   text-align: justify;
   margin-bottom: 2%;
+  margin-left: 1%;
   fontWeight: bold;
 `;
 
