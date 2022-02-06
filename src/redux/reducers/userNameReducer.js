@@ -5,9 +5,10 @@ import { SET_USER_NAME,
         PUSH_NOTIFICATIONS  } from "../actions/types";
 
 const userData = {
-    Name: "",
+    Name: "testName",
     userId: 0,
-    firstTime: null  
+    firstTime: null,
+    token: "test"  
 }
 
 const userNameReducer = (state = userData, action) => {
