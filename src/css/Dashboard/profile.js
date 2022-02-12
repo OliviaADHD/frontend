@@ -18,6 +18,12 @@ export const TasksScheduleTouch = styled.TouchableOpacity`
   marginRight: 2.5%;
 `;
 
+export const TasksScheduleView = styled.View`
+  height: 16%;
+  flexDirection: row;
+  alignContent: center;
+`;
+
 export const TrophyImage = styled.Image`
   resizeMode: contain;
   height: 80%;

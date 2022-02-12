@@ -6,7 +6,8 @@ import {Colors} from "../../css/general/style";
 import {StyledContainer} from '../../css/general/style';
 import { TasksScheduleTouch, TrophyImage,
     TextAndTrophyView, WelcomeTextView, CalendarImage,
-    CurrentDateTextView, DateAndCalenderImageView, HeaderView } from "../../css/Dashboard/profile";
+    CurrentDateTextView, DateAndCalenderImageView, HeaderView,
+    TasksScheduleView } from "../../css/Dashboard/profile";
 
 import {InnerContainerRemake} from '../../css/Dashboard/todolist';
 
@@ -52,8 +53,7 @@ const ToDoList = ({navigation}) => {
                 <View style={{height: "70%", width: "100%", 
                                 backgroundColor: Colors.purple, 
                                 borderRadius: 12, borderBottomLeftRadius: 0, borderBottomRightRadius: 0}}>
-                        <View style={{height: "16%", flexDirection: "row",
-                                        alignContent: "center"}}>
+                        <TasksScheduleView>
                             <TasksScheduleTouch style={{width: "25%"}} 
                                             onPress={()=>setTasksSelected(true)}>
                                 <Text style={{fontSize: tasksSelected?32:24,fontWeight: tasksSelected?"bold":"normal"}}> 
@@ -66,7 +66,7 @@ const ToDoList = ({navigation}) => {
                                     Schedule
                                 </Text>
                             </TasksScheduleTouch>
-                        </View>
+                        </TasksScheduleView>
                         <View style={{height: "84%", backgroundColor: "red"}}>
                              <Text>Test for ToDoList Page</Text>
                         </View>
