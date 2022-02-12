@@ -5,7 +5,8 @@ import {Colors} from "../../css/general/style";
 
 import {StyledContainer} from '../../css/general/style';
 import { TasksScheduleTouch, TrophyImage,
-    TextAndTrophyView, WelcomeTextView } from "../../css/Dashboard/profile";
+    TextAndTrophyView, WelcomeTextView, CalendarImage,
+    CurrentDateTextView, DateAndCalenderImageView, HeaderView } from "../../css/Dashboard/profile";
 
 import {InnerContainerRemake} from '../../css/Dashboard/todolist';
 
@@ -16,15 +17,26 @@ import { useSelector, useDispatch } from "react-redux";
 const ToDoList = ({navigation}) => {
     const [tasksSelected, setTasksSelected] = useState(true);
     const userData = useSelector(state => state.userName);
+
+    const monthNames =  ["January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"];
+    var today = new Date();
+    var day = String(today.getDate());
+    var month = today.getMonth();
+    var year = today.getFullYear();
     
     return (
         <StyledContainer>
             <StatusBar style="dark"/>
             <InnerContainerRemake>
-                <View style={{height: "30%", width: "100%", backgroundColor: Colors.lightgray}}>
-                    <View style={{height: "30%", width: "100%", backgroundColor: "green"}}>
-                        <Text>The top header</Text>
-                    </View>
+                <HeaderView>
+                    <DateAndCalenderImageView>
+                        <CurrentDateTextView>
+                            <Text style={{fontSize: 11, marginTop: "11%"}}> {monthNames[month]} {day}, {year}</Text>
+                            <Text style={{fontWeight: "bold", marginTop: "4%"}}> Today </Text>
+                        </CurrentDateTextView>
+                        <CalendarImage source={require('../../../assets/images/calendar.png')}/>
+                    </DateAndCalenderImageView>
                     <TextAndTrophyView>
                         <WelcomeTextView>
                             <Text style={{fontSize: 11}}>Hi, {userData.Name}!</Text>
@@ -36,7 +48,7 @@ const ToDoList = ({navigation}) => {
                             />
                     </TextAndTrophyView>
                     
-                </View>
+                </HeaderView>
                 <View style={{height: "70%", width: "100%", 
                                 backgroundColor: Colors.purple, 
                                 borderRadius: 12, borderBottomLeftRadius: 0, borderBottomRightRadius: 0}}>
