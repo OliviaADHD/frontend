@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {StatusBar} from "expo-status-bar";
-import {Text, View, TouchableOpacity, Image} from 'react-native';
+import {Text, View, TouchableOpacity, Image, Dimensions} from 'react-native';
 import {Colors} from "../../css/general/style";
 
 import {StyledContainer} from '../../css/general/style';
@@ -13,7 +13,9 @@ import {InnerContainerRemake} from '../../css/Dashboard/todolist';
 
 import DashBoardBottomMenu from "../../components/DashboardBottomMenu";
 import TasksScrollable from "../../components/TasksScrollable";
-import {Calendar, Agenda, CalendarProvider, ExpandableCalendar, WeekCalendar} from 'react-native-calendars';
+import UpcomingsScrollable from "../../components/UpcomingsScrollable";
+import {CalendarProvider, ExpandableCalendar} from 'react-native-calendars';
+const windowHeight = Dimensions.get('window').height;
 
 import { useSelector, useDispatch } from "react-redux";
 
@@ -28,6 +30,11 @@ const ToDoList = ({navigation}) => {
     var day = String(today.getDate());
     var month = today.getMonth();
     var year = today.getFullYear();
+    const calenderEventData = useSelector(state => state.upcomingEvents);
+
+    const [menuOpen, setMenuOpen] = useState(false);
+    const [menuPosition, setMenuPosition] = useState(0);
+    const [currentEventId, setcurrentEventId] = useState(undefined);
     
     const newTask =()=>{
         console.log('new Task bottom input open');
@@ -89,10 +96,11 @@ const ToDoList = ({navigation}) => {
                             </View>
                             :
                             <View style={{height: "84%", backgroundColor: "blue"}}>
+                                <View style={{height: "39%"}}>
                                 <CalendarProvider 
                                     date={Date()}
                                     onDateChanged={(day)=>{showNewDayEvents(day)}}
-                                    theme={{                                todayTextColor: '#7047EB',
+                                    theme={{todayTextColor: '#7047EB',
                                 dayTextColor: '#333333',
                                 textDisabledColor: '#BDBDBD',
                                 arrowColor: '#7047EB',
@@ -104,7 +112,8 @@ const ToDoList = ({navigation}) => {
                                 textMonthFontSize: 18,
                                 textDayHeaderFontSize: 15,
                                 textSectionTitleColor: '#7047EB',
-                                    }}
+                                    }// the theme prop doesn't seem to work :(
+                                    } 
                                     >
                                      <ExpandableCalendar firstDay={1}
                                             disablePan={true} //we need this
@@ -113,7 +122,16 @@ const ToDoList = ({navigation}) => {
                                                 weekday: {color:'orange'}
                                             }}
                                             />
+                                            
                                 </CalendarProvider>
+                                </View>
+                                <UpcomingsScrollable 
+                                    calenderEventData={calenderEventData}
+                                    menuOpen={menuOpen}
+                                    setMenuOpen={setMenuOpen}
+                                    setMenuPosition={setMenuPosition}
+                                    setcurrentEventId={setcurrentEventId}
+                                    windowHeight={windowHeight} />
                             </View>}
                         <NewTaskOrEventButton onPress={()=>{tasksSelected?newTask():newEvent()}}>
                             <WhiteText style={{fontSize: 14, width: "100%", textAlign: "center"}}> 
