@@ -13,6 +13,7 @@ import {InnerContainerRemake} from '../../css/Dashboard/todolist';
 
 import DashBoardBottomMenu from "../../components/DashboardBottomMenu";
 import TasksScrollable from "../../components/TasksScrollable";
+import {Calendar, Agenda, CalendarProvider, ExpandableCalendar, WeekCalendar} from 'react-native-calendars';
 
 import { useSelector, useDispatch } from "react-redux";
 
@@ -34,6 +35,10 @@ const ToDoList = ({navigation}) => {
     const newEvent =()=>{
         console.log('new Event to schedule-input open');
     };
+
+    const showNewDayEvents =(day) => {
+        console.log("need to implement new day stuff" + day);
+    }
 
     return (
         <StyledContainer>
@@ -77,15 +82,38 @@ const ToDoList = ({navigation}) => {
                             </TasksScheduleTouch>
                         </TasksScheduleView>                 
                         {tasksSelected?
-                        <View style={{height: "84%", backgroundColor: "white",
+                            <View style={{height: "84%", backgroundColor: "white",
                               alignItems: "center"}}>
-                            <TasksScrollable 
-                                tasksData = {taskData}
-                            />
+                                <TasksScrollable 
+                                tasksData = {taskData}/>
                             </View>
                             :
                             <View style={{height: "84%", backgroundColor: "blue"}}>
-                            <Text> Stuff for schedule</Text>
+                                <CalendarProvider 
+                                    date={Date()}
+                                    onDateChanged={(day)=>{showNewDayEvents(day)}}
+                                    theme={{                                todayTextColor: '#7047EB',
+                                dayTextColor: '#333333',
+                                textDisabledColor: '#BDBDBD',
+                                arrowColor: '#7047EB',
+                                monthTextColor: '#333333',
+                                textDayFontWeight: '500',
+                                textMonthFontWeight: 'bold',
+                                textDayHeaderFontWeight: 'normal',
+                                textDayFontSize: 15,
+                                textMonthFontSize: 18,
+                                textDayHeaderFontSize: 15,
+                                textSectionTitleColor: '#7047EB',
+                                    }}
+                                    >
+                                     <ExpandableCalendar firstDay={1}
+                                            disablePan={true} //we need this
+                                            disableWeekScroll={true}
+                                            style={{
+                                                weekday: {color:'orange'}
+                                            }}
+                                            />
+                                </CalendarProvider>
                             </View>}
                         <NewTaskOrEventButton onPress={()=>{tasksSelected?newTask():newEvent()}}>
                             <WhiteText style={{fontSize: 14, width: "100%", textAlign: "center"}}> 
