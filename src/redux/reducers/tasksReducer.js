@@ -10,6 +10,11 @@ const taskData = {
     5: {"taskTitle": "exampleTask 5", "taskDone": false},
     6: {"taskTitle": "exampleTask 6", "taskDone": false},
     7: {"taskTitle": "exampleTask 7", "taskDone": false},
+    8: {"taskTitle": "exampleTask 8", "taskDone": false},
+    9: {"taskTitle": "exampleTask 9", "taskDone": false},
+    10: {"taskTitle": "exampleTask 9", "taskDone": false},
+    11: {"taskTitle": "exampleTask 9", "taskDone": false},
+    12: {"taskTitle": "exampleTask 9 final", "taskDone": false},
 };
 
 const tasksReducer = (state=taskData, action) => {

@@ -6,6 +6,7 @@ export const BlackText = styled.Text`
   font-size: 16px;
   max-width: 80%;
   text-align: justify;
+  height: 100%;
   margin-bottom: 0%;
   marginLeft: 2%;
   width: 80%;
@@ -13,24 +14,21 @@ export const BlackText = styled.Text`
 
 export const TaskView = styled.View`
   width: 100%;
-  height: 15%;
+  height: 10%;
   backgroundColor: ${Colors.gray};
   flexDirection: row;
   borderRadius: 5px;
-  flex: 1;
   marginLeft: 4%;
   marginBottom: 2%;
   alignItems: center;
+  flex: 1;
   justifyContent: space-between;
 `;
 
 export const TasksScrollableView = styled.View`
-  height: 100%;
-  flex: 1;
   width: 95%;
+  flex: 1;
   alignItems: center;
-  paddingBottom: 0%;
-  paddingTop: 0%;
 `;
 
 

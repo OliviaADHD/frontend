@@ -12,11 +12,13 @@ import { TasksScheduleTouch, TrophyImage,
 import {InnerContainerRemake} from '../../css/Dashboard/todolist';
 
 import DashBoardBottomMenu from "../../components/DashboardBottomMenu";
+import TasksScrollable from "../../components/TasksScrollable";
 
 import { useSelector, useDispatch } from "react-redux";
 
 const ToDoList = ({navigation}) => {
     const [tasksSelected, setTasksSelected] = useState(true);
+    const taskData = useSelector(state => state.tasks);
     const userData = useSelector(state => state.userName);
 
     const monthNames =  ["January", "February", "March", "April", "May", "June",
@@ -75,8 +77,11 @@ const ToDoList = ({navigation}) => {
                             </TasksScheduleTouch>
                         </TasksScheduleView>                 
                         {tasksSelected?
-                        <View style={{height: "84%", backgroundColor: "red"}}>
-                            <Text>stuff for tasks</Text>
+                        <View style={{height: "84%", backgroundColor: "white",
+                              alignItems: "center"}}>
+                            <TasksScrollable 
+                                tasksData = {taskData}
+                            />
                             </View>
                             :
                             <View style={{height: "84%", backgroundColor: "blue"}}>
