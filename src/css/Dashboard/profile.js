@@ -75,3 +75,20 @@ export const HeaderView = styled.View`
   width: 100%;
   backgroundColor: ${Colors.gray};
 `;
+
+export const NewTaskOrEventButton = styled.TouchableOpacity`
+  width: 30%;
+  height: 10%;
+  alignContent: center;
+  alignSelf: flex-end;
+  marginRight: 10%;
+  borderRadius: 9px;
+  padding: 1%;
+  justifyContent: center;
+  marginTop: -20%;
+  backgroundColor: ${Colors.purple};
+`;
+
+export const WhiteText = styled.Text`
+  color: ${Colors.white};
+`;

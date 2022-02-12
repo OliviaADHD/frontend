@@ -7,7 +7,7 @@ import {StyledContainer} from '../../css/general/style';
 import { TasksScheduleTouch, TrophyImage,
     TextAndTrophyView, WelcomeTextView, CalendarImage,
     CurrentDateTextView, DateAndCalenderImageView, HeaderView,
-    TasksScheduleView } from "../../css/Dashboard/profile";
+    TasksScheduleView, NewTaskOrEventButton, WhiteText } from "../../css/Dashboard/profile";
 
 import {InnerContainerRemake} from '../../css/Dashboard/todolist';
 
@@ -26,6 +26,13 @@ const ToDoList = ({navigation}) => {
     var month = today.getMonth();
     var year = today.getFullYear();
     
+    const newTask =()=>{
+        console.log('new Task bottom input open');
+    };
+    const newEvent =()=>{
+        console.log('new Event to schedule-input open');
+    };
+
     return (
         <StyledContainer>
             <StatusBar style="dark"/>
@@ -66,10 +73,21 @@ const ToDoList = ({navigation}) => {
                                     Schedule
                                 </Text>
                             </TasksScheduleTouch>
-                        </TasksScheduleView>
+                        </TasksScheduleView>                 
+                        {tasksSelected?
                         <View style={{height: "84%", backgroundColor: "red"}}>
-                             <Text>Test for ToDoList Page</Text>
-                        </View>
+                            <Text>stuff for tasks</Text>
+                            </View>
+                            :
+                            <View style={{height: "84%", backgroundColor: "blue"}}>
+                            <Text> Stuff for schedule</Text>
+                            </View>}
+                        <NewTaskOrEventButton onPress={()=>{tasksSelected?newTask():newEvent()}}>
+                            <WhiteText style={{fontSize: 14, width: "100%", textAlign: "center"}}> 
+                                <Text style={{fontSize: 20, color: Colors.white}}>+  </Text> 
+                                New {tasksSelected?"task":"event"}
+                            </WhiteText>
+                        </NewTaskOrEventButton>
                         
                 </View>  
             </InnerContainerRemake>
