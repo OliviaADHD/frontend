@@ -14,7 +14,9 @@ import {InnerContainerRemake} from '../../css/Dashboard/todolist';
 import DashBoardBottomMenu from "../../components/DashboardBottomMenu";
 import TasksScrollable from "../../components/TasksScrollable";
 import UpcomingsScrollable from "../../components/UpcomingsScrollable";
-import {CalendarProvider, ExpandableCalendar} from 'react-native-calendars';
+import {CalendarProvider, ExpandableCalendar, WeekCalendar} from 'react-native-calendars';
+import { makeDateString } from "../../helpers/menstruation";
+
 const windowHeight = Dimensions.get('window').height;
 
 import { useSelector, useDispatch } from "react-redux";
@@ -28,9 +30,10 @@ const ToDoList = ({navigation}) => {
     "July", "August", "September", "October", "November", "December"];
     var today = new Date();
     var day = String(today.getDate());
-    var month = today.getMonth();
+    const [month, setMonth] = useState(today.getMonth());
     var year = today.getFullYear();
     const calenderEventData = useSelector(state => state.upcomingEvents);
+    const [markedDay, setMarkedDay] = useState(makeDateString(today));
 
     const [menuOpen, setMenuOpen] = useState(false);
     const [menuPosition, setMenuPosition] = useState(0);
@@ -44,13 +47,15 @@ const ToDoList = ({navigation}) => {
     };
 
     const showNewDayEvents =(day) => {
-        console.log("need to implement new day stuff" + day);
+        setMarkedDay(day.dateString);
+        setMonth(day.month);
+        console.log("need to implement getting data properly once the underlying Data structure is clearer");
     }
 
     return (
         <StyledContainer>
             <StatusBar style="dark"/>
-            <InnerContainerRemake>
+            <InnerContainerRemake style={{backgroundColor: Colors.gray}}>
                 <HeaderView>
                     <DateAndCalenderImageView>
                         <CurrentDateTextView>
@@ -77,13 +82,13 @@ const ToDoList = ({navigation}) => {
                         <TasksScheduleView>
                             <TasksScheduleTouch style={{width: "25%"}} 
                                             onPress={()=>setTasksSelected(true)}>
-                                <Text style={{fontSize: tasksSelected?32:24,fontWeight: tasksSelected?"bold":"normal"}}> 
+                                <Text style={{fontSize: tasksSelected?24:18,fontWeight: tasksSelected?"bold":"normal"}}> 
                                     Tasks 
                                 </Text>
                             </TasksScheduleTouch>
                             <TasksScheduleTouch style={{width: "40%"}} 
                                     onPress={()=>setTasksSelected(false)}>
-                                <Text style={{fontSize: tasksSelected?24:32,fontWeight: tasksSelected?"normal":"bold"}}>
+                                <Text style={{fontSize: tasksSelected?18:24,fontWeight: tasksSelected?"normal":"bold"}}>
                                     Schedule
                                 </Text>
                             </TasksScheduleTouch>
@@ -96,34 +101,42 @@ const ToDoList = ({navigation}) => {
                             </View>
                             :
                             <View style={{height: "84%", backgroundColor: "blue"}}>
+                                <Text style={{fontSize:16, width: "100%", textAlign: "center", 
+                                fontWeight: "bold", backgroundColor: "white"}}>
+                                    {monthNames[month]}
+                                </Text>
                                 <View style={{height: "39%"}}>
-                                <CalendarProvider 
-                                    date={Date()}
-                                    onDateChanged={(day)=>{showNewDayEvents(day)}}
-                                    theme={{todayTextColor: '#7047EB',
-                                dayTextColor: '#333333',
-                                textDisabledColor: '#BDBDBD',
-                                arrowColor: '#7047EB',
-                                monthTextColor: '#333333',
-                                textDayFontWeight: '500',
-                                textMonthFontWeight: 'bold',
-                                textDayHeaderFontWeight: 'normal',
-                                textDayFontSize: 15,
-                                textMonthFontSize: 18,
-                                textDayHeaderFontSize: 15,
-                                textSectionTitleColor: '#7047EB',
-                                    }// the theme prop doesn't seem to work :(
-                                    } 
-                                    >
-                                     <ExpandableCalendar firstDay={1}
-                                            disablePan={true} //we need this
-                                            disableWeekScroll={true}
-                                            style={{
-                                                weekday: {color:'orange'}
-                                            }}
-                                            />
-                                            
-                                </CalendarProvider>
+                                    <CalendarProvider 
+                                        date={Date()}                                   
+                                        >
+                                        <WeekCalendar 
+                                        onDayPress={(day)=>{showNewDayEvents(day)}} 
+                                        showTodayButton={false}
+                                        onDateChanged={()=>{console.log('wc dc')}}
+                                        onMomentumScrollEnd={()=>{console.log('scrolled')}}
+
+                                            theme={{todayTextColor: '#7047EB',
+                                                    dayTextColor: '#333333',
+                                                    textDisabledColor: '#BDBDBD',
+                                                    arrowColor: '#7047EB',
+                                                    monthTextColor: '#333333',
+                                                    textDayFontWeight: 'normal',
+                                                    textMonthFontWeight: 'normal',
+                                                    textDayHeaderFontWeight: 'normal',
+                                                    textDayFontSize: 15,
+                                                    textMonthFontSize: 18,
+                                                    textDayHeaderFontSize: 15,
+                                                    textSectionTitleColor: '#7047EB',
+                                                    }} 
+                                        markedDates={{
+                                            [markedDay]: {selected:true,
+                                                        disableTouchEvent: true,
+                                                        selectedColor: '#F1EFFE',
+                                                        selectedTextColor: '#7954FA'
+                                            }
+                                        }}
+                                                    />
+                                    </CalendarProvider>
                                 </View>
                                 <UpcomingsScrollable 
                                     calenderEventData={calenderEventData}

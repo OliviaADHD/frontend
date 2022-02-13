@@ -13,13 +13,13 @@ export const TasksScheduleTouch = styled.TouchableOpacity`
   alignContent: center;
   alignItems: center;
   justifyContent: center;
-  margin: 5%;
+  margin: 3%;
   marginLeft: 2.5%;
   marginRight: 2.5%;
 `;
 
 export const TasksScheduleView = styled.View`
-  height: 16%;
+  height: 12%;
   flexDirection: row;
   alignContent: center;
 `;
