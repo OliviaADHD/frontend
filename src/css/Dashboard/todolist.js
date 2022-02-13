@@ -121,3 +121,11 @@ export const MonthText = styled.Text`
   fontWeight: bold;
   backgroundColor: ${Colors.white};
 `;
+
+export const BlackText = styled.Text`
+  color: ${Colors.black};
+  font-size: 16px;
+  max-width: 80%;
+  text-align: justify;
+  margin-bottom: 0%;
+`;

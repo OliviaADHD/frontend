@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {StatusBar} from "expo-status-bar";
 import {Text, View, TouchableOpacity, Image, Dimensions} from 'react-native';
 import {Colors} from "../../css/general/style";
@@ -8,7 +8,7 @@ import { TasksScheduleTouch, TrophyImage,
     TextAndTrophyView, WelcomeTextView, CalendarImage,
     CurrentDateTextView, DateAndCalenderImageView, HeaderView,
     TasksScheduleView, NewTaskOrEventButton, WhiteText,
-    ContentView, TasksView, ScheduleView, MonthText } from "../../css/Dashboard/todolist";
+    ContentView, TasksView, ScheduleView, MonthText, BlackText } from "../../css/Dashboard/todolist";
 
 import {InnerContainerRemake} from '../../css/Dashboard/todolist';
 
@@ -52,6 +52,8 @@ const ToDoList = ({navigation}) => {
         setMonth(day.month);
         console.log("need to implement getting data properly once the underlying Data structure is clearer");
     }
+
+    useEffect(() =>{console.log(menuPosition)},[menuPosition])
 
     return (
         <StyledContainer>
@@ -140,6 +142,7 @@ const ToDoList = ({navigation}) => {
                                     setMenuPosition={setMenuPosition}
                                     setcurrentEventId={setcurrentEventId}
                                     windowHeight={windowHeight} />
+                                 
                                 </View>
                             </ScheduleView>}
                         <NewTaskOrEventButton onPress={()=>{tasksSelected?newTask():newEvent()}}>
@@ -151,6 +154,41 @@ const ToDoList = ({navigation}) => {
                         
                 </ContentView>  
             </InnerContainerRemake>
+            {menuOpen && (
+                <View style={{backgroundColor: Colors.white,
+                            height: "20%", width:"30%",
+                            borderRadius: 9,
+                            borderTopRightRadius: (menuPosition>80)?9:0,
+                            borderBottomRightRadius: (menuPosition>80)?0:9,
+                            alignSelf: "baseline",
+                            zIndex: 150,
+                            padding: "10%",
+                            margin: "0%",
+                            top: (menuPosition>80)?("70%"):((menuPosition).toString()+"%"),
+                            justifyContent: "space-between",
+                            alignItems: "flex-start",
+                            left: "55%",
+                            position: "absolute"
+                            }}>
+                    <TouchableOpacity
+                        onPress={()=>{
+                            console.log('snooze pressed...')
+                        }}>
+                        <BlackText>Snooze</BlackText>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={()=>{
+                            console.log('edit pressed...')
+                        }}>
+                        <BlackText>Edit</BlackText>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={()=>{
+                            console.log('delete number', currentEventId);
+                            dispatch(deleteEvent(currentEventId));
+                            setMenuOpen(false);
+                        }}>
+                        <BlackText>Delete</BlackText>
+                    </TouchableOpacity>
+                </View> )}
             <DashBoardBottomMenu currentScreen={"ToDoList"} navigation={navigation}/>
         </StyledContainer>
     )
