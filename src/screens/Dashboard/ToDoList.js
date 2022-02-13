@@ -7,7 +7,7 @@ import {StyledContainer} from '../../css/general/style';
 import { TasksScheduleTouch, TrophyImage,
     TextAndTrophyView, WelcomeTextView, CalendarImage,
     CurrentDateTextView, DateAndCalenderImageView, HeaderView,
-    TasksScheduleView, NewTaskOrEventButton, WhiteText } from "../../css/Dashboard/profile";
+    TasksScheduleView, NewTaskOrEventButton, WhiteText } from "../../css/Dashboard/todolist";
 
 import {InnerContainerRemake} from '../../css/Dashboard/todolist';
 
@@ -77,7 +77,7 @@ const ToDoList = ({navigation}) => {
                     
                 </HeaderView>
                 <View style={{height: "70%", width: "100%", 
-                                backgroundColor: Colors.purple, 
+                                backgroundColor: "white", 
                                 borderRadius: 12, borderBottomLeftRadius: 0, borderBottomRightRadius: 0}}>
                         <TasksScheduleView>
                             <TasksScheduleTouch style={{width: "25%"}} 
@@ -100,22 +100,19 @@ const ToDoList = ({navigation}) => {
                                 tasksData = {taskData}/>
                             </View>
                             :
-                            <View style={{height: "84%", backgroundColor: "blue"}}>
+                            <View style={{height: "84%"}}>
                                 <Text style={{fontSize:16, width: "100%", textAlign: "center", 
                                 fontWeight: "bold", backgroundColor: "white"}}>
                                     {monthNames[month]}
                                 </Text>
-                                <View style={{height: "39%"}}>
+                                <View style={{height: "23%"}}>
                                     <CalendarProvider 
                                         date={Date()}                                   
                                         >
                                         <WeekCalendar 
                                         onDayPress={(day)=>{showNewDayEvents(day)}} 
                                         showTodayButton={false}
-                                        onDateChanged={()=>{console.log('wc dc')}}
-                                        onMomentumScrollEnd={()=>{console.log('scrolled')}}
-
-                                            theme={{todayTextColor: '#7047EB',
+                                        theme={{todayTextColor: '#7047EB',
                                                     dayTextColor: '#333333',
                                                     textDisabledColor: '#BDBDBD',
                                                     arrowColor: '#7047EB',
@@ -138,6 +135,7 @@ const ToDoList = ({navigation}) => {
                                                     />
                                     </CalendarProvider>
                                 </View>
+                                <View style={{height: "75%"}}> 
                                 <UpcomingsScrollable 
                                     calenderEventData={calenderEventData}
                                     menuOpen={menuOpen}
@@ -145,6 +143,7 @@ const ToDoList = ({navigation}) => {
                                     setMenuPosition={setMenuPosition}
                                     setcurrentEventId={setcurrentEventId}
                                     windowHeight={windowHeight} />
+                                </View>
                             </View>}
                         <NewTaskOrEventButton onPress={()=>{tasksSelected?newTask():newEvent()}}>
                             <WhiteText style={{fontSize: 14, width: "100%", textAlign: "center"}}> 
