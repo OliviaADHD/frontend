@@ -7,14 +7,15 @@ import {StyledContainer} from '../../css/general/style';
 import { TasksScheduleTouch, TrophyImage,
     TextAndTrophyView, WelcomeTextView, CalendarImage,
     CurrentDateTextView, DateAndCalenderImageView, HeaderView,
-    TasksScheduleView, NewTaskOrEventButton, WhiteText } from "../../css/Dashboard/todolist";
+    TasksScheduleView, NewTaskOrEventButton, WhiteText,
+    ContentView, TasksView, ScheduleView, MonthText } from "../../css/Dashboard/todolist";
 
 import {InnerContainerRemake} from '../../css/Dashboard/todolist';
 
 import DashBoardBottomMenu from "../../components/DashboardBottomMenu";
 import TasksScrollable from "../../components/TasksScrollable";
 import UpcomingsScrollable from "../../components/UpcomingsScrollable";
-import {CalendarProvider, ExpandableCalendar, WeekCalendar} from 'react-native-calendars';
+import {CalendarProvider, WeekCalendar} from 'react-native-calendars';
 import { makeDateString } from "../../helpers/menstruation";
 
 const windowHeight = Dimensions.get('window').height;
@@ -76,9 +77,7 @@ const ToDoList = ({navigation}) => {
                     </TextAndTrophyView>
                     
                 </HeaderView>
-                <View style={{height: "70%", width: "100%", 
-                                backgroundColor: "white", 
-                                borderRadius: 12, borderBottomLeftRadius: 0, borderBottomRightRadius: 0}}>
+                <ContentView>
                         <TasksScheduleView>
                             <TasksScheduleTouch style={{width: "25%"}} 
                                             onPress={()=>setTasksSelected(true)}>
@@ -94,17 +93,15 @@ const ToDoList = ({navigation}) => {
                             </TasksScheduleTouch>
                         </TasksScheduleView>                 
                         {tasksSelected?
-                            <View style={{height: "84%", backgroundColor: "white",
-                              alignItems: "center"}}>
+                            <TasksView>
                                 <TasksScrollable 
                                 tasksData = {taskData}/>
-                            </View>
+                            </TasksView>
                             :
-                            <View style={{height: "84%"}}>
-                                <Text style={{fontSize:16, width: "100%", textAlign: "center", 
-                                fontWeight: "bold", backgroundColor: "white"}}>
+                            <ScheduleView>
+                                <MonthText>
                                     {monthNames[month]}
-                                </Text>
+                                </MonthText>
                                 <View style={{height: "23%"}}>
                                     <CalendarProvider 
                                         date={Date()}                                   
@@ -144,7 +141,7 @@ const ToDoList = ({navigation}) => {
                                     setcurrentEventId={setcurrentEventId}
                                     windowHeight={windowHeight} />
                                 </View>
-                            </View>}
+                            </ScheduleView>}
                         <NewTaskOrEventButton onPress={()=>{tasksSelected?newTask():newEvent()}}>
                             <WhiteText style={{fontSize: 14, width: "100%", textAlign: "center"}}> 
                                 <Text style={{fontSize: 20, color: Colors.white}}>+  </Text> 
@@ -152,7 +149,7 @@ const ToDoList = ({navigation}) => {
                             </WhiteText>
                         </NewTaskOrEventButton>
                         
-                </View>  
+                </ContentView>  
             </InnerContainerRemake>
             <DashBoardBottomMenu currentScreen={"ToDoList"} navigation={navigation}/>
         </StyledContainer>

@@ -94,3 +94,30 @@ export const NewTaskOrEventButton = styled.TouchableOpacity`
 export const WhiteText = styled.Text`
   color: ${Colors.white};
 `;
+
+export const ContentView = styled.View`
+  height: 70%;
+  width: 100%;
+  backgroundColor: ${Colors.white};
+  borderRadius: 12px;
+  borderBottomLeftRadius: 0px;
+  borderBottomRightRadius: 0px;
+`;
+
+export const TasksView = styled.View`
+  height: 84%;
+  backgroundColor: ${Colors.white};
+  alignItems: center;
+`;
+
+export const ScheduleView = styled.View`
+  height: 84%;
+`;
+
+export const MonthText = styled.Text`
+  fontSize: 16px;
+  width: 100%;
+  textAlign: center;
+  fontWeight: bold;
+  backgroundColor: ${Colors.white};
+`;
