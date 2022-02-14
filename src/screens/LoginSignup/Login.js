@@ -2,14 +2,11 @@ import React, {useState, useEffect} from "react";
 import { StatusBar } from "expo-status-bar";
 import { Formik } from "formik";
 import {Ionicons} from '@expo/vector-icons';
-import { StyleSheet, ActivityIndicator, View } from "react-native";
+import { StyleSheet, ActivityIndicator, View, Platform } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import RootStack from "../../navigators/RootStack";
-import* as AuthSession from 'expo-auth-session';
-import * as Facebook from 'expo-auth-session/providers/facebook';
-import { ResponseType } from 'expo-auth-session';
+import {useAuthRequest, exchangeCodeAsync} from 'expo-auth-session';
 import * as WebBrowser from 'expo-web-browser';
-import { signIn, beforeSignIn, signInGoogle } from '../../redux/actions/user/login'
+import { signIn, beforeSignIn, signInGoogle, signInFacebook } from '../../redux/actions/user/login'
 import {
   PageLogo,
   StyledFormArea,
@@ -40,8 +37,7 @@ import {
 import * as yup from 'yup';
 
 import * as Google from 'expo-auth-session/providers/google';
-import axios from "axios";
-import {link} from '../../redux/config/config';
+
 
 
 const signInValidationSchema = yup.object().shape({
@@ -54,7 +50,8 @@ const signInValidationSchema = yup.object().shape({
   })
 
 
-//WebBrowser.maybeCompleteAuthSession();
+WebBrowser.maybeCompleteAuthSession();
+const useProxy = true;
 
 const Login = ({navigation}) => {
     const dispatch = useDispatch();
@@ -101,72 +98,119 @@ const Login = ({navigation}) => {
             }
 
         })
-        .catch(err => console.log(error, err));
+        .catch(err => {
+            setGoogleError(true);
+            setLoading(false);
+            setGoogleClicked(false);
+        });
     } 
 
     useEffect(() => {
         if ((responseGoogle?.type === 'success') && (googleClicked === true)){
             setGoogleClicked(false);
             const {authentication: { accessToken } } = responseGoogle;
-            //getGoogleData(accessToken);
             makeGoogleLogin(accessToken);
             
 
-        } else {setLoading(false);}
+        } else {
+            setLoading(false);
+            if (googleClicked === true) {
+                setGoogleError(true);
+                setGoogleClicked(false);
+            }
+        }
 
     }, [responseGoogle]);
 
+    //Facebook login
+    const [fbError, setfbError] = useState(false);
+    const [fbClicked, setfbClicked] = useState(false);
 
-
-
-
-    /*const [GoogleLogin, setGoogleLogin] = useState("texxt");
-    const [request, response, promptAsync] = Google.useAuthRequest({
-        expoClientId: '51546200734-nm24i67drlpn5dkcnaj4ckta6k2cnfff.apps.googleusercontent.com',
-        iosClientId: '51546200734-nm24i67drlpn5dkcnaj4ckta6k2cnfff.apps.googleusercontent.com',
-        webClientId: '51546200734-qv54r4ur316rk4ll8lb37esgstngnr4i.apps.googleusercontent.com',
-        ClientSecret: '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',
-      });
-
-      const [requestFb, responseFb, promptAsyncFb] = Facebook.useAuthRequest({
-        expoClientId: '901148574169051',
-        responseType: ResponseType.Code,
-      });
-      
+    const discoveryfb = {
+        authorizationEndpoint: 'https://www.facebook.com/v12.0/dialog/oauth',
+        tokenEndpoint: 'https://graph.facebook.com/v12.0/oauth/access_token'
+    };
     
-    useEffect(() => {
-        if (response?.type === 'success'){
-            console.log("success logging in with google! Continue on?");
-            const {authentication } = response;
+    const configfb = {
+        clientId: '901148574169051',
+        scopes: ['public_profile'],
+        redirectUri: "https://auth.expo.io/@anja-roed/olivia",
+        extraParams: {
+            display: Platform.select({web: 'popup'})
         }
+    };
+    const [requestFb, responseFb, promptAsyncFb] = useAuthRequest(configfb, discoveryfb);
 
-    }, [response]);
+    const getFbToken = async(code, codeVerifier) => {
+        const tokenResult = exchangeCodeAsync(
+            {
+            code: code,
+            clientId: '901148574169051',
+            scopes: ['public_profile'],
+            redirectUri: "https://auth.expo.io/@anja-roed/olivia",
+            extraParams: {
+                code_verifier: codeVerifier || "",
+                },
+            }, discoveryfb);
+        return tokenResult;
+    }
 
-    useEffect(() =>{
-        if (responseFb?.type === 'success'){
-            console.log("successfulley logged in with fb!");
-            const {code} = responseFb.params;            
-        }
-    }, [responseFb]);
-    */
-    
-    
-    
+    const makeFacebookLogin = async(token) => {
+        dispatch(beforeSignIn())
+        .then(() => dispatch(signInFacebook(token)))
+        .then((resp) => {
+            if (resp.success === true){
+                setLoading(false);
+                setfbClicked(false);
+                
+                if (resp.firstTime){
 
-    /*
-    useEffect(() => {
-        if (loginState.message.passed){
-            if (userData.firstTime) {
-                navigation.reset('Welcome_Post_Signup');
+                    navigation.reset({
+                        index: 0,
+                        routes: [{ name: 'Welcome_Post_Signup' }]});
+                    }
+                else {
+                    navigation.reset({
+                        index: 0,
+                        routes: [{ name: 'Home' }]});
+                }
+
             } else {
-                navigation.reset('Home', {
-                    name: userData.Name,
-                    id: userData.ID,
-                    firstTime: userData.firstTime,
-                });
+                setfbError(true);
+                setLoading(false);
+                setfbClicked(false);
             }
+
+        })
+        .catch(err => {
+            setfbError(true);
+            setLoading(false);
+            setfbClicked(false);
+        });
+    } 
+
+    useEffect(()=>{
+        if ((responseFb?.type === 'success') && (fbClicked === true)){     
+            const {code} = responseFb.params;
+            const {codeVerifier} = requestFb;
+            getFbToken(code, codeVerifier)
+            .then(resp => {
+                makeFacebookLogin(resp.accessToken);
+            })
+            .catch(err => {
+                setfbError(true);
+            })
+        } else { 
+            if (fbClicked === true) {
+                setfbError(true);
+                setfbClicked(false);
+            } 
+            setLoading(false);
         }
-    });*/
+    }, [responseFb])
+    
+
+
 
     return(
             <StyledContainer>
@@ -183,7 +227,6 @@ const Login = ({navigation}) => {
                             .then(() => dispatch(signIn(values)))
                             .then((resp) => {
                                 if (resp.success === true){
-                                    console.log('successfully logged in!', resp.firstTime);
                                     setLoading(false);                                    
                                     if (resp.firstTime){
                                         navigation.reset({
@@ -242,23 +285,26 @@ const Login = ({navigation}) => {
                                 <ErrorText>Error signing in with google.</ErrorText>
                             </ErrorMessage>
                         }
+                        {fbError && 
+                            <ErrorMessage>
+                                <ErrorText>Error signing in with facebook.</ErrorText>
+                            </ErrorMessage>
+                        }
 
                         <Or>Or</Or>
                         <IconContainer>
                             <EachIconContainer onPress={async()=>{
-                                console.log("Trying to log in with google");
                                 setLoading(true);
                                 setGoogleClicked(true);
                                 promptAsyncGoogle();
-                                console.log("success?")
-
                             }}>
                                 <IconLogo source={require('../../../assets/images/google.png')} />
                             </EachIconContainer>
                             <EachIconContainer onPress={() => {
-                                console.log("trying to log in with fb");
-                                promptAsyncFb();
-                                console.log("success with fb?");}} >
+                                setLoading(true);
+                                setfbClicked(true);
+                                promptAsyncFb({useProxy});
+                                }} >
                                 <IconLogo source={require('../../../assets/images/facebook.png')} />
                             </EachIconContainer>
                             <EachIconContainer onPress={handleSubmit}>

@@ -102,8 +102,6 @@ export const newUser = (user) => async dispatch => {
     return true;
   })
   .catch(err =>{
-    console.warn("Caught netwr")
-    console.warn(err);
     if (err.response === undefined) {
       //it's a network error!
       dispatch({
@@ -123,6 +121,75 @@ export const newUser = (user) => async dispatch => {
   });
 };
 
+export const newUserFacebook = (token) => async dispatch => {
+  return axios.post(userLink+"signup-facebook/"+token, {timeout: 400})
+  .then(resp => {
+      dispatch({type: SIGN_UP_SUCCESS,
+                payload: {passed: true}});
+      dispatch({type: SET_USER_ID, payload: resp.data.userId});
+      dispatch({type:SET_USER_NAME, payload: resp.data.name});
+      dispatch({type: SET_FIRST_TIME, payload: true});
+      return true;
+    })
+  .catch(err => {
+    if (err.response === undefined) {
+      //it's a network error!
+      dispatch({
+        type: SET_NETWORK_ERROR_TRUE,
+        payload: {}});
+    } else {
+      dispatch({
+        type: SIGN_UP_FAILED,
+        payload: {
+          passed:false,
+          error: "Sign up failed"}});
+      dispatch({
+            type: SET_NETWORK_ERROR_FALSE,
+            payload: {}});
+    };
+    return false;
+  });
+};
+
+export const signIn = (loginData) =>async dispatch => {
+  return axios.post(userLink + "login", loginData,{
+    headers: headers
+  }, {timeout: 2})
+  .then(res => {
+      dispatch({
+        type: SIGN_IN_SUCCESS,
+        payload: {passed:true, error: false}
+      });
+      dispatch({type: SET_USER_NAME, payload: res.data.name});
+      dispatch({type: SET_USER_ID, payload: res.data.userId});
+      dispatch({type: SET_FIRST_TIME, payload: res.data.firstTime});
+      dispatch({
+        type: SET_NETWORK_ERROR_FALSE,
+        payload: {}});
+      return {success: true, firstTime: res.data.firstTime};
+  })
+  .catch(err => {
+    if (err.response === undefined) {
+    //it's a network error!
+    dispatch({
+      type: SET_NETWORK_ERROR_TRUE,
+      payload: {}});
+  } else {
+    dispatch({
+      type: SIGN_IN_FAILED,
+      payload: {
+        passed:false,
+        error: true,
+        errorMessage: "Login failed",
+      }
+     });
+     dispatch({
+      type: SET_NETWORK_ERROR_FALSE,
+      payload: {}});
+  };
+  return {success: false};
+});
+};
 
 export const verifyEmail = (email) => async dispatch => {
   return axios.post(userLink+"email/"+email, {timeout: 2})

@@ -64,8 +64,7 @@ const RootStack = () => {
                 <Stack.Screen name='Privacy' component={Privacy} options={{
                     title:'Privacy Policy',
                     header: () => null,
-                }} />
-                <Stack.Screen name='TutorialDashboard' component={TutorialDashboard} options ={{header: () => null}}/>   
+                }} /> 
                 <Stack.Screen name='Welcome_Post_Signup' component={Welcome_Post_Signup} />
                 <Stack.Screen name="Questionnaire" component={Questionnaire} options ={{header: () => null}} />
                   
