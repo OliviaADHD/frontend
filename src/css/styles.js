@@ -49,7 +49,7 @@ padding-left: 5%;
 export const PageLogo = styled.Image`
     width: 100%;
     height: 20%;
-    margin-bottom: 10%;
+    margin-bottom: 5%;
     margin-top: 5%;
     resizeMode: contain;
 `;
@@ -78,7 +78,7 @@ export const StyledFormArea = styled.View`
 
 export const StyledTextInput = styled.TextInput`
     background-color: ${white};
-    margin: 3% 4% 3% 4%;
+    margin: 0% 4% 6% 4%;
     height: 40px;
     font-size: 17px;
     textAlign: left;
@@ -128,6 +128,7 @@ export const ButtonText = styled.Text`
 `;
 export const ErrorMessage = styled.TouchableOpacity`
     background-color: ${white};
+    align-self: center;
 `;
 export const ErrorText = styled.Text`
     color: ${red};

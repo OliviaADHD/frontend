@@ -85,6 +85,11 @@ const Login = ({navigation}) => {
                         index: 0,
                         routes: [{ name: 'Welcome_Post_Signup' }]});
                     }
+                else if (resp.tutDone === false){
+                    navigation.reset({
+                        index: 0,
+                        routes: [{ name: 'TutorialDashboard' }]});
+                }
                 else {
                     navigation.reset({
                         index: 0,
@@ -169,6 +174,11 @@ const Login = ({navigation}) => {
                         index: 0,
                         routes: [{ name: 'Welcome_Post_Signup' }]});
                     }
+                else if (resp.tutDone === false){
+                    navigation.reset({
+                        index: 0,
+                        routes: [{ name: 'TutorialDashboard' }]});
+                    }
                 else {
                     navigation.reset({
                         index: 0,
@@ -233,6 +243,11 @@ const Login = ({navigation}) => {
                                             index: 0,
                                             routes: [{ name: 'Welcome_Post_Signup' }]});
                                         }
+                                    else if (resp.tutDone === false){
+                                        navigation.reset({
+                                            index: 0,
+                                            routes: [{ name: 'TutorialDashboard' }]});
+                                        }
                                     else {
                                         navigation.reset({
                                             index: 0,
@@ -245,15 +260,20 @@ const Login = ({navigation}) => {
                         }}
                         
                     
-                    >{({handleChange, handleBlur, handleSubmit, values})=> (<StyledFormArea>
+                    >{({handleChange, values, handleSubmit, errors, isValid, isSubmitting, touched, handleBlur})=> (<StyledFormArea>
                         <MyTextInput 
                             placeholder="Email"
                             onChangeText={handleChange('email')}
                             onBlur={handleBlur('email')}
                             value={values.email}
+                            style={((touched.email && errors.email))?{marginBottom: "1%"}:{}}
                             keyboardType="email-address"
                         />
-
+                        { touched.email && errors.email &&
+                            <ErrorMessage>
+                                <ErrorText>{errors.email}</ErrorText>
+                            </ErrorMessage> 
+                        }
                         <MyTextInput 
                             placeholder="Password"
                             onChangeText={handleChange('password')}
@@ -262,12 +282,13 @@ const Login = ({navigation}) => {
                             secureTextEntry={hidePassword}
                             isPassword={true}
                             hidePassword={hidePassword}
+                            style={((touched.password && errors.password))?{marginBottom: "1%"}:{}}
                             setHidePassword={setHidePassword}
                         />
                         <ForgotPassword onPress = {() =>  navigation.navigate("ResetPassword")}>
                             <ForgotPasswordText>Forgot Password?</ForgotPasswordText>
                         </ForgotPassword>
-                        <StyledButton onPress={handleSubmit}>
+                        <StyledButton onPress={handleSubmit} style={(fbError||networkError.error||loginState.message.error||googleError)?{marginBottom: "2%"}:{marginBottom: "7%"}}>
                             <ButtonText>Login</ButtonText>
                         </StyledButton>
                         {networkError.error && 
@@ -292,7 +313,7 @@ const Login = ({navigation}) => {
                         }
 
                         <Or>Or</Or>
-                        <IconContainer>
+                        <IconContainer style={{marginBottom: "2%"}}>
                             <EachIconContainer onPress={async()=>{
                                 setLoading(true);
                                 setGoogleClicked(true);
@@ -311,7 +332,7 @@ const Login = ({navigation}) => {
                                 <IconLogo  source={require('../../../assets/images/apple.png')} />
                             </EachIconContainer>
                         </IconContainer>
-                        <ExtraView>
+                        <ExtraView style={{marginTop: "0%"}}>
                             <ExtraText>Would You Like To Join Us? </ExtraText>
                             <TextLink onPress = {() =>  navigation.navigate("Signup")}>
                                 <TextLinkContent>Signup</TextLinkContent>
@@ -330,12 +351,12 @@ const Login = ({navigation}) => {
     
     }
 
-const MyTextInput = ({isPassword, icon, hidePassword, setHidePassword, ...props}) => {
+const MyTextInput = ({isPassword, icon, hidePassword, setHidePassword, style, ...props}) => {
     return (
         <View>
-            <StyledTextInput {...props} />
+            <StyledTextInput {...props}  style={style}/>
             {isPassword && (
-                <RightIcon onPress={() => setHidePassword(!hidePassword)}>
+                <RightIcon onPress={() => setHidePassword(!hidePassword)} style={[{height: "1%"}, (Object.keys(style).length === 0)?{top: "-75%"}:{top: "-65%"}]}>
                     <Ionicons name={hidePassword ? 'md-eye-off' : 'md-eye'} size={19}/>
                 </RightIcon>
             )}

@@ -1,9 +1,8 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {StatusBar} from "expo-status-bar";
 import {Text, View, TouchableOpacity, Dimensions, Image} from 'react-native';
-import { Colors } from "../../css/general/style";
-
-import {StyledContainer} from '../../css/general/style';
+import {registerForPushNotificationsAsync} from '../../helpers/notifications';
+import {StyledContainer, InnerContainer, Colors} from '../../css/general/style';
 
 import {
     InnerContainerRemake, 
@@ -21,6 +20,7 @@ import TasksScrollable from "../../components/TasksScrollable";
 const windowHeight = Dimensions.get('window').height;
 
 const Home = ({navigation}) => {
+
     const userData = useSelector(state => state.userName);
     const dispatch = useDispatch();
     const calenderEventData = useSelector(state => state.upcomingEvents);
@@ -29,6 +29,11 @@ const Home = ({navigation}) => {
     const [currentEventId, setcurrentEventId] = useState(undefined);
 
     const taskData = useSelector(state => state.tasks);
+    useEffect(() => {
+        (() => registerForPushNotificationsAsync())();
+    }, []);
+
+
     return (
         <StyledContainer>
             <StatusBar style="dark"/>

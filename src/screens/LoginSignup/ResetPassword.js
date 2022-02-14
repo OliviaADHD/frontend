@@ -43,7 +43,7 @@ const ResetPassword = ({navigation}) => {
                     initialValues={{email: ''}}
                     validationSchema={resetPasswordSchema}
                     onSubmit={(values) => {
-                      navigation.navigate("MessageResetPassword",{
+                      navigation.replace("MessageResetPassword",{
                         email:values.email
                       })
                      }}

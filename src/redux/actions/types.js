@@ -80,3 +80,6 @@ export const ADD_TASK = 'ADD_TASK';
 export const DELETE_TASK = 'DELETE_TASK';
 export const MARK_TASK_DONE = 'MARK_TASK_DONE';
 export const MARK_TASK_UNDONE = 'MARK_TASK_UNDONE';
+
+//Push notifications
+export const PUSH_NOTIFICATIONS = 'PUSH_NOTIFICATIONS';
