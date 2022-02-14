@@ -9,6 +9,8 @@ import networkAvailabilityReducer from './networkAvailabilityReducer';
 import userNameReducer from './userNameReducer';
 import profileReducer from './profileReducer';
 import dashboardTutorialReducer from './dashboardTutorialReducer';
+import upcomingEventsReducer from './upcomingEventsReducer';
+import tasksReducer from './tasksReducer';
 
 const rootReducer = combineReducers({
     loginInfo: loginReducer,
@@ -21,6 +23,8 @@ const rootReducer = combineReducers({
     userName: userNameReducer,
     profileInfo: profileReducer,
     dashboardTutorial: dashboardTutorialReducer,
+    upcomingEvents: upcomingEventsReducer,
+    tasks: tasksReducer,
 });
 
 export default rootReducer;
