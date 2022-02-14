@@ -19,10 +19,11 @@ const TasksScrollable = ({tasksData}) => {
     }
     return (
         <TasksScrollableView>
-            <ScrollView showsVerticalScrollIndicator={false}
+            <ScrollView showsVerticalScrollIndicator={true}
                         overScrollMode={"never"}
-                        contentContainerStyle={{
-                            flexGrow: 1}}>
+                        style={{flex:1}}
+                        contentContainerStyle={{justifyContent: "space-between", flexGrow: 1, 
+                        padding: 0}}>
                 {taskList}
             </ScrollView>
         </TasksScrollableView>

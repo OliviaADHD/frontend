@@ -64,7 +64,16 @@ const Home = ({navigation}) => {
                             setcurrentEventId={setcurrentEventId}
                             windowHeight={windowHeight} />
                         </View>
-                        {menuOpen && (
+                       
+                        <View style={{height: "25%", width: "100%",
+                                backgroundColor: menuOpen?Colors.gray:Colors.white}}>
+                            <StyledBoldTitle>Tasks</StyledBoldTitle>
+                            <TasksScrollable 
+                                tasksData = {taskData}
+                            />
+                        </View>
+            </InnerContainerRemake>
+            {menuOpen && (
                             <View style={{backgroundColor: Colors.white,
                                         height: "20%", width:"30%",
                                         borderRadius: 9,
@@ -73,7 +82,7 @@ const Home = ({navigation}) => {
                                         zIndex: 150,
                                         padding: "10%",
                                         margin: "0%",
-                                        top: (0.98*menuPosition).toString()+"%",
+                                        top: (menuPosition).toString()+"%",
                                         justifyContent: "space-between",
                                         alignItems: "flex-start",
                                         left: "55%",
@@ -98,14 +107,6 @@ const Home = ({navigation}) => {
                                     <BlackText>Delete</BlackText>
                                 </TouchableOpacity>
                             </View> )}
-                        <View style={{height: "25%", width: "100%",
-                                backgroundColor: menuOpen?Colors.gray:Colors.white}}>
-                            <StyledBoldTitle>Tasks</StyledBoldTitle>
-                            <TasksScrollable 
-                                tasksData = {taskData}
-                            />
-                        </View>
-            </InnerContainerRemake>
             <DashBoardBottomMenu currentScreen={"Home"} navigation={navigation}/>
         </StyledContainer>
     )
