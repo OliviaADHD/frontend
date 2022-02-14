@@ -69,3 +69,7 @@ export const SET_LANGUAGE = 'SET_LANGUAGE';
 export const SET_DARKMODE = 'SET_DARKMODE';
 export const SET_HIDEPHOTO = 'SET_HIDEPHOTO';
 export const SET_NOTIFICATION = 'SET_NOTIFICATION';
+
+//Push notifications
+
+export const PUSH_NOTIFICATIONS = 'PUSH_NOTIFICATIONS';
