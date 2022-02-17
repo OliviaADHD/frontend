@@ -17,11 +17,28 @@ import { useSelector, useDispatch } from "react-redux";
 import { deleteEvent } from "../../redux/actions/CalendarEvents/home";
 import UpcomingsScrollable from "../../components/UpcomingsScrollable";
 import TasksScrollable from "../../components/TasksScrollable";
+
+import { calculateNextPeriods } from "../../helpers/menstruation";
+
 const windowHeight = Dimensions.get('window').height;
 
 const Home = ({navigation}) => {
 
     const userData = useSelector(state => state.userName);
+    const menstruationData = useSelector(state => state.menstruationInfo);
+
+    
+
+    var today = new Date(); //"now"
+    var origin = new Date(menstruationData.startLastPeriod[0]);  // some date
+    var diff = Math.round((today-origin)/(1000*60*60*24));  // difference in days
+    var daysSinceStartCycle = diff%menstruationData.periodCycleLength[0];
+    var daysToEndCycle = menstruationData.periodCycleLength[0]-daysSinceStartCycle;
+    var daysEndPeriod = menstruationData.periodLength[0] - daysSinceStartCycle;
+    const periodUpcoming = (daysToEndCycle < 4);
+    
+    const periodInProgress = (daysSinceStartCycle <= menstruationData.periodLength[0]);
+
     const dispatch = useDispatch();
     const calenderEventData = useSelector(state => state.upcomingEvents);
     const [menuOpen, setMenuOpen] = useState(false);
@@ -44,8 +61,22 @@ const Home = ({navigation}) => {
                         <View style={{height: "15%", width: "100%", flexDirection: "row",
                                     backgroundColor: menuOpen?Colors.gray:Colors.lightgray}}>
                             <View style={{width: "70%"}}>
-                                <Text style={{fontSize:22, marginLeft: "2%"}}>Good morning, {userData.Name}!</Text>
-                                <Text style={{marginLeft: "2%"}}>Each day is an opportunity to shine!</Text> 
+                                <Text style={{fontSize:22, marginLeft: "4%", marginTop: "-5%"}}>Good morning, {userData.Name}!</Text>
+                                {periodUpcoming &&
+                                    <View style={{marginLeft: "4%", marginTop: "2%"}}> 
+                                        <Text style={{fontWeight: "bold"}}> Upcoming Period</Text>
+                                        <Text style={{color: Colors.purple, fontSize: 19, marginTop: "2%"}}>{daysToEndCycle} Days until Period</Text>
+                                    </View>
+                                    }
+                                {periodInProgress &&
+                                    <View style={{marginLeft: "4%", marginTop: "2%"}}> 
+                                        <Text style={{fontWeight: "bold"}}>Periods</Text>
+                                        <Text style={{color: Colors.purple, fontSize: 19, marginTop: "2%"}}>{daysEndPeriod} Days Left</Text>
+                                    </View>
+                                }
+                                {!periodUpcoming && !periodInProgress &&
+                                <Text style={{marginLeft: "4%", color: Colors.purple, fontSize: 19, width: "70%", marginTop: "2%"}}>Each day is an Opportunity to shine!</Text> 
+                                }
                             </View>
                             <View style={{height:"100%", width:"30%"}}>
                                 <Image source={require('../../../assets/images/sun_1.png')} 
