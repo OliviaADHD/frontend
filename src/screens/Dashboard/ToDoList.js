@@ -23,7 +23,7 @@ const windowHeight = Dimensions.get('window').height;
 import { useSelector, useDispatch } from "react-redux";
 
 const ToDoList = ({route, navigation}) => {
-    const [tasksSelected, setTasksSelected] = useState((route.params.tasksSelected === undefined)? true: tasksSelected);
+    const [tasksSelected, setTasksSelected] = useState((route.params.tasksSelected === undefined)? true: route.params.tasksSelected);
     const taskData = useSelector(state => state.tasks);
     const userData = useSelector(state => state.userName);
 

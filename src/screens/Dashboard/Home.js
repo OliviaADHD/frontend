@@ -55,7 +55,7 @@ const Home = ({navigation}) => {
                         </View>
                         <View style={{height: "60%", width: "100%", flex: 1,
                                     backgroundColor: menuOpen?Colors.gray:Colors.white}}>
-                            <View style={{backgroundColor: "red", flexDirection: "row", justifyContent: "space-between", alignItems: "flex-end"}}>
+                            <View style={{flexDirection: "row", justifyContent: "space-between", alignItems: "flex-end"}}>
                                 <StyledBoldTitle>Upcomings</StyledBoldTitle>
                                 <TouchableOpacity onPress={()=>navigation.replace('ToDoList', {tasksSelected: false})}>
                                     <UnderLineText>
@@ -75,7 +75,14 @@ const Home = ({navigation}) => {
                        
                         <View style={{height: "25%", width: "100%",
                                 backgroundColor: menuOpen?Colors.gray:Colors.white}}>
-                            <StyledBoldTitle>Tasks</StyledBoldTitle>
+                            <View style={{flexDirection: "row", justifyContent: "space-between", alignItems: "flex-end", marginBottom: "2%"}}>
+                                <StyledBoldTitle>Tasks</StyledBoldTitle>
+                                <TouchableOpacity onPress={()=>navigation.replace('ToDoList', {tasksSelected: true})}>
+                                    <UnderLineText>
+                                        View all tasks
+                                    </UnderLineText>
+                                </TouchableOpacity>
+                            </View>
                             <TasksScrollable 
                                 tasksData = {taskData}
                             />
