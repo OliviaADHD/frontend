@@ -14,7 +14,7 @@ export const StyledBoldTitle = styled.Text`
   font-size: 18px;
   max-width: 80%;
   text-align: justify;
-  margin-bottom: 2%;
+  margin-bottom: 1%;
   margin-left: 1%;
   fontWeight: bold;
 `;
@@ -73,4 +73,10 @@ export const SmallSolidDot = styled.View`
   width: 4px;
   margin-horizontal: 8%;
   marginTop: 4%;
+`;
+
+export const UnderLineText = styled.Text`
+  fontSize: 16px;
+  marginRight: 5%;
+  textDecorationLine: underline;
 `;

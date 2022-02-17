@@ -7,7 +7,7 @@ import {StyledContainer, InnerContainer, Colors} from '../../css/general/style';
 import {
     InnerContainerRemake, 
     StyledBoldTitle,
-    BlackText} from '../../css/Dashboard/home';
+    BlackText, UnderLineText} from '../../css/Dashboard/home';
 
 import DashBoardBottomMenu from "../../components/DashboardBottomMenu";
 
@@ -55,7 +55,15 @@ const Home = ({navigation}) => {
                         </View>
                         <View style={{height: "60%", width: "100%", flex: 1,
                                     backgroundColor: menuOpen?Colors.gray:Colors.white}}>
-                            <StyledBoldTitle>Upcomings</StyledBoldTitle>
+                            <View style={{backgroundColor: "red", flexDirection: "row", justifyContent: "space-between", alignItems: "flex-end"}}>
+                                <StyledBoldTitle>Upcomings</StyledBoldTitle>
+                                <TouchableOpacity onPress={()=>navigation.replace('ToDoList', {tasksSelected: false})}>
+                                    <UnderLineText>
+                                        View all
+                                    </UnderLineText>
+                                </TouchableOpacity>
+                            </View>
+                            
                         <UpcomingsScrollable 
                             calenderEventData={calenderEventData}
                             menuOpen={menuOpen}
