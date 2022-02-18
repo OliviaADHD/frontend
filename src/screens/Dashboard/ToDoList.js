@@ -34,6 +34,8 @@ const ToDoList = ({route, navigation}) => {
     const [month, setMonth] = useState(today.getMonth());
     var year = today.getFullYear();
     const calenderEventData = useSelector(state => state.upcomingEvents);
+    const [thisDayEvents, SetThisDayEvents] = useState((calenderEventData[today.toLocaleDateString('en-US')] === undefined)?{}:calenderEventData[today.toLocaleDateString('en-US')]);
+    
     const [markedDay, setMarkedDay] = useState(makeDateString(today));
 
     const [menuOpen, setMenuOpen] = useState(false);
@@ -50,10 +52,10 @@ const ToDoList = ({route, navigation}) => {
     const showNewDayEvents =(day) => {
         setMarkedDay(day.dateString);
         setMonth(day.month);
-        console.log("need to implement getting data properly once the underlying Data structure is clearer");
+        console.log(day);
+        var newDay = new Date(day.dateString);
+        SetThisDayEvents((calenderEventData[newDay.toLocaleDateString('en-US')] === undefined)? {}: calenderEventData[newDay.toLocaleDateString('en-US')]);
     }
-
-    useEffect(() =>{console.log(menuPosition)},[menuPosition])
 
     return (
         <StyledContainer>
@@ -136,7 +138,7 @@ const ToDoList = ({route, navigation}) => {
                                 </View>
                                 <View style={{height: "75%"}}> 
                                 <UpcomingsScrollable 
-                                    calenderEventData={calenderEventData}
+                                    calenderEventData={thisDayEvents}
                                     menuOpen={menuOpen}
                                     setMenuOpen={setMenuOpen}
                                     setMenuPosition={setMenuPosition}

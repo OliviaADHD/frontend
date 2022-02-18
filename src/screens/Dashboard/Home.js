@@ -18,7 +18,6 @@ import { deleteEvent } from "../../redux/actions/CalendarEvents/home";
 import UpcomingsScrollable from "../../components/UpcomingsScrollable";
 import TasksScrollable from "../../components/TasksScrollable";
 
-import { calculateNextPeriods } from "../../helpers/menstruation";
 
 const windowHeight = Dimensions.get('window').height;
 
@@ -36,11 +35,15 @@ const Home = ({navigation}) => {
     var daysToEndCycle = menstruationData.periodCycleLength[0]-daysSinceStartCycle;
     var daysEndPeriod = menstruationData.periodLength[0] - daysSinceStartCycle;
     const periodUpcoming = (daysToEndCycle < 4);
+ 
+    console.log(today.toLocaleDateString('en-US'));
     
     const periodInProgress = (daysSinceStartCycle <= menstruationData.periodLength[0]);
 
     const dispatch = useDispatch();
     const calenderEventData = useSelector(state => state.upcomingEvents);
+    
+    const todaysEvents = (calenderEventData[today.toLocaleDateString('en-US')] === undefined)?{}:calenderEventData[today.toLocaleDateString('en-US')];
     const [menuOpen, setMenuOpen] = useState(false);
     const [menuPosition, setMenuPosition] = useState(0);
     const [currentEventId, setcurrentEventId] = useState(undefined);
@@ -96,7 +99,7 @@ const Home = ({navigation}) => {
                             </View>
                             
                         <UpcomingsScrollable 
-                            calenderEventData={calenderEventData}
+                            calenderEventData={todaysEvents}
                             menuOpen={menuOpen}
                             setMenuOpen={setMenuOpen}
                             setMenuPosition={setMenuPosition}
