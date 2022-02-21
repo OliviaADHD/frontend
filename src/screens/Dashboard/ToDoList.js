@@ -199,9 +199,10 @@ const ToDoList = ({route, navigation}) => {
             {detailsOpen && (
                 <EventDetails 
                     setDetailsOpen={setDetailsOpen}
-                    todaysEvents={todaysEvents}
+                    todaysEvents={thisDayEvents}
                     currentEventId={currentEventId}
-                    menuPosition={menuPosition} />
+                    menuPosition={menuPosition}
+                    today={today} />
             
             )}
             <DashBoardBottomMenu currentScreen={"ToDoList"} navigation={navigation}/>
