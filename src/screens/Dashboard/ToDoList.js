@@ -41,7 +41,7 @@ const ToDoList = ({navigation}) => {
     const [currentEventId, setcurrentEventId] = useState(undefined);
     
     const newTask =()=>{
-        console.log('new Task bottom input open');
+        navigation.navigate("Task");
     };
     const newEvent =()=>{
         console.log('new Event to schedule-input open');
