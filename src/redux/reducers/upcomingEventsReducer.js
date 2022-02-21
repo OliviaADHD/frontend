@@ -4,7 +4,7 @@ CHANGE_EVENT, DELETE_EVENT } from "../actions/types";
 const eventData = {
     // like a dictionairy of value (continuous integer, no rep) - 
     // eventObject pair, event Object {startDate, endDate, eventTitle, eventDetails}
-    '02/18/22' : {
+    '02/21/22' : {
     1: {"startDate": new Date('January 19, 2022 17:00:00'),
         "endDate": new Date('January 19, 2022 17:30:00'),
         "eventTitle": "MyTestEvent!",
@@ -12,7 +12,7 @@ const eventData = {
         "remindMe": true,
         "remindMeWhen": undefined,
         "location": undefined,
-        "category": []},
+        "category": ['work']},
     2: {"startDate": new Date('December 17, 2020 09:00:00'),
     "endDate": new Date('December 17, 2020 09:30:00'),
     "eventTitle": "MyTestEvent 2!",
