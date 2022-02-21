@@ -21,6 +21,7 @@ import { makeDateString } from "../../helpers/menstruation";
 const windowHeight = Dimensions.get('window').height;
 
 import { useSelector, useDispatch } from "react-redux";
+import { EventDetails } from "../../components/EventDetails";
 
 const ToDoList = ({route, navigation}) => {
     const [tasksSelected, setTasksSelected] = useState((route.params === undefined)? true: route.params.tasksSelected);
@@ -49,6 +50,8 @@ const ToDoList = ({route, navigation}) => {
         console.log('new Event to schedule-input open');
     };
 
+    const [detailsOpen, setDetailsOpen] = useState(false);
+
     const showNewDayEvents =(day) => {
         setMarkedDay(day.dateString);
         setMonth(day.month);
@@ -56,6 +59,7 @@ const ToDoList = ({route, navigation}) => {
         var newDay = new Date(day.dateString);
         SetThisDayEvents((calenderEventData[newDay.toLocaleDateString('en-US')] === undefined)? {}: calenderEventData[newDay.toLocaleDateString('en-US')]);
     }
+
 
     return (
         <StyledContainer>
@@ -141,6 +145,7 @@ const ToDoList = ({route, navigation}) => {
                                     calenderEventData={thisDayEvents}
                                     menuOpen={menuOpen}
                                     setMenuOpen={setMenuOpen}
+                                    setDetailsOpen={setDetailsOpen}
                                     setMenuPosition={setMenuPosition}
                                     setcurrentEventId={setcurrentEventId}
                                     windowHeight={windowHeight} />
@@ -191,6 +196,14 @@ const ToDoList = ({route, navigation}) => {
                         <BlackText>Delete</BlackText>
                     </TouchableOpacity>
                 </View> )}
+            {detailsOpen && (
+                <EventDetails 
+                    setDetailsOpen={setDetailsOpen}
+                    todaysEvents={todaysEvents}
+                    currentEventId={currentEventId}
+                    menuPosition={menuPosition} />
+            
+            )}
             <DashBoardBottomMenu currentScreen={"ToDoList"} navigation={navigation}/>
         </StyledContainer>
     )
