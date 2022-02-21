@@ -7,6 +7,7 @@ export const InnerContainerRemake = styled.View`
   width: 100%;
   height: 60%;
   align-items: center;
+  justifyContent: center;
 `;
 
 export const HeaderView = styled.View`
@@ -25,14 +26,12 @@ export const ContentView = styled.View`
 `;
 
 export const CloseView = styled.View`
-    width:100%;
-    display: flex;
+    width:11%;
+    flexDirection: row;
+    alignSelf: flex-end;
 `;
 
 export const StyledIcon = styled(Icon)`
-    justifyContent:flex-end;
-    alignSelf: flex-end;
-    marginRight:2%;
 `;
 
 export const TaskView = styled.View`
@@ -41,9 +40,16 @@ export const TaskView = styled.View`
   borderRadius:30px;
   borderBottomWidth: 1px;
   width:100%;
-  height:45px;
+  height:10%;
   marginTop:40px;
   flexDirection: row;
-  alignItems:center;
-  backgroundColor: yellow;
+  alignItems: center;
+`;
+
+
+export const InputView = styled.TextInput`
+    height:100%;
+    marginLeft:10px;
+    borderBottomColor: #FFFFFF;
+    width:65%;
 `;

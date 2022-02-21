@@ -3,13 +3,21 @@ import {StatusBar} from "expo-status-bar";
 import {View, StyleSheet, Image, Dimensions, TextInput} from 'react-native';
 import {Colors, StyledContainer} from "../../../css/general/style";
 import { Icon } from 'react-native-elements';
-import { HeaderView, ContentView, InnerContainerRemake, TaskView, CloseView, StyledIcon } from "../../../css/Dashboard/New/createTask";
+import { HeaderView, ContentView, InnerContainerRemake, TaskView, CloseView, StyledIcon, InputView } from "../../../css/Dashboard/New/createTask";
 
 import { useSelector, useDispatch } from "react-redux";
 
 const windowWidth = Dimensions.get('window').width;
 
 export const Task = ({navigation}) => {
+
+    const newTask =()=>{
+        console.log('create New Task');
+    };
+
+    const closeTask = () => {
+        navigation.navigate("ToDoList");
+    };
 
     return (
         <StyledContainer>
@@ -23,6 +31,7 @@ export const Task = ({navigation}) => {
                         name='close-outline'
                         type='ionicon'
                         size={35}
+                        onPress={() => closeTask()}
                         />
                     </CloseView>
                     <TaskView>
@@ -30,8 +39,11 @@ export const Task = ({navigation}) => {
                         name='checkmark-outline'
                         type='ionicon'
                         size={35}
+                        style={{
+                            marginLeft:"10%"
+                        }}
                         />
-                        <TextInput style={styles.inputs}
+                        <InputView
                             placeholder="Create a small task"
                             underlineColorAndroid='transparent'
                             onChangeText={(password) => this.setState({password})}/>
@@ -39,6 +51,10 @@ export const Task = ({navigation}) => {
                             name='chevron-forward-circle-outline'
                             type='ionicon'
                             size={35}
+                            onPress={() => newTask()}
+                            style={{
+                                marginRight:"15%"
+                            }}
                         />
                     </TaskView>
                 </ContentView>
@@ -48,12 +64,4 @@ export const Task = ({navigation}) => {
   }
 
 
-  const styles = StyleSheet.create({
-    inputs:{
-        height:45,
-        marginLeft:16,
-        borderBottomColor: '#FFFFFF',
-        flex:1,
-    },
-  });
   
