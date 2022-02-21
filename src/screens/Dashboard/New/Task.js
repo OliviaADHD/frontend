@@ -3,7 +3,7 @@ import {StatusBar} from "expo-status-bar";
 import {View, StyleSheet, Image, Dimensions, TextInput} from 'react-native';
 import {Colors, StyledContainer} from "../../../css/general/style";
 import { Icon } from 'react-native-elements';
-import { HeaderView, ContentView, InnerContainerRemake } from "../../../css/Dashboard/New/createTask";
+import { HeaderView, ContentView, InnerContainerRemake, TaskView, CloseView, StyledIcon } from "../../../css/Dashboard/New/createTask";
 
 import { useSelector, useDispatch } from "react-redux";
 
@@ -18,7 +18,14 @@ export const Task = ({navigation}) => {
                 <HeaderView>              
                 </HeaderView>
                 <ContentView>
-                    <View style={styles.inputContainer}>
+                    <CloseView>
+                        <StyledIcon
+                        name='close-outline'
+                        type='ionicon'
+                        size={35}
+                        />
+                    </CloseView>
+                    <TaskView>
                         <Icon
                         name='checkmark-outline'
                         type='ionicon'
@@ -33,7 +40,7 @@ export const Task = ({navigation}) => {
                             type='ionicon'
                             size={35}
                         />
-                    </View>
+                    </TaskView>
                 </ContentView>
             </InnerContainerRemake>
         </StyledContainer>
@@ -42,18 +49,6 @@ export const Task = ({navigation}) => {
 
 
   const styles = StyleSheet.create({
-    inputContainer: {
-        borderBottomColor: '#F5FCFF',
-        backgroundColor: '#FFFFFF',
-        borderRadius:30,
-        borderBottomWidth: 1,
-        width:"100%",
-        height:45,
-        marginTop:40,
-        flexDirection: 'row',
-        alignItems:'center',
-        backgroundColor:'yellow'
-    },
     inputs:{
         height:45,
         marginLeft:16,
