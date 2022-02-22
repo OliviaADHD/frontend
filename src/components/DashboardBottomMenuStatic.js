@@ -6,35 +6,9 @@ import {
     Colors,
 } from "../css/general/style";
 
+import {GeneralContainerTut, IconContainer, NewTouchOpacity} from '../css/components/menu';
+
 const styles = StyleSheet.create({
-    ITOpacityStyle: {
-        paddingBottom: "0%",
-        paddingTop: "0%",
-    },
-    IconbaseText: {
-    },
-    fontColorGrey:{
-        color: Colors.darkgray,
-    },
-    fontColorPurple: {
-        color: Colors.purple,
-    },
-    thisView: {
-        justifyContent: "space-between",
-        flexDirection: "row",
-        height: "10%",        
-    },
-    BottomIconMenyStyle:{
-        resizeMode: "contain",
-        height: "60%",
-        width: "100%",
-    },
-    IconAndTextView:{
-        justifyContent:"space-between",
-        flexDirection: "column", 
-        alignItems: "center",
-        width: "19%"
-    },
     greyBackground: {
         backgroundColor: Colors.gray,
     },
@@ -52,10 +26,8 @@ class IconAndText extends React.Component {
     icon = this.props.iconPurple;
     render(){
         return (
-            <View style={[styles.IconAndTextView,
-            (this.props.backgroundColor)? ((this.props.currentScreen===this.props.screen)?styles.whiteBackground:styles.greyBackground):styles.whiteBackground]}>
-                <TouchableOpacity onPress={() => {}} 
-                style={{justifyContent:"space-between", paddingTop: "10%"}}>
+            <IconContainer style={(this.props.backgroundColor)? ((this.props.currentScreen===this.props.screen)?styles.whiteBackground:styles.greyBackground):styles.whiteBackground}>
+                <NewTouchOpacity onPress={() => {}}>
                     <Icon
                         name={this.props.iconName}
                         type={this.props.iconType}
@@ -63,8 +35,8 @@ class IconAndText extends React.Component {
                         color={ (this.props.currentScreen === this.props.screen)? (Colors.purple):(Colors.gray)}
                     />
 
-                </TouchableOpacity>
-            </View>
+                </NewTouchOpacity>
+            </IconContainer>
         );
     }
 }
@@ -85,9 +57,9 @@ const DashBoardBottomMenuStatic = ({currentScreen,backgroundColor}) => {
         />)
         }
     return (
-        <View style={styles.thisView}>
+       <GeneralContainerTut>
             {indIcons}
-        </View>
+        </GeneralContainerTut>
     );
 }
 
