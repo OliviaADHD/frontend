@@ -85,7 +85,7 @@ const Login = ({navigation}) => {
                         index: 0,
                         routes: [{ name: 'Welcome_Post_Signup' }]});
                     }
-                else if (resp.tutDone === false){
+                else if (resp.tutorialCompleted === false){
                     navigation.reset({
                         index: 0,
                         routes: [{ name: 'TutorialDashboard' }]});
@@ -167,14 +167,13 @@ const Login = ({navigation}) => {
             if (resp.success === true){
                 setLoading(false);
                 setfbClicked(false);
-                
                 if (resp.firstTime){
 
                     navigation.reset({
                         index: 0,
                         routes: [{ name: 'Welcome_Post_Signup' }]});
                     }
-                else if (resp.tutDone === false){
+                else if (resp.tutorialCompleted === false){
                     navigation.reset({
                         index: 0,
                         routes: [{ name: 'TutorialDashboard' }]});
@@ -243,7 +242,7 @@ const Login = ({navigation}) => {
                                             index: 0,
                                             routes: [{ name: 'Welcome_Post_Signup' }]});
                                         }
-                                    else if (resp.tutDone === false){
+                                    else if (resp.tutorialCompleted === false){
                                         navigation.reset({
                                             index: 0,
                                             routes: [{ name: 'TutorialDashboard' }]});

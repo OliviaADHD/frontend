@@ -257,7 +257,6 @@ const TutorialDashboard = ({navigation}) => {
     const dispatch = useDispatch();
     const userData = useSelector(state => state.userName);
     const profileInfo = useSelector(state => state.profileInfo);
-
     useEffect(() => {
         if (profileInfo.tutorialCompleted){
             navigation.replace('Home');

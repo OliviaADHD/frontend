@@ -1,17 +1,12 @@
-import { DASHBOARD_TUT,
-        DASHBOARD_TUT_FAILED,
-        DASHBOARD_TUT_SUCCESS}  from "../types"; 
+import { SET_TUTORIAL}  from "../types"; 
 
 import axios from "axios";
 import {link} from '../../config/config';
 
 export const setDashboardTutorialFinished = (userId) => async dispatch => {
     axios.put(link + "/tutorial/"+userId, {timeout: 200})
-    .catch(err => {console.log('Error in setDashboardtutorialFinished', err);
-                    dispatch({
-                        type: DASHBOARD_TUT_FAILED,
-                        payload: {}})})
+    .catch(err => {console.log('Error in setDashboardtutorialFinished', err);})
     .then (res => dispatch({
-        type: DASHBOARD_TUT_SUCCESS,
-        payload:{}}))
+        type: SET_TUTORIAL,
+        payload:true}))
 }
