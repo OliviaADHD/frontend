@@ -1,13 +1,16 @@
 import { SET_LANGUAGE,
     SET_DARKMODE,
     SET_HIDEPHOTO,
-    SET_NOTIFICATION  } from "../actions/types";
+    SET_NOTIFICATION,
+    SET_TUTORIAL
+} from "../actions/types";
 
 const profileData = {
     language: "",
     darkMode: null,
     hidePhoto: null,
-    stopNotification:null
+    stopNotification:null,
+    tutorialCompleted:null
 }
 
 const profileReducer = (state = profileData, action) => {
@@ -28,10 +31,15 @@ switch (action.type){
             hidePhoto: action.payload
         };
     case SET_NOTIFICATION:
-            return{
-                ...state,
-                stopNotification: action.payload
-            };
+        return{
+            ...state,
+            stopNotification: action.payload
+        };
+    case SET_TUTORIAL:
+        return{
+            ...state,
+            tutorialCompleted: action.payload
+        };            
     default:
         return state;
 }

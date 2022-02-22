@@ -21,7 +21,7 @@ import { Background,
 import DashBoardBottomMenuStatic from "../../components/DashboardBottomMenuStatic";
 import AlarmBell from "../../components/AlarmBell";
 import { useSelector, useDispatch } from "react-redux";
-import { initializeDashboardTutorial, setDashboardTutorialFinished } from "../../redux/actions/dashboardTutorial/dashboardTutorial";
+import { setDashboardTutorialFinished } from "../../redux/actions/dashboardTutorial/dashboardTutorial";
 
 
 
@@ -256,19 +256,14 @@ const TutorialDashboard = ({navigation}) => {
     ];
     const dispatch = useDispatch();
     const userData = useSelector(state => state.userName);
-    const tutDashboardData = useSelector(state => state.dashboardTutorial)
-    const [calledOnce, setCalledOnce] = useState(false);
-    if (!calledOnce) {
-        dispatch(initializeDashboardTutorial(userData.userId));
-        setCalledOnce(true);
-    };
+    const profileInfo = useSelector(state => state.profileInfo);
 
     useEffect(() => {
-        if (tutDashboardData.tutorialDone){
+        if (profileInfo.tutorialCompleted){
             navigation.replace('Home');
         }
     }, 
-    [tutDashboardData])
+    [profileInfo])
 
 
     const [page, setPage] = useState(0);

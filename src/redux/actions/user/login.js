@@ -1,15 +1,7 @@
-import { SIGN_UP, 
-    SIGN_UP_FAILED,
-    SIGN_UP_SUCCESS,
+import { 
     SIGN_IN,
     SIGN_IN_SUCCESS,
     SIGN_IN_FAILED,
-    VERIFY_EMAIL,
-    VERIFY_EMAIL_SUCCESS,
-    VERIFY_EMAIL_FAILED,
-    VERIFY_LOGIN, 
-    VERIFY_LOGIN_FAILED,
-    VERIFY_LOGIN_SUCCESS,
     SET_NETWORK_ERROR_FALSE,
     SET_USER_ID,
     SET_FIRST_TIME,
@@ -20,7 +12,8 @@ import { SIGN_UP,
     SET_HIDEPHOTO,
     SET_DARKMODE,
     SET_LANGUAGE,
-    SET_NOTIFICATION
+    SET_NOTIFICATION,
+    SET_TUTORIAL
   } from "../types";
 import axios from "axios";
 import {link} from '../../config/config'
@@ -51,6 +44,7 @@ export const beforeSignIn = () => async dispatch => {
       dispatch({type:SET_NOTIFICATION, payload: res.data.stopNotification});
       dispatch({type: SET_DARKMODE, payload: res.data.darkMode});
       dispatch({type: SET_LANGUAGE, payload: res.data.language});
+      dispatch({type: SET_TUTORIAL, payload: res.data.tutorialCompleted});
       dispatch({
           type: SIGN_IN_SUCCESS,
           payload: {passed:true, error: false}
@@ -96,6 +90,7 @@ export const beforeSignIn = () => async dispatch => {
         dispatch({type:SET_NOTIFICATION, payload: res.data.stopNotification});
         dispatch({type: SET_DARKMODE, payload: res.data.darkMode});
         dispatch({type: SET_LANGUAGE, payload: res.data.language});
+        dispatch({type: SET_TUTORIAL, payload: res.data.tutorialCompleted});
 
         dispatch({
           type: SIGN_IN_SUCCESS,
@@ -143,12 +138,13 @@ export const beforeSignIn = () => async dispatch => {
         dispatch({type: SET_USER_ID, payload: res.data.userId});
         dispatch({type: SET_FIRST_TIME, payload: res.data.firstTime});
         dispatch({type: SET_EMAIL, payload: loginData.email});
-        dispatch({type: DASHBOARD_TUT, payload: res.data.tutDone});
+        
 
         dispatch({type: SET_HIDEPHOTO, payload: res.data.hidePhoto});
         dispatch({type:SET_NOTIFICATION, payload: res.data.stopNotification});
         dispatch({type: SET_DARKMODE, payload: res.data.darkMode});
         dispatch({type: SET_LANGUAGE, payload: res.data.language});
+        dispatch({type: SET_TUTORIAL, payload: res.data.tutorialCompleted});
         dispatch({
           type: SET_NETWORK_ERROR_FALSE,
           payload: {}});
