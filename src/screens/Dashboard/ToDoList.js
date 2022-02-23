@@ -59,6 +59,12 @@ const ToDoList = ({route, navigation}) => {
         var newDay = new Date(day.dateString);
         SetThisDayEvents((calenderEventData[newDay.toLocaleDateString('en-US')] === undefined)? {}: calenderEventData[newDay.toLocaleDateString('en-US')]);
     }
+    useEffect(() => {
+        if (today.toLocaleDateString('en-US') !== taskData.today) {
+            dispatch({type: MARK_ALL_TASKS_UNDONE,
+                        payload: {today: today.toLocaleDateString('en-US')}});
+        }
+    },[])
 
 
     return (

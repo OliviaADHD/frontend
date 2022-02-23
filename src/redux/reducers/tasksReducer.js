@@ -1,8 +1,9 @@
 import {ADD_TASK, 
     DELETE_TASK, 
-    MARK_TASK_DONE, MARK_TASK_UNDONE} from "../actions/types";
+    TOGGLE_TASK_DONE, MARK_ALL_TASKS_UNDONE} from "../actions/types";
 
 const taskData = {
+    'alltasks': {
     1: {"taskTitle": "exampleTask 1, long, long, long, long", "taskDone": false},
     2: {"taskTitle": "exampleTask 2", "taskDone": false},
     3: {"taskTitle": "exampleTask 3", "taskDone": false},
@@ -14,11 +15,24 @@ const taskData = {
     9: {"taskTitle": "exampleTask 9", "taskDone": false},
     10: {"taskTitle": "exampleTask 9", "taskDone": false},
     11: {"taskTitle": "exampleTask 9", "taskDone": false},
-    12: {"taskTitle": "exampleTask 9 final", "taskDone": false},
+    12: {"taskTitle": "exampleTask 9 final", "taskDone": false}},
+    'today': '02/22/22' 
 };
 
 const tasksReducer = (state=taskData, action) => {
     switch (action.type) {
+        case TOGGLE_TASK_DONE:
+            const taskid = action.payload.taskid;
+            let newState = state;
+            newState.alltasks[taskid] = action.payload.taskDetails;
+            return  newState;
+        case MARK_ALL_TASKS_UNDONE:
+            let newState2 = state;
+            for (const taskT of Object.keys(newState2.alltasks)){
+                newState2.alltasks[taskT].taskDone = false;
+            }
+            newState2.today = action.payload.today;
+            return newState2;
         default:
             return state;
     }

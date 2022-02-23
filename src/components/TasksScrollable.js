@@ -2,21 +2,40 @@ import React from "react";
 import { View, ScrollView, } from "react-native";
 import {Colors} from "../css/general/style";
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
+import { TOGGLE_TASK_DONE } from "../redux/actions/types";
 
 import { BlackText, TaskView, TasksScrollableView } from "../css/components/TasksScrollable";
+import {useDispatch } from "react-redux";
 
-
-const TasksScrollable = ({tasksData}) => {
-    let taskList = [];
-    for (const taskT of Object.keys(tasksData)) {
-        taskList.push(
-            <Task 
-                key ={taskT}
-                taskDetail = {tasksData[taskT].taskTitle}
-                taskId = {taskT}
-            />
-        )
+const TasksScrollable = ({tasksData, taskC, setTaskC}) => {
+    let taskListUndone = [];
+    let taskListDone = [];
+    for (const taskT of Object.keys(tasksData.alltasks)) {
+        if (tasksData.alltasks[taskT].taskDone){
+            taskListDone.push(
+                <Task 
+                    key ={taskT}
+                    taskDetail = {tasksData.alltasks[taskT].taskTitle}
+                    taskId = {taskT}
+                    taskDone = {tasksData.alltasks[taskT].taskDone}
+                    taskC = {taskC}
+                    setTaskC = {setTaskC}
+                />
+            )
+        }
+        else {
+            taskListUndone.push(
+                <Task 
+                    key ={taskT}
+                    taskDetail = {tasksData.alltasks[taskT].taskTitle}
+                    taskId = {taskT}
+                    taskDone = {tasksData.alltasks[taskT].taskDone}
+                    taskC =  {taskC}
+                    setTaskC = {setTaskC}
+                />
+            )}
     }
+    const taskList = taskListUndone.concat(taskListDone);
     return (
         <TasksScrollableView>
             <ScrollView showsVerticalScrollIndicator={true}
@@ -30,7 +49,8 @@ const TasksScrollable = ({tasksData}) => {
     )
 }
 
-const Task = ({taskDetail, taskId}) => {
+const Task = ({taskDetail, taskId, taskDone, taskC, setTaskC}) => {
+    const dispatch = useDispatch();
     return (
         <TaskView>
             <BlackText>
@@ -41,7 +61,14 @@ const Task = ({taskDetail, taskId}) => {
                     size={18}
                     fillColor={Colors.black}
                     iconStyle={{borderColor: Colors.black, borderRadius: 0}}
-                    onPress={() => {console.log('TBD functionality when task done')}}
+                    isChecked={taskDone}
+                    onPress={(isChecked) => {
+                        setTaskC(!taskC);
+                        dispatch({type: TOGGLE_TASK_DONE, 
+                        payload: {  taskid: taskId, 
+                                    taskDetails: {"taskTitle": taskDetail,
+                                                    "taskDone": isChecked}}})
+                    }}
                 />
         </TaskView>
     );

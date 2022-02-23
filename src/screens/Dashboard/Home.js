@@ -18,6 +18,7 @@ import { deleteEvent } from "../../redux/actions/CalendarEvents/home";
 import UpcomingsScrollable from "../../components/UpcomingsScrollable";
 import TasksScrollable from "../../components/TasksScrollable";
 import { EventDetails } from "../../components/EventDetails";
+import { MARK_ALL_TASKS_UNDONE } from "../../redux/actions/types";
 
 
 const windowHeight = Dimensions.get('window').height;
@@ -51,9 +52,17 @@ const Home = ({navigation}) => {
     const [detailsOpen, setDetailsOpen] = useState(false);
 
     const taskData = useSelector(state => state.tasks);
+    const [taskC, setTaskC] = useState(false);
     useEffect(() => {
         (() => registerForPushNotificationsAsync())();
     }, []);
+
+    useEffect(() => {
+        if (today.toLocaleDateString('en-US') !== taskData.today) {
+            dispatch({type: MARK_ALL_TASKS_UNDONE,
+                        payload: {today: today.toLocaleDateString('en-US')}});
+        }
+    },[])
 
 
     return (
@@ -122,6 +131,8 @@ const Home = ({navigation}) => {
                             </View>
                             <TasksScrollable 
                                 tasksData = {taskData}
+                                taskC = {taskC}
+                                setTaskC = {setTaskC}
                             />
                         </View>
             </InnerContainerRemake>

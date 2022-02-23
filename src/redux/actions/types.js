@@ -79,7 +79,8 @@ export const DELETE_EVENT = 'DELETE_EVENT';
 export const ADD_TASK = 'ADD_TASK';
 export const DELETE_TASK = 'DELETE_TASK';
 export const MARK_TASK_DONE = 'MARK_TASK_DONE';
-export const MARK_TASK_UNDONE = 'MARK_TASK_UNDONE';
+export const TOGGLE_TASK_DONE = 'TOGGLE_TASK_DONE';
+export const MARK_ALL_TASKS_UNDONE = 'MARK_ALL_TASKS_UNDONE';
 
 //Push notifications
 export const PUSH_NOTIFICATIONS = 'PUSH_NOTIFICATIONS';

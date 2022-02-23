@@ -71,7 +71,7 @@ const eventData = {
 const upcomingEventsReducer = (state=eventData, action) => {
     switch (action.type) {
         case DELETE_EVENT:
-            delete state[action.payload.eventId];
+            delete state[action.payload.date][action.payload.eventId];
             return state;
         default:
             return state;
