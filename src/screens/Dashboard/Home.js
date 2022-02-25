@@ -133,6 +133,8 @@ const Home = ({navigation}) => {
                                 tasksData = {taskData}
                                 taskC = {taskC}
                                 setTaskC = {setTaskC}
+                                isTaskSelected={()=>{}}
+                                setSelectedTaskId={()=>{}}
                             />
                         </View>
             </InnerContainerRemake>

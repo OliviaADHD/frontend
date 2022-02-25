@@ -1,5 +1,5 @@
 import React from "react";
-import { View, ScrollView, } from "react-native";
+import { View, ScrollView, TouchableOpacity} from "react-native";
 import {Colors} from "../css/general/style";
 import BouncyCheckbox from 'react-native-bouncy-checkbox';
 import { TOGGLE_TASK_DONE } from "../redux/actions/types";
@@ -7,7 +7,7 @@ import { TOGGLE_TASK_DONE } from "../redux/actions/types";
 import { BlackText, TaskView, TasksScrollableView } from "../css/components/TasksScrollable";
 import {useDispatch } from "react-redux";
 
-const TasksScrollable = ({tasksData, taskC, setTaskC}) => {
+const TasksScrollable = ({tasksData, taskC, setTaskC, isTaskSelected, setSelectedTaskId}) => {
     let taskListUndone = [];
     let taskListDone = [];
     for (const taskT of Object.keys(tasksData.alltasks)) {
@@ -20,6 +20,8 @@ const TasksScrollable = ({tasksData, taskC, setTaskC}) => {
                     taskDone = {tasksData.alltasks[taskT].taskDone}
                     taskC = {taskC}
                     setTaskC = {setTaskC}
+                    isTaskSelected={isTaskSelected}
+                    setSelectedTaskId={setSelectedTaskId}
                 />
             )
         }
@@ -32,6 +34,8 @@ const TasksScrollable = ({tasksData, taskC, setTaskC}) => {
                     taskDone = {tasksData.alltasks[taskT].taskDone}
                     taskC =  {taskC}
                     setTaskC = {setTaskC}
+                    isTaskSelected={isTaskSelected}
+                    setSelectedTaskId={setSelectedTaskId}
                 />
             )}
     }
@@ -49,10 +53,16 @@ const TasksScrollable = ({tasksData, taskC, setTaskC}) => {
     )
 }
 
-const Task = ({taskDetail, taskId, taskDone, taskC, setTaskC}) => {
+const Task = ({taskDetail, taskId, taskDone, taskC, setTaskC, isTaskSelected, setSelectedTaskId}) => {
     const dispatch = useDispatch();
     return (
         <TaskView>
+            <TouchableOpacity 
+            style={{flexDirection: "row"}}
+            onPress={()=>{
+                setSelectedTaskId(taskId);
+                isTaskSelected(true);
+            }}>
             <BlackText>
                 {taskDetail}
             </BlackText>
@@ -70,6 +80,7 @@ const Task = ({taskDetail, taskId, taskDone, taskC, setTaskC}) => {
                                                     "taskDone": isChecked}}})
                     }}
                 />
+            </TouchableOpacity>
         </TaskView>
     );
 }

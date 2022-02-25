@@ -18,12 +18,15 @@ import UpcomingsScrollable from "../../components/UpcomingsScrollable";
 import {CalendarProvider, WeekCalendar} from 'react-native-calendars';
 import { makeDateString } from "../../helpers/menstruation";
 
+import {MARK_ALL_TASKS_UNDONE} from "../../redux/actions/types";
+
 const windowHeight = Dimensions.get('window').height;
 
 import { useSelector, useDispatch } from "react-redux";
 import { EventDetails } from "../../components/EventDetails";
 
 const ToDoList = ({route, navigation}) => {
+    const dispatch = useDispatch();
     const [tasksSelected, setTasksSelected] = useState((route.params === undefined)? true: route.params.tasksSelected);
     const taskData = useSelector(state => state.tasks);
     const userData = useSelector(state => state.userName);
@@ -51,6 +54,10 @@ const ToDoList = ({route, navigation}) => {
     };
 
     const [detailsOpen, setDetailsOpen] = useState(false);
+
+    const [taskSelected, isTaskSelected] = useState(false);
+    const [selectedTaskId, setSelectedTaskId] = useState(undefined);
+    const [taskC, setTaskC] = useState(false);
 
     const showNewDayEvents =(day) => {
         setMarkedDay(day.dateString);
@@ -109,7 +116,12 @@ const ToDoList = ({route, navigation}) => {
                         {tasksSelected?
                             <TasksView>
                                 <TasksScrollable 
-                                tasksData = {taskData}/>
+                                tasksData = {taskData}
+                                taskC = {taskC}
+                                setTaskC = {setTaskC}
+                                isTaskSelected = {isTaskSelected}
+                                setSelectedTaskId = {setSelectedTaskId}
+                                />
                             </TasksView>
                             :
                             <ScheduleView>
@@ -211,6 +223,40 @@ const ToDoList = ({route, navigation}) => {
                     today={today} />
             
             )}
+            { taskSelected && (
+                <View style={{
+                    backgroundColor: Colors.purple, width: "20%", height: "15%",
+                    borderRadius: 9,
+                    borderTopRightRadius: (menuPosition>80)?9:0,
+                    borderBottomRightRadius: (menuPosition>80)?0:9,
+                    alignSelf: "baseline",
+                    zIndex: 150,
+                    padding: "10%",
+                    margin: "0%",
+                    top: (menuPosition>80)?("70%"):((menuPosition).toString()+"%"),
+                    justifyContent: "space-between",
+                    alignItems: "flex-start",
+                    left: "55%",
+                    position: "absolute"}}>
+                    <TouchableOpacity 
+                        style={{backgroundColor: "red", width: "100%", 
+                        flexDirection: "row", justifyContent: "flex-end"}}
+                        onPress={()=>isTaskSelected(false)}
+                        >
+                        <Text style={{fontSize: 16, fontWeight: "bold"}}>X</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{width: "100%"}}
+                        onPress={()=> {console.log('open edit possibility for task ', selectedTaskId)}}
+                        >
+                        <Text>Edit</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{width: "100%"}}
+                                onPress={()=>{console.log('implement the delete part with redux')}}>
+                        <Text>Delete</Text>
+                    </TouchableOpacity>
+                </View>)
+
+            }
             <DashBoardBottomMenu currentScreen={"ToDoList"} navigation={navigation}/>
         </StyledContainer>
     )
