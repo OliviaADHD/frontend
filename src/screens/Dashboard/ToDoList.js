@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import {StatusBar} from "expo-status-bar";
 import {Text, View, TouchableOpacity, Image, Dimensions} from 'react-native';
 import {Colors} from "../../css/general/style";
+import { deleteEvent } from "../../redux/actions/CalendarEvents/home";
 
 import {StyledContainer} from '../../css/general/style';
 import { TasksScheduleTouch, TrophyImage,
@@ -41,6 +42,7 @@ const ToDoList = ({route, navigation}) => {
     const [thisDayEvents, SetThisDayEvents] = useState((calenderEventData[today.toLocaleDateString('en-US')] === undefined)?{}:calenderEventData[today.toLocaleDateString('en-US')]);
     
     const [markedDay, setMarkedDay] = useState(makeDateString(today));
+    const [selectedDate, setSelectedDate] = useState(today.toLocaleDateString('en-US'));
 
     const [menuOpen, setMenuOpen] = useState(false);
     const [menuPosition, setMenuPosition] = useState(0);
@@ -62,9 +64,9 @@ const ToDoList = ({route, navigation}) => {
     const showNewDayEvents =(day) => {
         setMarkedDay(day.dateString);
         setMonth(day.month);
-        console.log(day);
         var newDay = new Date(day.dateString);
         SetThisDayEvents((calenderEventData[newDay.toLocaleDateString('en-US')] === undefined)? {}: calenderEventData[newDay.toLocaleDateString('en-US')]);
+        setSelectedDate(newDay.toLocaleDateString('en-US'));
     }
     useEffect(() => {
         if (today.toLocaleDateString('en-US') !== taskData.today) {
@@ -210,7 +212,7 @@ const ToDoList = ({route, navigation}) => {
                     </TouchableOpacity>
                     <TouchableOpacity onPress={()=>{
                             console.log('delete number', currentEventId);
-                            dispatch(deleteEvent(currentEventId));
+                            dispatch(deleteEvent(currentEventId, selectedDate));
                             setMenuOpen(false);
                         }}>
                         <BlackText>Delete</BlackText>

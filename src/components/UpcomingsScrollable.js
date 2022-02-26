@@ -82,7 +82,8 @@ const DetailsEvent = ({eventId, EventTitle, EventDetails, setDetailsOpen,
                         onLongPress={(event)=>{
                             setMenuPosition(Math.floor(100*event.nativeEvent.pageY/windowHeight));
                             setcurrentEventId(eventId);
-                            setDetailsOpen(true);}}>
+                            setDetailsOpen(true);}}
+                        activeOpacity={1}>
             <View style={{width: "90%"}}>
                 <StyledBoldTitle style={{color: inProgress?(menuOpen?Colors.gray:Colors.white):Colors.purple}}> 
                     {EventTitle}
@@ -97,7 +98,8 @@ const DetailsEvent = ({eventId, EventTitle, EventDetails, setDetailsOpen,
                         setcurrentEventId(eventId);
                         setMenuPosition(Math.floor(100*event.nativeEvent.pageY/windowHeight));
                         setMenuOpen(!menuOpen);
-                        }}>
+                        }}
+                        >
                     <SmallSolidDot style={{backgroundColor: inProgress?(menuOpen?Colors.gray:Colors.white):Colors.black}}/>
                     <SmallSolidDot style={{backgroundColor: inProgress?(menuOpen?Colors.gray:Colors.white):Colors.black}}/>
                     <SmallSolidDot style={{backgroundColor: inProgress?(menuOpen?Colors.gray:Colors.white):Colors.black}}/>

@@ -168,7 +168,7 @@ const Home = ({navigation}) => {
                                 </TouchableOpacity>
                                 <TouchableOpacity onPress={()=>{
                                         console.log('delete number', currentEventId);
-                                        dispatch(deleteEvent(currentEventId));
+                                        dispatch(deleteEvent(currentEventId, today.toLocaleDateString('en-US')));
                                         setMenuOpen(false);
                                     }}>
                                     <BlackText>Delete</BlackText>
