@@ -33,6 +33,9 @@ const tasksReducer = (state=taskData, action) => {
             }
             newState2.today = action.payload.today;
             return newState2;
+        case DELETE_TASK:
+            delete state.alltasks[action.payload.taskId];
+            return state;
         default:
             return state;
     }

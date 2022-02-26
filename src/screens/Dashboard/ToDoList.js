@@ -3,6 +3,7 @@ import {StatusBar} from "expo-status-bar";
 import {Text, View, TouchableOpacity, Image, Dimensions} from 'react-native';
 import {Colors} from "../../css/general/style";
 import { deleteEvent } from "../../redux/actions/CalendarEvents/home";
+import { DELETE_TASK } from "../../redux/actions/types";
 
 import {StyledContainer} from '../../css/general/style';
 import { TasksScheduleTouch, TrophyImage,
@@ -255,7 +256,12 @@ const ToDoList = ({route, navigation}) => {
                         <Text>Edit</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={{width: "100%"}}
-                                onPress={()=>{console.log('implement the delete part with redux')}}>
+                                onPress={()=>{dispatch({
+                                                type: DELETE_TASK,
+                                                payload: {taskId: selectedTaskId}
+                                                });
+                                                istaskOpen(false);
+                                                }}>
                         <Text>Delete</Text>
                     </TouchableOpacity>
                 </View>)
