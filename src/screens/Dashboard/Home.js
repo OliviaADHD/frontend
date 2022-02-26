@@ -137,6 +137,7 @@ const Home = ({navigation}) => {
                                 setSelectedTaskId={()=>{}}
                                 windowHeight={windowHeight}
                                 setMenuPosition={setMenuPosition}
+                                editable={false}
                             />
                         </View>
             </InnerContainerRemake>

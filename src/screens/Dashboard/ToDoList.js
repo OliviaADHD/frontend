@@ -126,6 +126,7 @@ const ToDoList = ({route, navigation}) => {
                                 setSelectedTaskId = {setSelectedTaskId}
                                 setMenuPosition={setMenuPosition}
                                 windowHeight={windowHeight}
+                                editable={true}
                                 />
                             </TasksView>
                             :

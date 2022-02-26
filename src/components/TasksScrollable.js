@@ -8,7 +8,7 @@ import { BlackText, TaskView, TasksScrollableView } from "../css/components/Task
 import {useDispatch } from "react-redux";
 
 const TasksScrollable = ({tasksData, taskC, setTaskC, isTaskSelected, setSelectedTaskId,
-                         setMenuPosition, windowHeight}) => {
+                         setMenuPosition, windowHeight, editable}) => {
     let taskListUndone = [];
     let taskListDone = [];
     for (const taskT of Object.keys(tasksData.alltasks)) {
@@ -25,6 +25,7 @@ const TasksScrollable = ({tasksData, taskC, setTaskC, isTaskSelected, setSelecte
                     setSelectedTaskId={setSelectedTaskId}
                     setMenuPosition={setMenuPosition}
                     windowHeight={windowHeight}
+                    editable={editable}
                 />
             )
         }
@@ -41,6 +42,7 @@ const TasksScrollable = ({tasksData, taskC, setTaskC, isTaskSelected, setSelecte
                     setSelectedTaskId={setSelectedTaskId}
                     setMenuPosition={setMenuPosition}
                     windowHeight={windowHeight}
+                    editable={editable}
                 />
             )}
     }
@@ -59,7 +61,7 @@ const TasksScrollable = ({tasksData, taskC, setTaskC, isTaskSelected, setSelecte
 }
 
 const Task = ({taskDetail, taskId, taskDone, taskC, setTaskC, isTaskSelected, 
-        setSelectedTaskId, setMenuPosition, windowHeight}) => {
+        setSelectedTaskId, setMenuPosition, windowHeight, editable}) => {
     const dispatch = useDispatch();
     return (
         <TaskView>
@@ -69,7 +71,8 @@ const Task = ({taskDetail, taskId, taskDone, taskC, setTaskC, isTaskSelected,
                 setSelectedTaskId(taskId);
                 isTaskSelected(true);
                 setMenuPosition(Math.floor(100*event.nativeEvent.pageY/windowHeight));
-            }}>
+            }}
+            activeOpacity={editable?0.2:1}>
             <BlackText>
                 {taskDetail}
             </BlackText>
