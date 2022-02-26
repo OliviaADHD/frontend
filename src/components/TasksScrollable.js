@@ -7,7 +7,8 @@ import { TOGGLE_TASK_DONE } from "../redux/actions/types";
 import { BlackText, TaskView, TasksScrollableView } from "../css/components/TasksScrollable";
 import {useDispatch } from "react-redux";
 
-const TasksScrollable = ({tasksData, taskC, setTaskC, isTaskSelected, setSelectedTaskId}) => {
+const TasksScrollable = ({tasksData, taskC, setTaskC, isTaskSelected, setSelectedTaskId,
+                         setMenuPosition, windowHeight}) => {
     let taskListUndone = [];
     let taskListDone = [];
     for (const taskT of Object.keys(tasksData.alltasks)) {
@@ -22,6 +23,8 @@ const TasksScrollable = ({tasksData, taskC, setTaskC, isTaskSelected, setSelecte
                     setTaskC = {setTaskC}
                     isTaskSelected={isTaskSelected}
                     setSelectedTaskId={setSelectedTaskId}
+                    setMenuPosition={setMenuPosition}
+                    windowHeight={windowHeight}
                 />
             )
         }
@@ -36,6 +39,8 @@ const TasksScrollable = ({tasksData, taskC, setTaskC, isTaskSelected, setSelecte
                     setTaskC = {setTaskC}
                     isTaskSelected={isTaskSelected}
                     setSelectedTaskId={setSelectedTaskId}
+                    setMenuPosition={setMenuPosition}
+                    windowHeight={windowHeight}
                 />
             )}
     }
@@ -53,21 +58,23 @@ const TasksScrollable = ({tasksData, taskC, setTaskC, isTaskSelected, setSelecte
     )
 }
 
-const Task = ({taskDetail, taskId, taskDone, taskC, setTaskC, isTaskSelected, setSelectedTaskId}) => {
+const Task = ({taskDetail, taskId, taskDone, taskC, setTaskC, isTaskSelected, 
+        setSelectedTaskId, setMenuPosition, windowHeight}) => {
     const dispatch = useDispatch();
     return (
         <TaskView>
             <TouchableOpacity 
-            style={{flexDirection: "row"}}
-            onPress={()=>{
+            style={{flexDirection: "row", width: "95%", justifyContent: "space-between"}}
+            onPress={(event)=>{
                 setSelectedTaskId(taskId);
                 isTaskSelected(true);
+                setMenuPosition(Math.floor(100*event.nativeEvent.pageY/windowHeight));
             }}>
             <BlackText>
                 {taskDetail}
             </BlackText>
             <BouncyCheckbox
-                    style={{width: "15%",}}
+                    style={{width: "5%"}}
                     size={18}
                     fillColor={Colors.black}
                     iconStyle={{borderColor: Colors.black, borderRadius: 0}}

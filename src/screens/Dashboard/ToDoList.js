@@ -55,7 +55,7 @@ const ToDoList = ({route, navigation}) => {
 
     const [detailsOpen, setDetailsOpen] = useState(false);
 
-    const [taskSelected, isTaskSelected] = useState(false);
+    const [taskOpen, istaskOpen] = useState(false);
     const [selectedTaskId, setSelectedTaskId] = useState(undefined);
     const [taskC, setTaskC] = useState(false);
 
@@ -114,13 +114,15 @@ const ToDoList = ({route, navigation}) => {
                             </TasksScheduleTouch>
                         </TasksScheduleView>                 
                         {tasksSelected?
-                            <TasksView>
+                            <TasksView style={taskOpen? {backgroundColor:Colors.lightgray}:{}}>
                                 <TasksScrollable 
                                 tasksData = {taskData}
                                 taskC = {taskC}
                                 setTaskC = {setTaskC}
-                                isTaskSelected = {isTaskSelected}
+                                isTaskSelected = {istaskOpen}
                                 setSelectedTaskId = {setSelectedTaskId}
+                                setMenuPosition={setMenuPosition}
+                                windowHeight={windowHeight}
                                 />
                             </TasksView>
                             :
@@ -223,25 +225,25 @@ const ToDoList = ({route, navigation}) => {
                     today={today} />
             
             )}
-            { taskSelected && (
+            { taskOpen && (
                 <View style={{
-                    backgroundColor: Colors.purple, width: "20%", height: "15%",
-                    borderRadius: 9,
-                    borderTopRightRadius: (menuPosition>80)?9:0,
-                    borderBottomRightRadius: (menuPosition>80)?0:9,
+                    backgroundColor: Colors.white, width: "20%", height: "15%",
+                    borderRadius: 10,
+                    borderTopLeftRadius: (menuPosition>78)?10:0,
+                    borderBottomLeftRadius: (menuPosition>78)?0:10,
                     alignSelf: "baseline",
                     zIndex: 150,
                     padding: "10%",
                     margin: "0%",
-                    top: (menuPosition>80)?("70%"):((menuPosition).toString()+"%"),
+                    top: (menuPosition>78)?((menuPosition-15).toString()+"%"):((menuPosition).toString()+"%"),
                     justifyContent: "space-between",
                     alignItems: "flex-start",
-                    left: "55%",
+                    left: "35%",
                     position: "absolute"}}>
                     <TouchableOpacity 
-                        style={{backgroundColor: "red", width: "100%", 
+                        style={{width: "100%", 
                         flexDirection: "row", justifyContent: "flex-end"}}
-                        onPress={()=>isTaskSelected(false)}
+                        onPress={()=>istaskOpen(false)}
                         >
                         <Text style={{fontSize: 16, fontWeight: "bold"}}>X</Text>
                     </TouchableOpacity>

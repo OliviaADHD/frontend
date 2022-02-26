@@ -135,6 +135,8 @@ const Home = ({navigation}) => {
                                 setTaskC = {setTaskC}
                                 isTaskSelected={()=>{}}
                                 setSelectedTaskId={()=>{}}
+                                windowHeight={windowHeight}
+                                setMenuPosition={setMenuPosition}
                             />
                         </View>
             </InnerContainerRemake>
