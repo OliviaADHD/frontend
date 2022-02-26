@@ -28,6 +28,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { EventDetails } from "../../components/EventDetails";
 
 const ToDoList = ({route, navigation}) => {
+
     const dispatch = useDispatch();
     const [tasksSelected, setTasksSelected] = useState((route.params === undefined)? true: route.params.tasksSelected);
     const taskData = useSelector(state => state.tasks);
@@ -177,9 +178,9 @@ const ToDoList = ({route, navigation}) => {
                                 </View>
                             </ScheduleView>}
                         <NewTaskOrEventButton onPress={()=>{tasksSelected?newTask():newEvent()}}>
-                            <WhiteText style={{fontSize: 14, width: "100%", textAlign: "center"}}> 
-                                <Text style={{fontSize: 20, color: Colors.white}}>+  </Text> 
-                                New {tasksSelected?"task":"event"}
+                            <WhiteText style={{fontSize: 28, width: "100%", textAlign: "center",
+                                                justifyContent: "center"}}> 
+                                    +  
                             </WhiteText>
                         </NewTaskOrEventButton>
                         
