@@ -34,7 +34,7 @@ import Preferences from '../screens/Profile/Preferences';
 import PrivacySetting from '../screens/Profile/PrivacySetting';
 import Help from '../screens/Profile/Help';
 
-
+import { Task } from '../screens/Dashboard/New/Task';
 
 const Stack = createStackNavigator();
 
@@ -75,9 +75,10 @@ const RootStack = () => {
                 <Stack.Screen name="Cycle" component={Cycle} />
                 <Stack.Screen name="Awareness" component={Awareness} />
                 <Stack.Screen name="Home" component={Home}  options ={{header: () => null}} />
-                <Stack.Screen name="ToDoList" component={ToDoList} />
+                <Stack.Screen name="ToDoList" component={ToDoList} options ={{header: () => null}}/>
                 <Stack.Screen name="Profile" component={Profile} />
 
+                <Stack.Screen name="Task" component={Task} options ={{header: () => null}}/>
 
                 <Stack.Screen name="Settings" component={Settings} />
                 <Stack.Screen name="Preferences" component={Preferences} />
