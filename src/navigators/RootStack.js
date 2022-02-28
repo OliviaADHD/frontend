@@ -34,7 +34,7 @@ import Preferences from '../screens/Profile/Preferences';
 import PrivacySetting from '../screens/Profile/PrivacySetting';
 import Help from '../screens/Profile/Help';
 
-
+import { Task } from '../screens/Dashboard/New/Task';
 
 const Stack = createStackNavigator();
 
@@ -53,7 +53,8 @@ const RootStack = () => {
                     paddingLeft: 20
                 }
             }}
-            initialRouteName = 'Profile'
+            initialRouteName = 'Welcome'
+
             >   
                 <Stack.Screen name="Welcome" 
                     options ={{animationEnabled: true, header: () => null}}
@@ -67,6 +68,7 @@ const RootStack = () => {
                 }} /> 
                 <Stack.Screen name='Welcome_Post_Signup' component={Welcome_Post_Signup} />
                 <Stack.Screen name="Questionnaire" component={Questionnaire} options ={{header: () => null}} />
+                <Stack.Screen name="TutorialDashboard" component={TutorialDashboard} options ={{header: () => null}} />
                   
                 <Stack.Screen name="ResetPassword" component={ResetPassword}  options ={{header: () => null}} />
                 <Stack.Screen name="MessageResetPassword" component={MessageResetPassword}  options ={{header: () => null}} />
@@ -75,9 +77,10 @@ const RootStack = () => {
                 <Stack.Screen name="Cycle" component={Cycle} />
                 <Stack.Screen name="Awareness" component={Awareness} />
                 <Stack.Screen name="Home" component={Home}  options ={{header: () => null}} />
-                <Stack.Screen name="ToDoList" component={ToDoList} />
+                <Stack.Screen name="ToDoList" component={ToDoList} options ={{header: () => null}}/>
                 <Stack.Screen name="Profile" component={Profile} />
 
+                <Stack.Screen name="Task" component={Task} options ={{header: () => null}}/>
 
                 <Stack.Screen name="Settings" component={Settings} />
                 <Stack.Screen name="Preferences" component={Preferences} />

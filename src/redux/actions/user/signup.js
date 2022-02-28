@@ -16,6 +16,7 @@ import { SIGN_UP,
     SET_NOTIFICATION,
     SET_LANGUAGE,
     SET_DARKMODE,
+    SET_TUTORIAL
   } from "../types";
 import axios from "axios";
 import {link} from '../../config/config'
@@ -63,6 +64,7 @@ export const newUserGoogle = (token) => async dispatch => {
       dispatch({type: SET_HIDEPHOTO, payload: false});
       dispatch({type:SET_NOTIFICATION, payload: true});
       dispatch({type: SET_DARKMODE, payload: false});
+      dispatch({type: SET_TUTORIAL, payload: false});
       dispatch({type: SET_LANGUAGE, payload: "English"});
       return true;
     })
@@ -92,12 +94,13 @@ export const newUser = (user) => async dispatch => {
   .then(resp => {
     dispatch({type: SIGN_UP_SUCCESS,
               payload: {passed: true}});
-  dispatch({type: SET_USER_ID, payload: resp.data.userId});
-  dispatch({type:SET_USER_NAME, payload: resp.data.name});
-  dispatch({type: SET_FIRST_TIME, payload: true});
+    dispatch({type: SET_USER_ID, payload: resp.data.userId});
+    dispatch({type:SET_USER_NAME, payload: resp.data.name});
+    dispatch({type: SET_FIRST_TIME, payload: true});
     dispatch({type: SET_HIDEPHOTO, payload: false});
     dispatch({type:SET_NOTIFICATION, payload: true});
     dispatch({type: SET_DARKMODE, payload: false});
+    dispatch({type: SET_TUTORIAL, payload: false});
     dispatch({type: SET_LANGUAGE, payload: "English"});
     return true;
   })

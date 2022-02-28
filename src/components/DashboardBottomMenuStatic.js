@@ -1,41 +1,14 @@
 import React from "react";
 import {StyleSheet, View, Text, Image} from "react-native";
+import { Icon } from 'react-native-elements';
 import { TouchableOpacity } from "react-native-gesture-handler";
 import {
     Colors,
 } from "../css/general/style";
 
-const styles = StyleSheet.create({
-    ITOpacityStyle: {
-        paddingBottom: "0%",
-        paddingTop: "0%",
-    },
-    IconbaseText: {
-    },
-    fontColorGrey:{
-        color: Colors.darkgray,
-    },
-    fontColorPurple: {
-        color: Colors.purple,
-    },
-    thisView: {
-        justifyContent: "space-between",
-        flexDirection: "row",
-        height: "10%",
+import {GeneralContainerTut, IconContainer, NewTouchOpacity} from '../css/components/menu';
 
-        
-    },
-    BottomIconMenyStyle:{
-        resizeMode: "contain",
-        height: "60%",
-        width: "100%",
-    },
-    IconAndTextView:{
-        justifyContent:"space-between",
-        flexDirection: "column", 
-        alignItems: "center",
-        width: "19%"
-    },
+const styles = StyleSheet.create({
     greyBackground: {
         backgroundColor: Colors.gray,
     },
@@ -53,45 +26,23 @@ class IconAndText extends React.Component {
     icon = this.props.iconPurple;
     render(){
         return (
-            <View style={[styles.IconAndTextView,
-            (this.props.backgroundColor)? ((this.props.currentScreen===this.props.screen)?styles.whiteBackground:styles.greyBackground):styles.whiteBackground]}>
-                <TouchableOpacity onPress={() => {}} 
-                style={{justifyContent:"space-between", paddingTop: "10%"}}>
-                    <Image source={(this.props.currentScreen===this.props.screen)?this.props.icon.purple:this.props.icon.grey} 
-                        style={styles.BottomIconMenyStyle}
+            <IconContainer style={(this.props.backgroundColor)? ((this.props.currentScreen===this.props.screen)?styles.whiteBackground:styles.greyBackground):styles.whiteBackground}>
+                <NewTouchOpacity onPress={() => {}}>
+                    <Icon
+                        name={this.props.iconName}
+                        type={this.props.iconType}
+                        size={30}
+                        color={ (this.props.currentScreen === this.props.screen)? (Colors.purple):(Colors.gray)}
                     />
-                    <Text style={[styles.IconbaseText,(this.props.currentScreen===this.props.screen) ? styles.fontColorPurple:styles.fontColorGrey]}>
-                        {this.props.iconText}
-                    </Text>
-                </TouchableOpacity>
-            </View>
+
+                </NewTouchOpacity>
+            </IconContainer>
         );
     }
 }
-
+var iconName = ["blood-drop","list-1","ios-home-sharp","heartbeat","ios-person-sharp"];
+var iconType =  ["fontisto","fontisto","ionicon","font-awesome","ionicon"];
 var screens = ["Cycle", "ToDoList", "Home", "Awareness", "Profile"];
-var iconTexts = ["Cylce", "To-do List", "Home", "Awareness", "Profile"];
-const icons = [
-    {   grey: require("../../assets/images/menuIcons/CycleGrey.png"),
-        purple: require("../../assets/images/menuIcons/CyclePurple.png")
-    },
-    {
-        grey: require("../../assets/images/menuIcons/TodolistGrey.png"),
-        purple: require("../../assets/images/menuIcons/TodolistPurple.png"),
-    },
-    {
-        grey: require("../../assets/images/menuIcons/HomeGrey.png"),
-        purple: require("../../assets/images/menuIcons/HomePurple.png"),
-    },
-    {
-        grey: require("../../assets/images/menuIcons/AwarenessGrey.png"),
-        purple: require("../../assets/images/menuIcons/AwarenessPurple.png"),
-    },
-    {
-        grey: require("../../assets/images/menuIcons/ProfileGrey.png"),
-        purple: require("../../assets/images/menuIcons/ProfilePurple.png"),
-    }
-]
 
 const DashBoardBottomMenuStatic = ({currentScreen,backgroundColor}) => {
     let indIcons = [];
@@ -100,15 +51,15 @@ const DashBoardBottomMenuStatic = ({currentScreen,backgroundColor}) => {
             key={i}
             currentScreen={currentScreen}
             screen={screens[i]}
-            iconText={iconTexts[i]}
-            icon={icons[i]}
+            iconName={iconName[i]}
+            iconType={iconType[i]}
             backgroundColor={backgroundColor}
         />)
         }
     return (
-        <View style={styles.thisView}>
+       <GeneralContainerTut>
             {indIcons}
-        </View>
+        </GeneralContainerTut>
     );
 }
 

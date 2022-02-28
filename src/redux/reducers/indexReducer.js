@@ -8,7 +8,6 @@ import questionReducer from './questionReducer';
 import networkAvailabilityReducer from './networkAvailabilityReducer';
 import userNameReducer from './userNameReducer';
 import profileReducer from './profileReducer';
-import dashboardTutorialReducer from './dashboardTutorialReducer';
 import upcomingEventsReducer from './upcomingEventsReducer';
 import tasksReducer from './tasksReducer';
 
@@ -22,7 +21,6 @@ const rootReducer = combineReducers({
     networkAvailability: networkAvailabilityReducer,
     userName: userNameReducer,
     profileInfo: profileReducer,
-    dashboardTutorial: dashboardTutorialReducer,
     upcomingEvents: upcomingEventsReducer,
     tasks: tasksReducer,
 });
