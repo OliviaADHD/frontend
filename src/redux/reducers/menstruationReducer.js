@@ -13,7 +13,7 @@ const menstruationData = {
     initialized: true, //should be false, this is for testing
     firstTime: false,
     regular: true,
-    startLastPeriod: ['11/10/2021'], //some default values for testing
+    startLastPeriod: ['11/20/2021'], //some default values for testing
     periodCycleLength: [28], //some default values for testing
     periodLength: [5]   //some default values for testing
 }
@@ -60,5 +60,8 @@ const menstruationReducer = (state = menstruationData, action) => {
     }
 
 }
+
+
+
 
 export default menstruationReducer;

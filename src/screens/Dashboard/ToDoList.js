@@ -2,6 +2,8 @@ import React, {useState, useEffect} from "react";
 import {StatusBar} from "expo-status-bar";
 import {Text, View, TouchableOpacity, Image, Dimensions} from 'react-native';
 import {Colors} from "../../css/general/style";
+import { deleteEvent } from "../../redux/actions/CalendarEvents/home";
+import { DELETE_TASK } from "../../redux/actions/types";
 
 import {StyledContainer} from '../../css/general/style';
 import { TasksScheduleTouch, TrophyImage,
@@ -18,12 +20,17 @@ import UpcomingsScrollable from "../../components/UpcomingsScrollable";
 import {CalendarProvider, WeekCalendar} from 'react-native-calendars';
 import { makeDateString } from "../../helpers/menstruation";
 
+import {MARK_ALL_TASKS_UNDONE} from "../../redux/actions/types";
+
 const windowHeight = Dimensions.get('window').height;
 
 import { useSelector, useDispatch } from "react-redux";
+import { EventDetails } from "../../components/EventDetails";
 
-const ToDoList = ({navigation}) => {
-    const [tasksSelected, setTasksSelected] = useState(true);
+const ToDoList = ({route, navigation}) => {
+
+    const dispatch = useDispatch();
+    const [tasksSelected, setTasksSelected] = useState((route.params === undefined)? true: route.params.tasksSelected);
     const taskData = useSelector(state => state.tasks);
     const userData = useSelector(state => state.userName);
 
@@ -34,7 +41,10 @@ const ToDoList = ({navigation}) => {
     const [month, setMonth] = useState(today.getMonth());
     var year = today.getFullYear();
     const calenderEventData = useSelector(state => state.upcomingEvents);
+    const [thisDayEvents, SetThisDayEvents] = useState((calenderEventData[today.toLocaleDateString('en-US')] === undefined)?{}:calenderEventData[today.toLocaleDateString('en-US')]);
+    
     const [markedDay, setMarkedDay] = useState(makeDateString(today));
+    const [selectedDate, setSelectedDate] = useState(today.toLocaleDateString('en-US'));
 
     const [menuOpen, setMenuOpen] = useState(false);
     const [menuPosition, setMenuPosition] = useState(0);
@@ -47,13 +57,26 @@ const ToDoList = ({navigation}) => {
         console.log('new Event to schedule-input open');
     };
 
+    const [detailsOpen, setDetailsOpen] = useState(false);
+
+    const [taskOpen, istaskOpen] = useState(false);
+    const [selectedTaskId, setSelectedTaskId] = useState(undefined);
+    const [taskC, setTaskC] = useState(false);
+
     const showNewDayEvents =(day) => {
         setMarkedDay(day.dateString);
         setMonth(day.month);
-        console.log("need to implement getting data properly once the underlying Data structure is clearer");
+        var newDay = new Date(day.dateString);
+        SetThisDayEvents((calenderEventData[newDay.toLocaleDateString('en-US')] === undefined)? {}: calenderEventData[newDay.toLocaleDateString('en-US')]);
+        setSelectedDate(newDay.toLocaleDateString('en-US'));
     }
+    useEffect(() => {
+        if (today.toLocaleDateString('en-US') !== taskData.today) {
+            dispatch({type: MARK_ALL_TASKS_UNDONE,
+                        payload: {today: today.toLocaleDateString('en-US')}});
+        }
+    },[])
 
-    useEffect(() =>{console.log(menuPosition)},[menuPosition])
 
     return (
         <StyledContainer>
@@ -95,9 +118,17 @@ const ToDoList = ({navigation}) => {
                             </TasksScheduleTouch>
                         </TasksScheduleView>                 
                         {tasksSelected?
-                            <TasksView>
+                            <TasksView style={taskOpen? {backgroundColor:Colors.lightgray}:{}}>
                                 <TasksScrollable 
-                                tasksData = {taskData}/>
+                                tasksData = {taskData}
+                                taskC = {taskC}
+                                setTaskC = {setTaskC}
+                                isTaskSelected = {istaskOpen}
+                                setSelectedTaskId = {setSelectedTaskId}
+                                setMenuPosition={setMenuPosition}
+                                windowHeight={windowHeight}
+                                editable={true}
+                                />
                             </TasksView>
                             :
                             <ScheduleView>
@@ -136,9 +167,10 @@ const ToDoList = ({navigation}) => {
                                 </View>
                                 <View style={{height: "75%"}}> 
                                 <UpcomingsScrollable 
-                                    calenderEventData={calenderEventData}
+                                    calenderEventData={thisDayEvents}
                                     menuOpen={menuOpen}
                                     setMenuOpen={setMenuOpen}
+                                    setDetailsOpen={setDetailsOpen}
                                     setMenuPosition={setMenuPosition}
                                     setcurrentEventId={setcurrentEventId}
                                     windowHeight={windowHeight} />
@@ -146,9 +178,9 @@ const ToDoList = ({navigation}) => {
                                 </View>
                             </ScheduleView>}
                         <NewTaskOrEventButton onPress={()=>{tasksSelected?newTask():newEvent()}}>
-                            <WhiteText style={{fontSize: 14, width: "100%", textAlign: "center"}}> 
-                                <Text style={{fontSize: 20, color: Colors.white}}>+  </Text> 
-                                New {tasksSelected?"task":"event"}
+                            <WhiteText style={{fontSize: 28, width: "100%", textAlign: "center",
+                                                justifyContent: "center"}}> 
+                                    +  
                             </WhiteText>
                         </NewTaskOrEventButton>
                         
@@ -183,12 +215,60 @@ const ToDoList = ({navigation}) => {
                     </TouchableOpacity>
                     <TouchableOpacity onPress={()=>{
                             console.log('delete number', currentEventId);
-                            dispatch(deleteEvent(currentEventId));
+                            dispatch(deleteEvent(currentEventId, selectedDate));
                             setMenuOpen(false);
                         }}>
                         <BlackText>Delete</BlackText>
                     </TouchableOpacity>
                 </View> )}
+            {detailsOpen && (
+                <EventDetails 
+                    setDetailsOpen={setDetailsOpen}
+                    todaysEvents={thisDayEvents}
+                    currentEventId={currentEventId}
+                    menuPosition={menuPosition}
+                    today={today} />
+            
+            )}
+            { taskOpen && (
+                <View style={{
+                    backgroundColor: Colors.white, width: "20%", height: "15%",
+                    borderRadius: 10,
+                    borderTopLeftRadius: (menuPosition>78)?10:0,
+                    borderBottomLeftRadius: (menuPosition>78)?0:10,
+                    alignSelf: "baseline",
+                    zIndex: 150,
+                    padding: "10%",
+                    margin: "0%",
+                    top: (menuPosition>78)?((menuPosition-15).toString()+"%"):((menuPosition).toString()+"%"),
+                    justifyContent: "space-between",
+                    alignItems: "flex-start",
+                    left: "35%",
+                    position: "absolute"}}>
+                    <TouchableOpacity 
+                        style={{width: "100%", 
+                        flexDirection: "row", justifyContent: "flex-end"}}
+                        onPress={()=>istaskOpen(false)}
+                        >
+                        <Text style={{fontSize: 16, fontWeight: "bold"}}>X</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{width: "100%"}}
+                        onPress={()=> {console.log('open edit possibility for task ', selectedTaskId)}}
+                        >
+                        <Text>Edit</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{width: "100%"}}
+                                onPress={()=>{dispatch({
+                                                type: DELETE_TASK,
+                                                payload: {taskId: selectedTaskId}
+                                                });
+                                                istaskOpen(false);
+                                                }}>
+                        <Text>Delete</Text>
+                    </TouchableOpacity>
+                </View>)
+
+            }
             <DashBoardBottomMenu currentScreen={"ToDoList"} navigation={navigation}/>
         </StyledContainer>
     )

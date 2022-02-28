@@ -79,15 +79,15 @@ export const HeaderView = styled.View`
 `;
 
 export const NewTaskOrEventButton = styled.TouchableOpacity`
-  width: 30%;
+  width: 10%;
   height: 10%;
   alignContent: center;
   alignSelf: flex-end;
   marginRight: 10%;
-  borderRadius: 9px;
+  borderRadius: 20px;
   padding: 1%;
   justifyContent: center;
-  marginTop: -20%;
+  marginTop: -15%;
   backgroundColor: ${Colors.purple};
 `;
 
