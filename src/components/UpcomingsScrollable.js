@@ -10,7 +10,7 @@ import {StyledBoldTitle, BlackText, UpcomingsScrollableView,
 
 
 const UpcomingsScrollable = ({calenderEventData, 
-    menuOpen, setMenuOpen, setMenuPosition, setcurrentEventId, windowHeight}) => {
+    menuOpen, setMenuOpen, setMenuPosition, setcurrentEventId, windowHeight, setDetailsOpen}) => {
     let eventList = [];
     const now = new Date();
     for (const eventD of Object.keys(calenderEventData)){
@@ -26,6 +26,7 @@ const UpcomingsScrollable = ({calenderEventData,
                 menuOpen={menuOpen}
                 setMenuOpen={setMenuOpen}
                 setMenuPosition={setMenuPosition}
+                setDetailsOpen={setDetailsOpen}
                 setcurrentEventId={setcurrentEventId}
                 windowHeight={windowHeight}
             />)
@@ -45,7 +46,7 @@ const UpcomingsScrollable = ({calenderEventData,
 
 const CalendarEvent = ({eventId, startTime, endTime, eventTitle, 
     eventDetails, inProgress, menuOpen, setMenuOpen, setMenuPosition,
-    setcurrentEventId, windowHeight}) => {
+    setcurrentEventId, windowHeight, setDetailsOpen}) => {
 
     return(
     <CalenderEventView style={{backgroundColor: menuOpen?Colors.gray:Colors.white}}>
@@ -62,6 +63,7 @@ const CalendarEvent = ({eventId, startTime, endTime, eventTitle,
             inProgress={inProgress}
             menuOpen={menuOpen}
             setMenuOpen={setMenuOpen}
+            setDetailsOpen={setDetailsOpen}
             setMenuPosition={setMenuPosition}
             setcurrentEventId={setcurrentEventId}
             windowHeight={windowHeight}
@@ -70,12 +72,18 @@ const CalendarEvent = ({eventId, startTime, endTime, eventTitle,
     </CalenderEventView>);
 };
 
-const DetailsEvent = ({eventId, EventTitle, EventDetails, 
+const DetailsEvent = ({eventId, EventTitle, EventDetails, setDetailsOpen,
     inProgress, menuOpen, setMenuOpen, setMenuPosition, setcurrentEventId, windowHeight}) => {
     return(
         <DetailsEventView 
         style={{backgroundColor: inProgress?Colors.purple:(menuOpen?Colors.gray:Colors.white), 
         borderRadius: inProgress?15:0}}>
+        <TouchableOpacity style={{flexDirection: "row"}} 
+                        onLongPress={(event)=>{
+                            setMenuPosition(Math.floor(100*event.nativeEvent.pageY/windowHeight));
+                            setcurrentEventId(eventId);
+                            setDetailsOpen(true);}}
+                        activeOpacity={1}>
             <View style={{width: "90%"}}>
                 <StyledBoldTitle style={{color: inProgress?(menuOpen?Colors.gray:Colors.white):Colors.purple}}> 
                     {EventTitle}
@@ -90,7 +98,8 @@ const DetailsEvent = ({eventId, EventTitle, EventDetails,
                         setcurrentEventId(eventId);
                         setMenuPosition(Math.floor(100*event.nativeEvent.pageY/windowHeight));
                         setMenuOpen(!menuOpen);
-                        }}>
+                        }}
+                        >
                     <SmallSolidDot style={{backgroundColor: inProgress?(menuOpen?Colors.gray:Colors.white):Colors.black}}/>
                     <SmallSolidDot style={{backgroundColor: inProgress?(menuOpen?Colors.gray:Colors.white):Colors.black}}/>
                     <SmallSolidDot style={{backgroundColor: inProgress?(menuOpen?Colors.gray:Colors.white):Colors.black}}/>
@@ -104,7 +113,7 @@ const DetailsEvent = ({eventId, EventTitle, EventDetails,
                     onPress={() => {console.log('what should be done after clicking this?')}}
                 />)}
             </DetailsEventView2>
-            
+        </TouchableOpacity>
         </DetailsEventView>
     )
 };

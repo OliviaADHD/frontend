@@ -54,6 +54,7 @@ const RootStack = () => {
                 }
             }}
             initialRouteName = 'Welcome'
+
             >   
                 <Stack.Screen name="Welcome" 
                     options ={{animationEnabled: true, header: () => null}}

@@ -11,10 +11,10 @@ const userLink = link + "user/";
 
 // no backend sending is implemented rn!
 
-export const deleteEvent = (eventId) => async dispatch => {
+export const deleteEvent = (eventId, date) => async dispatch => {
     dispatch({
         type: DELETE_EVENT,
-        payload: {eventId: eventId}
+        payload: {eventId: eventId, date: date}
       });
 }
 
