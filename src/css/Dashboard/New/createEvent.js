@@ -5,19 +5,19 @@ import { Icon } from 'react-native-elements';
 export const InnerContainerRemake = styled.View`
   flex: 1;
   width: 100%;
-  height: 60%;
+  height: 80%;
   align-items: center;
   justifyContent: center;
 `;
 
 export const HeaderView = styled.View`
-  height: 60%;
+  height: 20%;
   width: 100%;
   backgroundColor: ${Colors.gray};
 `;
 
 export const ContentView = styled.View`
-  height: 70%;
+  height: 80%;
   width: 100%;
   backgroundColor: ${Colors.white};
   borderRadius: 30px;
@@ -37,11 +37,10 @@ export const StyledIcon = styled(Icon)`
 export const EventView = styled.View`
   borderBottomColor: #F5FCFF;
   backgroundColor: #FFFFFF;
-  borderRadius:30px;
   borderBottomWidth: 1px;
   width:100%;
   height:10%;
-  marginTop:40px;
+  marginTop:2%;
   flexDirection: row;
   alignItems: center;
 `;
@@ -49,7 +48,15 @@ export const EventView = styled.View`
 
 export const InputView = styled.TextInput`
     height:100%;
-    marginLeft:10px;
+    marginLeft:5%;
+    borderBottomColor: #FFFFFF;
+    width:65%;
+`;
+
+export const InputViewTitle = styled.TextInput`
+    height:100%;
+    marginLeft:4%;
+    fontSize: 20px;
     borderBottomColor: #FFFFFF;
     width:65%;
 `;

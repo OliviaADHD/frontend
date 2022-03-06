@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {StatusBar} from "expo-status-bar";
-import {View, StyleSheet, Image, Dimensions, TextInput} from 'react-native';
+import {TouchableOpacity, Dimensions, Text} from 'react-native';
 import {Colors, StyledContainer} from "../../../css/general/style";
 import { Icon } from 'react-native-elements';
 import { HeaderView, 
@@ -9,7 +9,8 @@ import { HeaderView,
     EventView, 
     CloseView, 
     StyledIcon, 
-    InputView } from "../../../css/Dashboard/New/createEvent";
+    InputView, 
+    InputViewTitle } from "../../../css/Dashboard/New/createEvent";
 
 import { useSelector, useDispatch } from "react-redux";
 
@@ -27,6 +28,9 @@ export const Event = ({navigation}) => {
 
     const [inputText, setInputText] = useState("");
 
+    const [titleText, setTitleText] = useState("");
+    const [detailsText, setDetailsText] = useState("");
+
     return (
         <StyledContainer>
             <StatusBar style="dark"/>
@@ -42,9 +46,16 @@ export const Event = ({navigation}) => {
                         onPress={() => closeEvent()}
                         />
                     </CloseView>
+                    <EventView style={{marginTop: "0%"}}>
+                        <InputViewTitle
+                                placeholder="Create a new event"
+                                underlineColorAndroid='transparent'
+                                value={titleText}
+                                onChangeText={(text) => setTitleText(text)}/>
+                    </EventView>
                     <EventView>
                         <Icon
-                        name='checkmark-outline'
+                        name='menu-outline'
                         type='ionicon'
                         size={35}
                         style={{
@@ -52,19 +63,81 @@ export const Event = ({navigation}) => {
                         }}
                         />
                         <InputView
-                            placeholder="Create a small task"
+                            placeholder="Add Details"
+                            underlineColorAndroid='transparent'
+                            multiline={true}
+                            value={detailsText}
+                            onChangeText={(text) => setDetailsText(text)}/>
+                    </EventView>
+                    <EventView>
+                        <Icon
+                        name='calendar-outline'
+                        type='ionicon'
+                        size={35}
+                        style={{
+                            marginLeft:"10%"
+                        }}
+                        />
+                        <InputView
+                            placeholder="Date different input?"
                             underlineColorAndroid='transparent'
                             value={inputText}
                             onChangeText={(text) => setInputText(text)}/>
+                    </EventView>
+                    <EventView>
                         <Icon
-                            name='chevron-forward-circle-outline'
-                            type='ionicon'
-                            size={35}
-                            onPress={() => newEvent()}
-                            style={{
-                                marginRight:"15%"
-                            }}
+                        name='time-outline'
+                        type='ionicon'
+                        size={35}
+                        style={{
+                            marginLeft:"10%"
+                        }}
                         />
+                        <InputView
+                            placeholder="From"
+                            underlineColorAndroid='transparent'
+                            value={inputText}
+                            onChangeText={(text) => setInputText(text)}/>
+                    </EventView>
+                    <EventView>
+                        <InputView
+                            placeholder="To"
+                            underlineColorAndroid='transparent'
+                            value={inputText}
+                            onChangeText={(text) => setInputText(text)}/>
+                    </EventView>
+                    <EventView>
+                        <Icon
+                        name='alarm-outline'
+                        type='ionicon'
+                        size={35}
+                        style={{
+                            marginLeft:"10%"
+                        }}
+                        />
+                        <InputView
+                            placeholder="Remind Me"
+                            underlineColorAndroid='transparent'
+                            value={inputText}
+                            onChangeText={(text) => setInputText(text)}/>
+                    </EventView>
+                    <EventView>
+                        <Icon
+                        name='location-outline'
+                        type='ionicon'
+                        size={35}
+                        style={{
+                            marginLeft:"10%"
+                        }}
+                        />
+                        <InputView
+                            placeholder="Location"
+                            underlineColorAndroid='transparent'
+                            value={inputText}
+                            onChangeText={(text) => setInputText(text)}/>
+                    </EventView>
+                    <EventView style={{backgroundColor: Colors.purple}}>
+                        <Text>Done</Text>
                     </EventView>
                 </ContentView>
             </InnerContainerRemake>
