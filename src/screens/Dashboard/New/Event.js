@@ -193,8 +193,10 @@ export const Event = ({navigation}) => {
                                 value={inputText}
                                 onChangeText={(text) => setInputText(text)}/>
                         </EventView>
-                        <EventView style={{backgroundColor: Colors.purple}}>
-                            <Text>Done</Text>
+                        <EventView style={{justifyContent: "center"}}>
+                            <PurpleButton style={{height:"90%", width: "60%"}}>
+                                <WhiteText>Done</WhiteText>
+                            </PurpleButton>
                         </EventView>
                     </View>)
                     }
