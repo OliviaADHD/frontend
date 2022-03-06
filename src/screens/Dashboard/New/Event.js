@@ -42,8 +42,6 @@ export const Event = ({navigation}) => {
         return dateString+month+'-'+day;
     }
 
-    const [inputText, setInputText] = useState("");
-
     const [warningTitleTextEmpty, setWarningTitleTextEmpty] = useState(false);
     const [titleText, setTitleText] = useState("");
     const [detailsText, setDetailsText] = useState("");
@@ -152,7 +150,7 @@ export const Event = ({navigation}) => {
                             }}
                             />
                             <CalendarDateTouchable style={{width: "50%"}}
-                                    onPush={()=>console.log('time picker implement!')}>
+                                    onPress={()=>console.log('time picker implement!')}>
                                 <DarkGrayText>From</DarkGrayText>
                                 <Text>
                                     {(startHour>9)?startHour:"0"+startHour}:{(startMinutes>9)?startMinutes: "0"+startMinutes} {startPmOrAm}
@@ -162,7 +160,7 @@ export const Event = ({navigation}) => {
                         </EventView>
                         <EventView>
                             <CalendarDateTouchable style={{width: "50%", marginLeft: "24%"}}
-                                 onPush={()=>console.log('time picker implement!')}>
+                                 onPress={()=>console.log('time picker implement!')}>
                                     <DarkGrayText>To</DarkGrayText>
                                     <Text>
                                         {(endHour>9)?endHour:"0"+endHour}:{(endMinutes>9)?endMinutes: "0"+endMinutes} {endPmOrAm}
@@ -199,11 +197,9 @@ export const Event = ({navigation}) => {
                                 marginLeft:"10%"
                             }}
                             />
-                            <InputView
-                                placeholder="Location"
-                                underlineColorAndroid='transparent'
-                                value={inputText}
-                                onChangeText={(text) => setInputText(text)}/>
+                            <CalendarDateTouchable onPress={() => console.log('implement location picker')}>
+                                <DarkGrayText>Location</DarkGrayText>
+                            </CalendarDateTouchable>
                         </EventView>
                         <EventView style={{justifyContent: "center"}} >
                             <PurpleButton style={{height:"90%", width: "60%"}}
