@@ -14,7 +14,8 @@ import { HeaderView,
     CalendarDateTouchable,
     DarkGrayText,
     PurpleButton,
-    WhiteText } from "../../../css/Dashboard/New/createEvent";
+    WhiteText,
+    WarningText } from "../../../css/Dashboard/New/createEvent";
 
 import { useSelector, useDispatch } from "react-redux";
 
@@ -43,6 +44,7 @@ export const Event = ({navigation}) => {
 
     const [inputText, setInputText] = useState("");
 
+    const [warningTitleTextEmpty, setWarningTitleTextEmpty] = useState(false);
     const [titleText, setTitleText] = useState("");
     const [detailsText, setDetailsText] = useState("");
     const [showCalendar, setShowCalendar] = useState(false);
@@ -79,6 +81,8 @@ export const Event = ({navigation}) => {
                                 value={titleText}
                                 onChangeText={(text) => setTitleText(text)}/>
                     </EventView>
+                    {warningTitleTextEmpty && 
+                        <WarningText>Please enter a title</WarningText>}
                     {showCalendar?
                         (<View style={{height: "80%"}}>
                             <View>
@@ -107,7 +111,7 @@ export const Event = ({navigation}) => {
                             </PurpleButton>
                         </View>) : (
                     <View style={{height: "100%"}}>
-                        <EventView>
+                        <EventView style={{marginTop:(warningTitleTextEmpty)?"1%":"5%"}}>
                             <Icon
                             name='menu-outline'
                             type='ionicon'
@@ -193,8 +197,11 @@ export const Event = ({navigation}) => {
                                 value={inputText}
                                 onChangeText={(text) => setInputText(text)}/>
                         </EventView>
-                        <EventView style={{justifyContent: "center"}}>
-                            <PurpleButton style={{height:"90%", width: "60%"}}>
+                        <EventView style={{justifyContent: "center"}} >
+                            <PurpleButton style={{height:"90%", width: "60%"}}
+                                    onPress={()=>{
+                                            (titleText==="")?setWarningTitleTextEmpty(true) : newEvent();
+                                            }}>
                                 <WhiteText>Done</WhiteText>
                             </PurpleButton>
                         </EventView>

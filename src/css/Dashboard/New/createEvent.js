@@ -90,3 +90,7 @@ export const WhiteText = styled.Text`
     fontWeight: bold;
     fontSize: 18px;
 `;
+
+export const WarningText = styled.Text`
+  color: ${Colors.red};
+`;
