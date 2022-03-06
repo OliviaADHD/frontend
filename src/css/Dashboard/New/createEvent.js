@@ -71,9 +71,7 @@ export const CalendarDateTouchable = styled.TouchableOpacity`
 `;
 
 export const DarkGrayText = styled.Text`
-    color: ${Colors.darkgray};
-    backgroundColor: blue;
-    
+    color: ${Colors.darkgray};    
 `;
 
 export const PurpleButton = styled.TouchableOpacity`

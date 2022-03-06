@@ -47,6 +47,14 @@ export const Event = ({navigation}) => {
     const [detailsText, setDetailsText] = useState("");
     const [showCalendar, setShowCalendar] = useState(false);
     const [selectedDate, setSelectedDate] = useState(transformDateToFormatForCalendar(today));
+    const [startHour, setStartHour] = useState((today.getHours()>12)?today.getHours()-12:today.getHours());
+    const [startMinutes, setStartMinutes] = useState(today.getMinutes());
+    const [startPmOrAm, setStartPmOrAm] = useState((today.getHours()>12)? "PM" : "AM")
+
+    var endDate = new Date(today.getTime()+30*60000);
+    const [endHour, setEndHour] = useState((endDate.getHours()>12)?endDate.getHours()-12:endDate.getHours());
+    const [endMinutes, setEndMinutes] = useState(endDate.getMinutes());
+    const [endPmOrAm, setEndPmOrAm] = useState((endDate.getHours()>12)? "PM" : "AM")
 
 
     return (
@@ -137,18 +145,23 @@ export const Event = ({navigation}) => {
                                 marginLeft:"10%"
                             }}
                             />
-                            <CalendarDateTouchable style={{width: "50%"}}>
+                            <CalendarDateTouchable style={{width: "50%"}}
+                                    onPush={()=>console.log('time picker implement!')}>
                                 <DarkGrayText>From</DarkGrayText>
-                                <Text style={{backgroundColor: "red"}}>some Time</Text>
+                                <Text>
+                                    {(startHour>9)?startHour:"0"+startHour}:{(startMinutes>9)?startMinutes: "0"+startMinutes} {startPmOrAm}
+                                </Text>
                             </CalendarDateTouchable>
 
                         </EventView>
                         <EventView>
-                            <InputView
-                                placeholder="To"
-                                underlineColorAndroid='transparent'
-                                value={inputText}
-                                onChangeText={(text) => setInputText(text)}/>
+                            <CalendarDateTouchable style={{width: "50%", marginLeft: "24%"}}
+                                 onPush={()=>console.log('time picker implement!')}>
+                                    <DarkGrayText>To</DarkGrayText>
+                                    <Text>
+                                        {(endHour>9)?endHour:"0"+endHour}:{(endMinutes>9)?endMinutes: "0"+endMinutes} {endPmOrAm}
+                                    </Text>
+                                </CalendarDateTouchable>
                         </EventView>
                         <EventView>
                             <Icon
