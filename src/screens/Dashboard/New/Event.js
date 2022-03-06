@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import {StatusBar} from "expo-status-bar";
-import {TouchableOpacity, View, Dimensions, Text} from 'react-native';
+import {TouchableOpacity, View, Dimensions, Text, Switch} from 'react-native';
 import {Colors, StyledContainer} from "../../../css/general/style";
 import { Icon } from 'react-native-elements';
 import { HeaderView, 
@@ -57,6 +57,8 @@ export const Event = ({navigation}) => {
     const [endHour, setEndHour] = useState((endDate.getHours()>12)?endDate.getHours()-12:endDate.getHours());
     const [endMinutes, setEndMinutes] = useState(endDate.getMinutes());
     const [endPmOrAm, setEndPmOrAm] = useState((endDate.getHours()>12)? "PM" : "AM")
+
+    const [remindMe, setRemindMe] = useState(true);
 
 
     return (
@@ -176,11 +178,17 @@ export const Event = ({navigation}) => {
                                 marginLeft:"10%"
                             }}
                             />
-                            <InputView
-                                placeholder="Remind Me"
-                                underlineColorAndroid='transparent'
-                                value={inputText}
-                                onChangeText={(text) => setInputText(text)}/>
+                            <DarkGrayText style={{marginLeft: "5%"}}>Remind Me</DarkGrayText>
+                            <View style={{height:"100%", justifyContent: "center", width: "35%"}}>
+                                <Switch 
+                                    style={{ marginRight: 19, transform : [{scale: 1.1}]}}
+                                    trackColor={{ false: Colors.darkgray, true: Colors.purple}}
+                                    thumbColor={Colors.white}              
+                                    ios_backgroundColor="#3e3e3e"
+                                    value={remindMe}
+                                    onValueChange={(value)=>setRemindMe(value)}
+                                />
+                            </View>
                         </EventView>
                         <EventView>
                             <Icon
