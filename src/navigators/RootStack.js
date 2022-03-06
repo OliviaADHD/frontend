@@ -35,6 +35,7 @@ import PrivacySetting from '../screens/Profile/PrivacySetting';
 import Help from '../screens/Profile/Help';
 
 import { Task } from '../screens/Dashboard/New/Task';
+import { Event } from '../screens/Dashboard/New/Event';
 
 const Stack = createStackNavigator();
 
@@ -53,7 +54,7 @@ const RootStack = () => {
                     paddingLeft: 20
                 }
             }}
-            initialRouteName = 'Welcome'
+            initialRouteName = 'Event'
 
             >   
                 <Stack.Screen name="Welcome" 
@@ -81,6 +82,7 @@ const RootStack = () => {
                 <Stack.Screen name="Profile" component={Profile} />
 
                 <Stack.Screen name="Task" component={Task} options ={{header: () => null}}/>
+                <Stack.Screen name="Event" component={Event} options ={{header: () => null}}/>
 
                 <Stack.Screen name="Settings" component={Settings} />
                 <Stack.Screen name="Preferences" component={Preferences} />
