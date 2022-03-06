@@ -19,6 +19,8 @@ export const Task = ({navigation}) => {
         navigation.navigate("ToDoList");
     };
 
+    const [inputText, setInputText] = useState("");
+
     return (
         <StyledContainer>
             <StatusBar style="dark"/>
@@ -46,7 +48,8 @@ export const Task = ({navigation}) => {
                         <InputView
                             placeholder="Create a small task"
                             underlineColorAndroid='transparent'
-                            onChangeText={(password) => this.setState({password})}/>
+                            value={inputText}
+                            onChangeText={(text) => setInputText(text)}/>
                         <Icon
                             name='chevron-forward-circle-outline'
                             type='ionicon'
