@@ -73,6 +73,8 @@ const ToDoList = ({route, navigation}) => {
     const [taskC, setTaskC] = useState(false);
 
     const showNewDayEvents =(day) => {
+        setDetailsOpen(false);
+        setMenuOpen(false);
         setMarkedDay(day.dateString);
         setMonth(day.month);
         var newDay = new Date(day.dateString);
