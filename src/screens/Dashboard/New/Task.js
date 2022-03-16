@@ -4,14 +4,11 @@ import {Dimensions} from 'react-native';
 import {Colors, StyledContainer} from "../../../css/general/style";
 import { Icon } from 'react-native-elements';
 import { ContentView, InnerContainerRemake, TaskView, CloseView, StyledIcon, InputView } from "../../../css/Dashboard/New/createTask";
-import { HeaderBar } from "../../../components/HeaderBar";
-
-
-import { useSelector, useDispatch } from "react-redux";
+import  HeaderBar  from "../../../components/HeaderBar";
 
 const windowWidth = Dimensions.get('window').width;
 
-export const Task = ({navigation}) => {
+const Task = ({navigation}) => {
     const newTask =()=>{
         console.log('create New Task');
     };
@@ -60,8 +57,7 @@ export const Task = ({navigation}) => {
                 </ContentView>
             </InnerContainerRemake>
         </StyledContainer>
-    );
-  }
+    )
+}
 
-
-  
+export default Task;

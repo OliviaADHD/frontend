@@ -6,9 +6,10 @@ import { useSelector } from "react-redux";
 import {Colors} from "../css/general/style";
 import { TrophyImage,
     TextAndTrophyView, WelcomeTextView, CalendarImage,
-    CurrentDateTextView, DateAndCalenderImageView, HeaderView } from "../css/Dashboard/todolist";
+    CurrentDateTextView, DateAndCalenderImageView, HeaderView } from "../css/components/headerbar";
 
-export const HeaderBar = () => {
+
+const HeaderBar = ({}) => {
 
     const userData = useSelector(state => state.userName);
     const monthNames =  ["January", "February", "March", "April", "May", "June",
@@ -40,6 +41,8 @@ export const HeaderBar = () => {
               />
         </TextAndTrophyView>
      </HeaderView>
-    )
+    );
 
 }
+
+export default HeaderBar;

@@ -17,10 +17,7 @@ import MessageResetPassword from '../screens/LoginSignup/MessageResetPassword';
 import Questionnaire from '../screens/Onboarding/Questionnaire';
 import Welcome_Post_Signup from '../screens/Onboarding/Welcome_Post_Signup';
 
-
-
 import Intro_Period_Prediction from '../screens/Menstruation/Intro_Period_Prediction';
-
 
 import TutorialDashboard from '../screens/Dashboard/Tutorial';
 import Cycle from '../screens/Dashboard/Cycle';
@@ -33,8 +30,7 @@ import Settings from '../screens/Profile/Settings';
 import Preferences from '../screens/Profile/Preferences';
 import PrivacySetting from '../screens/Profile/PrivacySetting';
 import Help from '../screens/Profile/Help';
-
-import { Task } from '../screens/Dashboard/New/Task';
+import Task from '../screens/Dashboard/New/Task';
 
 const Stack = createStackNavigator();
 

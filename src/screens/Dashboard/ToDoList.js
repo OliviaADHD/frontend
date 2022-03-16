@@ -17,7 +17,7 @@ import { TasksScheduleTouch,
 
 import {InnerContainerRemake} from '../../css/Dashboard/todolist';
 
-import { HeaderBar } from "../../components/HeaderBar";
+import HeaderBar  from "../../components/HeaderBar";
 
 import DashBoardBottomMenu from "../../components/DashboardBottomMenu";
 import UpcomingsScrollable from "../../components/UpcomingsScrollable";
