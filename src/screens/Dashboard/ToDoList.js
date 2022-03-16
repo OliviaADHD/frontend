@@ -11,16 +11,15 @@ import { deleteEvent } from "../../redux/actions/CalendarEvents/home";
 import { DELETE_TASK } from "../../redux/actions/types";
 
 import {StyledContainer} from '../../css/general/style';
-import { TasksScheduleTouch, TrophyImage,
-    TextAndTrophyView, WelcomeTextView, CalendarImage,
-    CurrentDateTextView, DateAndCalenderImageView, HeaderView,
+import { TasksScheduleTouch,
     TasksScheduleView, NewTaskOrEventButton, WhiteText,
     ContentView, TasksView, ScheduleView, MonthText, BlackText } from "../../css/Dashboard/todolist";
 
 import {InnerContainerRemake} from '../../css/Dashboard/todolist';
 
+import { HeaderBar } from "../../components/HeaderBar";
+
 import DashBoardBottomMenu from "../../components/DashboardBottomMenu";
-import TasksScrollable from "../../components/TasksScrollable";
 import UpcomingsScrollable from "../../components/UpcomingsScrollable";
 import {CalendarProvider, WeekCalendar} from 'react-native-calendars';
 import { makeDateString } from "../../helpers/menstruation";
@@ -51,14 +50,14 @@ const ToDoList = ({route, navigation}) => {
     const dispatch = useDispatch();
     const [tasksSelected, setTasksSelected] = useState((route.params === undefined)? true: route.params.tasksSelected);
     const taskData = useSelector(state => state.tasks);
-    const userData = useSelector(state => state.userName);
+
 
     const monthNames =  ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"];
     var today = new Date();
-    var day = String(today.getDate());
+
     const [month, setMonth] = useState(today.getMonth());
-    var year = today.getFullYear();
+
     const calenderEventData = useSelector(state => state.upcomingEvents);
     const [thisDayEvents, SetThisDayEvents] = useState((calenderEventData[today.toLocaleDateString('en-US')] === undefined)?{}:calenderEventData[today.toLocaleDateString('en-US')]);
     
@@ -141,26 +140,7 @@ const ToDoList = ({route, navigation}) => {
         <StyledContainer>
             <StatusBar style="dark"/>
             <InnerContainerRemake style={{backgroundColor: Colors.gray}}>
-                <HeaderView>
-                    <DateAndCalenderImageView>
-                        <CurrentDateTextView>
-                            <Text style={{fontSize: 11, marginTop: "11%"}}> {monthNames[month]} {day}, {year}</Text>
-                            <Text style={{fontWeight: "bold", marginTop: "4%"}}> Today </Text>
-                        </CurrentDateTextView>
-                        <CalendarImage source={require('../../../assets/images/calendar.png')}/>
-                    </DateAndCalenderImageView>
-                    <TextAndTrophyView>
-                        <WelcomeTextView>
-                            <Text style={{fontSize: 11}}>Hi, {userData.Name}!</Text>
-                            <Text style={{fontSize: 16}}>Let's get things 
-                                <Text style={{color: Colors.purple}}> done</Text>
-                            !</Text>
-                        </WelcomeTextView>
-                            <TrophyImage source={require('../../../assets/images/trophy.png')}
-                            />
-                    </TextAndTrophyView>
-                    
-                </HeaderView>
+                <HeaderBar/>
                 <ContentView>
                         <TasksScheduleView>
                             <TasksScheduleTouch style={{width: "25%"}} 

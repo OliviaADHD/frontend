@@ -53,7 +53,7 @@ const RootStack = () => {
                     paddingLeft: 20
                 }
             }}
-            initialRouteName = 'ToDoList'
+            initialRouteName = 'Task'
 
             >   
                 <Stack.Screen name="Welcome" 
