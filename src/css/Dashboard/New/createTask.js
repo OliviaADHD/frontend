@@ -11,7 +11,7 @@ export const InnerContainerRemake = styled.View`
 `;
 
 export const HeaderView = styled.View`
-  height: 60%;
+  height: 30%;
   width: 100%;
   backgroundColor: ${Colors.gray};
 `;
