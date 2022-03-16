@@ -1,7 +1,6 @@
-import React, {useState, useEffect} from "react";
-import {StatusBar} from "expo-status-bar";
-import {TouchableOpacity, View, Dimensions, Text, Switch, ScrollView} from 'react-native';
-import {Colors, StyledContainer} from "../../../css/general/style";
+import React, {useState} from "react";
+import { View, Text, Switch} from 'react-native';
+import {Colors} from "../css/general/style";
 import { Icon } from 'react-native-elements';
 import { HeaderView, 
     ContentView, 
@@ -15,47 +14,64 @@ import { HeaderView,
     DarkGrayText,
     PurpleButton,
     WhiteText,
-    WarningText } from "../../../css/Dashboard/New/createEvent";
+    WarningText } from "../css/Dashboard/New/createEvent";
 
 import DateTimePicker from '@react-native-community/datetimepicker';
 
-import { useSelector, useDispatch } from "react-redux";
-import { ADD_EVENT } from "../../../redux/actions/types";
+import {useDispatch } from "react-redux";
+import { ADD_EVENT, CHANGE_EVENT } from "../redux/actions/types";
 
 import {Calendar} from 'react-native-calendars';
 
-export const Event = ({navigation}) => {
-    const dispatch = useDispatch();
+export const EventEditor = ({setClose, date, title, details, startTime, endTime, reminder, loc, type, eventId}) => {
+    const dispatch = useDispatch();   
 
     const newEvent =()=>{
-        console.log('create New Task, make redux action!');
-        const dateFormatted = selectedDate.slice(5,7)+"/"+selectedDate.slice(-2)+"/"+selectedDate.slice(2,4);
-        console.log('formattedDate?',dateFormatted);
-        const payload = {
-            date: dateFormatted,
-            startDate: new Date(selectedDate.slice(0,4),selectedDate.slice(5,7), selectedDate.slice(-2), 
-                                (startPmOrAm=="PM")?startHour+12:startHour, startMinutes),
-            endDate: new Date(selectedDate.slice(0,4),selectedDate.slice(5,7), selectedDate.slice(-2),
-                            (endPmOrAm==="PM")?endHour+12:endHour,endMinutes),
-            title: titleText,
-            details: detailsText,
-            remindMe: remindMe,
-            location: location,
-            category: undefined,
-        };
-        console.log(payload);
+        if (type === "new"){
+            const dateFormatted = selectedDate.slice(5,7)+"/"+selectedDate.slice(-2)+"/"+selectedDate.slice(2,4);
+            const payload = {
+                date: dateFormatted,
+                startDate: new Date(selectedDate.slice(0,4),selectedDate.slice(5,7), selectedDate.slice(-2), 
+                                    (startPmOrAm=="PM")?startHour+12:startHour, startMinutes),
+                endDate: new Date(selectedDate.slice(0,4),selectedDate.slice(5,7), selectedDate.slice(-2),
+                                (endPmOrAm==="PM")?endHour+12:endHour,endMinutes),
+                title: titleText,
+                details: detailsText,
+                remindMe: remindMe,
+                location: location,
+                category: undefined,
+            };        
+            dispatch({type: ADD_EVENT,
+                payload: payload});
+        } else if (type === "edit"){
+            const dateFormatted = selectedDate.slice(5,7)+"/"+selectedDate.slice(-2)+"/"+selectedDate.slice(2,4);
+            const payload = {
+                eventId: eventId,
+                date: dateFormatted,
+                startDate: new Date(selectedDate.slice(0,4),selectedDate.slice(5,7), selectedDate.slice(-2), 
+                                    (startPmOrAm=="PM")?startHour+12:startHour, startMinutes),
+                endDate: new Date(selectedDate.slice(0,4),selectedDate.slice(5,7), selectedDate.slice(-2),
+                                (endPmOrAm==="PM")?endHour+12:endHour,endMinutes),
+                title: titleText,
+                details: detailsText,
+                remindMe: remindMe,
+                remindMeWhen: undefined,
+                location: location,
+                category: undefined,
+            };        
+            dispatch({type: CHANGE_EVENT,
+                payload: payload});
+        }
         
-        dispatch({type: ADD_EVENT,
-            payload: payload});
-        navigation.goBack();
+        setClose(false);
 
     };
 
     const closeEvent = () => {
-        navigation.goBack();
+        setClose(false);
     };
 
-    var today = new Date(); 
+    var today = (date===undefined)? new Date():date; 
 
     const transformDateToFormatForCalendar = (date) => {
         let dateString = date.getFullYear()+"-"
@@ -65,31 +81,30 @@ export const Event = ({navigation}) => {
     }
 
     const [warningTitleTextEmpty, setWarningTitleTextEmpty] = useState(false);
-    const [titleText, setTitleText] = useState("");
-    const [detailsText, setDetailsText] = useState("");
+    const [titleText, setTitleText] = useState((title===undefined)?"":title);
+    const [detailsText, setDetailsText] = useState((details===undefined)?"":details);
     const [showCalendar, setShowCalendar] = useState(false);
     const [selectedDate, setSelectedDate] = useState(transformDateToFormatForCalendar(today));
 
+    var startingTime = (startTime === undefined)? new Date(): startTime;
     const [showStartHourSelector, setStartShowHourSelector] = useState(false);
-    const [startHour, setStartHour] = useState((today.getHours()>12)?today.getHours()-12:today.getHours());
-    const [startMinutes, setStartMinutes] = useState(today.getMinutes());
-    const [startPmOrAm, setStartPmOrAm] = useState((today.getHours()>12)? "PM" : "AM")
+    const [startHour, setStartHour] = useState((startingTime.getHours()>12)?startingTime.getHours()-12:startingTime.getHours());
+    const [startMinutes, setStartMinutes] = useState(startingTime.getMinutes());
+    const [startPmOrAm, setStartPmOrAm] = useState((startingTime.getHours()>12)? "PM" : "AM")
 
-    var endDate = new Date(today.getTime()+30*60000);
+    var endDate = (endTime===undefined)? new Date(startingTime.getTime()+30*60000):endTime;
     const [showEndHourSelector, setEndShowHourSelector] = useState(false);
     const [endHour, setEndHour] = useState((endDate.getHours()>12)?endDate.getHours()-12:endDate.getHours());
     const [endMinutes, setEndMinutes] = useState(endDate.getMinutes());
     const [endPmOrAm, setEndPmOrAm] = useState((endDate.getHours()>12)? "PM" : "AM")
 
-    const [remindMe, setRemindMe] = useState(true);
+    const [remindMe, setRemindMe] = useState((reminder===undefined)?true:reminder);
 
-    const [location, setLocation] = useState('some location');
+    const [location, setLocation] = useState((loc===undefined)?'some location':loc);
 
 
 
     return (
-        <StyledContainer>
-            <StatusBar style="dark"/>
             <InnerContainerRemake style={{backgroundColor: Colors.gray}}>
                 <HeaderView>              
                 </HeaderView>
@@ -293,7 +308,6 @@ export const Event = ({navigation}) => {
                     }
                 </ContentView>
             </InnerContainerRemake>
-        </StyledContainer>
     );
   }
 

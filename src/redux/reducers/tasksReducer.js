@@ -1,5 +1,5 @@
 import {ADD_TASK, 
-    DELETE_TASK, 
+    DELETE_TASK, CHANGE_TASK,
     TOGGLE_TASK_DONE, MARK_ALL_TASKS_UNDONE} from "../actions/types";
 
 const taskData = {
@@ -7,20 +7,19 @@ const taskData = {
     1: {"taskTitle": "exampleTask 1, long, long, long, long", "taskDone": false},
     2: {"taskTitle": "exampleTask 2", "taskDone": false},
     3: {"taskTitle": "exampleTask 3", "taskDone": false},
-    4: {"taskTitle": "exampleTask 4", "taskDone": false},
-    5: {"taskTitle": "exampleTask 5", "taskDone": false},
-    6: {"taskTitle": "exampleTask 6", "taskDone": false},
-    7: {"taskTitle": "exampleTask 7", "taskDone": false},
-    8: {"taskTitle": "exampleTask 8", "taskDone": false},
-    9: {"taskTitle": "exampleTask 9", "taskDone": false},
-    10: {"taskTitle": "exampleTask 9", "taskDone": false},
-    11: {"taskTitle": "exampleTask 9", "taskDone": false},
-    12: {"taskTitle": "exampleTask 9 final", "taskDone": false}},
+},
     'today': '02/22/22' 
 };
 
 const tasksReducer = (state=taskData, action) => {
     switch (action.type) {
+        case ADD_TASK:
+            const possKeys = Object.keys(state.alltasks);
+            const max = Math.max(...possKeys);
+            state.alltasks[max+1] = {
+                taskTitle: action.payload.taskDetails,
+                taskDone: false};
+            return state
         case TOGGLE_TASK_DONE:
             const taskid = action.payload.taskid;
             let newState = state;
@@ -36,6 +35,9 @@ const tasksReducer = (state=taskData, action) => {
         case DELETE_TASK:
             delete state.alltasks[action.payload.taskId];
             return state;
+        case CHANGE_TASK:
+            state.alltasks[action.payload.taskId].taskTitle = action.payload.taskTitle;
+            return state; 
         default:
             return state;
     }

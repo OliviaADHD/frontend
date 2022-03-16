@@ -19,6 +19,7 @@ import UpcomingsScrollable from "../../components/UpcomingsScrollable";
 import TasksScrollable from "../../components/TasksScrollable";
 import { EventDetails } from "../../components/EventDetails";
 import { MARK_ALL_TASKS_UNDONE } from "../../redux/actions/types";
+import { EventEditor } from "../../components/EventEditor";
 
 
 const windowHeight = Dimensions.get('window').height;
@@ -64,13 +65,17 @@ const Home = ({navigation}) => {
         }
     },[])
 
+    const [editEventOpen, setEditEventOpen] = useState(false);
+
 
     return (
         <StyledContainer>
             <StatusBar style="dark"/>
-            <View style={{height: "7%", backgroundColor: menuOpen?Colors.gray:Colors.lightgray}}>
+            {!editEventOpen &&
+            (<View style={{height: "7%", backgroundColor: menuOpen?Colors.gray:Colors.lightgray}}>
                 <AlarmBell alarmNumber={0} showAlarm={false}/>
-            </View>
+            </View>)}
+            {!editEventOpen &&
             <InnerContainerRemake>
                         <View style={{height: "15%", width: "100%", flexDirection: "row",
                                     backgroundColor: menuOpen?Colors.gray:Colors.lightgray}}>
@@ -141,6 +146,22 @@ const Home = ({navigation}) => {
                             />
                         </View>
             </InnerContainerRemake>
+            }
+            {editEventOpen &&
+                <EventEditor
+                    setClose={setEditEventOpen}
+                    date={today}
+                    title={todaysEvents[currentEventId].eventTitle}
+                    details={todaysEvents[currentEventId].EventDetails}
+                    startTime={todaysEvents[currentEventId].startDate}
+                    endTime={todaysEvents[currentEventId].endDate}
+                    reminder={todaysEvents[currentEventId].remindMe}
+                    loc={todaysEvents[currentEventId].location}
+                    type="edit"
+                    eventId={currentEventId}
+
+                />
+            }
             {menuOpen && (
                             <View style={{backgroundColor: Colors.white,
                                         height: "20%", width:"30%",
@@ -163,12 +184,12 @@ const Home = ({navigation}) => {
                                     <BlackText>Snooze</BlackText>
                                 </TouchableOpacity>
                                 <TouchableOpacity onPress={()=>{
-                                        console.log('edit pressed...')
+                                        setMenuOpen(false);
+                                        setEditEventOpen(true);
                                     }}>
                                     <BlackText>Edit</BlackText>
                                 </TouchableOpacity>
                                 <TouchableOpacity onPress={()=>{
-                                        console.log('delete number', currentEventId);
                                         dispatch(deleteEvent(currentEventId, today.toLocaleDateString('en-US')));
                                         setMenuOpen(false);
                                     }}>
@@ -184,7 +205,8 @@ const Home = ({navigation}) => {
                     today={today} />
             
             )}
-            <DashBoardBottomMenu currentScreen={"Home"} navigation={navigation}/>
+            {!editEventOpen &&
+            <DashBoardBottomMenu currentScreen={"Home"} navigation={navigation}/>}
         </StyledContainer>
     )
 };
