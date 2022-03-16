@@ -1,6 +1,11 @@
 import React, {useState, useEffect} from "react";
 import {StatusBar} from "expo-status-bar";
-import {Text, View, TouchableOpacity, Image, Dimensions} from 'react-native';
+import {Text, View, TouchableOpacity, Image, Dimensions, StyleSheet,
+    Alert,
+    ScrollView,
+    FlatList,
+} from 'react-native';
+import { Icon, CheckBox } from 'react-native-elements';
 import {Colors} from "../../css/general/style";
 import { deleteEvent } from "../../redux/actions/CalendarEvents/home";
 import { DELETE_TASK } from "../../redux/actions/types";
@@ -28,7 +33,21 @@ import { useSelector, useDispatch } from "react-redux";
 import { EventDetails } from "../../components/EventDetails";
 
 const ToDoList = ({route, navigation}) => {
-
+    var calls = [
+        {id:1,  name: "Here we go", value:false},
+        {id:2,  name: "Dance dance", value:false},
+        {id:3,  name: "Jaden Boor", value:true},
+        {id:4,  name: "Srick Tree", value:true},
+        {id:5,  name: "John Doe", value:false},
+        {id:6,  name: "John Doe", value:false},
+        {id:8,  name: "John Doe", value:false},
+        {id:9,  name: "John Doe", value:false},
+        {id:10, name: "John Doe", value:false},
+        {id:11, name: "John Doe", value:false},
+        {id:12, name: "John Doe", value:false},
+        {id:13, name: "John Doe", value:false},
+        {id:14, name: "John Doe", value:false},
+      ];
     const dispatch = useDispatch();
     const [tasksSelected, setTasksSelected] = useState((route.params === undefined)? true: route.params.tasksSelected);
     const taskData = useSelector(state => state.tasks);
@@ -78,6 +97,46 @@ const ToDoList = ({route, navigation}) => {
     },[])
 
 
+    const changeValue = (item) => {
+        console.log(item);
+        item.value = !item.value;
+        console.log(item)
+    }
+    
+    const renderItem = ({item}) => {
+        return (
+          <TouchableOpacity>
+            <View style={styles.row}>
+              <View>
+                <View style={styles.nameContainer}>
+                  <Text style={styles.nameTxt}>{item.name}</Text>
+                </View>
+              </View>        
+            <CheckBox
+            checked={item.value}
+            checkedIcon={
+                <Icon
+                  name='checkbox'
+                  type='ionicon'
+                  color="#694398"
+                  size={25}
+                />
+              }
+              uncheckedIcon={
+                <Icon
+                  name="square-outline"
+                  type='ionicon'
+                  color="#694398"
+                  size={25}
+                />
+              }
+              onPress={() => changeValue(item)}
+            />          
+            </View>
+          </TouchableOpacity>
+        );
+      }
+
     return (
         <StyledContainer>
             <StatusBar style="dark"/>
@@ -119,16 +178,15 @@ const ToDoList = ({route, navigation}) => {
                         </TasksScheduleView>                 
                         {tasksSelected?
                             <TasksView style={taskOpen? {backgroundColor:Colors.lightgray}:{}}>
-                                <TasksScrollable 
-                                tasksData = {taskData}
-                                taskC = {taskC}
-                                setTaskC = {setTaskC}
-                                isTaskSelected = {istaskOpen}
-                                setSelectedTaskId = {setSelectedTaskId}
-                                setMenuPosition={setMenuPosition}
-                                windowHeight={windowHeight}
-                                editable={true}
-                                />
+                                <View style={{ flex: 1 }} >
+                                <FlatList 
+                                extraData={calls}
+                                data={calls}
+                                keyExtractor = {(item) => {
+                                    return item.id;
+                                }}
+                                renderItem={renderItem}/>
+                            </View>
                             </TasksView>
                             :
                             <ScheduleView>
@@ -273,5 +331,55 @@ const ToDoList = ({route, navigation}) => {
         </StyledContainer>
     )
 };
+
+const styles = StyleSheet.create({
+    row: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      marginLeft:25,
+      marginRight:25,
+      marginTop:5,
+      borderRadius:15,
+      backgroundColor: '#f4f3fd',
+      justifyContent: 'space-between',
+      width:'90%',
+    },
+    nameContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      //width: 270,
+    },
+    checkbox:{
+        marginRight: 5,
+        color:'#694398',
+    },
+    nameTxt: {
+      marginLeft: 15,
+      fontWeight: '600',
+      color: '#222',
+      fontSize: 15,
+  
+    },
+    mblTxt: {
+      fontWeight: '200',
+      color: '#777',
+      fontSize: 13,
+    },
+    end: {
+      flexDirection: 'row',
+      alignItems: 'center',
+    },
+    time: {
+      fontWeight: '400',
+      color: '#666',
+      fontSize: 12,
+  
+    },
+    icon:{
+      height: 28,
+      width: 28, 
+    }
+  });
+
 
 export default ToDoList;
