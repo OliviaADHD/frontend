@@ -76,6 +76,7 @@ export const DELETE_TASK = 'DELETE_TASK';
 export const MARK_TASK_DONE = 'MARK_TASK_DONE';
 export const TOGGLE_TASK_DONE = 'TOGGLE_TASK_DONE';
 export const MARK_ALL_TASKS_UNDONE = 'MARK_ALL_TASKS_UNDONE';
+export const CHANGE_TASK = 'CHANGE_TASK';
 
 //Push notifications
 export const PUSH_NOTIFICATIONS = 'PUSH_NOTIFICATIONS';

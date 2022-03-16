@@ -17,6 +17,8 @@ import {InnerContainerRemake} from '../../css/Dashboard/todolist';
 import DashBoardBottomMenu from "../../components/DashboardBottomMenu";
 import TasksScrollable from "../../components/TasksScrollable";
 import UpcomingsScrollable from "../../components/UpcomingsScrollable";
+import { EventEditor } from "../../components/EventEditor";
+import { TaskEditor } from "../../components/TaskEditor";
 import {CalendarProvider, WeekCalendar} from 'react-native-calendars';
 import { makeDateString } from "../../helpers/menstruation";
 
@@ -50,12 +52,19 @@ const ToDoList = ({route, navigation}) => {
     const [menuPosition, setMenuPosition] = useState(0);
     const [currentEventId, setcurrentEventId] = useState(undefined);
     
+    const [newTaskOpen, setNewTaskOpen] = useState(false);
     const newTask =()=>{
-        navigation.navigate("Task");
+        setNewTaskOpen(true);
     };
+    const [editTaskOpen, setEditTaskOpen] = useState(false);
+
+    const [newEventOpen, setNewEventOpen] = useState(false);
     const newEvent =()=>{
-        console.log('new Event to schedule-input open');
+        setNewEventOpen(true);
     };
+
+
+    const [editEventOpen, setEditEventOpen] = useState(false);
 
     const [detailsOpen, setDetailsOpen] = useState(false);
 
@@ -64,6 +73,8 @@ const ToDoList = ({route, navigation}) => {
     const [taskC, setTaskC] = useState(false);
 
     const showNewDayEvents =(day) => {
+        setDetailsOpen(false);
+        setMenuOpen(false);
         setMarkedDay(day.dateString);
         setMonth(day.month);
         var newDay = new Date(day.dateString);
@@ -77,11 +88,19 @@ const ToDoList = ({route, navigation}) => {
         }
     },[])
 
+    useEffect(() => {
+        if (!newEventOpen || !editEventOpen) {
+        var newDay = new Date(selectedDate);
+        SetThisDayEvents((calenderEventData[newDay.toLocaleDateString('en-US')] === undefined)? {}: calenderEventData[newDay.toLocaleDateString('en-US')]);
+        }
+    }, [newEventOpen, editEventOpen])
+
 
     return (
         <StyledContainer>
             <StatusBar style="dark"/>
-            <InnerContainerRemake style={{backgroundColor: Colors.gray}}>
+            {!newEventOpen && !editEventOpen && !newTaskOpen && !editTaskOpen &&
+            (<InnerContainerRemake style={{backgroundColor: Colors.gray}}>
                 <HeaderView>
                     <DateAndCalenderImageView>
                         <CurrentDateTextView>
@@ -133,7 +152,7 @@ const ToDoList = ({route, navigation}) => {
                             :
                             <ScheduleView>
                                 <MonthText>
-                                    {monthNames[month]}
+                                    {monthNames[month-1]}
                                 </MonthText>
                                 <View style={{height: "23%"}}>
                                     <CalendarProvider 
@@ -185,7 +204,43 @@ const ToDoList = ({route, navigation}) => {
                         </NewTaskOrEventButton>
                         
                 </ContentView>  
-            </InnerContainerRemake>
+            </InnerContainerRemake>)}
+            {newEventOpen &&
+                <EventEditor
+                    setClose={setNewEventOpen}
+                    date={new Date(selectedDate)}
+                    type="new"
+                />
+            }
+            {editEventOpen &&
+                <EventEditor
+                    setClose={setEditEventOpen}
+                    date={new Date(selectedDate)}
+                    title={thisDayEvents[currentEventId].eventTitle}
+                    details={thisDayEvents[currentEventId].EventDetails}
+                    startTime={thisDayEvents[currentEventId].startDate}
+                    endTime={thisDayEvents[currentEventId].endDate}
+                    reminder={thisDayEvents[currentEventId].remindMe}
+                    loc={thisDayEvents[currentEventId].location}
+                    type="edit"
+                    eventId={currentEventId}
+
+                />
+            }
+            {newTaskOpen &&
+                <TaskEditor 
+                    setClose={setNewTaskOpen}
+                    type="new"
+                />
+            }
+            {editTaskOpen &&
+                <TaskEditor 
+                    setClose={setEditTaskOpen}
+                    type="edit"
+                    taskTitle={taskData.alltasks[selectedTaskId].taskTitle}
+                    taskId={selectedTaskId}
+                />
+            }
             {menuOpen && (
                 <View style={{backgroundColor: Colors.white,
                             height: "20%", width:"30%",
@@ -209,12 +264,12 @@ const ToDoList = ({route, navigation}) => {
                         <BlackText>Snooze</BlackText>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={()=>{
-                            console.log('edit pressed...')
+                            setMenuOpen(false);
+                            setEditEventOpen(true);
                         }}>
                         <BlackText>Edit</BlackText>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={()=>{
-                            console.log('delete number', currentEventId);
                             dispatch(deleteEvent(currentEventId, selectedDate));
                             setMenuOpen(false);
                         }}>
@@ -253,7 +308,10 @@ const ToDoList = ({route, navigation}) => {
                         <Text style={{fontSize: 16, fontWeight: "bold"}}>X</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={{width: "100%"}}
-                        onPress={()=> {console.log('open edit possibility for task ', selectedTaskId)}}
+                        onPress={()=> {
+                            istaskOpen(false);
+                            setEditTaskOpen(true);
+                        }}
                         >
                         <Text>Edit</Text>
                     </TouchableOpacity>
@@ -269,7 +327,8 @@ const ToDoList = ({route, navigation}) => {
                 </View>)
 
             }
-            <DashBoardBottomMenu currentScreen={"ToDoList"} navigation={navigation}/>
+            {!newEventOpen && !editEventOpen && !newTaskOpen && !editTaskOpen &&
+            <DashBoardBottomMenu currentScreen={"ToDoList"} navigation={navigation}/>}
         </StyledContainer>
     )
 };

@@ -20,6 +20,7 @@ import {
   SwitchSectionNoMargin,
   SwitchSectionText
 } from "../../css/Profile/privacy";
+import { useSelector } from "react-redux";
 
 import { StyledContainer, InnerContainer, Loading, Colors} from "../../css/general/style";
 
