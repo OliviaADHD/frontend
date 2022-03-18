@@ -20,19 +20,24 @@ const headers = {
 const taskLink = link + "tasks";
 
 export const getAllTasks = () => async dispatch => {
-    const res = await axios.get(taskLink + "all/1", {
+    return axios.get(taskLink + "/all/1", {
         'Content-Type': 'application/json',
     }).then(res => {
-        var answer = JSON.parse(res);
+        var answer = []
+        res.data.forEach(function (item, index) {
+            answer.push(item)
+        });   
         dispatch({
             type: ALL_TASKS,
             payload: answer
         });
+        return {success: true};
     }).catch(err => {
         dispatch({
             type: ALL_TASKS,
             payload: null
         });
+        return {success: false};
     });
 
 };
@@ -50,7 +55,6 @@ export const addTask = (todo) => async dispatch => {
           return {success: true};
       })
       .catch(err => {
-        console.warn(err);
         dispatch({
             type: ADD_TASK,
             payload: err.response.status

@@ -113,12 +113,13 @@ const Task = ({navigation}) => {
                             }}
                         />
                     </TaskView>
-                    {loading &&
-                        <Loading>
-                            <ActivityIndicator size="large" color="#694398"/>
-                        </Loading>
-                      }
+
                 </ContentView>
+                {loading &&
+                    <Loading>
+                        <ActivityIndicator size="large" color="#694398"/>
+                    </Loading>
+                }
                 <FlashMessage position="bottom" />
             </InnerContainerRemake>
         </StyledContainer>

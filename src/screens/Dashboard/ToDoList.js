@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import {StatusBar} from "expo-status-bar";
 import {Text, View, TouchableOpacity, Image, Dimensions, StyleSheet,
-    Alert,
+    ActivityIndicator,
     ScrollView,
     FlatList,
 } from 'react-native';
@@ -9,11 +9,13 @@ import { Icon, CheckBox } from 'react-native-elements';
 import {Colors} from "../../css/general/style";
 import { deleteEvent } from "../../redux/actions/CalendarEvents/home";
 import { DELETE_TASK } from "../../redux/actions/types";
-
+import {getAllTasks} from '../../redux/actions/task/task';
 import {StyledContainer} from '../../css/general/style';
 import { TasksScheduleTouch,
     TasksScheduleView, NewTaskOrEventButton, WhiteText,
     ContentView, TasksView, ScheduleView, MonthText, BlackText } from "../../css/Dashboard/todolist";
+
+import { Loading } from '../../css/general/style';
 
 import {InnerContainerRemake} from '../../css/Dashboard/todolist';
 
@@ -51,11 +53,10 @@ const ToDoList = ({route, navigation}) => {
     const [tasksSelected, setTasksSelected] = useState((route.params === undefined)? true: route.params.tasksSelected);
     const taskData = useSelector(state => state.tasks);
 
-
     const monthNames =  ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"];
     var today = new Date();
-
+    const [loading, setLoading] = useState(false);
     const [month, setMonth] = useState(today.getMonth());
 
     const calenderEventData = useSelector(state => state.upcomingEvents);
@@ -89,10 +90,19 @@ const ToDoList = ({route, navigation}) => {
         setSelectedDate(newDay.toLocaleDateString('en-US'));
     }
     useEffect(() => {
+        setLoading(true);
+        dispatch(getAllTasks()).then(resp =>{
+            if(resp["success"]){
+                console.log(taskData.allTasks);
+                setLoading(false);
+            }
+        });
+        console.log(taskData);
         if (today.toLocaleDateString('en-US') !== taskData.today) {
             dispatch({type: MARK_ALL_TASKS_UNDONE,
                         payload: {today: today.toLocaleDateString('en-US')}});
         }
+
     },[])
 
 
@@ -108,11 +118,11 @@ const ToDoList = ({route, navigation}) => {
             <View style={styles.row}>
               <View>
                 <View style={styles.nameContainer}>
-                  <Text style={styles.nameTxt}>{item.name}</Text>
+                  <Text style={styles.nameTxt}>{item.todo}</Text>
                 </View>
               </View>        
             <CheckBox
-            checked={item.value}
+            checked={item.completed}
             checkedIcon={
                 <Icon
                   name='checkbox'
@@ -129,7 +139,7 @@ const ToDoList = ({route, navigation}) => {
                   size={25}
                 />
               }
-              onPress={() => changeValue(item)}
+              onPress={() => changeValue(item.id)}
             />          
             </View>
           </TouchableOpacity>
@@ -160,8 +170,8 @@ const ToDoList = ({route, navigation}) => {
                             <TasksView style={taskOpen? {backgroundColor:Colors.lightgray}:{}}>
                                 <View style={{ flex: 1 }} >
                                 <FlatList 
-                                extraData={calls}
-                                data={calls}
+                                extraData={taskData}
+                                data={taskData.allTasks}
                                 keyExtractor = {(item) => {
                                     return item.id;
                                 }}
@@ -222,7 +232,12 @@ const ToDoList = ({route, navigation}) => {
                             </WhiteText>
                         </NewTaskOrEventButton>
                         
-                </ContentView>  
+                </ContentView> 
+                {loading &&
+                    <Loading>
+                        <ActivityIndicator size="large" color="#694398"/>
+                    </Loading>
+                } 
             </InnerContainerRemake>
             {menuOpen && (
                 <View style={{backgroundColor: Colors.white,

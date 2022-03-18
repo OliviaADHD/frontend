@@ -10,7 +10,7 @@ import {
 } from "../actions/types";
 
 const taskData = {
-    tasks:[],
+    allTasks:null,
     addTask: null,
     updateTask:null,
     getTask:null,
@@ -22,7 +22,7 @@ const tasksReducer = (state=taskData, action) => {
         case ALL_TASKS:
             return {
                 ...state,
-                tasks: action.payload
+                allTasks: action.payload
             }
         case ADD_TASK:
             return {
