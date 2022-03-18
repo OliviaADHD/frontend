@@ -152,7 +152,7 @@ export default function PrivacySetting({navigation}) {
             <ActivityIndicator size="large" color="#694398"/>
         </Loading>
       }
-      <DashBoardBottomMenu currentScreen={"Profile"} navigation={navigation}/>
+      <DashBoardBottomMenu currentScreen={"Settings"} navigation={navigation}/>
       <FlashMessage position="bottom" />
     </InnerContainer>
   

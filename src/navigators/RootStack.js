@@ -33,7 +33,7 @@ import Settings from '../screens/Profile/Settings';
 import Preferences from '../screens/Profile/Preferences';
 import PrivacySetting from '../screens/Profile/PrivacySetting';
 import Help from '../screens/Profile/Help';
-
+import { EditProfile } from '../screens/Profile/EditProfile';
 
 const Stack = createStackNavigator();
 
@@ -52,7 +52,7 @@ const RootStack = () => {
                     paddingLeft: 20
                 }
             }}
-            initialRouteName = 'ToDoList'
+            initialRouteName = 'EditProfile'
 
             >   
                 <Stack.Screen name="Welcome" 
@@ -83,6 +83,7 @@ const RootStack = () => {
                 <Stack.Screen name="Settings" component={Settings} />
                 <Stack.Screen name="Preferences" component={Preferences} />
                 <Stack.Screen name="PrivacySetting" component={PrivacySetting} />
+                <Stack.Screen name="EditProfile" component={EditProfile} />
                 <Stack.Screen name="Help" component={Help} />
 
 

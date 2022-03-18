@@ -49,7 +49,7 @@ const ProfileTopContainer = ({navigation}) => {
 
           <TouchableOpacity 
             activeOpacity={0.5}
-            onPress = {() => this.props.navigation.navigate('ToBeDefinedEditPage')}
+            onPress = {() => this.props.navigation.navigate('EditProfile')}
           >
               
             <Image 
