@@ -1,41 +1,49 @@
-import {ADD_TASK, 
-    DELETE_TASK, 
-    TOGGLE_TASK_DONE, MARK_ALL_TASKS_UNDONE} from "../actions/types";
+import {
+    ALL_TASKS,
+    ADD_TASK,
+    UPDATE_TASK,
+    GET_TASK,
+    DELETE_TASK,
+    MARK_TASK_DONE, 
+    TOGGLE_TASK_DONE, 
+    MARK_ALL_TASKS_UNDONE
+} from "../actions/types";
 
 const taskData = {
-    'alltasks': {
-    1: {"taskTitle": "exampleTask 1, long, long, long, long", "taskDone": false},
-    2: {"taskTitle": "exampleTask 2", "taskDone": false},
-    3: {"taskTitle": "exampleTask 3", "taskDone": false},
-    4: {"taskTitle": "exampleTask 4", "taskDone": false},
-    5: {"taskTitle": "exampleTask 5", "taskDone": false},
-    6: {"taskTitle": "exampleTask 6", "taskDone": false},
-    7: {"taskTitle": "exampleTask 7", "taskDone": false},
-    8: {"taskTitle": "exampleTask 8", "taskDone": false},
-    9: {"taskTitle": "exampleTask 9", "taskDone": false},
-    10: {"taskTitle": "exampleTask 9", "taskDone": false},
-    11: {"taskTitle": "exampleTask 9", "taskDone": false},
-    12: {"taskTitle": "exampleTask 9 final", "taskDone": false}},
-    'today': '02/22/22' 
+    tasks:[],
+    addTask: null,
+    updateTask:null,
+    getTask:null,
+    deleteTask:null
 };
 
 const tasksReducer = (state=taskData, action) => {
     switch (action.type) {
-        case TOGGLE_TASK_DONE:
-            const taskid = action.payload.taskid;
-            let newState = state;
-            newState.alltasks[taskid] = action.payload.taskDetails;
-            return  newState;
-        case MARK_ALL_TASKS_UNDONE:
-            let newState2 = state;
-            for (const taskT of Object.keys(newState2.alltasks)){
-                newState2.alltasks[taskT].taskDone = false;
+        case ALL_TASKS:
+            return {
+                ...state,
+                tasks: action.payload
             }
-            newState2.today = action.payload.today;
-            return newState2;
+        case ADD_TASK:
+            return {
+                ...state,
+                addTask: action.payload
+            }
+        case UPDATE_TASK:
+            return {
+                ...state,
+                updateTask: action.payload
+            }
+        case GET_TASK:
+            return {
+                ...state,
+                getTask: action.payload
+            }
         case DELETE_TASK:
-            delete state.alltasks[action.payload.taskId];
-            return state;
+            return {
+                ...state,
+                deleteTask: action.payload
+            }
         default:
             return state;
     }

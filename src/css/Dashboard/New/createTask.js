@@ -49,7 +49,14 @@ export const TaskView = styled.View`
 
 export const InputView = styled.TextInput`
     height:100%;
-    marginLeft:10px;
-    borderBottomColor: #FFFFFF;
+    marginLeft:10px;    
+    width:65%;
+`;
+
+export const ErrorInputView = styled.TextInput`
+    height:100%;
+    marginLeft:10px;    
+    borderBottomWidth: 1;
+    borderBottomColor:${Colors.red};
     width:65%;
 `;
