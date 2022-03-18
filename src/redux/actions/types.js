@@ -75,6 +75,7 @@ export const ALL_TASKS = 'ALL_TASKS';
 export const ADD_TASK = 'ADD_TASK';
 export const UPDATE_TASK = 'UPDATE_TASK';
 export const GET_TASK = 'GET_TASK';
+export const CHANGE_STATUS = 'CHANGE_STATUS';
 export const DELETE_TASK = 'DELETE_TASK';
 export const MARK_TASK_DONE = 'MARK_TASK_DONE';
 export const TOGGLE_TASK_DONE = 'TOGGLE_TASK_DONE';

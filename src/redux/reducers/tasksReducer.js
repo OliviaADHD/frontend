@@ -6,7 +6,8 @@ import {
     DELETE_TASK,
     MARK_TASK_DONE, 
     TOGGLE_TASK_DONE, 
-    MARK_ALL_TASKS_UNDONE
+    MARK_ALL_TASKS_UNDONE,
+    CHANGE_STATUS
 } from "../actions/types";
 
 const taskData = {
@@ -14,7 +15,8 @@ const taskData = {
     addTask: null,
     updateTask:null,
     getTask:null,
-    deleteTask:null
+    deleteTask:null,
+    changeStatus:null,
 };
 
 const tasksReducer = (state=taskData, action) => {
@@ -43,6 +45,11 @@ const tasksReducer = (state=taskData, action) => {
             return {
                 ...state,
                 deleteTask: action.payload
+            }
+        case CHANGE_STATUS:
+            return {
+                ...state,
+                changeStatus: action.payload
             }
         default:
             return state;

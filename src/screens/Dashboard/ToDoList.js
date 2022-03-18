@@ -9,7 +9,7 @@ import { Icon, CheckBox } from 'react-native-elements';
 import {Colors} from "../../css/general/style";
 import { deleteEvent } from "../../redux/actions/CalendarEvents/home";
 import { DELETE_TASK } from "../../redux/actions/types";
-import {getAllTasks} from '../../redux/actions/task/task';
+import {getAllTasks, changeStatus} from '../../redux/actions/task/task';
 import {StyledContainer} from '../../css/general/style';
 import { TasksScheduleTouch,
     TasksScheduleView, NewTaskOrEventButton, WhiteText,
@@ -34,24 +34,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { EventDetails } from "../../components/EventDetails";
 
 const ToDoList = ({route, navigation}) => {
-    var calls = [
-        {id:1,  name: "Here we go", value:false},
-        {id:2,  name: "Dance dance", value:false},
-        {id:3,  name: "Jaden Boor", value:true},
-        {id:4,  name: "Srick Tree", value:true},
-        {id:5,  name: "John Doe", value:false},
-        {id:6,  name: "John Doe", value:false},
-        {id:8,  name: "John Doe", value:false},
-        {id:9,  name: "John Doe", value:false},
-        {id:10, name: "John Doe", value:false},
-        {id:11, name: "John Doe", value:false},
-        {id:12, name: "John Doe", value:false},
-        {id:13, name: "John Doe", value:false},
-        {id:14, name: "John Doe", value:false},
-      ];
     const dispatch = useDispatch();
     const [tasksSelected, setTasksSelected] = useState((route.params === undefined)? true: route.params.tasksSelected);
-    const taskData = useSelector(state => state.tasks);
+    var taskData = useSelector(state => state.tasks);
 
     const monthNames =  ["January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"];
@@ -93,11 +78,9 @@ const ToDoList = ({route, navigation}) => {
         setLoading(true);
         dispatch(getAllTasks()).then(resp =>{
             if(resp["success"]){
-                console.log(taskData.allTasks);
                 setLoading(false);
             }
         });
-        console.log(taskData);
         if (today.toLocaleDateString('en-US') !== taskData.today) {
             dispatch({type: MARK_ALL_TASKS_UNDONE,
                         payload: {today: today.toLocaleDateString('en-US')}});
@@ -106,10 +89,15 @@ const ToDoList = ({route, navigation}) => {
     },[])
 
 
-    const changeValue = (item) => {
-        console.log(item);
-        item.value = !item.value;
-        console.log(item)
+
+    const updateStatus = (item) => {
+        setLoading(true);
+        dispatch(changeStatus(item.id,!item.completed));
+        dispatch(getAllTasks()).then(resp =>{
+            if(resp["success"]){
+                setLoading(false);
+            }
+        });
     }
     
     const renderItem = ({item}) => {
@@ -120,8 +108,10 @@ const ToDoList = ({route, navigation}) => {
                 <View style={styles.nameContainer}>
                   <Text style={styles.nameTxt}>{item.todo}</Text>
                 </View>
-              </View>        
-            <CheckBox
+              </View>      
+              {item.completed && <Text>1</Text>}
+              {!item.completed && <Text>0</Text>}  
+           <CheckBox
             checked={item.completed}
             checkedIcon={
                 <Icon
@@ -139,8 +129,9 @@ const ToDoList = ({route, navigation}) => {
                   size={25}
                 />
               }
-              onPress={() => changeValue(item.id)}
-            />          
+              onPress={() => updateStatus(item)}
+            /> 
+        
             </View>
           </TouchableOpacity>
         );
@@ -170,7 +161,7 @@ const ToDoList = ({route, navigation}) => {
                             <TasksView style={taskOpen? {backgroundColor:Colors.lightgray}:{}}>
                                 <View style={{ flex: 1 }} >
                                 <FlatList 
-                                extraData={taskData}
+                                extraData={taskData.allTasks}
                                 data={taskData.allTasks}
                                 keyExtractor = {(item) => {
                                     return item.id;

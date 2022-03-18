@@ -1,6 +1,7 @@
 import {
     ALL_TASKS,
     ADD_TASK,
+    CHANGE_STATUS,
     UPDATE_TASK,
     GET_TASK,
     DELETE_TASK,
@@ -83,4 +84,28 @@ export const deleteTask = () => async dispatch => {
     });
 };
 
+
+
+export const changeStatus = (todoId,val) => async dispatch => {
+    var json = JSON.stringify({completed:val});
+    console.log(json)
+    return axios.get(taskLink +"/"+todoId, json,{
+        headers: headers
+      })
+      .then(res => {
+          dispatch({
+            type: CHANGE_STATUS,
+            payload: res.status
+          });
+          return {success: true};
+      })
+      .catch(err => {
+        dispatch({
+            type: CHANGE_STATUS,
+            payload: err.response.status
+        });
+        console.log(err);
+      return {success: false};
+    });
+};
 
