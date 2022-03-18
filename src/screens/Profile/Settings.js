@@ -72,7 +72,7 @@ export default function Settings({navigation}) {
 
                 </TopPaddingStyledFormArea>
 
-                <DashBoardBottomMenu currentScreen={"Profile"} navigation={navigation}/>
+                <DashBoardBottomMenu currentScreen={"Settings"} navigation={navigation}/>
 
             </InnerContainer>
 

@@ -8,9 +8,9 @@ const {white,purple} = Colors;
 export const LongButton = styled(Button)`
     background-color: ${purple};
     border-radius: 10px;
-    padding-top: 8px;
-    padding-bottom: 8px;
-    margin-top: 90px;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    margin-top: 23%;
 `;
 
 export const ButtonText = styled.Text`

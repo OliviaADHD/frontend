@@ -68,7 +68,7 @@ export default function Help({navigation}) {
                     </SectionPurpleBottomLine>
                 </StyledFormArea>
 
-                <DashBoardBottomMenu currentScreen={"Profile"} navigation={navigation}/>
+                <DashBoardBottomMenu currentScreen={"Settings"} navigation={navigation}/>
 
             </InnerContainer>
 
