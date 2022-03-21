@@ -77,14 +77,15 @@ const ToDoList = ({route, navigation}) => {
     useEffect(() => {
         setLoading(true);
         dispatch(getAllTasks()).then(resp =>{
-            if(resp["success"]){
+            if(resp["success"]){            
                 setLoading(false);
             }
         });
         if (today.toLocaleDateString('en-US') !== taskData.today) {
             dispatch({type: MARK_ALL_TASKS_UNDONE,
-                        payload: {today: today.toLocaleDateString('en-US')}});
+                payload: {today: today.toLocaleDateString('en-US')}});
         }
+        
 
     },[])
 
@@ -92,12 +93,16 @@ const ToDoList = ({route, navigation}) => {
 
     const updateStatus = (item) => {
         setLoading(true);
-        dispatch(changeStatus(item.id,!item.completed));
-        dispatch(getAllTasks()).then(resp =>{
-            if(resp["success"]){
-                setLoading(false);
+        dispatch(changeStatus(item.id,!item.completed)).then( respFirst =>{
+            if(respFirst["success"]){
+                dispatch(getAllTasks()).then(resp =>{
+                    if(resp["success"]){                
+                    setLoading(false);
+                    }
+                });
             }
         });
+
     }
     
     const renderItem = ({item}) => {
@@ -108,9 +113,7 @@ const ToDoList = ({route, navigation}) => {
                 <View style={styles.nameContainer}>
                   <Text style={styles.nameTxt}>{item.todo}</Text>
                 </View>
-              </View>      
-              {item.completed && <Text>1</Text>}
-              {!item.completed && <Text>0</Text>}  
+              </View>
            <CheckBox
             checked={item.completed}
             checkedIcon={
@@ -164,7 +167,7 @@ const ToDoList = ({route, navigation}) => {
                                 extraData={taskData.allTasks}
                                 data={taskData.allTasks}
                                 keyExtractor = {(item) => {
-                                    return item.id;
+                                    return Math.random().toString(36).slice(2);
                                 }}
                                 renderItem={renderItem}/>
                             </View>

@@ -87,9 +87,8 @@ export const deleteTask = () => async dispatch => {
 
 
 export const changeStatus = (todoId,val) => async dispatch => {
-    var json = JSON.stringify({completed:val});
-    console.log(json)
-    return axios.get(taskLink +"/"+todoId, json,{
+
+    return axios.get(taskLink +"/"+todoId+"/"+val,{
         headers: headers
       })
       .then(res => {
@@ -104,7 +103,6 @@ export const changeStatus = (todoId,val) => async dispatch => {
             type: CHANGE_STATUS,
             payload: err.response.status
         });
-        console.log(err);
       return {success: false};
     });
 };
